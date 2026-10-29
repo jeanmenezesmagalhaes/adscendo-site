@@ -214,7 +214,7 @@ const figure = (fig, p, lang) => {
   if (fig.kind === "browser") return `<figure class="shot">${browser(fig.img, p.host, alt)}${cap}</figure>`;
   if (fig.kind === "canvas") return `<figure class="shot"><div class="canvas-band">${imgTag(fig.img, alt).replace("<img", `<img style="width:100%;height:auto;border-radius:12px"`)}</div>${cap}</figure>`;
   if (fig.kind === "phones") return `<figure class="shot"><div class="canvas-band phones">${fig.imgs.map(im => phone(im, alt, false, p.phoneBar)).join("")}</div>${cap}</figure>`;
-  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt, false, p.phoneBar) : browser(it.img, p.host, alt)).join("")}</div>${cap}</figure>`;
+  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt, false, it.bar || p.phoneBar) : browser(it.img, p.host, alt)).join("")}</div>${cap}</figure>`;
   return "";
 };
 

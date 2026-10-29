@@ -132,10 +132,11 @@ export const projects = [
     url: "https://adscendo-prospector.vercel.app/",
     cta: "trial",
     host: "adscendo-prospector.vercel.app",
-    cover: img("prospector/crm.webp", 1600, 1000),
-    coverPt: img("prospector/crm.pt.webp", 1600, 1000),
-    coverPhone: img("prospector/crm-m.webp", 780, 1688),
-    coverPhonePt: img("prospector/crm-m.pt.webp", 780, 1688),
+    cover: img("prospector/globe.webp", 1600, 1000),
+    coverPt: img("prospector/globe.pt.webp", 1600, 1000),
+    coverPhone: img("prospector/globe-m.webp", 780, 1688),
+    coverPhonePt: img("prospector/globe-m.pt.webp", 780, 1688),
+    phoneBar: "#f5f5f7",
     en: {
       name: "Prospector",
       kind: "Our product · Sales",
@@ -179,7 +180,7 @@ export const projects = [
           p: [
             "Prospector started on Jean's Mac, for Adscendo's own outreach. Within two days it was online for anyone: sign in with Google, connect Gmail or Outlook with permission to send only (no password, no access to your inbox), and start with a 7-day free trial.",
           ],
-          fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.webp", 780, 1688) }], cap: "The CRM on a computer and on a phone. Sample data." },
+          fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.webp", 780, 1688), bar: "#fff" }], cap: "The CRM on a computer and on a phone. Sample data." },
         },
       ],
     },
@@ -226,7 +227,7 @@ export const projects = [
           p: [
             "O Prospector começou no Mac do Jean, para a prospecção da própria Adscendo. Em dois dias estava online para qualquer pessoa: entra com Google, conecta Gmail ou Outlook com permissão só para enviar (sem senha, sem acesso à sua caixa de entrada) e começa com 7 dias grátis.",
           ],
-          fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.pt.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.pt.webp", 780, 1688) }], cap: "O CRM no computador e no celular. Dados de exemplo." },
+          fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.pt.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.pt.webp", 780, 1688), bar: "#fff" }], cap: "O CRM no computador e no celular. Dados de exemplo." },
         },
       ],
     },

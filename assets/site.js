@@ -94,7 +94,15 @@ const floatCta = document.querySelector(".float-cta");
 if (floatCta) {
   floatCta.hidden = false;
   const near = new Set();
-  const show = () => floatCta.classList.toggle("on", scrollY > innerHeight * .9 && !near.size);
+  // It steps out of the way while you read (scrolling down) and comes back when you stop or scroll up.
+  let lastY = scrollY, idle = 0;
+  const show = () => {
+    floatCta.classList.toggle("on", scrollY > innerHeight * .9 && !near.size);
+    floatCta.classList.toggle("away", scrollY > lastY + 2);
+    lastY = scrollY;
+    clearTimeout(idle);
+    idle = setTimeout(() => floatCta.classList.remove("away"), 900);
+  };
   const watch = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); show(); });
   document.querySelectorAll("#contact, .outro").forEach(el => watch.observe(el));
   addEventListener("scroll", show, { passive: true });

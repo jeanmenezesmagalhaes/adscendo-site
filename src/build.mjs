@@ -235,7 +235,7 @@ const homePage = lang => {
 
   <section class="band contact-light" id="contact">
     <div class="wrap" data-rise=".h2, .lede, .channels, .form">
-      <h2 class="h2">${c.contactTitle}</h2>
+      <h2 class="h2">${c.contactTitle.replace(". ", ".<br>")}</h2>
       <p class="lede">${c.contactLede}</p>
       <div class="contact">
         <div class="channels">

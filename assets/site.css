@@ -501,10 +501,10 @@ html.js .rise.in { opacity: 1; transform: none; }
 .msg.typing i:nth-child(3) { animation-delay: .3s; }
 .msg.estimate { display: grid; gap: 4px; padding: 16px 18px; white-space: normal; }
 .est-kind { font-size: 14px; color: var(--muted); }
-.est-price { display: flex; align-items: baseline; gap: 10px; }
-.est-price s { color: var(--faint); font-size: 17px; }
-.est-price b { font-size: 34px; font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.est-off { justify-self: start; margin: 2px 0 4px; padding: 3px 10px; border-radius: 99px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 500; }
+.est-price { margin-top: 2px; font-size: 38px; font-weight: 600; letter-spacing: -0.04em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.est-was { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 2px 0 6px; }
+.est-was s { color: var(--muted); font-size: 15px; line-height: 1; font-variant-numeric: tabular-nums; }
+.est-off { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 500; line-height: 1; }
 .est-note { font-size: 13px; color: var(--muted); }
 .chat-input { padding: 12px 14px; background: #fff; border-top: 1px solid var(--pressed); min-height: 70px; display: flex; align-items: center; }
 .chat-input:empty::before { content: ""; }

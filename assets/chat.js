@@ -92,8 +92,8 @@
   function estimateCard() {
     const t = tierOf(), q = Q[t];
     return `<span class="est-kind">${esc(T.tiers[t])}</span>
-      <span class="est-price"><s>${money(q.regular)}</s> <b>${money(price(t))}</b></span>
-      <span class="est-off">${esc(fill(T.off, { p: q.off }))}${t === "new" ? ` · ${esc(T.launch)}` : ""}</span>
+      <b class="est-price">${money(price(t))}</b>
+      <span class="est-was"><s>${money(q.regular)}</s><span class="est-off">${esc(fill(T.off, { p: q.off }))}${t === "new" ? ` · ${esc(T.launch)}` : ""}</span></span>
       ${a.tools === "unsure" ? `<span class="est-note">${esc(fill(T.maybeMore, { price: money(price("complex")) }))}</span>` : ""}
       <span class="est-note">${esc(T.fine)}</span>`;
   }

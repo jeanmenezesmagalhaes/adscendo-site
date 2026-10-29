@@ -111,3 +111,43 @@ if (proc && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   addEventListener("resize", update);
   update();
 }
+
+// WhatsApp links elsewhere on the page (footer) follow the same CONFIG.
+document.querySelectorAll("[data-wa]").forEach(a => {
+  if (!CONFIG.whatsapp) return;
+  a.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(T.wa);
+  a.hidden = false;
+});
+
+// Footer: the wordmark grows with the scroll until it spans the screen, then the rest fades in.
+const outro = document.querySelector(".outro");
+if (outro) {
+  const sign = outro.querySelector(".outro-sign"), meta = outro.querySelector(".outro-meta");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = v => Math.min(1, Math.max(0, v));
+  const ease = v => 1 - Math.pow(1 - v, 3);
+  const frame = () => {
+    // Full size: the screen's width less a small margin, but never taller than 40% of the screen.
+    const fit = Math.min((innerWidth - 40) / sign.offsetWidth, innerHeight * .4 / sign.offsetHeight);
+    if (still) { sign.style.setProperty("--s", fit.toFixed(4)); return; }
+    const r = outro.getBoundingClientRect();
+    const p = clamp(-r.top / (r.height - innerHeight));
+    sign.style.setProperty("--s", (fit * (.16 + .84 * ease(clamp(p / .7)))).toFixed(4));
+    meta.style.setProperty("--m", clamp((p - .55) / .35).toFixed(3));
+  };
+  addEventListener("scroll", frame, { passive: true });
+  addEventListener("resize", frame);
+  frame();
+}
+
+// The floating "Get in touch" shows once the hero is behind, and steps aside near the contact form and footer.
+const floatCta = document.querySelector(".float-cta");
+if (floatCta) {
+  floatCta.hidden = false;
+  const near = new Set();
+  const show = () => floatCta.classList.toggle("on", scrollY > innerHeight * .9 && !near.size);
+  const watch = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); show(); });
+  document.querySelectorAll("#contact, .outro").forEach(el => watch.observe(el));
+  addEventListener("scroll", show, { passive: true });
+  show();
+}

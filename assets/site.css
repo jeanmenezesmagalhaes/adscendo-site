@@ -308,13 +308,37 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 .cta-strip { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
 
 /* ---------- footer ---------- */
-footer { padding: 72px 0 48px; font-size: 13px; color: var(--muted); }
-footer .sign { display: flex; align-items: center; gap: 0.2em; font-size: clamp(44px, 11vw, 160px); font-weight: 600; letter-spacing: -0.055em; line-height: 1; color: var(--ink); margin-bottom: clamp(32px, 5vw, 64px); text-decoration: none; }
-footer .sign svg { width: 1.3em; height: .87em; flex: none; }
-footer .row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
-footer a { text-decoration: none; }
-footer a:hover { color: var(--ink); }
+/* The footer pins for a while: the wordmark grows from small to the full width of the screen, then the
+   tagline, contact buttons and "back to top" settle in underneath. site.js sets --s (scale) and --m. */
+.outro { position: relative; height: 230vh; height: 230svh; color: var(--muted); font-size: 13px; }
+.outro-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding-bottom: clamp(190px, 30vh, 260px); }
+.outro-sign { display: inline-flex; align-items: center; gap: .2em; font-size: 160px; font-weight: 600; letter-spacing: -0.055em; line-height: 1; color: var(--ink); text-decoration: none; white-space: nowrap; transform: scale(var(--s, .2)); will-change: transform; }
+.outro-sign svg { width: 1.3em; height: .87em; flex: none; }
+.outro-meta { position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 56px); display: grid; gap: 20px; opacity: var(--m, 1); transform: translateY(calc((1 - var(--m, 1)) * 28px)); }
+.outro-line { font-size: clamp(22px, 3vw, 36px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
+.outro-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.outro-row { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
+.outro-row a { text-decoration: none; }
+.outro-row a:hover { color: var(--ink); }
+.to-top { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 500; }
+.to-top svg { width: 14px; height: 14px; transform: rotate(-90deg); }
+@media (prefers-reduced-motion: reduce) {
+  .outro { height: auto; }
+  .outro-pin { position: static; height: auto; display: block; padding: 72px 0 48px; }
+  .outro-sign { display: flex; justify-content: center; margin-bottom: 48px; }
+  .outro-meta { position: static; }
+}
+
+/* Calls to action along the page, and one that floats in once the hero is gone. */
+.section-cta { margin-top: clamp(32px, 5vw, 48px); }
+.cta-line { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; padding: clamp(24px, 3.6vw, 40px) clamp(28px, 4.5vw, 56px); border-radius: 28px; background: var(--ink); color: #f5f5f7; }
+.cta-line p { font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+.cta-line .btn { background: #fff; color: var(--ink); }
+.cta-line .btn:hover { background: var(--pressed); }
+.founder .actions-row { margin-top: 28px; gap: 20px; }
+.float-cta { position: fixed; right: 20px; bottom: 20px; z-index: 40; box-shadow: 0 10px 30px -8px rgba(0,0,0,.35); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .35s var(--ease), transform .35s var(--ease), background-color .2s; }
+.float-cta.on { opacity: 1; transform: none; pointer-events: auto; }
+@media (max-width: 560px) { .float-cta { right: 16px; bottom: 16px; height: 44px; padding: 0 18px; font-size: 15px; } }
 
 /* ---------- motion ---------- */
 html.js .rise { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }

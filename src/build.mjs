@@ -56,7 +56,7 @@ ${icons}`;
 const nav = (lang, altPath, onHome) => {
   const t = ui[lang], h = onHome ? "" : homePath(lang);
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
-<header class="nav">
+<header class="nav" id="top">
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>
     <ul>
@@ -72,17 +72,36 @@ const nav = (lang, altPath, onHome) => {
 </header>`;
 };
 
-const footer = (lang, altPath) => `<footer>
-  <a class="wrap sign" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></a>
-  <div class="wrap row">
-    <span>${ui[lang].footer} &copy; 2026 Adscendo</span>
-    <nav><a href="mailto:${contact.email}">Email</a><a href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a><a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}">${ui[lang].other}</a></nav>
+// The footer pins while the wordmark grows from small to the full width of the screen; the tagline,
+// contact buttons and "back to top" settle in underneath (site.js drives --p from 0 to 1).
+const footer = (lang, altPath) => {
+  const t = ui[lang], h = homePath(lang);
+  return `<a class="btn float-cta" href="${h === "/" ? "" : h}#contact" hidden>${t.nav.cta}</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <a class="outro-sign" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></a>
+    <div class="outro-meta wrap">
+      <p class="outro-line">${t.footer}</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="${h === "/" ? "" : h}#contact">${t.nav.cta}</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:${contact.email}">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}">${t.other}</a>
+        <a class="to-top" href="#top">${t.backTop}<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>
 `;
+};
 
 const imgTag = (im, alt, eager) => `<img src="${im.src}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager ? ` fetchpriority="high"` : ` loading="lazy"`} decoding="async">`;
 const browser = (im, host, alt, eager) => `<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host)}</span></div>${imgTag(im, alt, eager)}</div>`;
@@ -161,6 +180,7 @@ const homePage = lang => {
         <ol class="steps">
         ${steps}
         </ol>
+        <p class="section-cta"><a class="btn" href="#contact">${c.processCta}</a></p>
       </div>
     </div>
   </section>
@@ -172,6 +192,7 @@ const homePage = lang => {
       <ul class="projects">
       ${projectsList}
       </ul>
+      <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="#contact">${c.workCta[1]}</a></div>
     </div>
   </section>
 
@@ -188,7 +209,7 @@ const homePage = lang => {
   <section class="band" id="about">
     <div class="wrap founder" data-rise=".h2, .body, .sig">
       <div><h2 class="h2">${c.aboutTitle}</h2></div>
-      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
+      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="#contact">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
       <div class="sig"><div class="av">${founderPhoto ? `<img src="${founderPhoto}" alt="Jean Menezes" width="240" height="240" loading="lazy">` : icon("cloud")}</div><div><b>Jean Menezes</b><span>${c.sigRole}</span></div></div>
     </div>
   </section>
@@ -200,6 +221,7 @@ const homePage = lang => {
       <div class="tiles tiles--${c.tiles.length}">
         ${tiles}
       </div>
+      <p class="section-cta"><a class="btn" href="#contact">${c.buildCta}</a></p>
     </div>
   </section>
 

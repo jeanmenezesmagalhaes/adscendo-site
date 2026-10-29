@@ -22,6 +22,7 @@ export const ui = {
     studioStory: "Read the studio's story",
     next: "Next project",
     footer: "From complexity to forward motion.",
+    backTop: "Back to top",
   },
   pt: {
     nav: { work: "Trabalhos", story: "Nosso ano", about: "Sobre", cta: "Fale com a gente" },
@@ -36,6 +37,7 @@ export const ui = {
     studioStory: "Ler a história do estúdio",
     next: "Próximo projeto",
     footer: "Da complexidade ao movimento.",
+    backTop: "Voltar ao topo",
   },
 };
 
@@ -59,6 +61,10 @@ export const home = {
       ["Build", "We design and build a first version, and you see it working on your own phone and computer."],
       ["Launch", "We adjust whatever is needed and put it live for you. You never have to touch anything technical."],
     ],
+    processCta: "Start with a conversation",
+    workCta: ["Want something like this for your business?", "Let's talk"],
+    aboutCta: "Talk to us",
+    buildCta: "Ask for a quote",
     workTitle: "Our work.",
     workLede: "Products and websites we have designed.",
     storyTitle: "Our year so far.",
@@ -95,6 +101,10 @@ export const home = {
       ["Construir", "Desenhamos e construímos uma primeira versão, e você vê tudo funcionando no seu celular e no seu computador."],
       ["Lançar", "Ajustamos o que for preciso e colocamos no ar para você. Sem você precisar mexer em nada técnico."],
     ],
+    processCta: "Comece com uma conversa",
+    workCta: ["Quer algo assim para o seu negócio?", "Vamos conversar"],
+    aboutCta: "Fale com a gente",
+    buildCta: "Peça um orçamento",
     workTitle: "Nosso trabalho.",
     workLede: "Produtos e sites que desenhamos.",
     storyTitle: "Nosso ano até aqui.",

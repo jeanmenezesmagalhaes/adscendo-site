@@ -51,6 +51,7 @@ export const home = {
     ctaWork: "See our work",
     ctaTalk: "Start a project",
     hostHero: "adscendo-prospector.vercel.app",
+    demoNote: "Live demo with sample data. Spin the globe, search a city, click a pin.",
     processTitle: "How we work.",
     processLede: "Simple, from the first conversation to launch day.",
     steps: [
@@ -70,8 +71,8 @@ export const home = {
     ],
     aboutTitle: "A new studio. Not new to the work.",
     about: [
-      "Adscendo was founded by <strong>Jean Menezes</strong>. Before it had a name, Jean spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser.",
-      "Today the studio builds its own products, like Sidemed, and takes on a few client projects at a time. You work directly with the people designing and building, from the first call to launch.",
+      "Adscendo was founded by <strong>Jean Menezes</strong>, after years designing and building digital products for enterprise companies.",
+      "Today we bring that same standard to businesses like yours. We work side by side with you to design and build a website or app that shows who you are and earns your customers' trust.",
     ],
     sigRole: "Founder. Born in Brazil, built to operate globally.",
     contactTitle: "You imagine it. We build it.",
@@ -86,6 +87,7 @@ export const home = {
     ctaWork: "Ver trabalhos",
     ctaTalk: "Começar um projeto",
     hostHero: "adscendo-prospector.vercel.app",
+    demoNote: "Demonstração ao vivo com dados de exemplo. Gire o globo, busque uma cidade, clique num ponto.",
     processTitle: "Como trabalhamos.",
     processLede: "Simples, da primeira conversa ao dia do lançamento.",
     steps: [
@@ -105,8 +107,8 @@ export const home = {
     ],
     aboutTitle: "Um estúdio novo. Um trabalho antigo.",
     about: [
-      "A Adscendo foi fundada por <strong>Jean Menezes</strong>. Antes de ter nome, o Jean passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
-      "Hoje o estúdio constrói os próprios produtos, como a Sidemed, e aceita poucos projetos de clientes por vez. Você fala direto com quem desenha e constrói, da primeira conversa ao lançamento.",
+      "A Adscendo foi fundada por <strong>Jean Menezes</strong>, depois de anos desenhando e construindo produtos digitais para empresas de grande porte.",
+      "Hoje levamos esse mesmo padrão para negócios como o seu. Trabalhamos lado a lado com você para desenhar e construir um site ou app que mostra quem você é e passa confiança para os seus clientes.",
     ],
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
     contactTitle: "Você imagina. A gente constrói.",
@@ -115,14 +117,42 @@ export const home = {
   },
 };
 
+// The phone in the home hero: Prospector's "What the AI learned" screen, with sample numbers.
+export const aiDemo = {
+  en: {
+    tabs: ["Map", "CRM", "AI"],
+    title: "What the AI learned",
+    sub: "From your last 122 leads with a result.",
+    kpis: [["Expected replies", "14", "likely 11–17"], ["New clients", "3", "from 48 open leads"], ["Reply rate", "18%", "22 of 122 replied"], ["Is the AI right?", "17 / 18%", "predicted / actual"]],
+    worksTitle: "What's working",
+    works: [["Tone", "Friendly", "21% replied, 96 sends"], ["Best time", "Tue–Thu, 9–11 a.m.", "2× more replies"], ["Follow-up", "After 3 days", "27% of replies"]],
+    whenTitle: "When replies arrive",
+    when: [["1st email", 62], ["1st follow-up", 27], ["2nd follow-up", 11]],
+    whoTitle: "Who replies most",
+    who: [["Med spas", 26], ["Dentists", 19], ["Chiropractors", 12], ["Roofing", 8]],
+    note: "Sample data",
+  },
+  pt: {
+    tabs: ["Mapa", "CRM", "IA"],
+    title: "O que a IA aprendeu",
+    sub: "Dos seus últimos 122 leads com resultado.",
+    kpis: [["Respostas esperadas", "14", "provavelmente 11–17"], ["Novos clientes", "3", "de 48 leads em aberto"], ["Taxa de resposta", "18%", "22 de 122 responderam"], ["A IA está acertando?", "17 / 18%", "previsto / real"]],
+    worksTitle: "O que está funcionando",
+    works: [["Tom", "Cordial", "21% responderam, 96 envios"], ["Melhor horário", "Ter–qui, 9h–11h", "2× mais respostas"], ["Lembrete", "Depois de 3 dias", "27% das respostas"]],
+    whenTitle: "Quando as respostas chegam",
+    when: [["1º email", 62], ["1º lembrete", 27], ["2º lembrete", 11]],
+    whoTitle: "Quem responde mais",
+    who: [["Clínicas de estética", 26], ["Dentistas", 19], ["Quiropraxia", 12], ["Telhados", 8]],
+    note: "Dados de exemplo",
+  },
+};
+
 // Milestones for the home timeline, oldest first. `now` highlights a row.
 export const timeline = [
-  { en: ["Early 2026", "We create Sidemed, a health passport for people who travel."], pt: ["Início de 2026", "Criamos a Sidemed, um passaporte de saúde para quem viaja."], slug: "sidemed" },
-  { en: ["September", "Sidemed launches on the App Store and Google Play."], pt: ["Setembro", "A Sidemed chega à App Store e ao Google Play."], slug: "sidemed" },
-  { en: ["October", "Minha companhia goes live for families across Brazil."], pt: ["Outubro", "A Minha companhia entra no ar para famílias do Brasil todo."], slug: "minha-companhia" },
-  { en: ["October", "Adscendo opens its doors, with Prospector as its first product."], pt: ["Outubro", "A Adscendo abre as portas, com o Prospector como primeiro produto."], slug: "adscendo" },
-  { en: ["Today", "Sidemed is used in 17 countries."], pt: ["Hoje", "A Sidemed é usada em 17 países."], slug: "sidemed", now: true },
-]
+  { en: ["2026", "We create Sidemed, a health passport now used in 17 countries."], pt: ["2026", "Criamos a Sidemed, um passaporte de saúde hoje usado em 17 países."], slug: "sidemed" },
+  { en: ["October", "We launch Minha companhia, helping families across Brazil find trusted help for their parents."], pt: ["Outubro", "Lançamos a Minha companhia, que ajuda famílias do Brasil todo a encontrar apoio de confiança para os pais."], slug: "minha-companhia" },
+  { en: ["October", "Adscendo opens its doors, with Prospector as its first product."], pt: ["Outubro", "A Adscendo abre as portas, com o Prospector como primeiro produto."], slug: "prospector", now: true },
+];
 
 const img = (src, w, h) => ({ src: `/assets/work/${src}`, w, h });
 

@@ -4,7 +4,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo } from "./content.mjs";
 
 // Public origin, e.g. "https://adscendo.com". When set, pages get canonical and hreflang links.
 const SITE = "";
@@ -87,9 +87,29 @@ const footer = (lang, altPath) => `<footer>
 const imgTag = (im, alt, eager) => `<img src="${im.src}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager ? ` fetchpriority="high"` : ` loading="lazy"`} decoding="async">`;
 const browser = (im, host, alt, eager) => `<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host)}</span></div>${imgTag(im, alt, eager)}</div>`;
 // An iPhone: titanium edge, side buttons, Dynamic Island and a status bar tinted to match the screen.
-const phone = (im, alt, eager, bar = "#fff") => {
+const phoneShell = (inner, bar = "#fff") => {
   const dark = /^#(0|1|2)/.test(bar);
-  return `<div class="phone"><div class="frame"><div class="screen"><div class="status${dark ? " status--dark" : ""}" style="background:${bar}" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div>${imgTag(im, alt, eager)}</div></div></div>`;
+  return `<div class="phone"><div class="frame"><div class="screen"><div class="status${dark ? " status--dark" : ""}" style="background:${bar}" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div>${inner}</div></div></div>`;
+};
+const phone = (im, alt, eager, bar) => phoneShell(imgTag(im, alt, eager), bar);
+
+// Prospector's "What the AI learned" screen, drawn in HTML so it stays sharp and can scroll inside the phone.
+const aiScreen = lang => {
+  const a = aiDemo[lang];
+  const bars = (rows, unit) => rows.map(([k, v], i) => `<div class="ai-bar${i ? "" : " best"}"><span>${k}</span><i><b style="--w:${v / rows[0][1] * 100}%"></b></i><em>${v}${unit}</em></div>`).join("");
+  return `<div class="ai-screen" tabindex="0" aria-label="${a.title}">
+    <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ai-tabs">${a.tabs.map((t, i) => `<i${i === 2 ? ` class="on"` : ""}>${t}</i>`).join("")}</span></div>
+    <h3>${a.title}</h3><p class="ai-sub">${a.sub}</p>
+    <div class="ai-kpis">${a.kpis.map(([k, v, s]) => `<div><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
+    <div class="ai-card"><h4>${a.worksTitle}</h4>${a.works.map(([k, v, s]) => `<div class="ai-row"><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
+    <div class="ai-card"><h4>${a.whenTitle}</h4>${bars(a.when, "%")}</div>
+    <div class="ai-card"><h4>${a.whoTitle}</h4>${bars(a.who, "%")}</div>
+    <p class="ai-note">${a.note}</p>
+  </div>`;
+};
+const heroDemo = (p, lang) => {
+  const d = p[lang];
+  return `<div class="duo duo--demo">${`<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.host)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div></div>`}${phoneShell(aiScreen(lang), "#fff")}</div>`;
 };
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
@@ -118,8 +138,8 @@ const homePage = lang => {
   }).join("\n      ");
   const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n        ");
   const story = timeline.map(m => {
-    const [when, what] = m[lang], p = projects.find(x => x.slug === m.slug);
-    return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a><small>${p[lang].name}</small></li>`;
+    const [when, what] = m[lang];
+    return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
   const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
   const f = c.form;
@@ -129,7 +149,8 @@ const homePage = lang => {
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
     <p class="sub">${c.sub}</p>
     <div class="actions-row"><a class="btn" href="#work">${c.ctaWork}</a><a class="btn btn--ghost" href="#contact">${c.ctaTalk}</a></div>
-    ${duo(lead, lang, true)}
+    ${heroDemo(lead, lang)}
+    <p class="demo-note">${c.demoNote}</p>
   </section>
 
   <section class="band band--gray process" id="process">
@@ -205,6 +226,7 @@ const homePage = lang => {
     </div>
   </section>
 </main>
+<script src="/assets/demo.js" defer></script>
 ` + footer(lang, altPath);
 };
 

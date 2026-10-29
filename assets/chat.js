@@ -40,16 +40,34 @@
   }
 
   // One input at a time: a text field, or a row of choices.
-  const ask = ({ type = "text", ph = "", check, optional, inputmode, autocomplete, multiline }) => new Promise(done => {
+  const ask = ({ type = "text", ph = "", check, optional, inputmode, autocomplete, multiline, domains }) => new Promise(done => {
     dock.innerHTML = `<form class="chat-form" novalidate>
       ${multiline ? `<textarea rows="2" maxlength="600" placeholder="${esc(ph)}"></textarea>` : `<input type="${type}" placeholder="${esc(ph)}" maxlength="120"${inputmode ? ` inputmode="${inputmode}"` : ""}${autocomplete ? ` autocomplete="${autocomplete}"` : ""}>`}
       ${optional ? `<button type="button" class="chip chat-skip">${esc(T.skip)}</button>` : ""}
       <button type="submit" class="chat-send" aria-label="${esc(T.send)}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <p class="chat-err" role="alert"></p></form>`;
+      <p class="chat-err" role="alert"></p>${domains ? `<div class="chat-suggest"></div>` : ""}</form>`;
     const form = dock.querySelector("form"), field = form.querySelector("input, textarea"), err = form.querySelector(".chat-err");
     if (matchMedia("(hover: hover)").matches || root.contains(document.activeElement)) field.focus({ preventScroll: true });
     if (multiline) field.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
     const finish = value => { dock.innerHTML = ""; if (value) bubble(esc(value), "me"); done(value); };
+    // Email shortcuts: once something is typed, offer the common providers; a tap completes the address.
+    const hint = form.querySelector(".chat-suggest");
+    if (hint) {
+      const paint = () => {
+        const v = field.value.trim(), [local, dom = ""] = v.split("@");
+        const list = !local || /\s/.test(v) || v.split("@").length > 2 ? [] : domains.filter(d => d.startsWith(dom.toLowerCase()) && d !== dom.toLowerCase());
+        hint.innerHTML = list.map(d => `<button type="button" class="chip" data-d="${d}">@${d}</button>`).join("");
+      };
+      field.addEventListener("input", paint);
+      hint.addEventListener("click", e => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        field.value = `${field.value.trim().split("@")[0]}@${b.dataset.d}`;
+        hint.innerHTML = "";
+        err.textContent = "";
+        field.focus();
+      });
+    }
     form.querySelector(".chat-skip")?.addEventListener("click", () => finish(""));
     form.addEventListener("submit", e => {
       e.preventDefault();
@@ -112,7 +130,7 @@
     await say(esc(T.estimate));
     await say(estimateCard(), "estimate");
     await say(esc(T.askEmail));
-    a.email = await ask({ type: "email", inputmode: "email", autocomplete: "email", ph: T.emailPh, check: v => !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && T.bad.email });
+    a.email = await ask({ type: "email", inputmode: "email", autocomplete: "email", ph: T.emailPh, domains: T.emailDomains, check: v => !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && T.bad.email });
     await say(esc(T.askPhone));
     a.phone = await ask({ type: "tel", inputmode: "tel", autocomplete: "tel", ph: T.phonePh, optional: true, check: v => !/^\+?[\d\s().-]{8,20}$/.test(v) && T.bad.phone });
     await say(esc(T.askMore));

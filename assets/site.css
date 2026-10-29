@@ -516,6 +516,9 @@ html.js .rise.in { opacity: 1; transform: none; }
 .chat-send svg { width: 18px; height: 18px; }
 .chat-err { grid-column: 1 / -1; font-size: 13px; color: #c4302b; }
 .chat-err:empty { display: none; }
+.chat-suggest { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-suggest:empty { display: none; }
+.chat-suggest .chip { padding: 7px 12px; font-size: 14px; }
 .chat-chips { flex: 1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .chip { border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 10px 18px; font: 500 15px var(--sans); color: var(--ink); cursor: pointer; transition: background-color .2s, border-color .2s; }
 .chip:hover { background: var(--band); border-color: var(--faint); }

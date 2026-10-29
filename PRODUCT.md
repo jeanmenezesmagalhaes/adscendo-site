@@ -28,7 +28,7 @@ A new studio with a senior founder: Jean has worked on digital projects for McDo
 
 - Services: websites first, apps second (internal systems are not offered on the site for now, decided 2026-10-29).
 - Process shown on the home page: listen (meeting to understand the business), build (first version), launch (adjust and put live for the client).
-- Contact is a short scripted chat (no AI): name, website yes/no (+ link and integrations), a first estimate, email, optional WhatsApp and notes, then send on WhatsApp or by email. Estimate tiers (USD, regular price → launch discount): from scratch $800 → 50% off ($400); new version of an existing site $1,200 → 30% off ($840); site with integrations $2,000 → 5% off ($1,900). "Final price after a quick call."
+- Contact is a short scripted chat (no AI): name, website yes/no (+ link and integrations), a first estimate, email, optional WhatsApp and notes, then send on WhatsApp or by email. Estimate tiers (USD, regular price → launch discount): from scratch $800 → 50% off ($400); new version of an existing site $1,200 → 30% off ($840); site with integrations $2,000 → 5% off ($1,900). "Estimate only. Final price after a closer look at your project." The email step offers common provider shortcuts (EN: gmail, icloud, outlook; PT: gmail, hotmail, outlook).
 - Contact channels: form (service endpoint pending, e.g. Formspree), email jeanmenezesmagalhaes@icloud.com, WhatsApp +55 51 99327-1160, LinkedIn https://www.linkedin.com/in/jean-magalhaes/, Instagram https://www.instagram.com/adscendo.consult/.
 - Two languages: US English (primary, `/`) and Brazilian Portuguese (`/pt/`), kept in parity.
 

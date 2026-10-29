@@ -491,3 +491,10 @@ html.js .rise.in { opacity: 1; transform: none; }
 .demo-live .press { transform: scale(.96); background: #000; transition: transform .15s; }
 @container (max-width: 560px) { .demo-ai { top: 52px; left: 10px; padding: 5px 10px; font-size: 11px; gap: 6px; max-width: calc(100% - 20px); } }
 @media (prefers-reduced-motion: reduce) { .demo-ai.busy i { animation: none; } }
+
+/* Footer rubber letters (site.js). */
+.rb-word { display: inline-block; white-space: nowrap; }
+.rb { display: inline-block; will-change: transform; }
+.outro-line, .outro-sign { touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.outro-line.grabbing, .outro-sign.grabbing { cursor: grabbing; }
+.outro-line { justify-self: start; }

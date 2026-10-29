@@ -152,3 +152,111 @@ if (floatCta) {
   addEventListener("scroll", show, { passive: true });
   show();
 }
+
+// "Back to top": the #top anchor is the sticky nav, which never looks far away to the browser,
+// so scroll to the real top of the page instead.
+document.querySelectorAll('a[href="#top"]').forEach(a => a.addEventListener("click", e => {
+  e.preventDefault();
+  scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  document.querySelector(".brand")?.focus({ preventScroll: true });
+}));
+
+// Footer rubber: grab the tagline or the wordmark and drag; the letters near your hand stretch along,
+// then spring back with a wobble when you let go. Hovering nudges the nearest letters toward the pointer.
+function rubber(box, items) {
+  const n = items.length;
+  const pos = items.map(() => ({ x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0 }));
+  let centers = [], drag = null, hover = null, raf = 0, moved = false;
+  const scale = () => box.getBoundingClientRect().width / box.offsetWidth || 1;
+  const measure = () => {
+    centers = items.map((el, i) => {
+      const r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2 - pos[i].x * scale(), y: r.top + r.height / 2 - pos[i].y * scale() };
+    });
+  };
+  const nearest = x => centers.reduce((best, c, i) => Math.abs(c.x - x) < Math.abs(centers[best].x - x) ? i : best, 0);
+  const aim = () => {
+    const s = scale();
+    pos.forEach((p, i) => {
+      if (drag) {
+        const f = Math.exp(-((i - drag.i) ** 2) / (2 * Math.max(1.6, n / 6) ** 2));
+        let dx = (drag.x - drag.x0) / s * f, dy = (drag.y - drag.y0) / s * f;
+        const len = Math.hypot(dx, dy), max = 140 / s;
+        if (len > max) { dx *= max / len; dy *= max / len; }
+        p.tx = dx; p.ty = dy;
+      } else if (hover) {
+        const c = centers[i], d = Math.hypot(hover.x - c.x, hover.y - c.y), f = Math.max(0, 1 - d / (120 * s ** .3));
+        p.tx = (hover.x - c.x) / s * .12 * f; p.ty = (hover.y - c.y) / s * .12 * f;
+      } else { p.tx = 0; p.ty = 0; }
+    });
+  };
+  const tick = () => {
+    let energy = 0;
+    const k = drag ? .22 : .07, damp = drag ? .7 : .86;
+    pos.forEach((p, i) => {
+      p.vx = (p.vx + (p.tx - p.x) * k) * damp;
+      p.vy = (p.vy + (p.ty - p.y) * k) * damp;
+      p.x += p.vx; p.y += p.vy;
+      energy += Math.abs(p.vx) + Math.abs(p.vy) + Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y);
+      items[i].style.transform = `translate(${p.x.toFixed(2)}px, ${p.y.toFixed(2)}px) rotate(${(p.vx * 1.4).toFixed(2)}deg)`;
+    });
+    raf = energy > .05 || drag || hover ? requestAnimationFrame(tick) : 0;
+  };
+  const run = () => { aim(); if (!raf) raf = requestAnimationFrame(tick); };
+  box.addEventListener("pointerenter", () => measure());
+  box.addEventListener("pointermove", e => {
+    if (drag) { drag.x = e.clientX; drag.y = e.clientY; if (Math.hypot(drag.x - drag.x0, drag.y - drag.y0) > 6) moved = true; }
+    else { if (!centers.length) measure(); hover = { x: e.clientX, y: e.clientY }; }
+    run();
+  });
+  box.addEventListener("pointerleave", () => { if (!drag) { hover = null; run(); } });
+  box.addEventListener("pointerdown", e => {
+    if (e.button) return;
+    measure();
+    moved = false;
+    drag = { x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, i: nearest(e.clientX) };
+    box.setPointerCapture(e.pointerId);
+    box.classList.add("grabbing");
+    run();
+  });
+  const release = () => { if (!drag) return; drag = null; hover = null; box.classList.remove("grabbing"); run(); };
+  box.addEventListener("pointerup", release);
+  box.addEventListener("pointercancel", release);
+  // A drag on the wordmark is play, not a click on its link.
+  box.addEventListener("click", e => { if (moved) { e.preventDefault(); moved = false; } }, true);
+  box.addEventListener("dragstart", e => e.preventDefault());
+}
+// Wrap each letter in its own span (words kept together so lines still wrap between words).
+function letters(el) {
+  const text = el.textContent;
+  el.textContent = "";
+  const out = [];
+  text.split(/(\s+)/).forEach(part => {
+    if (/^\s+$/.test(part)) { el.append(part); return; }
+    const word = document.createElement("span");
+    word.className = "rb-word";
+    for (const ch of part) {
+      const s = document.createElement("span");
+      s.className = "rb";
+      s.textContent = ch;
+      word.append(s);
+      out.push(s);
+    }
+    el.append(word);
+  });
+  return out;
+}
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const line = document.querySelector(".outro-line");
+  if (line) {
+    line.setAttribute("aria-label", line.textContent);
+    rubber(line, letters(line));
+  }
+  const sign = document.querySelector(".outro-sign");
+  if (sign) {
+    const word = sign.querySelector("span");
+    const chars = letters(word);
+    sign.querySelector("svg").classList.add("rb");
+    rubber(sign, [sign.querySelector("svg"), ...chars]);
+  }
+}

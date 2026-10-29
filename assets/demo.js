@@ -299,6 +299,14 @@
     });
     map.on("style.load", () => {
       map.setProjection({ type: "globe" });
+      // Few words on the map: only the largest countries on the globe, and the main city and town names
+      // once it dives in. Oceans, states, roads and the rest stay quiet.
+      const keep = { label_country_1: [0, 4.5], label_city: [8, 24], label_city_capital: [8, 24], label_town: [10.5, 24] };
+      for (const l of map.getStyle().layers) {
+        if (l.type !== "symbol") continue;
+        if (keep[l.id]) map.setLayerZoomRange(l.id, ...keep[l.id]);
+        else map.setLayoutProperty(l.id, "visibility", "none");
+      }
       map.setSky({ "sky-color": "#f5f5f7", "horizon-color": "#ffffff", "fog-color": "#ffffff", "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 5, 1, 7, 0] });
     });
     map.on("load", () => {

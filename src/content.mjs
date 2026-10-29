@@ -159,6 +159,7 @@ const img = (src, w, h) => ({ src: `/assets/work/${src}`, w, h });
 export const projects = [
   {
     slug: "prospector",
+    tint: "#e8edf4", // card hover tone on the home page
     url: "https://adscendo-prospector.vercel.app/",
     cta: "trial",
     host: "adscendo-prospector.vercel.app",
@@ -264,6 +265,7 @@ export const projects = [
   },
   {
     slug: "minha-companhia",
+    tint: "#e5efe8", // card hover tone on the home page
     cta: "seeIt",
     url: "https://minhacompanhia.com.br/",
     host: "minhacompanhia.com.br",
@@ -374,6 +376,7 @@ export const projects = [
   },
   {
     slug: "sidemed",
+    tint: "#f3eee3", // card hover tone on the home page
     cta: "download",
     ctaUrl: "https://www.sidemed.com.br/app",
     url: "https://www.sidemed.com.br/",
@@ -480,6 +483,7 @@ export const projects = [
   },
   {
     slug: "adscendo",
+    tint: "#ececf0", // card hover tone on the home page
     inWork: false,
     url: null,
     host: "adscendo",

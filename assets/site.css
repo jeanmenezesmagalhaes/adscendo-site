@@ -144,9 +144,9 @@ section.band { padding: clamp(88px, 13vw, 160px) 0; }
 .proj {
   position: relative; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: center;
   padding: clamp(28px, 4.5vw, 56px); border-radius: 28px; background: var(--band); overflow: hidden;
-  transition: background-color .25s var(--ease);
+  transition: background-color .45s var(--ease);
 }
-.proj:hover { background: var(--pressed); }
+.proj:hover { background: var(--tint, var(--pressed)); }
 .proj h3 { margin-top: 10px; font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.04em; line-height: 1.04; }
 .proj p { margin-top: 14px; font-size: 19px; color: var(--graphite); max-width: 32ch; }
 .proj .eyebrow { margin-top: 0; font-size: 13px; color: var(--muted); }

@@ -229,7 +229,7 @@ The palette is a disciplined Apple-style gray family with no brand accent. Hiera
 - **Error Red** (error-red): Functional only. Invalid field border and error status text. It is never decorative.
 
 ### Named Rules
-**The No-Accent Rule.** Adscendo's own chrome has no brand hue. Saturated color (pine green #1f4d3f, terracotta #b5401f, plum #6b3a4e, star gold #e3a008) is allowed only inside illustrated client work, in device frames or mini screens, and each illustrated client brings its own palette.
+**The No-Accent Rule.** Adscendo's own chrome has no brand hue. Saturated color (pine green #1f4d3f, terracotta #b5401f, plum #6b3a4e, star gold #e3a008) is allowed only inside illustrated client work, in device frames or mini screens, and each illustrated client brings its own palette. One exception: on hover, each project card on the home page takes a very light tint drawn from that project's own palette (cool slate for Prospector, sage for Minha companhia, warm paper for Sidemed), all at the same lightness as mist.
 
 **The One Black Band Rule.** A page carries at most one full-bleed #000 band, and it holds the page's key moment: the 2026 timeline on the home page, the next-project link on a story page. Gray bands alternate with white around it.
 

@@ -131,7 +131,7 @@ const homePage = lang => {
   const projectsList = projects.filter(p => p.inWork !== false).map(p => {
     const d = p[lang];
     const cta = p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
-    return `<li class="proj">
+    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}>
         <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${cta}</div></div>
         <div class="media">${browser(cover(p, lang), p.host, d.name)}</div>
       </li>`;

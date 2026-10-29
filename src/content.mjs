@@ -56,7 +56,7 @@ export const home = {
     demoLabel: "Live demo",
     demoText: "<strong>This is Prospector, a product we built.</strong> It finds new clients for you on the map, so you spend your time closing deals instead of searching for them. Below, its AI pilot at work, with sample data.",
     warmthTitle: "Brazilian warmth. American standards.",
-    warmthLede: "We bring Brazil's creativity and human touch to American businesses: work that feels close and full of life, delivered the way you expect.",
+    warmthLede: "We bring Brazil's creativity and human touch to American businesses: work made with an artist's eye, close and full of life, delivered the way you expect.",
     processTitle: "How we work.",
     processLede: "Simple, from the first conversation to launch day.",
     steps: [
@@ -99,7 +99,7 @@ export const home = {
     demoLabel: "Demonstração ao vivo",
     demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles. Abaixo, o piloto de IA dele trabalhando, com dados de exemplo.",
     warmthTitle: "Calor brasileiro. Padrão americano.",
-    warmthLede: "Levamos a criatividade e o calor humano do Brasil para empresas americanas: um trabalho próximo, cheio de vida, entregue do jeito que elas esperam.",
+    warmthLede: "Levamos a criatividade e o calor humano do Brasil para empresas americanas: um trabalho feito com olhar de artista, próximo e cheio de vida, entregue do jeito que elas esperam.",
     processTitle: "Como trabalhamos.",
     processLede: "Simples, da primeira conversa ao dia do lançamento.",
     steps: [

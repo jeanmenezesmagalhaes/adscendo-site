@@ -58,6 +58,17 @@ if (proc && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   addEventListener("scroll", update, { passive: true });
   addEventListener("resize", update);
   update();
+  // "How we work" in the nav lands where all three steps are already on screen, not at the empty start
+  // of the pinned stretch. Same when arriving from another page with #process in the address.
+  const allSteps = () => proc.offsetTop + (proc.offsetHeight - innerHeight) * .72;
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href$="#process"]');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button || new URL(a.href, location.href).pathname.replace(/\/$/, "") !== location.pathname.replace(/\/$/, "")) return;
+    e.preventDefault();
+    history.pushState(null, "", "#process");
+    scrollTo({ top: allSteps(), behavior: "smooth" });
+  });
+  if (location.hash === "#process") addEventListener("load", () => setTimeout(() => scrollTo({ top: allSteps() }), 50), { once: true });
 }
 
 // WhatsApp links elsewhere on the page (footer) follow the same CONFIG.

@@ -253,7 +253,7 @@ export const projects = [
       seoTitle: "Prospector: AI prospecting on a map, with a CRM | Adscendo",
       summary: "Finds businesses on the map, analyzes each one, writes a personal email and follows every lead in a CRM. Nothing goes out without your approval.",
       description: "How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026.",
-      facts: [["Role", "Our product"], ["When", "October 2026"], ["Platform", "Web"], ["Status", "Live, 7-day free trial"]],
+      facts: [["What we did", "Planned and built in-house"], ["When", "October 2026"], ["Platform", "Web"], ["Status", "Live, 7-day free trial"]],
       chapters: [
         {
           h: "Finding clients was a second job.",
@@ -301,7 +301,7 @@ export const projects = [
       seoTitle: "Prospector: prospecção com IA no mapa e CRM | Adscendo",
       summary: "Acha empresas no mapa, analisa cada uma, escreve um email pessoal e acompanha cada lead num CRM. Nada sai sem a sua aprovação.",
       description: "Como o Adscendo Prospector, um sistema de prospecção com IA, com mapa, análise de leads, emails pessoais e CRM, foi construído em outubro de 2026.",
-      facts: [["Papel", "Nosso produto"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web"], ["Status", "No ar, 7 dias grátis"]],
+      facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web"], ["Status", "No ar, 7 dias grátis"]],
       chapters: [
         {
           h: "Achar cliente era um segundo emprego.",
@@ -358,7 +358,7 @@ export const projects = [
       seoTitle: "Minha companhia: companions for older parents | Adscendo",
       summary: "Families book verified professionals to go with their elderly parents to appointments, the bank or the market.",
       description: "How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026.",
-      facts: [["Role", "Product design and build"], ["When", "October 2026"], ["Platform", "Web, phone and desktop"], ["Status", "Live, in validation"]],
+      facts: [["What we did", "Planned and built in-house"], ["When", "October 2026"], ["Platform", "Web, phone and desktop"], ["Status", "Live, in validation"]],
       chapters: [
         {
           h: "A brief for screens only.",
@@ -410,7 +410,7 @@ export const projects = [
       seoTitle: "Minha companhia: acompanhantes para idosos | Adscendo",
       summary: "A família contrata profissionais verificadas para acompanhar os pais idosos na consulta, no banco ou no mercado.",
       description: "Como a Minha companhia, um marketplace para famílias de pessoas idosas, saiu de um briefing só de telas para um produto no ar em outubro de 2026.",
-      facts: [["Papel", "Design de produto e desenvolvimento"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web, celular e computador"], ["Status", "No ar, em validação"]],
+      facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web, celular e computador"], ["Status", "No ar, em validação"]],
       chapters: [
         {
           h: "Um briefing só de telas.",
@@ -478,7 +478,7 @@ export const projects = [
       seoTitle: "Sidemed: a health passport app across borders | Adscendo",
       summary: "Your medical history, organized, translated into your doctor's language and shared in seconds. Used in 17 countries.",
       description: "How Sidemed, a health passport app, went from a problem at the border to a native iOS app and a new website in 2026.",
-      facts: [["Role", "Founder"], ["When", "2026"], ["Platform", "iOS, Android, web"], ["Status", "Used in 17 countries"]],
+      facts: [["What we did", "Planned and built in-house"], ["When", "2026"], ["Platform", "iOS, Android, web"], ["Status", "Used in 17 countries"]],
       chapters: [
         {
           h: "Your history stays behind.",
@@ -525,7 +525,7 @@ export const projects = [
       seoTitle: "Sidemed: app de passaporte de saúde | Adscendo",
       summary: "Seu histórico médico organizado, traduzido para o idioma do médico e compartilhado em segundos. Usada em 17 países.",
       description: "Como a Sidemed, um app de passaporte de saúde, saiu de um problema na fronteira para um app nativo de iOS e um site novo em 2026.",
-      facts: [["Papel", "Fundador"], ["Quando", "2026"], ["Plataforma", "iOS, Android, web"], ["Status", "Usada em 17 países"]],
+      facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "2026"], ["Plataforma", "iOS, Android, web"], ["Status", "Usada em 17 países"]],
       chapters: [
         {
           h: "Seu histórico fica para trás.",

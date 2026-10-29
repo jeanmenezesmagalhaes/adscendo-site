@@ -42,7 +42,7 @@ export const ui = {
 };
 
 // Optional founder photo, e.g. "/assets/jean.webp". Empty = the cloud mark.
-export const founderPhoto = "";
+export const founderPhoto = "/assets/jean.webp";
 
 export const home = {
   en: {

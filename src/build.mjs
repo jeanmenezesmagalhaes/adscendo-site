@@ -4,7 +4,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto } from "./content.mjs";
 
 // Public origin, e.g. "https://adscendo.com". When set, pages get canonical and hreflang links.
 const SITE = "";
@@ -22,6 +22,7 @@ const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
 </svg>`;
 const icon = (id, cls = "") => `<svg${cls ? ` class="${cls}"` : ""} aria-hidden="true"><use href="#${id}"/></svg>`;
 
@@ -84,10 +85,16 @@ const footer = (lang, altPath) => `<footer>
 
 const imgTag = (im, alt, eager) => `<img src="${im.src}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager ? ` fetchpriority="high"` : ` loading="lazy"`} decoding="async">`;
 const browser = (im, host, alt, eager) => `<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host)}</span></div>${imgTag(im, alt, eager)}</div>`;
-const phone = (im, alt, eager) => `<div class="phone">${imgTag(im, alt, eager)}</div>`;
+// An iPhone: titanium edge, side buttons, Dynamic Island and a status bar tinted to match the screen.
+const phone = (im, alt, eager, bar = "#fff") => {
+  const dark = /^#(0|1|2)/.test(bar);
+  return `<div class="phone"><div class="frame"><div class="screen"><div class="status${dark ? " status--dark" : ""}" style="background:${bar}" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div>${imgTag(im, alt, eager)}</div></div></div>`;
+};
+const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
+const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
 const duo = (p, lang, eager) => {
   const d = p[lang];
-  return `<div class="duo">${browser(p.cover, p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(p.coverPhone, `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager)}</div>`;
+  return `<div class="duo">${browser(cover(p, lang), p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(coverPhone(p, lang), `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager, p.phoneBar)}</div>`;
 };
 
 const homePage = lang => {
@@ -99,13 +106,16 @@ const homePage = lang => {
     founder: { "@type": "Person", name: "Jean Menezes", sameAs: [contact.linkedin] },
     sameAs: [contact.instagram, contact.linkedin],
   };
+  // The whole card opens the story (the story link stretches over it); a trial button sits above that layer.
   const projectsList = projects.map(p => {
     const d = p[lang];
-    return `<li class="proj"><a href="${casePath(lang, p.slug)}">
-        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><span class="link">${t.readStory}${icon("arrow")}</span></div>
-        <div class="media">${browser(p.cover, p.host, d.name)}</div>
-      </a></li>`;
+    const trial = p.trial ? `<a class="btn btn--sm trial" href="${p.url}" target="_blank" rel="noopener">${t.trial}${icon("out")}</a>` : "";
+    return `<li class="proj">
+        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${trial}</div></div>
+        <div class="media">${browser(cover(p, lang), p.host, d.name)}</div>
+      </li>`;
   }).join("\n      ");
+  const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n        ");
   const story = timeline.map(m => {
     const [when, what] = m[lang], p = projects.find(x => x.slug === m.slug);
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a><small>${p[lang].name}</small></li>`;
@@ -121,7 +131,17 @@ const homePage = lang => {
     ${duo(lead, lang, true)}
   </section>
 
-  <section class="band band--gray" id="work">
+  <section class="band band--gray" id="process">
+    <div class="wrap" data-rise=".h2, .lede, .step">
+      <h2 class="h2">${c.processTitle}</h2>
+      <p class="lede">${c.processLede}</p>
+      <ol class="steps">
+        ${steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="work">
     <div class="wrap" data-rise=".h2, .lede, .proj">
       <h2 class="h2">${c.workTitle}</h2>
       <p class="lede">${c.workLede}</p>
@@ -145,7 +165,7 @@ const homePage = lang => {
     <div class="wrap founder" data-rise=".h2, .body, .sig">
       <div><h2 class="h2">${c.aboutTitle}</h2></div>
       <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}</div>
-      <div class="sig"><div class="av">${icon("cloud")}</div><div><b>Jean Menezes</b><span>${c.sigRole}</span></div></div>
+      <div class="sig"><div class="av">${founderPhoto ? `<img src="${founderPhoto}" alt="Jean Menezes" width="240" height="240" loading="lazy">` : icon("cloud")}</div><div><b>Jean Menezes</b><span>${c.sigRole}</span></div></div>
     </div>
   </section>
 
@@ -153,7 +173,7 @@ const homePage = lang => {
     <div class="wrap" data-rise=".h2, .lede, .tile">
       <h2 class="h2">${c.doTitle}</h2>
       <p class="lede">${c.doLede}</p>
-      <div class="tiles">
+      <div class="tiles tiles--${c.tiles.length}">
         ${tiles}
       </div>
     </div>
@@ -190,8 +210,8 @@ const figure = (fig, p, lang) => {
   const alt = strip(fig.cap || p[lang].name);
   if (fig.kind === "browser") return `<figure class="shot">${browser(fig.img, p.host, alt)}${cap}</figure>`;
   if (fig.kind === "canvas") return `<figure class="shot"><div class="canvas-band">${imgTag(fig.img, alt).replace("<img", `<img style="width:100%;height:auto;border-radius:12px"`)}</div>${cap}</figure>`;
-  if (fig.kind === "phones") return `<figure class="shot"><div class="canvas-band phones">${fig.imgs.map(im => phone(im, alt)).join("")}</div>${cap}</figure>`;
-  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt) : browser(it.img, p.host, alt)).join("")}</div>${cap}</figure>`;
+  if (fig.kind === "phones") return `<figure class="shot"><div class="canvas-band phones">${fig.imgs.map(im => phone(im, alt, false, p.phoneBar)).join("")}</div>${cap}</figure>`;
+  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt, false, p.phoneBar) : browser(it.img, p.host, alt)).join("")}</div>${cap}</figure>`;
   return "";
 };
 
@@ -201,7 +221,7 @@ const casePage = (lang, i) => {
   const next = projects[(i + 1) % projects.length];
   const ld = { "@context": "https://schema.org", "@type": "CreativeWork", name: d.name, description: d.description, inLanguage: lang === "en" ? "en" : "pt-BR", creator: { "@type": "Organization", name: "Adscendo" }, ...(p.url ? { url: p.url } : {}) };
   const actions = [
-    p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${t.visit}${icon("out")}</a>` : "",
+    p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${p.trial ? t.trial : t.visit}${icon("out")}</a>` : "",
     ...(p.links || []).map(l => `<a class="btn btn--ghost" href="${l.href}" target="_blank" rel="noopener">${l[lang]}${icon("out")}</a>`),
   ].filter(Boolean).join("");
   const chapters = d.chapters.map((ch, n) => `<article class="chapter">

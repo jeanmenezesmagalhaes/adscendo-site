@@ -1,6 +1,6 @@
 # Adscendo site
 
-Portfolio of Adscendo, the consultancy of Jean Menezes: the home page plus one story page per project (Sidemed, Minha companhia, Reels Autopilot, Adscendo). English at `/`, Portuguese at `/pt/`. Static HTML, no framework.
+Portfolio of Adscendo, the consultancy of Jean Menezes: the home page plus one story page per project (Prospector, Reels Autopilot, Minha companhia, Sidemed, Adscendo). English at `/`, Portuguese at `/pt/`. Static HTML, no framework.
 
 Split from `adscendo-prospector` on 2026-10-29.
 
@@ -22,7 +22,7 @@ node src/build.mjs
 
 Commit the generated HTML together with the content change. The deploy serves the files as they are, with no build step.
 
-To add a project: add an entry to `projects` (and, if you want, to `timeline`) in `src/content.mjs`, put its screenshots in `assets/work/<slug>/` (`.webp`, 1440×900 for desktop, 780×1688 for phone), and run the build.
+To add a project: add an entry to `projects` (and, if you want, to `timeline`) in `src/content.mjs`, put its screenshots in `assets/work/<slug>/` (`.webp`, 16:10 for desktop, 780×1688 for phone; a `.pt.webp` twin plus `coverPt`/`coverPhonePt` gives the Portuguese pages their own screenshots), and run the build.
 
 ## Structure
 
@@ -41,6 +41,7 @@ PRODUCT.md, DESIGN.md                      Audience and visual system
 ## Configuration
 
 - `CONFIG` at the top of `assets/site.js`: `formEndpoint` (Formspree or similar; empty = the form opens the visitor's email app), `whatsapp` (digits only; empty = hidden), `email`.
+- `founderPhoto` in `src/content.mjs`: path to Jean's photo (e.g. `/assets/jean.webp`). Empty = the cloud mark.
 - `SITE` at the top of `src/build.mjs`: the public origin (e.g. `https://adscendo.com`). Once set and rebuilt, every page gets canonical and `hreflang` links between the English and Portuguese versions.
 
 ## Deploy (Vercel)

@@ -2,3 +2,4 @@
 .vercel
 .claude/worktrees/
 .impeccable/hook.cache.json
+.env*

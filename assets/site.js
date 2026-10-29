@@ -155,11 +155,19 @@ if (floatCta) {
 
 // "Back to top": the #top anchor is the sticky nav, which never looks far away to the browser,
 // so scroll to the real top of the page instead.
-document.querySelectorAll('a[href="#top"]').forEach(a => a.addEventListener("click", e => {
+// Links back to the page you are already on (the logo on the home page, the footer wordmark) do the
+// same: no reload, just a scroll to the top.
+const here = path => path.replace(/\/$/, "") || "/";
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[href]");
+  if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  const url = new URL(a.href, location.href);
+  const top = a.getAttribute("href") === "#top";
+  if (!top && (url.origin !== location.origin || here(url.pathname) !== here(location.pathname) || url.hash)) return;
   e.preventDefault();
   scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   document.querySelector(".brand")?.focus({ preventScroll: true });
-}));
+});
 
 // Footer rubber: grab the tagline or the wordmark and drag; the letters near your hand stretch along,
 // then spring back with a wobble when you let go. Hovering nudges the nearest letters toward the pointer.

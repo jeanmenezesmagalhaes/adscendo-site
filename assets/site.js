@@ -1,6 +1,7 @@
 const CONFIG = {
-  // Formspree (or similar) endpoint for the contact chat. Empty = the chat ends with "Send on WhatsApp" / "Send by email".
-  formEndpoint: "",
+  // Where the contact chat sends its summary. FormSubmit (free, no account) delivers it to the email in the
+  // URL; the very first submission sends an activation link to that inbox. Empty = WhatsApp/email buttons.
+  formEndpoint: "https://formsubmit.co/ajax/jeanmenezesmagalhaes@icloud.com",
   // WhatsApp number in international format, digits only, e.g. "5511999999999". Empty = hidden.
   whatsapp: "5551993271160",
   email: "jeanmenezesmagalhaes@icloud.com",

@@ -138,22 +138,44 @@
     await finish();
   }
 
+  // One "Send" button: the summary goes to CONFIG.formEndpoint (FormSubmit, delivered to Jean's email).
+  // Only if that fails does the chat offer WhatsApp or email instead.
   async function finish() {
-    const text = summary(), subject = fill(T.subject, { name: a.name });
-    if (typeof CONFIG !== "undefined" && CONFIG.formEndpoint) {
-      try {
-        const body = new FormData();
-        body.append("_subject", subject);
-        body.append("message", text);
-        body.append("email", a.email);
-        const res = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body });
-        if (res.ok) { await say(esc(fill(T.sent, { name: a.name.split(" ")[0] }))); return; }
-      } catch {}
-    }
-    await say(esc(fill(T.done, { name: a.name.split(" ")[0] })));
-    const wa = typeof CONFIG !== "undefined" && CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`${subject}\n\n${text}`)}` : "";
-    const mail = `mailto:${typeof CONFIG !== "undefined" ? CONFIG.email : ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    dock.innerHTML = `<div class="chat-chips chat-final">${wa ? `<a class="btn" href="${wa}" target="_blank" rel="noopener">${esc(T.sendWa)}</a>` : ""}<a class="btn ${wa ? "btn--ghost" : ""}" href="${mail}">${esc(T.sendEmail)}</a></div>`;
+    const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name });
+    const cfg = typeof CONFIG !== "undefined" ? CONFIG : {};
+    await say(esc(fill(T.ready, { name: first })));
+    dock.innerHTML = `<div class="chat-chips chat-final"><button type="button" class="btn">${esc(T.send)}</button></div>`;
+    const btn = dock.querySelector("button");
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      btn.textContent = T.sending;
+      let ok = false;
+      if (cfg.formEndpoint) {
+        try {
+          const L = T.labels, t = tierOf();
+          const res = await fetch(cfg.formEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            // Empty answers are left out, so the email only shows what the visitor actually said.
+            body: JSON.stringify(Object.fromEntries(Object.entries({
+              _subject: subject, _template: "table", _captcha: "false",
+              [L.name]: a.name, [L.email]: a.email, email: a.email, [L.phone]: a.phone || "",
+              [L.site]: a.site === "no" ? L.none : a.link || T.yes,
+              [L.tools]: a.site === "yes" ? { yes: T.yes, no: T.no, unsure: T.notSure }[a.tools] : "",
+              [L.estimate]: `${T.tiers[t]}: ${money(price(t))} (${fill(T.off, { p: Q[t].off })})`,
+              [L.notes]: a.notes || "",
+            }).filter(([, v]) => v))),
+          });
+          ok = res.ok && (await res.json().catch(() => ({}))).success !== "false";
+        } catch {}
+      }
+      dock.innerHTML = "";
+      if (ok) { bubble(esc(T.send), "me"); await say(esc(fill(T.sent, { name: first }))); return; }
+      await say(esc(T.failed));
+      const wa = cfg.whatsapp ? `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(`${subject}\n\n${text}`)}` : "";
+      const mail = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+      dock.innerHTML = `<div class="chat-chips chat-final">${wa ? `<a class="btn" href="${wa}" target="_blank" rel="noopener">${esc(T.sendWa)}</a>` : ""}<a class="btn ${wa ? "btn--ghost" : ""}" href="${mail}">${esc(T.sendEmail)}</a></div>`;
+    });
   }
 
   restart.addEventListener("click", () => { dock.innerHTML = ""; run(); });

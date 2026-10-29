@@ -216,10 +216,10 @@ const homePage = lang => {
   </section>
 
   <section class="band" id="about">
-    <div class="wrap founder" data-rise=".h2, .body, .sig">
-      <div><h2 class="h2">${c.aboutTitle}</h2></div>
+    <div class="wrap founder" data-rise=".portrait, .h2, .body">
+      ${founderPhoto ? `<figure class="portrait"><img src="${founderPhoto}" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>${c.sigRole}</span></figcaption></figure>` : ""}
+      <h2 class="h2">${c.aboutTitle.replace(". ", ".<br>")}</h2>
       <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="#contact">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
-      <div class="sig"><div class="av">${founderPhoto ? `<img src="${founderPhoto}" alt="Jean Menezes" width="240" height="240" loading="lazy">` : icon("cloud")}</div><div><b>Jean Menezes</b><span>${c.sigRole}</span></div></div>
     </div>
   </section>
 

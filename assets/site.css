@@ -442,3 +442,16 @@ html.js .rise.in { opacity: 1; transform: none; }
 .ai-note { margin-top: 3cqw; text-align: center; font-size: 2.5cqw; color: var(--faint); }
 @keyframes grow { from { transform: scaleX(0); } }
 @media (prefers-reduced-motion: reduce) { .ai-bar b { animation: none; } }
+
+/* The demo runs itself: an "AI pilot" badge says what it is doing, fields fill as if typed. */
+.demo-ai { position: absolute; top: 5.6cqw; left: 1.4cqw; z-index: 2; display: inline-flex; align-items: center; gap: .6cqw; margin: 0; padding: .55cqw 1.1cqw; border-radius: 99px; background: var(--ink); color: #fff; font-size: .95em; max-width: 60cqw; }
+.demo-ai:empty, .demo-ai b:empty + span:empty { display: none; }
+.demo-ai i { width: .7cqw; height: .7cqw; min-width: 6px; min-height: 6px; border-radius: 50%; background: #fff; flex: none; }
+.demo-ai.busy i { animation: blink 1s ease-in-out infinite; }
+.demo-ai b { font-weight: 600; }
+.demo-ai span { color: var(--dark-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@keyframes blink { 50% { opacity: .25; } }
+.demo-live .typing { box-shadow: 0 0 0 2px var(--ink); }
+.demo-live .press { transform: scale(.96); background: #000; transition: transform .15s; }
+@container (max-width: 560px) { .demo-ai { top: 52px; left: 10px; padding: 5px 10px; font-size: 11px; gap: 6px; max-width: calc(100% - 20px); } }
+@media (prefers-reduced-motion: reduce) { .demo-ai.busy i { animation: none; } }

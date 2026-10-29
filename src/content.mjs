@@ -51,7 +51,7 @@ export const home = {
     ctaWork: "See our work",
     ctaTalk: "Start a project",
     hostHero: "adscendo-prospector.vercel.app",
-    demoNote: "Live demo with sample data. Spin the globe, search a city, click a pin.",
+    demoNote: "Live demo with sample data: the AI pilot finds businesses on its own.",
     processTitle: "How we work.",
     processLede: "Simple, from the first conversation to launch day.",
     steps: [
@@ -87,7 +87,7 @@ export const home = {
     ctaWork: "Ver trabalhos",
     ctaTalk: "Começar um projeto",
     hostHero: "adscendo-prospector.vercel.app",
-    demoNote: "Demonstração ao vivo com dados de exemplo. Gire o globo, busque uma cidade, clique num ponto.",
+    demoNote: "Demonstração ao vivo com dados de exemplo: o piloto de IA encontra empresas sozinho.",
     processTitle: "Como trabalhamos.",
     processLede: "Simples, da primeira conversa ao dia do lançamento.",
     steps: [

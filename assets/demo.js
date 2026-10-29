@@ -14,16 +14,18 @@
     looking: "O que você procura?", term: "dentista", distance: "Distância do centro", search: "Buscar",
     searching: n => `Buscando… ${n} empresas`, done: km => `Pronto · busca até ${km} km`, found: n => `${n} empresas`,
     filters: ["Todas", "Com email", "Sem site"], selected: (n, s) => `${n} de ${n} · ${s} selecionadas`,
-    analyze: n => `Analisar e salvar no CRM (${n})`, saved: n => `${n} leads salvos no CRM`, inCrm: "já está no CRM",
-    noSite: "sem site", tapHint: "Toque no mapa para mover o centro do círculo.", unknown: "Tente Austin, Miami, Nova York ou São Paulo.",
+    analyze: n => `Analisar e salvar no CRM (${n})`, saved: n => `A IA salvou ${n} leads no CRM`, inCrm: "já está no CRM",
+    noSite: "sem site", tapHint: "O piloto de IA escolhe a cidade e o tipo de negócio, e busca sozinho.", unknown: "Tente Austin, Miami, Nova York ou São Paulo.",
+    pilot: "Piloto de IA", scanning: "Procurando a próxima cidade…", finding: (t, c) => `Buscando ${t} em ${c}`, saving: "Analisando e salvando os melhores leads…",
     empty: "Nenhuma empresa com esse filtro.",
   } : {
     where: "City (e.g. Austin, Miami, New York)", go: "Go", tabs: ["Map", "CRM", "AI"],
     looking: "What are you looking for?", term: "dentist", distance: "Distance from the center", search: "Search",
     searching: n => `Searching… ${n} businesses`, done: km => `Done · search up to ${km} km`, found: n => `${n} businesses`,
     filters: ["All", "With email", "No website"], selected: (n, s) => `${n} of ${n} · ${s} selected`,
-    analyze: n => `Analyze and save to CRM (${n})`, saved: n => `${n} leads saved to CRM`, inCrm: "already in CRM",
-    noSite: "no website", tapHint: "Tap the map to move the circle's center.", unknown: "Try Austin, Miami, New York or São Paulo.",
+    analyze: n => `Analyze and save to CRM (${n})`, saved: n => `The AI saved ${n} leads to the CRM`, inCrm: "already in CRM",
+    noSite: "no website", tapHint: "The AI pilot picks a city and a kind of business, then searches on its own.", unknown: "Try Austin, Miami, New York or São Paulo.",
+    pilot: "AI pilot", scanning: "Looking for the next city…", finding: (t, c) => `Finding ${t} in ${c}`, saving: "Analyzing and saving the best leads…",
     empty: "No businesses with this filter.",
   };
 
@@ -102,7 +104,10 @@
       <ul class="dp-list"></ul>
       <div class="dp-foot"><button type="button" class="dp-save"></button></div>
     </aside>
-    <p class="demo-toast" role="status"></p>`;
+    <p class="demo-ai"><i></i><b></b><span></span></p>
+    <p class="demo-toast"></p>`;
+  live.inert = true;
+  live.setAttribute("aria-hidden", "true");
   root.appendChild(live);
   const $ = s => live.querySelector(s);
 
@@ -157,8 +162,10 @@
   }
 
   // The search: fly to the circle, then the businesses drop in one by one while the circle pulses.
-  function search() {
-    if (state.running) return;
+  function search(flight = 1600) {
+    if (state.running) return Promise.resolve();
+    let finish;
+    const finished = new Promise(r => { finish = r; });
     state.running = true;
     stopSpin();
     popup?.remove();
@@ -189,6 +196,7 @@
       state.running = false;
       paintStatus(state.list.length, true);
       paintList();
+      finish();
     };
     const wet = b => map.queryRenderedFeatures(map.project([b.lng, b.lat])).some(f => /water|ocean|river|lake/i.test(`${f.layer.id} ${f.sourceLayer || ""}`));
     let begun = false;
@@ -200,55 +208,80 @@
       step();
     };
     map.once("moveend", () => map.once("idle", begin));
-    map.flyTo({ center: state.center, zoom: ZOOM[state.km], duration: REDUCED ? 0 : 1600, essential: false });
-    setTimeout(begin, 4500);
+    map.flyTo({ center: state.center, zoom: ZOOM[state.km], duration: REDUCED ? 0 : flight, essential: false });
+    setTimeout(begin, flight + 2900);
+    return finished;
   }
 
-  // ---------- wiring ----------
-  $(".demo-where").addEventListener("submit", e => {
-    e.preventDefault();
-    const q = $(".demo-where input").value.trim().toLowerCase().normalize("NFC");
-    const hit = q && CITIES.find(([n]) => n.startsWith(q) || q.startsWith(n));
-    if (!hit) { toast(T.unknown); return; }
-    state.center = [hit[1], hit[2]];
-    if (map) search();
-  });
-  live.querySelectorAll(".dp-seg button").forEach(b => b.addEventListener("click", () => {
-    state.km = +b.dataset.km;
-    live.querySelectorAll(".dp-seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    paintMap();
-  }));
-  $(".dp-search").addEventListener("click", () => map && search());
-  $("#dp-term").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); map && search(); } });
-  $(".dp-chips").addEventListener("click", e => {
-    const b = e.target.closest("button");
-    if (!b) return;
-    state.filter = +b.dataset.f;
-    live.querySelectorAll(".dp-chips button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    paintList();
-  });
-  $(".dp-list").addEventListener("click", e => {
-    const li = e.target.closest("li[data-id]");
-    if (!li) return;
-    const id = +li.dataset.id;
-    if (e.target.matches("input")) { e.target.checked ? state.picked.add(id) : state.picked.delete(id); paintList(); return; }
-    openBiz(id, true);
-  });
-  $(".dp-save").addEventListener("click", () => {
-    const save = state.list.filter(b => !b.crm && (state.picked.size ? state.picked.has(b.id) : b.email));
-    save.forEach(b => { b.crm = true; });
-    state.picked.clear();
+  function save() {
+    const picked = state.list.filter(b => !b.crm && b.email);
+    picked.forEach(b => { b.crm = true; });
     paintList();
     paintMap();
-    toast(T.saved(save.length));
-  });
+    toast(T.saved(picked.length));
+  }
+
+  // ---------- the AI pilot ----------
+  // Nobody drives this demo: it loops through cities on its own, the way the real pilot works through a market.
+  const TOUR = PT
+    ? [["Miami", -80.1918, 25.7617, "dentistas", 10], ["São Paulo", -46.6333, -23.5505, "clínicas de estética", 5], ["Nova York", -73.9857, 40.7484, "telhados", 5],
+       ["Austin", -97.7431, 30.2672, "quiropraxia", 10], ["Lisboa", -9.1393, 38.7223, "restaurantes", 2], ["Chicago", -87.6298, 41.8781, "encanadores", 10]]
+    : [["Miami", -80.1918, 25.7617, "dentists", 10], ["São Paulo", -46.6333, -23.5505, "med spas", 5], ["New York", -73.9857, 40.7484, "roofing", 5],
+       ["Austin", -97.7431, 30.2672, "chiropractors", 10], ["Lisbon", -9.1393, 38.7223, "restaurants", 2], ["Chicago", -87.6298, 41.8781, "plumbers", 10]];
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(root);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const awake = () => new Promise(r => { const t = () => (visible && !document.hidden ? r() : setTimeout(t, 400)); t(); });
+  const say = (text, busy = true) => { $(".demo-ai span").textContent = text; $(".demo-ai").classList.toggle("busy", busy); };
+  async function type(el, text) {
+    el.classList.add("typing");
+    el.value = "";
+    for (const ch of text) { el.value += ch; await sleep(55 + Math.random() * 50); }
+    el.classList.remove("typing");
+  }
+  const moved = () => new Promise(r => map.once("moveend", r));
+  async function pilot(globeZoom) {
+    $(".demo-ai b").textContent = T.pilot;
+    for (let i = 0; ; i = (i + 1) % TOUR.length) {
+      const [city, lng, lat, term, km] = TOUR[i];
+      say(T.scanning);
+      spinning = true; spin();
+      await sleep(3200); await awake();
+      await type($(".demo-where input"), city);
+      await sleep(300);
+      await type($("#dp-term"), term);
+      state.km = km;
+      live.querySelectorAll(".dp-seg button").forEach(x => x.setAttribute("aria-pressed", +x.dataset.km === km));
+      $(".dp-search").classList.add("press");
+      setTimeout(() => $(".dp-search").classList.remove("press"), 300);
+      say(T.finding(term, city));
+      state.center = [lng, lat];
+      await search(3800);
+      await sleep(900); await awake();
+      // On a narrow frame a popup would cover most of the map: the pins alone tell the story there.
+      const best = $(".demo-map").clientWidth > 480 ? state.list.find(b => !b.crm && b.email) || state.list[0] : null;
+      if (best) openBiz(best.id, false);
+      await sleep(1800);
+      say(T.saving);
+      $(".dp-save").classList.add("press");
+      await sleep(350);
+      $(".dp-save").classList.remove("press");
+      save();
+      if (best) openBiz(best.id, false);
+      await sleep(2600); await awake();
+      popup?.remove();
+      say(T.scanning);
+      map.flyTo({ center: [lng + 35, Math.max(-20, Math.min(30, lat))], zoom: globeZoom, duration: 3200, essential: false });
+      await moved();
+    }
+  }
 
   // ---------- the map ----------
   let spinning = !REDUCED, raf = 0;
   const stopSpin = () => { spinning = false; cancelAnimationFrame(raf); };
   const spin = () => {
     if (!spinning || !map) return;
-    if (map.getZoom() < 3.5) { const c = map.getCenter(); map.jumpTo({ center: [c.lng - .08, c.lat] }); }
+    if (visible && map.getZoom() < 3.5) { const c = map.getCenter(); map.jumpTo({ center: [c.lng - .08, c.lat] }); }
     raf = requestAnimationFrame(spin);
   };
 
@@ -262,10 +295,8 @@
     map = new maplibregl.Map({
       // The globe keeps the same size relative to the frame, however wide the frame is.
       container: $(".demo-map"), style: STYLE, center: [-68, 14], zoom: Math.max(0, 1.9 + Math.log2(Math.min($(".demo-map").clientWidth, $(".demo-map").clientHeight) / 600)), maxZoom: 17,
-      cooperativeGestures: true, attributionControl: { compact: true }, pitchWithRotate: false, dragRotate: false,
+      interactive: false, attributionControl: { compact: true },
     });
-    map.touchZoomRotate.disableRotation();
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     map.on("style.load", () => {
       map.setProjection({ type: "globe" });
       map.setSky({ "sky-color": "#f5f5f7", "horizon-color": "#ffffff", "fog-color": "#ffffff", "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 5, 1, 7, 0] });
@@ -281,23 +312,11 @@
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 3, 8, 5, 13, 8],
         "circle-color": ["case", ["get", "crm"], "#a1a1a6", "#1d1d1f"],
         "circle-stroke-color": "#fff", "circle-stroke-width": 1.6 } });
-      map.on("mouseenter", "biz", () => { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "biz", () => { map.getCanvas().style.cursor = ""; });
-      map.on("click", e => {
-        stopSpin();
-        const hit = map.queryRenderedFeatures(e.point, { layers: ["biz"] })[0];
-        if (hit) { openBiz(hit.properties.id, false); return; }
-        if (state.running) return;
-        state.center = [e.lngLat.lng, e.lngLat.lat];
-        paintMap();
-        if (map.getZoom() < 6) map.flyTo({ center: state.center, zoom: ZOOM[state.km], duration: REDUCED ? 0 : 1800, essential: false });
-      });
-      ["dragstart", "zoomstart"].forEach(ev => map.on(ev, e => { if (e.originalEvent) stopSpin(); }));
       // Credits fold into the "i" button, as in the real app.
       live.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
       live.querySelector(".maplibregl-ctrl-attrib")?.removeAttribute("open");
       root.classList.add("ready");
-      spin();
+      if (!REDUCED) pilot(map.getZoom());
     });
   }
   // Load after the page has settled, so the map never slows the first paint.

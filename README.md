@@ -47,7 +47,7 @@ PRODUCT.md, DESIGN.md                      Audience and visual system
 
 ## Hero demo
 
-The home hero runs a small, self-contained Prospector demo (`assets/demo.js`): a MapLibre GL globe (loaded from unpkg, pinned to 5.24.0) on the free OpenFreeMap Positron style, with businesses generated in the page from the circle's center. Nothing is sent anywhere. The phone beside it is Prospector's "What the AI learned" screen in HTML, with numbers from `aiDemo` in `src/content.mjs`. The static globe screenshot under the demo shows until the map is ready, and stays if WebGL is unavailable.
+The home hero runs a small, self-contained Prospector demo (`assets/demo.js`): a MapLibre GL globe (loaded from unpkg, pinned to 5.24.0) on the free OpenFreeMap Positron style. It is not interactive: an "AI pilot" loops through the cities in `TOUR`, types the city and kind of business, dives in, drops sample businesses (generated in the page, never on water), highlights one, saves leads to the CRM and flies back out. It pauses while off screen and stays still with reduced motion. Nothing is sent anywhere. The phone beside it is Prospector's "What the AI learned" screen in HTML, with numbers from `aiDemo` in `src/content.mjs`. The static globe screenshot under the demo shows until the map is ready, and stays if WebGL is unavailable.
 
 ## Deploy (Vercel)
 

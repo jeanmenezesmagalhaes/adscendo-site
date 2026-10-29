@@ -9,7 +9,7 @@ Adscendo is the web design and development studio of Jean Menezes. English at /,
 - [Home](/): Adscendo designs and builds websites and apps that help more people find you, trust you and choose you. See our work and how we do it.
 - [Prospector](/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026.
 - [Minha companhia](/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026.
-- [Sidemed](/work/sidemed): How Sidemed, a health passport app, went from a problem at the border to a native iOS app and a new website in 2026.
+- [Sidemed](/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house.
 - [Adscendo](/work/adscendo): The story of Adscendo, the consultancy of Jean Menezes: founded on October 27, 2026 and live on October 28.
 
 ## Contact

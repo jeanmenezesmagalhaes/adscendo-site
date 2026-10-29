@@ -170,11 +170,19 @@
         } catch {}
       }
       dock.innerHTML = "";
-      if (ok) { bubble(esc(T.send), "me"); await say(esc(fill(T.sent, { name: first }))); return; }
-      await say(esc(T.failed));
+      // Either way the last word is one WhatsApp button with the summary ready: on success it is the fast
+      // lane for whoever is in a hurry; if sending failed it is how the message still reaches Jean.
       const wa = cfg.whatsapp ? `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(`${subject}\n\n${text}`)}` : "";
-      const mail = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-      dock.innerHTML = `<div class="chat-chips chat-final">${wa ? `<a class="btn" href="${wa}" target="_blank" rel="noopener">${esc(T.sendWa)}</a>` : ""}<a class="btn ${wa ? "btn--ghost" : ""}" href="${mail}">${esc(T.sendEmail)}</a></div>`;
+      const fallback = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+      if (ok) {
+        bubble(esc(T.send), "me");
+        await say(esc(fill(T.sent, { name: first })));
+        if (!wa) return;
+        await say(esc(T.hurry));
+      } else {
+        await say(esc(wa ? T.failed : T.failedMail));
+      }
+      dock.innerHTML = `<div class="chat-chips chat-final"><a class="btn" href="${wa || fallback}"${wa ? ` target="_blank" rel="noopener"` : ""}>${esc(wa ? T.sendWa : T.sendEmail)}</a></div>`;
     });
   }
 

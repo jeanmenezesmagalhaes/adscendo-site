@@ -310,9 +310,13 @@ const casePage = (lang, i) => {
     p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${p.cta === "trial" ? t.trial : t.visit}${icon("out")}</a>` : "",
     ...(p.links || []).map(l => `<a class="btn btn--ghost" href="${l.href}" target="_blank" rel="noopener">${l[lang]}${icon("out")}</a>`),
   ].filter(Boolean).join("");
+  // Title and text share a row of their own; the figure sits below it, so the sticky title can only
+  // travel alongside its own text and never across the image.
   const chapters = d.chapters.map((ch, n) => `<article class="chapter">
-        <header><p class="num">${String(n + 1).padStart(2, "0")}</p><h2>${ch.h}</h2></header>
-        <div class="text">${ch.p.map(x => `<p>${x}</p>`).join("")}${ch.list ? `<ul>${ch.list.map(([b, s]) => `<li><b>${b}</b>${s}</li>`).join("")}</ul>` : ""}</div>
+        <div class="chapter-row">
+          <header><p class="num">${String(n + 1).padStart(2, "0")}</p><h2>${ch.h}</h2></header>
+          <div class="text">${ch.p.map(x => `<p>${x}</p>`).join("")}${ch.list ? `<ul>${ch.list.map(([b, s]) => `<li><b>${b}</b>${s}</li>`).join("")}</ul>` : ""}</div>
+        </div>
         ${ch.fig ? figure(ch.fig, p, lang) : ""}
       </article>`).join("\n      ");
   return head({ lang, title: d.seoTitle || `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld, image, imageAlt: `${d.name}: ${d.tagline}` }) + nav(lang, altPath, false) + `

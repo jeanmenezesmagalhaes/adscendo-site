@@ -95,13 +95,20 @@ if (floatCta) {
   floatCta.hidden = false;
   const near = new Set();
   // It steps out of the way while you read (scrolling down) and comes back when you stop or scroll up.
-  let lastY = scrollY, idle = 0;
+  // Direction only counts after ~24px of travel the same way, so tiny or zero scroll steps (trackpad
+  // momentum) don't make it blink.
+  let lastY = scrollY, travel = 0, away = false, idle = 0;
   const show = () => {
-    floatCta.classList.toggle("on", scrollY > innerHeight * .9 && !near.size);
-    floatCta.classList.toggle("away", scrollY > lastY + 2);
+    const d = scrollY - lastY;
     lastY = scrollY;
+    if (d) travel = Math.sign(d) === Math.sign(travel) ? travel + d : d;
+    if (travel > 24) away = true;
+    else if (travel < -24) away = false;
+    floatCta.classList.toggle("on", scrollY > innerHeight * .9 && !near.size);
+    floatCta.classList.toggle("away", away);
+    if (!d) return;
     clearTimeout(idle);
-    idle = setTimeout(() => floatCta.classList.remove("away"), 900);
+    idle = setTimeout(() => { away = false; travel = 0; floatCta.classList.remove("away"); }, 1200);
   };
   const watch = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); show(); });
   document.querySelectorAll("#contact, .outro").forEach(el => watch.observe(el));

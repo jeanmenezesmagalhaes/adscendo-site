@@ -322,9 +322,9 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 .cta-line .btn { background: #fff; color: var(--ink); }
 .cta-line .btn:hover { background: var(--pressed); }
 .founder .actions-row { margin-top: 28px; gap: 20px; }
-.float-cta { position: fixed; right: 20px; bottom: 20px; z-index: 40; box-shadow: 0 10px 30px -8px rgba(0,0,0,.35); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .35s var(--ease), transform .35s var(--ease), background-color .2s; }
+.float-cta { position: fixed; right: 20px; bottom: 20px; z-index: 40; box-shadow: 0 10px 30px -8px rgba(0,0,0,.35); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .5s ease, transform .6s var(--ease), background-color .2s; }
 .float-cta.on { opacity: 1; transform: none; pointer-events: auto; }
-.float-cta.on.away { opacity: 0; transform: translateY(12px); pointer-events: none; }
+.float-cta.on.away { opacity: 0; transform: translateY(8px); pointer-events: none; }
 @media (max-width: 560px) { .float-cta { right: 16px; bottom: 16px; height: 44px; padding: 0 18px; font-size: 15px; } }
 
 /* ---------- motion ---------- */

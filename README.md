@@ -45,7 +45,9 @@ PRODUCT.md, DESIGN.md                      Audience and visual system
 - `CONFIG` at the top of `assets/site.js`: `formEndpoint` is where the contact chat's single "Send" posts its summary. It points at FormSubmit (free, no account), which emails it to the address in the URL; **the first submission sends an activation link to that inbox, and nothing is delivered until it is clicked.** If sending fails, the chat offers WhatsApp and email instead. `whatsapp` (digits only; empty = hidden), `email`.
 - `quote` in `src/content.mjs`: the contact chat's price tiers (regular price and discount %): `new` (no website yet), `redo` (has a website), `complex` (has a website with integrations). The chat's wording is in `chat`, EN and PT.
 - `founderPhoto` in `src/content.mjs`: path to Jean's photo (e.g. `/assets/jean.webp`). Empty = the cloud mark.
-- `SITE` at the top of `src/build.mjs`: the public origin (e.g. `https://adscendo.com`). Once set and rebuilt, every page gets canonical and `hreflang` links between the English and Portuguese versions.
+- `SITE` at the top of `src/build.mjs`: the public origin (e.g. `https://adscendo.com`). Once set and rebuilt, every page gets canonical and `hreflang` links between the English and Portuguese versions, `og:url` and `og:image`, and the build writes `sitemap.xml` (and points `robots.txt` at it). `robots.txt` and `llms.txt` are generated either way.
+- `seoTitle` on each project in `src/content.mjs`: the story page's `<title>` (keep it under 60 characters). Without it the title is name, tagline and "| Adscendo".
+- Share images: `assets/og/<slug>/<cover>.jpg`, a 1200px JPEG twin of each cover, used for `og:image` (the `.webp` cover is the fallback). After changing a cover, remake it: `sips -s format jpeg -s formatOptions 82 -Z 1200 assets/work/<slug>/<cover>.webp --out assets/og/<slug>/<cover>.jpg`.
 
 ## Hero demo
 

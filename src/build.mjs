@@ -1,12 +1,13 @@
 // Generates the static pages from src/content.mjs. No dependencies.
 //   node src/build.mjs
 // Output: index.html, work/<slug>/index.html, pt/index.html, pt/work/<slug>/index.html
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote } from "./content.mjs";
 
-// Public origin, e.g. "https://adscendo.com". When set, pages get canonical and hreflang links.
+// Public origin, e.g. "https://adscendo.com". When set, pages get canonical, hreflang, og:url and
+// og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -17,6 +18,13 @@ const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
 const other = lang => (lang === "en" ? "pt" : "en");
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|quot;)/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const strip = s => s.replace(/<[^>]+>/g, "");
+const abs = path => (SITE ? SITE + path : undefined);
+const hreflang = lang => (lang === "en" ? "en" : "pt-BR");
+// Share image for a cover: its JPEG twin in assets/og/ (made with sips, see README), else the cover itself.
+const ogImage = im => {
+  const jpg = im.src.replace("/assets/work/", "/assets/og/").replace(/\.webp$/, ".jpg");
+  return existsSync(join(ROOT, jpg)) ? { src: jpg, w: 1200, h: Math.round(1200 * im.h / im.w) } : im;
+};
 
 const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -28,21 +36,29 @@ const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="
 </svg>`;
 const icon = (id, cls = "") => `<svg${cls ? ` class="${cls}"` : ""} aria-hidden="true"><use href="#${id}"/></svg>`;
 
-const head = ({ lang, title, description, path, altPath, ld }) => `<!doctype html>
-<html lang="${lang === "en" ? "en" : "pt-BR"}">
+const head = ({ lang, title, description, path, altPath, ld, image, imageAlt }) => `<!doctype html>
+<html lang="${hreflang(lang)}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
+<meta property="og:site_name" content="Adscendo">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${lang === "en" ? "en_US" : "pt_BR"}">
+<meta property="og:locale:alternate" content="${lang === "en" ? "pt_BR" : "en_US"}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffffff">
-${SITE ? `<link rel="canonical" href="${SITE}${path}">
-<link rel="alternate" hreflang="${lang === "en" ? "en" : "pt-BR"}" href="${SITE}${path}">
-<link rel="alternate" hreflang="${lang === "en" ? "pt-BR" : "en"}" href="${SITE}${altPath}">
+${SITE ? `<meta property="og:url" content="${SITE}${path}">
+<meta property="og:image" content="${SITE}${image.src}">
+<meta property="og:image:width" content="${image.w}">
+<meta property="og:image:height" content="${image.h}">
+<meta property="og:image:alt" content="${esc(imageAlt)}">
+<link rel="canonical" href="${SITE}${path}">
+<link rel="alternate" hreflang="${hreflang(lang)}" href="${SITE}${path}">
+<link rel="alternate" hreflang="${hreflang(other(lang))}" href="${SITE}${altPath}">
 <link rel="alternate" hreflang="x-default" href="${SITE}${lang === "en" ? path : altPath}">
 ` : ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -142,11 +158,21 @@ const duo = (p, lang, eager) => {
 const homePage = lang => {
   const t = ui[lang], c = home[lang], path = homePath(lang), altPath = homePath(other(lang));
   const lead = projects[0];
+  const image = ogImage(cover(lead, lang));
   const ld = {
-    "@context": "https://schema.org", "@type": "ProfessionalService", name: "Adscendo", description: c.description,
-    email: contact.email, foundingDate: "2026-10-27",
-    founder: { "@type": "Person", name: "Jean Menezes", sameAs: [contact.linkedin] },
-    sameAs: [contact.instagram, contact.linkedin],
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebSite", "@id": abs("/#website"), url: abs(path), name: "Adscendo", inLanguage: ["en", "pt-BR"], publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } },
+      {
+        "@type": "ProfessionalService", "@id": abs("/#org"), name: "Adscendo", url: abs("/"), description: c.description,
+        logo: abs("/favicon.svg"), image: abs(image.src),
+        email: contact.email, foundingDate: "2026-10-27",
+        areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
+        knowsLanguage: ["en", "pt-BR"],
+        founder: { "@type": "Person", name: "Jean Menezes", image: founderPhoto ? abs(founderPhoto) : undefined, sameAs: [contact.linkedin] },
+        sameAs: [contact.instagram, contact.linkedin],
+      },
+    ],
   };
   // The whole card opens the story (the story link stretches over it); the CTA button sits above that layer.
   const projectsList = projects.filter(p => p.inWork !== false).map(p => {
@@ -163,7 +189,7 @@ const homePage = lang => {
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
   const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
-  return head({ lang, title: c.title, description: c.description, path, altPath, ld }) + nav(lang, altPath, true) + `
+  return head({ lang, title: c.title, description: c.description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath, true) + `
 <main id="main">
   <section class="hero wrap">
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
@@ -269,7 +295,17 @@ const casePage = (lang, i) => {
   const p = projects[i], d = p[lang], t = ui[lang];
   const path = casePath(lang, p.slug), altPath = casePath(other(lang), p.slug);
   const next = projects[(i + 1) % projects.length];
-  const ld = { "@context": "https://schema.org", "@type": "CreativeWork", name: d.name, description: d.description, inLanguage: lang === "en" ? "en" : "pt-BR", creator: { "@type": "Organization", name: "Adscendo" }, ...(p.url ? { url: p.url } : {}) };
+  const image = ogImage(cover(p, lang));
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "CreativeWork", name: d.name, headline: d.tagline, description: d.description, inLanguage: hreflang(lang), image: abs(image.src), creator: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") }, ...(p.url ? { url: p.url } : {}) },
+      ...(SITE ? [{ "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+      ] }] : []),
+    ],
+  };
   const actions = [
     p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${p.cta === "trial" ? t.trial : t.visit}${icon("out")}</a>` : "",
     ...(p.links || []).map(l => `<a class="btn btn--ghost" href="${l.href}" target="_blank" rel="noopener">${l[lang]}${icon("out")}</a>`),
@@ -279,7 +315,7 @@ const casePage = (lang, i) => {
         <div class="text">${ch.p.map(x => `<p>${x}</p>`).join("")}${ch.list ? `<ul>${ch.list.map(([b, s]) => `<li><b>${b}</b>${s}</li>`).join("")}</ul>` : ""}</div>
         ${ch.fig ? figure(ch.fig, p, lang) : ""}
       </article>`).join("\n      ");
-  return head({ lang, title: `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld }) + nav(lang, altPath, false) + `
+  return head({ lang, title: d.seoTitle || `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld, image, imageAlt: `${d.name}: ${d.tagline}` }) + nav(lang, altPath, false) + `
 <main id="main">
   <section class="case-head wrap">
     <a class="back" href="${homePath(lang)}#work">${icon("arrow")}${t.back}</a>
@@ -322,3 +358,35 @@ for (const lang of LANGS) {
   write(`${prefix}index.html`, homePage(lang));
   projects.forEach((p, i) => write(`${prefix}work/${p.slug}/index.html`, casePage(lang, i)));
 }
+
+// Every page as [en path, pt path], for the sitemap and llms.txt.
+const pairs = [["/", "/pt"], ...projects.map(p => [casePath("en", p.slug), casePath("pt", p.slug)])];
+
+write("robots.txt", `User-agent: *\nAllow: /\n${SITE ? `\nSitemap: ${SITE}/sitemap.xml\n` : ""}`);
+
+if (SITE) {
+  const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
+  write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${pairs.flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc>${alts(pair)}</url>`)).join("\n")}
+</urlset>
+`);
+}
+
+// A plain summary for AI assistants and search agents (llmstxt.org).
+write("llms.txt", `# Adscendo
+
+> ${strip(home.en.description)}
+
+Adscendo is the web design and development studio of Jean Menezes. English at /, Portuguese at /pt.
+
+## Pages
+
+${pairs.map(([en], i) => i ? `- [${projects[i - 1].en.name}](${SITE}${en}): ${projects[i - 1].en.description}` : `- [Home](${SITE}${en}): ${strip(home.en.description)}`).join("\n")}
+
+## Contact
+
+- Email: ${contact.email}
+- LinkedIn: ${contact.linkedin}
+- Instagram: ${contact.instagram}
+`);

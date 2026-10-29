@@ -10,8 +10,8 @@ export const contact = {
 
 export const ui = {
   en: {
-    nav: { work: "Work", story: "Our year", about: "About", cta: "Get in touch" },
-    other: "Português", otherShort: "PT",
+    nav: { services: "Services", work: "Portfolio", process: "How we work", about: "About", cta: "Get in touch" },
+    other: "Português", otherShort: "PT", switchTo: "Mudar para português",
     skip: "Skip to content",
     readStory: "Read the full story",
     back: "All work",
@@ -25,8 +25,8 @@ export const ui = {
     backTop: "Back to top",
   },
   pt: {
-    nav: { work: "Trabalhos", story: "Nosso ano", about: "Sobre", cta: "Fale com a gente" },
-    other: "English", otherShort: "EN",
+    nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
+    other: "English", otherShort: "EN", switchTo: "Switch to English",
     skip: "Pular para o conteúdo",
     readStory: "Ler a história completa",
     back: "Todos os trabalhos",
@@ -54,8 +54,7 @@ export const home = {
     ctaTalk: "Start a project",
     hostHero: "adscendo-prospector.vercel.app",
     demoLabel: "Live demo",
-    demoText: "<strong>This is Prospector, a product we built.</strong> It finds businesses on the map, checks each website and writes the first email. Below, its AI pilot is working on its own, with sample data.",
-    demoLink: "See how it works",
+    demoText: "<strong>This is Prospector, a product we built.</strong> It finds new clients for you on the map, so you spend your time closing deals instead of searching for them. Below, its AI pilot at work, with sample data.",
     warmthTitle: "Brazilian warmth. American standards.",
     warmthLede: "We bring Brazil's creativity and human touch to American businesses: work that feels close and full of life, delivered the way you expect.",
     processTitle: "How we work.",
@@ -98,8 +97,7 @@ export const home = {
     ctaTalk: "Começar um projeto",
     hostHero: "adscendo-prospector.vercel.app",
     demoLabel: "Demonstração ao vivo",
-    demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra empresas no mapa, analisa cada site e escreve o primeiro email. Abaixo, o piloto de IA dele trabalha sozinho, com dados de exemplo.",
-    demoLink: "Veja como funciona",
+    demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles. Abaixo, o piloto de IA dele trabalhando, com dados de exemplo.",
     warmthTitle: "Calor brasileiro. Padrão americano.",
     warmthLede: "Levamos a criatividade e o calor humano do Brasil para empresas americanas: um trabalho próximo, cheio de vida, entregue do jeito que elas esperam.",
     processTitle: "Como trabalhamos.",

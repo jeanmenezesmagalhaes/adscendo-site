@@ -81,7 +81,7 @@ export const home = {
     aboutTitle: "A new studio. Not new to the work.",
     about: [
       "Adscendo was founded by <strong>Jean Menezes</strong>, after years designing and building digital products for enterprise companies.",
-      "Today we bring that same standard to businesses like yours. We work side by side with you to design and build a website or app that shows who you are and earns your customers' trust.",
+      "Today we bring that same standard to businesses like yours. Side by side with you, we build a presence that shows who you are and earns your customers' trust.",
     ],
     sigRole: "Founder. Born in Brazil, built to operate globally.",
     contactTitle: "You imagine it. We build it.",
@@ -124,7 +124,7 @@ export const home = {
     aboutTitle: "Um estúdio novo. Um trabalho antigo.",
     about: [
       "A Adscendo foi fundada por <strong>Jean Menezes</strong>, depois de anos desenhando e construindo produtos digitais para empresas de grande porte.",
-      "Hoje levamos esse mesmo padrão para negócios como o seu. Trabalhamos lado a lado com você para desenhar e construir um site ou app que mostra quem você é e passa confiança para os seus clientes.",
+      "Hoje levamos esse mesmo padrão para negócios como o seu. Lado a lado com você, construímos uma presença que mostra quem você é e conquista a confiança dos seus clientes.",
     ],
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
     contactTitle: "Você imagina. A gente constrói.",

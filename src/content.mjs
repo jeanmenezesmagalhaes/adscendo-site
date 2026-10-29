@@ -381,7 +381,8 @@ export const projects = [
     ctaUrl: "https://www.sidemed.com.br/app",
     url: "https://www.sidemed.com.br/",
     host: "sidemed.com.br",
-    cover: img("sidemed/site-problem.webp", 1440, 900),
+    cover: img("sidemed/hero.webp", 1600, 1000),
+    coverPt: img("sidemed/hero.pt.webp", 1600, 1000),
     phoneBar: "#faf7f0",
     coverPhone: img("sidemed/site-m.webp", 780, 1688),
     links: [

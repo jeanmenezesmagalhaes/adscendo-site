@@ -144,23 +144,18 @@
           <a href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
           <a href="https://www.instagram.com/adscendo.consult/" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
         </div>
-      <form class="form" id="contact-form" novalidate>
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="f-co">Business <small>optional</small></label><input id="f-co" name="company" autocomplete="organization"></div>
-        <div class="field"><label for="f-need">What do you need?</label><select id="f-need" name="need"><option>A website</option><option>An app</option><option>Not sure yet</option></select></div>
-        <div class="field full"><label for="f-msg">Tell us about it</label><textarea id="f-msg" name="message" placeholder="What does your business do, and what would you like to improve?" required></textarea></div>
-        <div class="actions"><button class="btn" type="submit">Send</button><p class="status" id="form-status" role="status"></p></div>
-      </form>
+      <div class="chat" data-chat><noscript><p class="chat-noscript">jeanmenezesmagalhaes@icloud.com</p></noscript></div>
+      <script type="application/json" id="chat-data">{"copy":{"title":"Project chat","status":"Takes less than a minute","greet":"Hi! Let's see what we can build for you.","askName":"What's your name?","namePh":"Your name","askSite":"Nice to meet you, {name}. Do you already have a website?","yes":"Yes","no":"No","notSure":"Not sure","skip":"Skip","askLink":"Great. What's the address?","linkPh":"yourbusiness.com","askTools":"Does it connect to other tools, like online booking, payments or a CRM?","estimate":"Here's a first estimate:","tiers":{"new":"A new website, from scratch","redo":"A new version of your website","complex":"A new website, with your integrations"},"off":"{p}% off","launch":"launch discount","fine":"Final price after a quick call.","maybeMore":"If it connects to other tools, it starts at {price}.","askEmail":"Where should we send the details?","emailPh":"you@yourbusiness.com","askPhone":"And a WhatsApp number, if you'd rather chat there?","phonePh":"+1 555 123 4567","askMore":"Anything else we should know? A goal, a deadline, an idea.","morePh":"Optional","done":"Thanks, {name}! Send it the way you prefer and Jean will reply personally.","sent":"Got it, {name}. Jean will reply personally, soon.","sendWa":"Send on WhatsApp","sendEmail":"Send by email","restart":"Start over","send":"Send","bad":{"name":"Just your name, please.","link":"That address doesn't look right.","email":"That email doesn't look right.","phone":"Use digits, with the country code."},"labels":{"name":"Name","site":"Website","tools":"Integrations","estimate":"Estimate","email":"Email","phone":"WhatsApp","notes":"Notes","none":"None yet"},"subject":"New project: {name}"},"quote":{"new":{"regular":800,"off":50},"redo":{"regular":1200,"off":30},"complex":{"regular":2000,"off":5}},"locale":"en-US"}</script>
       </div>
     </div>
   </section>
 </main>
 <script src="/assets/demo.js" defer></script>
+<script src="/assets/chat.js" defer></script>
 <a class="btn float-cta" href="#contact" hidden>Get in touch</a>
 <footer class="outro">
   <div class="outro-pin">
-    <a class="outro-sign" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></a>
+    <p class="outro-sign" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
     <div class="outro-meta wrap">
       <p class="outro-line">From complexity to forward motion.</p>
       <nav class="outro-links">

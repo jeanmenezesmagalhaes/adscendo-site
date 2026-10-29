@@ -144,23 +144,18 @@
           <a href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
           <a href="https://www.instagram.com/adscendo.consult/" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
         </div>
-      <form class="form" id="contact-form" novalidate>
-        <div class="field"><label for="f-name">Nome</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="f-co">Empresa <small>opcional</small></label><input id="f-co" name="company" autocomplete="organization"></div>
-        <div class="field"><label for="f-need">Do que você precisa?</label><select id="f-need" name="need"><option>Um site</option><option>Um app</option><option>Ainda não sei</option></select></div>
-        <div class="field full"><label for="f-msg">Conte mais</label><textarea id="f-msg" name="message" placeholder="O que seu negócio faz, e o que você gostaria de melhorar?" required></textarea></div>
-        <div class="actions"><button class="btn" type="submit">Enviar</button><p class="status" id="form-status" role="status"></p></div>
-      </form>
+      <div class="chat" data-chat><noscript><p class="chat-noscript">jeanmenezesmagalhaes@icloud.com</p></noscript></div>
+      <script type="application/json" id="chat-data">{"copy":{"title":"Conversa sobre o projeto","status":"Leva menos de um minuto","greet":"Oi! Vamos ver o que podemos construir para você.","askName":"Qual é o seu nome?","namePh":"Seu nome","askSite":"Prazer, {name}. Você já tem um site?","yes":"Sim","no":"Não","notSure":"Não sei","skip":"Pular","askLink":"Ótimo. Qual é o endereço?","linkPh":"seunegocio.com.br","askTools":"Ele se conecta com outras ferramentas, como agendamento online, pagamentos ou um CRM?","estimate":"Aqui vai uma primeira estimativa:","tiers":{"new":"Um site novo, do zero","redo":"Uma nova versão do seu site","complex":"Um site novo, com as suas integrações"},"off":"{p}% de desconto","launch":"desconto de lançamento","fine":"O valor final sai depois de uma conversa rápida.","maybeMore":"Se ele se conectar com outras ferramentas, começa em {price}.","askEmail":"Para onde mandamos os detalhes?","emailPh":"voce@seunegocio.com.br","askPhone":"E um WhatsApp, se preferir conversar por lá?","phonePh":"+55 11 91234-5678","askMore":"Mais alguma coisa que devemos saber? Um objetivo, um prazo, uma ideia.","morePh":"Opcional","done":"Obrigado, {name}! Envie do jeito que preferir e o Jean responde pessoalmente.","sent":"Recebido, {name}. O Jean responde pessoalmente, em breve.","sendWa":"Enviar pelo WhatsApp","sendEmail":"Enviar por email","restart":"Recomeçar","send":"Enviar","bad":{"name":"Só o seu nome, por favor.","link":"Esse endereço não parece certo.","email":"Esse email não parece certo.","phone":"Use números, com o código do país."},"labels":{"name":"Nome","site":"Site","tools":"Integrações","estimate":"Estimativa","email":"Email","phone":"WhatsApp","notes":"Observações","none":"Ainda não tem"},"subject":"Novo projeto: {name}"},"quote":{"new":{"regular":800,"off":50},"redo":{"regular":1200,"off":30},"complex":{"regular":2000,"off":5}},"locale":"pt-BR"}</script>
       </div>
     </div>
   </section>
 </main>
 <script src="/assets/demo.js" defer></script>
+<script src="/assets/chat.js" defer></script>
 <a class="btn float-cta" href="/pt#contact" hidden>Fale com a gente</a>
 <footer class="outro">
   <div class="outro-pin">
-    <a class="outro-sign" href="/pt" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></a>
+    <p class="outro-sign" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
     <div class="outro-meta wrap">
       <p class="outro-line">Da complexidade ao movimento.</p>
       <nav class="outro-links">

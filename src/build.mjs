@@ -4,7 +4,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote } from "./content.mjs";
 
 // Public origin, e.g. "https://adscendo.com". When set, pages get canonical and hreflang links.
 const SITE = "";
@@ -80,7 +80,7 @@ const footer = (lang, altPath) => {
   return `<a class="btn float-cta" href="${h === "/" ? "" : h}#contact" hidden>${t.nav.cta}</a>
 <footer class="outro">
   <div class="outro-pin">
-    <a class="outro-sign" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></a>
+    <p class="outro-sign" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
     <div class="outro-meta wrap">
       <p class="outro-line">${t.footer}</p>
       <nav class="outro-links">
@@ -163,7 +163,6 @@ const homePage = lang => {
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
   const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
-  const f = c.form;
   return head({ lang, title: c.title, description: c.description, path, altPath, ld }) + nav(lang, altPath, true) + `
 <main id="main">
   <section class="hero wrap">
@@ -245,19 +244,14 @@ const homePage = lang => {
           <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
           <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
         </div>
-      <form class="form" id="contact-form" novalidate>
-        <div class="field"><label for="f-name">${f.name}</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-email">${f.email}</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="f-co">${f.company} <small>${f.optional}</small></label><input id="f-co" name="company" autocomplete="organization"></div>
-        <div class="field"><label for="f-need">${f.need}</label><select id="f-need" name="need">${f.needs.map(n => `<option>${n}</option>`).join("")}</select></div>
-        <div class="field full"><label for="f-msg">${f.msg}</label><textarea id="f-msg" name="message" placeholder="${esc(f.msgPh)}" required></textarea></div>
-        <div class="actions"><button class="btn" type="submit">${f.send}</button><p class="status" id="form-status" role="status"></p></div>
-      </form>
+      <div class="chat" data-chat><noscript><p class="chat-noscript">${contact.email}</p></noscript></div>
+      <script type="application/json" id="chat-data">${JSON.stringify({ copy: chat[lang], quote, locale: lang === "en" ? "en-US" : "pt-BR" }).replace(/</g, "\\u003c")}</script>
       </div>
     </div>
   </section>
 </main>
 <script src="/assets/demo.js" defer></script>
+<script src="/assets/chat.js" defer></script>
 ` + footer(lang, altPath);
 };
 

@@ -86,7 +86,6 @@ export const home = {
     sigRole: "Founder. Born in Brazil, built to operate globally.",
     contactTitle: "You imagine it. We build it.",
     contactLede: "Tell us about your business and what you have in mind. We design it, build it and put it live.",
-    form: { name: "Name", email: "Email", company: "Business", optional: "optional", need: "What do you need?", needs: ["A website", "An app", "Not sure yet"], msg: "Tell us about it", msgPh: "What does your business do, and what would you like to improve?", send: "Send" },
   },
   pt: {
     title: "Adscendo. Sites e apps que fazem seu negócio ser visto",
@@ -129,7 +128,6 @@ export const home = {
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
     contactTitle: "Você imagina. A gente constrói.",
     contactLede: "Conte sobre seu negócio e o que você tem em mente. A gente desenha, constrói e coloca no ar.",
-    form: { name: "Nome", email: "Email", company: "Empresa", optional: "opcional", need: "Do que você precisa?", needs: ["Um site", "Um app", "Ainda não sei"], msg: "Conte mais", msgPh: "O que seu negócio faz, e o que você gostaria de melhorar?", send: "Enviar" },
   },
 };
 
@@ -160,6 +158,62 @@ export const aiDemo = {
     whoTitle: "Quem responde mais",
     who: [["Clínicas de estética", 26], ["Dentistas", 19], ["Quiropraxia", 12], ["Telhados", 8]],
     note: "Dados de exemplo",
+  },
+};
+
+// The contact chat: a short scripted conversation (no AI) that ends with a first estimate and a message
+// ready to send on WhatsApp or by email. Prices in US dollars: regular price and launch discount (%).
+export const quote = {
+  new: { regular: 800, off: 50 },      // no website yet: built from scratch
+  redo: { regular: 1200, off: 30 },    // has a website, no integrations: we already have most of the content
+  complex: { regular: 2000, off: 5 },  // has a website that connects to other tools
+};
+export const chat = {
+  en: {
+    title: "Project chat", status: "Takes less than a minute",
+    greet: "Hi! Let's see what we can build for you.",
+    askName: "What's your name?", namePh: "Your name",
+    askSite: "Nice to meet you, {name}. Do you already have a website?",
+    yes: "Yes", no: "No", notSure: "Not sure", skip: "Skip",
+    askLink: "Great. What's the address?", linkPh: "yourbusiness.com",
+    askTools: "Does it connect to other tools, like online booking, payments or a CRM?",
+    estimate: "Here's a first estimate:",
+    tiers: { new: "A new website, from scratch", redo: "A new version of your website", complex: "A new website, with your integrations" },
+    off: "{p}% off", launch: "launch discount",
+    fine: "Final price after a quick call.",
+    maybeMore: "If it connects to other tools, it starts at {price}.",
+    askEmail: "Where should we send the details?", emailPh: "you@yourbusiness.com",
+    askPhone: "And a WhatsApp number, if you'd rather chat there?", phonePh: "+1 555 123 4567",
+    askMore: "Anything else we should know? A goal, a deadline, an idea.", morePh: "Optional",
+    done: "Thanks, {name}! Send it the way you prefer and Jean will reply personally.",
+    sent: "Got it, {name}. Jean will reply personally, soon.",
+    sendWa: "Send on WhatsApp", sendEmail: "Send by email", restart: "Start over", send: "Send",
+    bad: { name: "Just your name, please.", link: "That address doesn't look right.", email: "That email doesn't look right.", phone: "Use digits, with the country code." },
+    labels: { name: "Name", site: "Website", tools: "Integrations", estimate: "Estimate", email: "Email", phone: "WhatsApp", notes: "Notes", none: "None yet" },
+    subject: "New project: {name}",
+  },
+  pt: {
+    title: "Conversa sobre o projeto", status: "Leva menos de um minuto",
+    greet: "Oi! Vamos ver o que podemos construir para você.",
+    askName: "Qual é o seu nome?", namePh: "Seu nome",
+    askSite: "Prazer, {name}. Você já tem um site?",
+    yes: "Sim", no: "Não", notSure: "Não sei", skip: "Pular",
+    askLink: "Ótimo. Qual é o endereço?", linkPh: "seunegocio.com.br",
+    askTools: "Ele se conecta com outras ferramentas, como agendamento online, pagamentos ou um CRM?",
+    estimate: "Aqui vai uma primeira estimativa:",
+    tiers: { new: "Um site novo, do zero", redo: "Uma nova versão do seu site", complex: "Um site novo, com as suas integrações" },
+    off: "{p}% de desconto", launch: "desconto de lançamento",
+    fine: "O valor final sai depois de uma conversa rápida.",
+    maybeMore: "Se ele se conectar com outras ferramentas, começa em {price}.",
+    askEmail: "Para onde mandamos os detalhes?", emailPh: "voce@seunegocio.com.br",
+    askPhone: "E um WhatsApp, se preferir conversar por lá?", phonePh: "+55 11 91234-5678",
+    askMore: "Mais alguma coisa que devemos saber? Um objetivo, um prazo, uma ideia.", morePh: "Opcional",
+    done: "Obrigado, {name}! Envie do jeito que preferir e o Jean responde pessoalmente.",
+    sent: "Recebido, {name}. O Jean responde pessoalmente, em breve.",
+    sendWa: "Enviar pelo WhatsApp", sendEmail: "Enviar por email", restart: "Recomeçar", send: "Enviar",
+    bad: { name: "Só o seu nome, por favor.", link: "Esse endereço não parece certo.", email: "Esse email não parece certo.", phone: "Use números, com o código do país." },
+    labels: { name: "Nome", site: "Site", tools: "Integrações", estimate: "Estimativa", email: "Email", phone: "WhatsApp", notes: "Observações", none: "Ainda não tem" },
+    subject: "Novo projeto: {name}",
   },
 };
 

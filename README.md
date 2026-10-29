@@ -33,6 +33,7 @@ src/content.mjs                            All copy, EN and PT
 src/build.mjs                              Page templates and generator
 assets/site.css, assets/site.js            Shared styles and script
 assets/demo.js                             Live Prospector demo in the home hero (sample data only)
+assets/chat.js                             Contact chat: scripted questions, first estimate, send on WhatsApp/email
 assets/work/                               Project screenshots (.webp)
 favicon.svg
 vercel.json                                Clean URLs, screenshot cache, basic headers
@@ -41,7 +42,8 @@ PRODUCT.md, DESIGN.md                      Audience and visual system
 
 ## Configuration
 
-- `CONFIG` at the top of `assets/site.js`: `formEndpoint` (Formspree or similar; empty = the form opens the visitor's email app), `whatsapp` (digits only; empty = hidden), `email`.
+- `CONFIG` at the top of `assets/site.js`: `formEndpoint` (Formspree or similar; when set, the contact chat posts its summary there; empty = the chat ends with "Send on WhatsApp" and "Send by email"), `whatsapp` (digits only; empty = hidden), `email`.
+- `quote` in `src/content.mjs`: the contact chat's price tiers (regular price and discount %): `new` (no website yet), `redo` (has a website), `complex` (has a website with integrations). The chat's wording is in `chat`, EN and PT.
 - `founderPhoto` in `src/content.mjs`: path to Jean's photo (e.g. `/assets/jean.webp`). Empty = the cloud mark.
 - `SITE` at the top of `src/build.mjs`: the public origin (e.g. `https://adscendo.com`). Once set and rebuilt, every page gets canonical and `hreflang` links between the English and Portuguese versions.
 

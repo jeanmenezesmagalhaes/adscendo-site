@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://adscendo-site.vercel.app/sitemap.xml

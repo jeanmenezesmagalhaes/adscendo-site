@@ -1,0 +1,505 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T12:57:28Z",
+  "title": "Design System: Adscendo",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink",
+        "canonical": "#1d1d1f",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "pure-black": {
+        "role": "primary",
+        "displayName": "Pure Black",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "#000000",
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#ffffff"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#f5f5f7",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#424245",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#424245",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "muted-gray": {
+        "role": "neutral",
+        "displayName": "Muted Gray",
+        "canonical": "#6e6e73",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "faint-gray": {
+        "role": "neutral",
+        "displayName": "Faint Gray",
+        "canonical": "#737378",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Field Line",
+        "canonical": "#d2d2d7",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "pressed-mist": {
+        "role": "neutral",
+        "displayName": "Pressed Mist",
+        "canonical": "#e8e8ed",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#3a3a3c",
+          "#6e6e73",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#e8e8ed",
+          "#f5f5f7",
+          "#ffffff"
+        ]
+      },
+      "dark-raised": {
+        "role": "neutral",
+        "displayName": "Dark Raised",
+        "canonical": "#2c2c2e",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "dark-edge": {
+        "role": "neutral",
+        "displayName": "Dark Edge",
+        "canonical": "#3a3a3c",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Dark Muted",
+        "canonical": "#86868b",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "dark-secondary": {
+        "role": "neutral",
+        "displayName": "Dark Secondary",
+        "canonical": "#a1a1a6",
+        "tonalRamp": [
+          "#1d1d1f",
+          "#2c2c2e",
+          "#3a3a3c",
+          "#6e6e73",
+          "#86868b",
+          "#a1a1a6",
+          "#d2d2d7",
+          "#f5f5f7"
+        ]
+      },
+      "error-red": {
+        "role": "error",
+        "displayName": "Error Red",
+        "canonical": "#c4302b",
+        "tonalRamp": [
+          "#3d0f0d",
+          "#5f1815",
+          "#82211d",
+          "#a52925",
+          "#c4302b",
+          "#dc6460",
+          "#ec9e9b",
+          "#f8dad9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only; two-tone, ink line then faint-gray line."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "The price figure; superscript currency at .32em; tabular figures."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings, written as statements ending in a period."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Tile headings, project names, compare heading; process step titles run to 56px at line-height 1."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "One graphite sentence under a headline, ~36ch."
+      },
+      "body-large": {
+        "displayName": "Body Large",
+        "purpose": "Tile, step, founder and offer-row copy."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default text."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Pill button labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, segmented options, small buttons; nav links and fine print use 13px at 400."
+      }
+    },
+    "shadows": [
+      {
+        "name": "device-browser",
+        "value": "0 30px 80px -20px rgba(0,0,0,.25), 0 10px 30px -10px rgba(0,0,0,.12)",
+        "purpose": "Desktop browser frame holding the before/after."
+      },
+      {
+        "name": "device-phone",
+        "value": "0 30px 70px -20px rgba(0,0,0,.35)",
+        "purpose": "Mobile phone frame."
+      },
+      {
+        "name": "wipe-line",
+        "value": "0 0 0 1px rgba(0,0,0,.12), 0 0 24px rgba(0,0,0,.25)",
+        "purpose": "Before/after divider line, inside the device only."
+      },
+      {
+        "name": "wipe-knob",
+        "value": "0 4px 16px rgba(0,0,0,.25)",
+        "purpose": "36px round knob on the divider."
+      },
+      {
+        "name": "mini-edge",
+        "value": "inset 0 0 0 1px rgba(0,0,0,.06)",
+        "purpose": "Edge on mini phone-screen illustrations."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px rgba(29,29,31,.12)",
+        "purpose": "Form field focus halo; state only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-house",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Every transition and the rise."
+      },
+      {
+        "name": "rise",
+        "value": "opacity 0 -> 1, translateY(24px) -> 0, 900ms, stagger 80ms (max 6 steps)",
+        "purpose": "Section parts entering view via IntersectionObserver; gated on html.js so content shows without script."
+      },
+      {
+        "name": "hero-load",
+        "value": "from opacity .35, translateY(10px), 1s; delays 0/80/160/200ms",
+        "purpose": "Hero headline, sub, form, fine print on load."
+      },
+      {
+        "name": "button-state",
+        "value": "background-color 200ms; active scale(.98)",
+        "purpose": "Pill buttons."
+      },
+      {
+        "name": "segmented-state",
+        "value": "background-color 250ms",
+        "purpose": "Before/After control."
+      },
+      {
+        "name": "nav-theme",
+        "value": "background-color 300ms",
+        "purpose": "Nav light/dark switch over the black band."
+      },
+      {
+        "name": "mini-lift",
+        "value": "translateY(-4px), 350ms",
+        "purpose": "Mini screen hover."
+      },
+      {
+        "name": "wipe",
+        "value": "clip-path inset driven by scroll; progress mapped 18%-78% of pinned span, ease-out cubic",
+        "purpose": "Signature before/after reveal; reduced motion unpins and switches instantly."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "form-stack",
+        "value": "560px"
+      },
+      {
+        "name": "hero-stack",
+        "value": "640px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "720px"
+      },
+      {
+        "name": "device-phone",
+        "value": "760px"
+      },
+      {
+        "name": "price-stack",
+        "value": "820px"
+      },
+      {
+        "name": "grid-stack",
+        "value": "860px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Black pill for the single next step on light grounds.",
+      "html": "<button class=\"ds-btn\">Get a free concept</button>",
+      "css": ".ds-btn { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1d1d1f; color: #fff; font-size: 16px; font-weight: 500; line-height: 1; letter-spacing: -0.01em; cursor: pointer; transition: background-color .2s cubic-bezier(.16,1,.3,1), transform .2s cubic-bezier(.16,1,.3,1); } .ds-btn:hover { background: #000; } .ds-btn:active { transform: scale(.98); } .ds-btn:focus-visible { outline: 2px solid #1d1d1f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Light Button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "White pill on the black offer band.",
+      "html": "<div class=\"ds-dark\"><button class=\"ds-btn-light\">Claim a spot</button></div>",
+      "css": ".ds-dark { background: #000; padding: 32px; } .ds-btn-light { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #fff; color: #1d1d1f; font-size: 16px; font-weight: 500; letter-spacing: -0.01em; cursor: pointer; transition: background-color .2s cubic-bezier(.16,1,.3,1); } .ds-btn-light:hover { background: #e8e8ed; }"
+    },
+    {
+      "name": "Hero Quick Form",
+      "kind": "input",
+      "refersTo": "quick-form",
+      "description": "Mist pill trough with two white pill inputs and a black pill.",
+      "html": "<form class=\"ds-quick\"><input class=\"ds-quick-in\" placeholder=\"yourbusiness.com\"><input class=\"ds-quick-in\" placeholder=\"you@yourbusiness.com\"><button class=\"ds-quick-btn\" type=\"button\">Get a free concept</button></form>",
+      "css": ".ds-quick { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; padding: 8px; background: #f5f5f7; border-radius: 999px; max-width: 640px; } .ds-quick-in { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; min-width: 0; height: 48px; border: 0; border-radius: 999px; padding: 0 20px; background: #fff; color: #1d1d1f; font-size: 16px; } .ds-quick-in::placeholder { color: #737378; } .ds-quick-in:focus-visible { outline: 2px solid #1d1d1f; outline-offset: 0; } .ds-quick-btn { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1d1d1f; color: #fff; font-size: 16px; font-weight: 500; cursor: pointer; } .ds-quick-btn:hover { background: #000; }"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Labelled field; the only place the #d2d2d7 line appears in chrome.",
+      "html": "<label class=\"ds-field\"><span>Email</span><input class=\"ds-input\" type=\"email\"></label>",
+      "css": ".ds-field { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; display: grid; gap: 6px; max-width: 320px; } .ds-field span { font-size: 13px; font-weight: 500; color: #1d1d1f; } .ds-input { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; color: #1d1d1f; font-size: 16px; padding: 13px 14px; transition: border-color .2s; } .ds-input:hover { border-color: #737378; } .ds-input:focus-visible { outline: none; border-color: #1d1d1f; box-shadow: 0 0 0 3px rgba(29,29,31,.12); } .ds-input:user-invalid { border-color: #c4302b; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "button-small",
+      "description": "Sticky translucent bar; turns dark over the black band.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\"><svg viewBox=\"0 0 48 32\" width=\"30\" height=\"20\"><path d=\"M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Adscendo.</a><span class=\"ds-links\"><a>What we build</a><a>Offer</a><a>Process</a></span><a class=\"ds-nav-btn\">Get a free concept</a></nav>",
+      "css": ".ds-nav { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; background: rgba(255,255,255,.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); color: #1d1d1f; } .ds-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 500; letter-spacing: -0.03em; } .ds-links { display: flex; gap: 28px; font-size: 13px; color: #6e6e73; } .ds-links a { cursor: pointer; transition: color .2s; } .ds-links a:hover { color: #1d1d1f; } .ds-nav-btn { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: #1d1d1f; color: #fff; font-size: 13px; font-weight: 500; cursor: pointer; } .ds-nav-btn:hover { background: #000; }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segmented",
+      "description": "Before/After toggle; ink fill marks the active option.",
+      "html": "<div class=\"ds-seg\"><button class=\"ds-seg-o\" aria-pressed=\"true\">Before</button><button class=\"ds-seg-o\" aria-pressed=\"false\">After</button></div>",
+      "css": ".ds-seg { display: inline-flex; gap: 6px; padding: 4px; background: #f5f5f7; border-radius: 999px; } .ds-seg-o { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; height: 32px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #6e6e73; font-size: 13px; font-weight: 500; cursor: pointer; transition: background-color .25s cubic-bezier(.16,1,.3,1), color .25s; } .ds-seg-o[aria-pressed=\"true\"] { background: #1d1d1f; color: #fff; } .ds-seg-o:focus-visible { outline: 2px solid #1d1d1f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tile Pair",
+      "kind": "card",
+      "refersTo": "tile-light",
+      "description": "White and ink tiles on a mist band, with capability chips at the foot.",
+      "html": "<div class=\"ds-band\"><article class=\"ds-tile\"><h3>Websites</h3><p>Fast, beautiful sites that make people call, book, or stop by.</p><ul><li>Online booking</li><li>Menus</li></ul></article><article class=\"ds-tile ds-tile-dark\"><h3>Internal systems</h3><p>Replace the spreadsheets and group chats that run your day.</p><ul><li>Scheduling</li><li>Dashboards</li></ul></article></div>",
+      "css": ".ds-band { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; background: #f5f5f7; padding: 32px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; } .ds-tile { background: #fff; color: #1d1d1f; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; } .ds-tile h3 { margin: 0; font-size: 36px; font-weight: 600; line-height: 1.08; letter-spacing: -0.035em; } .ds-tile p { margin: 14px 0 0; font-size: 19px; color: #424245; max-width: 30ch; } .ds-tile ul { margin: 0; padding: 32px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; } .ds-tile li { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: #f5f5f7; } .ds-tile-dark { background: #1d1d1f; color: #f5f5f7; } .ds-tile-dark p { color: #a1a1a6; } .ds-tile-dark li { background: #2c2c2e; color: #f5f5f7; }"
+    },
+    {
+      "name": "Offer List Rows",
+      "kind": "card",
+      "refersTo": "list-row-dark",
+      "description": "Ink rows on the black band, grouped by 6px gaps, never divided by lines.",
+      "html": "<ul class=\"ds-incl\"><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\"><path d=\"M3 8.5l3.2 3L13 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Built for phones first<small>Fast on any device</small></li><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\"><path d=\"M3 8.5l3.2 3L13 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Live in about a week</li></ul>",
+      "css": ".ds-incl { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; list-style: none; margin: 0; padding: 32px; background: #000; color: #f5f5f7; display: grid; gap: 6px; } .ds-incl li { display: flex; gap: 14px; align-items: baseline; padding: 16px 20px; border-radius: 14px; background: #1d1d1f; font-size: 19px; letter-spacing: -0.015em; } .ds-incl svg { flex: none; position: relative; top: 3px; } .ds-incl small { margin-left: auto; color: #86868b; font-size: 15px; }"
+    },
+    {
+      "name": "Contact Channel Rows",
+      "kind": "card",
+      "refersTo": "list-row",
+      "description": "White rows on mist; hover steps tone, not border.",
+      "html": "<div class=\"ds-ch\"><a>Email<span>hello@studio.com</span></a><a>Instagram<span>@adscendo.consult</span></a></div>",
+      "css": ".ds-ch { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; background: #f5f5f7; padding: 24px; display: grid; gap: 4px; } .ds-ch a { display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; border-radius: 14px; background: #fff; color: #1d1d1f; font-size: 17px; cursor: pointer; transition: background-color .2s; } .ds-ch a:hover { background: #e8e8ed; } .ds-ch span { color: #6e6e73; font-size: 15px; } .ds-ch a:hover span { color: #1d1d1f; }"
+    },
+    {
+      "name": "Before/After Device",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Signature: browser frame whose 'after' layer is revealed by a clip-path wipe (static mid-wipe snapshot here). Hover sweep is a panel stand-in for the scroll-driven wipe.",
+      "html": "<figure class=\"ds-dev\"><div class=\"ds-bar\"><i></i><i></i><i></i><span>harborandpinedental.com</span></div><div class=\"ds-scr\"><div class=\"ds-before\">Welcome to Harbor &amp; Pine Dental!</div><div class=\"ds-after\">Gentle dentistry in Austin.</div><div class=\"ds-div\"></div></div></figure>",
+      "css": ".ds-dev { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; margin: 0; width: 520px; aspect-ratio: 1200/790; position: relative; overflow: hidden; background: #fff; border: 1px solid #d2d2d7; border-radius: 14px; box-shadow: 0 30px 80px -20px rgba(0,0,0,.25), 0 10px 30px -10px rgba(0,0,0,.12); } .ds-bar { height: 32px; background: #f5f5f7; border-bottom: 1px solid #d2d2d7; display: flex; align-items: center; gap: 6px; padding: 0 12px; } .ds-bar i { width: 9px; height: 9px; border-radius: 50%; background: #d2d2d7; } .ds-bar span { margin: 0 auto; padding: 3px 12px; border-radius: 7px; background: #fff; font-size: 11px; color: #6e6e73; } .ds-scr { position: absolute; top: 33px; left: 0; right: 0; bottom: 0; } .ds-before, .ds-after { position: absolute; inset: 0; padding: 24px; } .ds-before { background: #b9cde6; font: italic 700 22px 'Times New Roman', serif; color: #1c3f7a; } .ds-after { background: #fff; color: #17201d; font-size: 30px; font-weight: 600; letter-spacing: -0.045em; line-height: 1.02; clip-path: inset(0 0 0 50%); transition: clip-path .6s cubic-bezier(.16,1,.3,1); } .ds-dev:hover .ds-after { clip-path: inset(0 0 0 0); } .ds-div { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 0 24px rgba(0,0,0,.25); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Product Page for a Studio",
+    "overview": "Adscendo borrows Apple's product-page grammar and turns it on a service business: a white page, quiet gray bands, one full-black band, very large tight Geist headlines, and black pill buttons. The page itself is monochrome. Its only color is in the work it shows: illustrated client websites, rendered inside device frames, in their own palettes. The studio stays neutral so the client work can be colorful.\n\nDensity is low and the rhythm is generous. Sections breathe on large vertical padding, headings sit at display scale, and every surface change is a tone step (white to mist, black to near-black ink) rather than a drawn line. Depth belongs to devices only: the browser and phone frames that hold the illustrations are the only things that float.\n\nThe signature is a demonstration rather than a decoration. A scroll-linked wipe turns a dated website into a modern one inside a device frame, which proves the craft instead of claiming it. Future surfaces should keep this habit and show the work as a working artifact in a frame.",
+    "keyCharacteristics": [
+      "Monochrome chrome (white, #f5f5f7 mist, one #000 band); color lives only inside illustrated client work.",
+      "Geist at display scale, weight 600, with negative tracking that tightens as size grows.",
+      "Pill shapes for every action and selection control; soft 12-28px corners for containers.",
+      "Tone steps and space separate things. Page chrome uses no hairline dividers.",
+      "Flat at rest. Only device frames cast shadows.",
+      "Motion is a calm rise into place, plus one scroll-driven before/after wipe."
+    ],
+    "rules": [
+      {
+        "name": "The No-Accent Rule",
+        "body": "Adscendo's own chrome has no brand hue. Saturated color (pine green #1f4d3f, terracotta #b5401f, plum #6b3a4e, star gold #e3a008) is allowed only inside illustrated client work, in device frames or mini screens, and each illustrated client brings its own palette.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Black Band Rule",
+        "body": "A page carries at most one full-bleed #000 band, and it holds the most important commercial moment (the offer). Gray bands alternate with white around it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tone-Step Rule",
+        "body": "Separate regions by stepping tone (canvas to mist, black to ink, ink to dark-raised) or by space. Never draw a hairline between sections, list rows, or cards in page chrome. Row rules may appear inside illustrated UIs, where they belong to the depicted product.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tight-At-Size Rule",
+        "body": "Tracking tightens as size grows: -0.012em at body, -0.02em at lede, -0.035 to -0.04em at headline and display, and -0.055 to -0.06em at the footer wordmark and price. Never track headlines at 0 and never use positive tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two-Line Rule",
+        "body": "Headlines run at most two lines at every breakpoint, balanced with `text-wrap: balance`. Long headlines are rewritten, not shrunk.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two-Tone Display Rule",
+        "body": "The hero display sets a claim in ink and its complement in faint gray on a second line. This treatment is reserved for the display role.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only-Devices-Float Rule",
+        "body": "Nothing casts a shadow at rest except device frames and the mini screens. Buttons, tiles, cards, list rows and the nav stay flat. The nav uses translucency and blur, not a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep Adscendo's chrome monochrome: ink, canvas, mist, the gray steps, and one #000 band per page.",
+      "**Do** let color appear only inside illustrated client work held in a device frame or mini screen, and label it as illustrative.",
+      "**Do** separate regions with tone steps (canvas, then mist, then canvas) and generous space (clamp 88-160px section padding).",
+      "**Do** make every button, chip, segmented control and quick-form trough a full pill (999px).",
+      "**Do** set headlines in Geist 600 with negative tracking (-0.035 to -0.04em) and keep them to two lines.",
+      "**Do** demonstrate work as a working artifact in a frame rather than describing it.",
+      "**Do** keep content visible without script and give every scroll-driven effect a reduced-motion fallback."
+    ],
+    "donts": [
+      "**Don't** introduce a brand accent color in page chrome, links, buttons or focus states.",
+      "**Don't** draw hairline dividers between sections, list rows or cards. The #d2d2d7 line is for form fields and the browser frame only.",
+      "**Don't** put eyebrows or kickers above headings. The headline opens the section.",
+      "**Don't** add shadows at rest to anything that is not a device frame or mini screen.",
+      "**Don't** let a headline run past two lines.",
+      "**Don't** reuse the \"before\" illustration's fonts, gradients or text-shadow outside that illustration."
+    ]
+  }
+}

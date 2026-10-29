@@ -128,7 +128,8 @@ const aiScreen = lang => {
 };
 const heroDemo = (p, lang) => {
   const d = p[lang];
-  return `<div class="duo duo--demo">${`<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.host)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div></div>`}${phoneShell(aiScreen(lang), "#fff")}</div>`;
+  // The demo only plays; a link laid over the whole browser opens Prospector's story.
+  return `<div class="duo duo--demo"><div class="browser browser--link"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
 };
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
@@ -168,8 +169,8 @@ const homePage = lang => {
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
     <p class="sub">${c.sub}</p>
     <div class="actions-row"><a class="btn" href="#work">${c.ctaWork}</a><a class="btn btn--ghost" href="#contact">${c.ctaTalk}</a></div>
+    <div class="demo-intro"><span class="demo-label"><i></i>${c.demoLabel}</span><p>${c.demoText}</p><a class="link" href="${casePath(lang, lead.slug)}">${c.demoLink}${icon("arrow")}</a></div>
     ${heroDemo(lead, lang)}
-    <p class="demo-note">${c.demoNote}</p>
   </section>
 
   <section class="band band--gray process" id="process">
@@ -193,6 +194,13 @@ const homePage = lang => {
       ${projectsList}
       </ul>
       <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="#contact">${c.workCta[1]}</a></div>
+    </div>
+  </section>
+
+  <section class="band band--gray warmth">
+    <div class="wrap center" data-rise=".h2, .lede">
+      <h2 class="h2">${c.warmthTitle}</h2>
+      <p class="lede">${c.warmthLede}</p>
     </div>
   </section>
 

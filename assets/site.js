@@ -130,10 +130,11 @@ if (outro) {
     // Full size: the screen's width less a small margin, but never taller than 40% of the screen.
     const fit = Math.min((innerWidth - 40) / sign.offsetWidth, innerHeight * .4 / sign.offsetHeight);
     if (still) { sign.style.setProperty("--s", fit.toFixed(4)); return; }
+    // Progress runs from when the footer reaches mid-screen until the page ends.
     const r = outro.getBoundingClientRect();
-    const p = clamp(-r.top / (r.height - innerHeight));
-    sign.style.setProperty("--s", (fit * (.16 + .84 * ease(clamp(p / .7)))).toFixed(4));
-    meta.style.setProperty("--m", clamp((p - .55) / .35).toFixed(3));
+    const p = clamp((innerHeight * .5 - r.top) / (r.height - innerHeight * .5));
+    sign.style.setProperty("--s", (fit * (.16 + .84 * ease(clamp(p / .62)))).toFixed(4));
+    meta.style.setProperty("--m", clamp((p - .58) / .32).toFixed(3));
   };
   addEventListener("scroll", frame, { passive: true });
   addEventListener("resize", frame);

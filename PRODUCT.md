@@ -20,6 +20,8 @@ Adscendo is the consultancy of Jean Menezes. This site is his portfolio under th
 
 ## Positioning
 
+Brazilian warmth, American standards: the studio is Brazilian and says so, as an asset for US clients (creativity and a human, close way of working, delivered to the standard they expect). Shown on the home page between the work list and the timeline.
+
 A new studio with a senior founder: Jean has worked on digital projects for McDonald's, AT&T, Petronas, PagBank and Multilaser, and now offers that level of craft to local businesses. Born in Brazil, built to operate globally.
 
 ## Capabilities and Constraints

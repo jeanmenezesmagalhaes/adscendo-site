@@ -310,7 +310,7 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 /* ---------- footer ---------- */
 /* The footer pins for a while: the wordmark grows from small to the full width of the screen, then the
    tagline, contact buttons and "back to top" settle in underneath. site.js sets --s (scale) and --m. */
-.outro { position: relative; height: 230vh; height: 230svh; color: var(--muted); font-size: 13px; }
+.outro { position: relative; height: 160vh; height: 160svh; color: var(--muted); font-size: 13px; }
 .outro-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding-bottom: clamp(190px, 30vh, 260px); }
 .outro-sign { display: inline-flex; align-items: center; gap: .2em; font-size: 160px; font-weight: 600; letter-spacing: -0.055em; line-height: 1; color: var(--ink); text-decoration: none; white-space: nowrap; transform: scale(var(--s, .2)); will-change: transform; }
 .outro-sign svg { width: 1.3em; height: .87em; flex: none; }
@@ -424,7 +424,19 @@ html.js .rise.in { opacity: 1; transform: none; }
 .demo-pop b, .demo-pop span { display: block; }
 .demo-pop b { font-weight: 600; font-size: 13px; }
 .demo-pop span { color: var(--muted); }
-.demo-note { margin: 22px auto 0; font-size: 13px; color: var(--muted); }
+.demo-intro { margin: clamp(56px, 8vw, 96px) auto 0; max-width: 620px; display: grid; justify-items: center; gap: 12px; }
+.demo-intro p { font-size: 17px; line-height: 1.5; color: var(--graphite); }
+.demo-intro strong { color: var(--ink); font-weight: 600; }
+.demo-label { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; background: var(--band); font-size: 13px; font-weight: 500; }
+.demo-label i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); animation: blink 1.4s ease-in-out infinite; }
+.duo--demo { margin-top: clamp(32px, 4vw, 48px); }
+.demo-hit { position: absolute; inset: 0; z-index: 5; border-radius: inherit; }
+.browser--link { transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+.browser--link:has(.demo-hit:hover) { transform: translateY(-4px); box-shadow: 0 40px 90px -20px rgba(0,0,0,.3), 0 10px 30px -10px rgba(0,0,0,.12); }
+.browser--link .bar span { color: var(--ink); font-weight: 500; }
+.warmth .h2 { max-width: 16ch; margin-inline: auto; }
+.warmth .lede { max-width: 40ch; }
+@media (prefers-reduced-motion: reduce) { .demo-label i { animation: none; } }
 @container (max-width: 560px) {
   .demo-live { grid-template-columns: 1fr; font-size: 12px; }
   .demo-panel { display: none; }

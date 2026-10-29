@@ -1,3 +1,5 @@
 *.md
 .impeccable
-work/*.json
+.claude
+src
+.DS_Store

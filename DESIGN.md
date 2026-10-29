@@ -231,7 +231,7 @@ The palette is a disciplined Apple-style gray family with no brand accent. Hiera
 ### Named Rules
 **The No-Accent Rule.** Adscendo's own chrome has no brand hue. Saturated color (pine green #1f4d3f, terracotta #b5401f, plum #6b3a4e, star gold #e3a008) is allowed only inside illustrated client work, in device frames or mini screens, and each illustrated client brings its own palette.
 
-**The One Black Band Rule.** A page carries at most one full-bleed #000 band, and it holds the most important commercial moment (the offer). Gray bands alternate with white around it.
+**The One Black Band Rule.** A page carries at most one full-bleed #000 band, and it holds the page's key moment: the 2026 timeline on the home page, the next-project link on a story page. Gray bands alternate with white around it.
 
 **The Tone-Step Rule.** Separate regions by stepping tone (canvas to mist, black to ink, ink to dark-raised) or by space. Never draw a hairline between sections, list rows, or cards in page chrome. Row rules may appear inside illustrated UIs, where they belong to the depicted product.
 

@@ -41,7 +41,7 @@ A new studio with a senior founder: Jean has worked on digital projects for McDo
 ## Evidence on Hand
 
 - Founder experience with McDonald's, AT&T, Petronas, PagBank, Multilaser (claim stated by the founder; no logos or case material on hand, do not imply partnership or endorsement).
-- Portfolio projects, each with a story page, newest first: Prospector (Adscendo's own AI prospecting product, live with a 7-day free trial at adscendo-prospector.vercel.app; screenshots use sample data only), Sidemed (in 17 countries) (founder, health passport app, 2026), Minha companhia (client project, marketplace, Oct 2026), Reels Autopilot (own tool, Oct 2026), Adscendo (founded 2026-10-27, first site live 2026-10-28). Facts come from each project's repository; screenshots are of the live products or their own review captures.
+- Portfolio projects, each with a story page, newest first: Prospector (Adscendo's own AI prospecting product, live with a 7-day free trial at adscendo-prospector.vercel.app; screenshots use sample data only), Minha companhia (client project, marketplace, Oct 2026), Sidemed (founder, health passport app, 2026, used in 17 countries), Adscendo (founded 2026-10-27, first site live 2026-10-28; linked from About, not listed under Our work). Reels Autopilot was removed from the site on 2026-10-29 as an internal tool. Facts come from each project's repository; screenshots are of the live products or their own review captures.
 - No client testimonials, reviews, or US case studies yet. Do not fabricate any.
 
 ## Product Principles

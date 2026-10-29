@@ -1,6 +1,6 @@
 # Adscendo site
 
-Portfolio of Adscendo, the consultancy of Jean Menezes: the home page plus one story page per project (Prospector, Reels Autopilot, Minha companhia, Sidemed, Adscendo). English at `/`, Portuguese at `/pt/`. Static HTML, no framework.
+Portfolio of Adscendo, the consultancy of Jean Menezes: the home page plus one story page per project (Prospector, Minha companhia, Sidemed, plus the studio's own story, Adscendo, linked from About). English at `/`, Portuguese at `/pt/`. Static HTML, no framework.
 
 Split from `adscendo-prospector` on 2026-10-29.
 

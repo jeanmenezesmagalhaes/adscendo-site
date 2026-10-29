@@ -55,7 +55,6 @@ ${icons}`;
 
 const nav = (lang, altPath, onHome) => {
   const t = ui[lang], h = onHome ? "" : homePath(lang);
-  const cur = lang.toUpperCase(), alt = other(lang).toUpperCase();
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
 <header class="nav">
   <div class="wrap">
@@ -65,7 +64,9 @@ const nav = (lang, altPath, onHome) => {
       <li><a href="${h}#story">${t.nav.story}</a></li>
       <li><a href="${h}#about">${t.nav.about}</a></li>
     </ul>
-    <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.other}"><b>${cur}</b><span>${alt}</span></a>
+    <div class="lang" role="group" aria-label="Language">${["en", "pt"].map(l => l === lang
+      ? `<span aria-current="true">${l.toUpperCase()}</span>`
+      : `<a href="${altPath}" hreflang="${l}" lang="${l}" aria-label="${t.other}">${l.toUpperCase()}</a>`).join("")}</div>
     <a class="btn btn--sm" href="${h}#contact">${t.nav.cta}</a>
   </div>
 </header>`;
@@ -106,12 +107,12 @@ const homePage = lang => {
     founder: { "@type": "Person", name: "Jean Menezes", sameAs: [contact.linkedin] },
     sameAs: [contact.instagram, contact.linkedin],
   };
-  // The whole card opens the story (the story link stretches over it); a trial button sits above that layer.
-  const projectsList = projects.map(p => {
+  // The whole card opens the story (the story link stretches over it); the CTA button sits above that layer.
+  const projectsList = projects.filter(p => p.inWork !== false).map(p => {
     const d = p[lang];
-    const trial = p.trial ? `<a class="btn btn--sm trial" href="${p.url}" target="_blank" rel="noopener">${t.trial}${icon("out")}</a>` : "";
+    const cta = p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
     return `<li class="proj">
-        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${trial}</div></div>
+        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${cta}</div></div>
         <div class="media">${browser(cover(p, lang), p.host, d.name)}</div>
       </li>`;
   }).join("\n      ");
@@ -131,13 +132,15 @@ const homePage = lang => {
     ${duo(lead, lang, true)}
   </section>
 
-  <section class="band band--gray" id="process">
-    <div class="wrap" data-rise=".h2, .lede, .step">
-      <h2 class="h2">${c.processTitle}</h2>
-      <p class="lede">${c.processLede}</p>
-      <ol class="steps">
+  <section class="band band--gray process" id="process">
+    <div class="process-pin">
+      <div class="wrap" data-rise=".h2, .lede">
+        <h2 class="h2">${c.processTitle}</h2>
+        <p class="lede">${c.processLede}</p>
+        <ol class="steps">
         ${steps}
-      </ol>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -164,7 +167,7 @@ const homePage = lang => {
   <section class="band" id="about">
     <div class="wrap founder" data-rise=".h2, .body, .sig">
       <div><h2 class="h2">${c.aboutTitle}</h2></div>
-      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}</div>
+      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
       <div class="sig"><div class="av">${founderPhoto ? `<img src="${founderPhoto}" alt="Jean Menezes" width="240" height="240" loading="lazy">` : icon("cloud")}</div><div><b>Jean Menezes</b><span>${c.sigRole}</span></div></div>
     </div>
   </section>
@@ -180,17 +183,16 @@ const homePage = lang => {
   </section>
 
   <section class="band contact-light" id="contact">
-    <div class="wrap contact" data-rise=".h2, .lede, .channels, .form">
-      <div>
-        <h2 class="h2">${c.contactTitle}</h2>
-        <p class="lede">${c.contactLede}</p>
+    <div class="wrap" data-rise=".h2, .lede, .channels, .form">
+      <h2 class="h2">${c.contactTitle}</h2>
+      <p class="lede">${c.contactLede}</p>
+      <div class="contact">
         <div class="channels">
           <a href="mailto:${contact.email}">Email<span>${contact.email}</span></a>
           <a id="wa" href="#" target="_blank" rel="noopener" hidden>WhatsApp<span>${contact.whatsappLabel}</span></a>
           <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
           <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
         </div>
-      </div>
       <form class="form" id="contact-form" novalidate>
         <div class="field"><label for="f-name">${f.name}</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="f-email">${f.email}</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
@@ -199,6 +201,7 @@ const homePage = lang => {
         <div class="field full"><label for="f-msg">${f.msg}</label><textarea id="f-msg" name="message" placeholder="${esc(f.msgPh)}" required></textarea></div>
         <div class="actions"><button class="btn" type="submit">${f.send}</button><p class="status" id="form-status" role="status"></p></div>
       </form>
+      </div>
     </div>
   </section>
 </main>
@@ -221,7 +224,7 @@ const casePage = (lang, i) => {
   const next = projects[(i + 1) % projects.length];
   const ld = { "@context": "https://schema.org", "@type": "CreativeWork", name: d.name, description: d.description, inLanguage: lang === "en" ? "en" : "pt-BR", creator: { "@type": "Organization", name: "Adscendo" }, ...(p.url ? { url: p.url } : {}) };
   const actions = [
-    p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${p.trial ? t.trial : t.visit}${icon("out")}</a>` : "",
+    p.url ? `<a class="btn" href="${p.url}" target="_blank" rel="noopener">${p.cta === "trial" ? t.trial : t.visit}${icon("out")}</a>` : "",
     ...(p.links || []).map(l => `<a class="btn btn--ghost" href="${l.href}" target="_blank" rel="noopener">${l[lang]}${icon("out")}</a>`),
   ].filter(Boolean).join("");
   const chapters = d.chapters.map((ch, n) => `<article class="chapter">

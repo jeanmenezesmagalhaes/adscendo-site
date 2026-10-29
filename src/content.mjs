@@ -17,6 +17,9 @@ export const ui = {
     back: "All work",
     visit: "Visit site",
     trial: "Try it free",
+    seeIt: "See it for yourself",
+    download: "Download free now",
+    studioStory: "Read the studio's story",
     next: "Next project",
     footer: "From complexity to forward motion.",
   },
@@ -28,6 +31,9 @@ export const ui = {
     back: "Todos os trabalhos",
     visit: "Ver site",
     trial: "Teste grátis",
+    seeIt: "Acesse e veja você mesmo",
+    download: "Baixe grátis agora",
+    studioStory: "Ler a história do estúdio",
     next: "Próximo projeto",
     footer: "Da complexidade ao movimento.",
   },
@@ -53,9 +59,9 @@ export const home = {
       ["Launch", "We adjust whatever is needed and put it live for you. You never have to touch anything technical."],
     ],
     workTitle: "Our work.",
-    workLede: "Products we have designed, built and put live. Newest first.",
+    workLede: "Products and websites we have designed.",
     storyTitle: "Our year so far.",
-    storyLede: "From one product in early 2026 to a studio in October. Every step shipped.",
+    storyLede: "Ideas that became products people use. All in one year.",
     doTitle: "What we build.",
     doLede: "One focus, done properly. Websites first, apps when you need more.",
     tiles: [
@@ -68,8 +74,8 @@ export const home = {
       "Today the studio builds its own products, like Sidemed, and takes on a few client projects at a time. You work directly with the people designing and building, from the first call to launch.",
     ],
     sigRole: "Founder. Born in Brazil, built to operate globally.",
-    contactTitle: "Let's build something.",
-    contactLede: "Tell us about your business. Jean reads every message personally.",
+    contactTitle: "You imagine it. We build it.",
+    contactLede: "Tell us about your business and what you have in mind. We design it, build it and put it live.",
     form: { name: "Name", email: "Email", company: "Business", optional: "optional", need: "What do you need?", needs: ["A website", "An app", "Not sure yet"], msg: "Tell us about it", msgPh: "What does your business do, and what would you like to improve?", send: "Send" },
   },
   pt: {
@@ -88,9 +94,9 @@ export const home = {
       ["Lançar", "Ajustamos o que for preciso e colocamos no ar para você. Sem você precisar mexer em nada técnico."],
     ],
     workTitle: "Nosso trabalho.",
-    workLede: "Produtos que desenhamos, construímos e colocamos no ar. Do mais novo ao mais antigo.",
+    workLede: "Produtos e sites que desenhamos.",
     storyTitle: "Nosso ano até aqui.",
-    storyLede: "De um produto no início de 2026 a um estúdio em outubro. Cada passo, no ar.",
+    storyLede: "Ideias que viraram produtos que as pessoas usam. Tudo em um ano.",
     doTitle: "O que construímos.",
     doLede: "Um foco, bem feito. Primeiro sites, e apps quando você precisar de mais.",
     tiles: [
@@ -103,25 +109,20 @@ export const home = {
       "Hoje o estúdio constrói os próprios produtos, como a Sidemed, e aceita poucos projetos de clientes por vez. Você fala direto com quem desenha e constrói, da primeira conversa ao lançamento.",
     ],
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
-    contactTitle: "Vamos construir algo.",
-    contactLede: "Conte sobre seu negócio. O Jean lê cada mensagem pessoalmente.",
+    contactTitle: "Você imagina. A gente constrói.",
+    contactLede: "Conte sobre seu negócio e o que você tem em mente. A gente desenha, constrói e coloca no ar.",
     form: { name: "Nome", email: "Email", company: "Empresa", optional: "opcional", need: "Do que você precisa?", needs: ["Um site", "Um app", "Ainda não sei"], msg: "Conte mais", msgPh: "O que seu negócio faz, e o que você gostaria de melhorar?", send: "Enviar" },
   },
 };
 
 // Milestones for the home timeline, oldest first. `now` highlights a row.
 export const timeline = [
-  { en: ["Early 2026", "Sidemed starts as a web prototype of a health passport."], pt: ["Início de 2026", "A Sidemed começa como um protótipo web de passaporte de saúde."], slug: "sidemed" },
-  { en: ["June", "The Sidemed product spec, a new landing page and a 28-screen prototype."], pt: ["Junho", "A especificação do produto Sidemed, uma nova landing page e um protótipo de 28 telas."], slug: "sidemed" },
-  { en: ["July–August", "The native Sidemed iOS app, in three languages."], pt: ["Julho–agosto", "O app nativo da Sidemed para iOS, em três idiomas."], slug: "sidemed" },
-  { en: ["September", "Sidemed's new website goes live, with links to both app stores."], pt: ["Setembro", "O novo site da Sidemed entra no ar, com links para as duas lojas."], slug: "sidemed" },
-  { en: ["October 20", "Minha companhia: first prototype, validated with a user the same day."], pt: ["20 de outubro", "Minha companhia: primeiro protótipo, validado com uma usuária no mesmo dia."], slug: "minha-companhia" },
-  { en: ["October 25", "Reels Autopilot's first version. Multi-user a day later."], pt: ["25 de outubro", "A primeira versão do Reels Autopilot. Multiusuário no dia seguinte."], slug: "reels-autopilot" },
-  { en: ["October 27", "Adscendo is founded."], pt: ["27 de outubro", "A Adscendo é fundada."], slug: "adscendo" },
-  { en: ["October 27", "Prospector, the studio's first product, is built the same day."], pt: ["27 de outubro", "O Prospector, primeiro produto do estúdio, é construído no mesmo dia."], slug: "prospector" },
-  { en: ["October 28", "Adscendo's first website goes live."], pt: ["28 de outubro", "O primeiro site da Adscendo entra no ar."], slug: "adscendo" },
-  { en: ["Today", "Sidemed is in 17 countries."], pt: ["Hoje", "A Sidemed está em 17 países."], slug: "sidemed", now: true },
-];
+  { en: ["Early 2026", "We create Sidemed, a health passport for people who travel."], pt: ["Início de 2026", "Criamos a Sidemed, um passaporte de saúde para quem viaja."], slug: "sidemed" },
+  { en: ["September", "Sidemed launches on the App Store and Google Play."], pt: ["Setembro", "A Sidemed chega à App Store e ao Google Play."], slug: "sidemed" },
+  { en: ["October", "Minha companhia goes live for families across Brazil."], pt: ["Outubro", "A Minha companhia entra no ar para famílias do Brasil todo."], slug: "minha-companhia" },
+  { en: ["October", "Adscendo opens its doors, with Prospector as its first product."], pt: ["Outubro", "A Adscendo abre as portas, com o Prospector como primeiro produto."], slug: "adscendo" },
+  { en: ["Today", "Sidemed is used in 17 countries."], pt: ["Hoje", "A Sidemed é usada em 17 países."], slug: "sidemed", now: true },
+]
 
 const img = (src, w, h) => ({ src: `/assets/work/${src}`, w, h });
 
@@ -129,7 +130,7 @@ export const projects = [
   {
     slug: "prospector",
     url: "https://adscendo-prospector.vercel.app/",
-    trial: true,
+    cta: "trial",
     host: "adscendo-prospector.vercel.app",
     cover: img("prospector/crm.webp", 1600, 1000),
     coverPt: img("prospector/crm.pt.webp", 1600, 1000),
@@ -231,101 +232,8 @@ export const projects = [
     },
   },
   {
-    slug: "reels-autopilot",
-    url: "https://reels-autopilot-bay.vercel.app/",
-    host: "reels-autopilot-bay.vercel.app",
-    cover: img("reels-autopilot/board.webp", 1440, 900),
-    coverPhone: img("reels-autopilot/mobile.webp", 390, 844),
-    phoneBar: "#000",
-    en: {
-      name: "Reels Autopilot",
-      kind: "Own tool · Internal system",
-      tagline: "Drop a raw video. Read what worked.",
-      summary: "Raw recordings become edited versions, posted as Instagram Trial Reels and measured, without anyone managing the process.",
-      description: "How Reels Autopilot turns raw recordings into edited, tested and measured Instagram Trial Reels, built in October 2026.",
-      facts: [["Role", "Product, design and build"], ["When", "October 2026"], ["Platform", "Web, Mac, Instagram"], ["Status", "In use"]],
-      chapters: [
-        {
-          h: "Recording was the easy part.",
-          p: [
-            "Jean records short videos about entrepreneurship, technology and Sidemed. Editing each one, trying different versions, posting at the right time and remembering what worked took far longer than recording.",
-            "So the goal became simple: drop a video and do nothing else until it's time to read the results.",
-          ],
-        },
-        {
-          h: "Edit, post, measure, learn.",
-          p: ["Raw video goes in a folder on the Mac. From there, the system runs on its own."],
-          list: [
-            ["Edit", "Claude edits five or more versions of each video, following the instructions you give."],
-            ["Post", "Each version goes out as an Instagram Trial Reel, shown only to non-followers, at different times between 8 a.m. and 10 p.m."],
-            ["Measure", "Views, reach, likes, comments, shares, saves and average watch time for every version."],
-            ["Learn", "Every morning at 5:30 an analysis writes what to do next, in the editing and in the next script."],
-          ],
-        },
-        {
-          h: "Only what is essential.",
-          p: [
-            "The system works without the dashboard. The dashboard only answers three questions: is it running, what's next, and what worked.",
-            "One board, from planned to published. Click a piece of content to see each version, edit a caption or redo it with new instructions. Light and dark, in Portuguese, English and Spanish.",
-          ],
-          fig: { kind: "browser", img: img("reels-autopilot/board.webp", 1440, 900), cap: "The board: planned, editing, queued and published. The first-run examples show how it works." },
-        },
-        {
-          h: "From one user to many.",
-          p: [
-            "A day after the first version, Reels Autopilot became multi-user: Google sign-in, a waitlist, and a separate workspace for each person.",
-            "Everyone connects their own Instagram and their own Claude or ChatGPT subscription, so editing runs on their Mac under their own account. Tokens and keys never reach the page.",
-          ],
-          fig: { kind: "pair", items: [{ kind: "browser", img: img("reels-autopilot/new.webp", 1440, 905) }, { kind: "phone", img: img("reels-autopilot/mobile.webp", 390, 844) }], cap: "Sending a new video, and the first-run checklist on a phone in dark mode." },
-        },
-      ],
-    },
-    pt: {
-      name: "Reels Autopilot",
-      kind: "Ferramenta própria · Sistema interno",
-      tagline: "Solte um vídeo cru. Leia o que funcionou.",
-      summary: "Gravações cruas viram versões editadas, postadas como Trial Reels no Instagram e medidas, sem ninguém gerenciar o processo.",
-      description: "Como o Reels Autopilot transforma gravações cruas em Trial Reels editados, testados e medidos no Instagram, construído em outubro de 2026.",
-      facts: [["Papel", "Produto, design e desenvolvimento"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web, Mac, Instagram"], ["Status", "Em uso"]],
-      chapters: [
-        {
-          h: "Gravar era a parte fácil.",
-          p: [
-            "O Jean grava vídeos curtos sobre empreendedorismo, tecnologia e a Sidemed. Editar cada um, testar versões, postar na hora certa e lembrar o que funcionou levava muito mais tempo que gravar.",
-            "Então o objetivo ficou simples: soltar o vídeo e não fazer mais nada até a hora de ler os resultados.",
-          ],
-        },
-        {
-          h: "Editar, postar, medir, aprender.",
-          p: ["O vídeo cru vai para uma pasta no Mac. Dali em diante, o sistema anda sozinho."],
-          list: [
-            ["Editar", "O Claude edita cinco ou mais versões de cada vídeo, seguindo as instruções que você dá."],
-            ["Postar", "Cada versão sai como Trial Reel no Instagram, mostrado só para quem não segue, em horários diferentes entre 8h e 22h."],
-            ["Medir", "Views, alcance, curtidas, comentários, compartilhamentos, salvamentos e tempo médio assistido de cada versão."],
-            ["Aprender", "Todo dia às 5h30 uma análise escreve o que fazer a seguir, na edição e no próximo roteiro."],
-          ],
-        },
-        {
-          h: "Só o essencial.",
-          p: [
-            "O sistema funciona sem o painel. O painel só responde três perguntas: está rodando, o que vem a seguir e o que funcionou.",
-            "Um quadro, do planejado ao publicado. Clique num conteúdo para ver cada versão, editar a legenda ou refazer com novas instruções. Claro e escuro, em português, inglês e espanhol.",
-          ],
-          fig: { kind: "browser", img: img("reels-autopilot/board.webp", 1440, 900), cap: "O quadro: planejado, em edição, na fila e publicado. Os exemplos do primeiro acesso mostram como funciona." },
-        },
-        {
-          h: "De um usuário para muitos.",
-          p: [
-            "Um dia depois da primeira versão, o Reels Autopilot virou multiusuário: login com Google, lista de espera e um painel separado para cada pessoa.",
-            "Cada um conecta o próprio Instagram e a própria assinatura do Claude ou do ChatGPT, então a edição roda no Mac da pessoa, na conta dela. Tokens e chaves nunca chegam à página.",
-          ],
-          fig: { kind: "pair", items: [{ kind: "browser", img: img("reels-autopilot/new.webp", 1440, 905) }, { kind: "phone", img: img("reels-autopilot/mobile.webp", 390, 844) }], cap: "Envio de um vídeo novo, e o passo a passo do primeiro acesso no celular, no modo escuro." },
-        },
-      ],
-    },
-  },
-  {
     slug: "minha-companhia",
+    cta: "seeIt",
     url: "https://minhacompanhia.com.br/",
     host: "minhacompanhia.com.br",
     cover: img("minha-companhia/home.webp", 1440, 900),
@@ -435,6 +343,8 @@ export const projects = [
   },
   {
     slug: "sidemed",
+    cta: "download",
+    ctaUrl: "https://www.sidemed.com.br/app",
     url: "https://www.sidemed.com.br/",
     host: "sidemed.com.br",
     cover: img("sidemed/site-problem.webp", 1440, 900),
@@ -448,9 +358,9 @@ export const projects = [
       name: "Sidemed",
       kind: "Founder · Health",
       tagline: "A health passport that carries your medical history across borders.",
-      summary: "Your medical history, organized, translated into your doctor's language and shared in seconds. Now in 17 countries.",
+      summary: "Your medical history, organized, translated into your doctor's language and shared in seconds. Used in 17 countries.",
       description: "How Sidemed, a health passport app, went from a problem at the border to a native iOS app and a new website in 2026.",
-      facts: [["Role", "Founder"], ["When", "2026"], ["Platform", "iOS, Android, web"], ["Status", "Live in 17 countries"]],
+      facts: [["Role", "Founder"], ["When", "2026"], ["Platform", "iOS, Android, web"], ["Status", "Used in 17 countries"]],
       chapters: [
         {
           h: "Your history stays behind.",
@@ -484,7 +394,7 @@ export const projects = [
           p: [
             "The prototype became a native SwiftUI app. You tell your story, the app organizes it into a structured passport, and you share it by QR code or secure link, translated into your doctor's language. It speaks Portuguese, English and Spanish.",
             "In September a new website went live. The app screens on it are rebuilt in HTML and CSS instead of pasted as images, so they stay sharp on any display and can move. It shows the right store button for your phone.",
-            "Today Sidemed is in 17 countries.",
+            "Today Sidemed is used in 17 countries.",
           ],
           fig: { kind: "phones", imgs: [img("sidemed/site-m.webp", 780, 1688)], cap: "sidemed.com.br on a phone." },
         },
@@ -494,9 +404,9 @@ export const projects = [
       name: "Sidemed",
       kind: "Fundador · Saúde",
       tagline: "Um passaporte de saúde que leva seu histórico médico através das fronteiras.",
-      summary: "Seu histórico médico organizado, traduzido para o idioma do médico e compartilhado em segundos. Hoje em 17 países.",
+      summary: "Seu histórico médico organizado, traduzido para o idioma do médico e compartilhado em segundos. Usada em 17 países.",
       description: "Como a Sidemed, um app de passaporte de saúde, saiu de um problema na fronteira para um app nativo de iOS e um site novo em 2026.",
-      facts: [["Papel", "Fundador"], ["Quando", "2026"], ["Plataforma", "iOS, Android, web"], ["Status", "No ar em 17 países"]],
+      facts: [["Papel", "Fundador"], ["Quando", "2026"], ["Plataforma", "iOS, Android, web"], ["Status", "Usada em 17 países"]],
       chapters: [
         {
           h: "Seu histórico fica para trás.",
@@ -530,7 +440,7 @@ export const projects = [
           p: [
             "O protótipo virou um app nativo em SwiftUI. Você conta sua história, o app organiza tudo num passaporte estruturado, e você compartilha por QR code ou link seguro, traduzido para o idioma do médico. Ele fala português, inglês e espanhol.",
             "Em setembro, um site novo entrou no ar. As telas do app nele são reconstruídas em HTML e CSS, não coladas como imagem, então ficam nítidas em qualquer tela e podem se mexer. E ele mostra o botão da loja certa para o seu celular.",
-            "Hoje a Sidemed está em 17 países.",
+            "Hoje a Sidemed é usada em 17 países.",
           ],
           fig: { kind: "phones", imgs: [img("sidemed/site-m.webp", 780, 1688)], cap: "sidemed.com.br no celular." },
         },
@@ -539,6 +449,7 @@ export const projects = [
   },
   {
     slug: "adscendo",
+    inWork: false,
     url: null,
     host: "adscendo",
     cover: img("adscendo/launch-wipe.webp", 1440, 900),
@@ -561,7 +472,7 @@ export const projects = [
         {
           h: "Why a studio, and why now.",
           p: [
-            "Jean spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. In 2026 he started building his own products, Sidemed first, then tools like Reels Autopilot, and took on client work like Minha companhia.",
+            "Jean spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. In 2026 he started building his own products, Sidemed first, and took on client work like Minha companhia.",
             "Adscendo gives that work a name and a home. Born in Brazil, built to operate globally.",
           ],
         },
@@ -600,7 +511,7 @@ export const projects = [
         {
           h: "Por que um estúdio, e por que agora.",
           p: [
-            "O Jean passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Em 2026 começou a construir os próprios produtos, primeiro a Sidemed, depois ferramentas como o Reels Autopilot, e a atender clientes como a Minha companhia.",
+            "O Jean passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Em 2026 começou a construir os próprios produtos, primeiro a Sidemed, e a atender clientes como a Minha companhia.",
             "A Adscendo dá nome e casa a esse trabalho. Nascida no Brasil, feita para operar no mundo.",
           ],
         },

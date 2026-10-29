@@ -91,3 +91,23 @@ if (form) {
     } finally { btn.disabled = false; btn.textContent = T.send; }
   });
 }
+
+// How we work: the section pins and each card snaps in as the visitor scrolls further.
+const proc = document.querySelector(".process");
+if (proc && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  proc.classList.add("pinned");
+  const cards = [...proc.querySelectorAll(".step")];
+  const update = () => {
+    const r = proc.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+    const shown = r.top > innerHeight * .4 ? 0 : p < .3 ? 1 : p < .62 ? 2 : 3;
+    cards.forEach((c, i) => {
+      c.classList.toggle("on", i < shown);
+      c.classList.toggle("past", i < shown - 1);
+      c.style.setProperty("--back", shown - 1 - i);
+    });
+  };
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
+}

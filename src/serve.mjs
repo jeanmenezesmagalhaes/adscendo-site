@@ -2,12 +2,15 @@
 //   node src/serve.mjs [port]
 // /work/sidemed serves work/sidemed/index.html; /work/sidemed/, /work/sidemed/index.html and
 // /work/sidemed.html redirect (308) to /work/sidemed, as they do in production.
+// /services, /pt/como-trabalhamos and the other home sections serve the home page, like the rewrites
+// build.mjs writes into vercel.json.
 // /api/<name> runs the POST handler exported by api/<name>.mjs, like a Vercel function, with the variables
 // in .env.local (e.g. RESEND_API_KEY, from `npx vercel env pull .env.local`).
 import { createReadStream, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { dirname, extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
+import { sections } from "./content.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PORT = Number(process.argv[2]) || 4173;
@@ -56,7 +59,8 @@ createServer((req, res) => {
     res.writeHead(308, { Location: target + url.search });
     return res.end();
   }
-  const rel = normalize(path).replace(/^(\.\.[/\\])+/, "");
+  const home = Object.values(sections).flatMap(s => [[`/${s.en}`, "/"], [`/pt/${s.pt}`, "/pt"]]).find(([p]) => p === path)?.[1];
+  const rel = normalize(home ?? path).replace(/^(\.\.[/\\])+/, "");
   const file = [join(ROOT, rel), join(ROOT, `${rel}.html`), join(ROOT, rel, "index.html")].find(isFile);
   if (!file) {
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });

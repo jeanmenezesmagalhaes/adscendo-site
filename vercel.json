@@ -24,5 +24,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(services|portfolio|how-we-work|about|contact)",
+      "destination": "/"
+    },
+    {
+      "source": "/pt/(servicos|portfolio|como-trabalhamos|sobre|contato)",
+      "destination": "/pt"
+    }
   ]
 }

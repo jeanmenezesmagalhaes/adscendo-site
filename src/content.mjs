@@ -1,6 +1,17 @@
 // All copy for the site, in English (primary, served at /) and Portuguese (served at /pt/).
 // Edit here, then run `node src/build.mjs` to regenerate the HTML.
 
+// Home sections with their own clean address (/how-we-work, /pt/como-trabalhamos): the home page is
+// served there (vercel.json rewrites, written by build.mjs; serve.mjs locally) and site.js scrolls to
+// the section. Keyed by the section's id on the home page.
+export const sections = {
+  build: { en: "services", pt: "servicos" },
+  work: { en: "portfolio", pt: "portfolio" },
+  process: { en: "how-we-work", pt: "como-trabalhamos" },
+  about: { en: "about", pt: "sobre" },
+  contact: { en: "contact", pt: "contato" },
+};
+
 export const contact = {
   email: "jeanmenezesmagalhaes@icloud.com",
   whatsappLabel: "+55 51 99327-1160",
@@ -251,44 +262,42 @@ export const projects = [
       kind: "Sales",
       tagline: "Find the businesses that need you, and start the conversation.",
       seoTitle: "Prospector: AI prospecting on a map, with a CRM | Adscendo",
-      summary: "Finds businesses on the map, analyzes each one, writes a personal email and follows every lead in a CRM. Nothing goes out without your approval.",
+      summary: "Finds businesses on the map, analyzes each one, writes a personal email and tracks every lead in a CRM.",
       description: "How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026.",
       facts: [["What we did", "Planned and built in-house"], ["When", "October 2026"], ["Platform", "Web"], ["Status", "Live, 7-day free trial"]],
       chapters: [
         {
           h: "Finding clients was a second job.",
           p: [
-            "Finding the next client meant hours on Google Maps, opening websites one by one, hunting for an email address and writing to each business by hand.",
-            "Prospector was built to do that groundwork, so the time goes into the conversations that matter. It was the first thing Adscendo built, on the day the studio was founded.",
+            "Hours on Google Maps, opening sites one by one, hunting for emails, writing to each business by hand. Prospector does that groundwork for you. It was the first thing Adscendo built.",
           ],
         },
         {
           h: "Start with a map.",
           p: [
-            "Pick any city, type the kind of business you're after, choose a distance. A radar sweeps the circle and the businesses appear as they're found, with rating, website and phone.",
+            "Pick a city, a type of business and a distance. A radar sweeps the area and the businesses appear, with rating, website and phone.",
           ],
           fig: { kind: "browser", img: img("prospector/map.webp", 1600, 1000), cap: "Searching for dentists within 10 km of downtown Austin. Sample data." },
         },
         {
           h: "Every lead, analyzed.",
           p: [
-            "Prospector visits each website, finds the published emails and notes what it sees: no HTTPS, slow on a phone, not updated in years, the tools already in use.",
-            "What it looks for depends on what you sell. A web studio sees the website; a marketing agency sees reviews and ads; a software company sees the tools that are missing.",
+            "Prospector visits each website, finds the emails and notes what could be better: no HTTPS, slow on a phone, outdated. What it looks for depends on what you sell.",
           ],
           fig: { kind: "browser", img: img("prospector/lead.webp", 1600, 1000), cap: "A lead in the CRM, with what the analysis found. Sample data." },
         },
         {
           h: "An email that sounds like you.",
           p: [
-            "The AI writes a short, personal first email that mentions what it actually found, in the language of the business's location. Then it follows up, and every lead moves through the CRM from first email to meeting.",
-            "One rule never bends: <strong>nothing is sent without your explicit approval</strong>. Even on autopilot, it stays inside the limits you set: a do-not-contact list, a daily cap, a sending window and at most three emails per business.",
+            "The AI writes a short, personal email about what it found, in the lead's language, and follows up.",
+            "Review each email before it goes, or turn on <strong>autopilot</strong> and it sends on its own, within the limits you set.",
           ],
           fig: { kind: "browser", img: img("prospector/email.webp", 1600, 1000), cap: "A first email, written from the analysis and ready for review. Sample data." },
         },
         {
           h: "From our Mac to anyone.",
           p: [
-            "Prospector started on Jean's Mac, for Adscendo's own outreach. Within two days it was online for anyone: sign in with Google, connect Gmail or Outlook with permission to send only (no password, no access to your inbox), and start with a 7-day free trial.",
+            "It started on Jean's Mac. Two days later it was online for anyone: connect your email, with permission to send only, and start a 7-day free trial.",
           ],
           fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.webp", 780, 1688), bar: "#fff" }], cap: "The CRM on a computer and on a phone. Sample data." },
         },
@@ -299,44 +308,42 @@ export const projects = [
       kind: "Vendas",
       tagline: "Encontre as empresas que precisam de você, e comece a conversa.",
       seoTitle: "Prospector: prospecção com IA no mapa e CRM | Adscendo",
-      summary: "Acha empresas no mapa, analisa cada uma, escreve um email pessoal e acompanha cada lead num CRM. Nada sai sem a sua aprovação.",
+      summary: "Acha empresas no mapa, analisa cada uma, escreve um email pessoal e acompanha cada lead num CRM.",
       description: "Como o Adscendo Prospector, um sistema de prospecção com IA, com mapa, análise de leads, emails pessoais e CRM, foi construído em outubro de 2026.",
       facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web"], ["Status", "No ar, 7 dias grátis"]],
       chapters: [
         {
           h: "Achar cliente era um segundo emprego.",
           p: [
-            "Encontrar o próximo cliente significava horas no Google Maps, abrindo sites um por um, caçando um email e escrevendo para cada empresa na mão.",
-            "O Prospector foi construído para fazer esse trabalho de base, para o tempo ir para as conversas que importam. Foi a primeira coisa que a Adscendo construiu, no dia em que o estúdio foi fundado.",
+            "Horas no Google Maps, abrindo sites um por um, caçando emails, escrevendo para cada empresa na mão. O Prospector faz esse trabalho por você. Foi a primeira coisa que a Adscendo construiu.",
           ],
         },
         {
           h: "Comece pelo mapa.",
           p: [
-            "Escolha uma cidade, digite o tipo de negócio que você procura e a distância. Um radar varre o círculo e as empresas aparecem conforme são encontradas, com nota, site e telefone.",
+            "Escolha uma cidade, um tipo de negócio e a distância. Um radar varre a área e as empresas aparecem, com nota, site e telefone.",
           ],
           fig: { kind: "browser", img: img("prospector/map.pt.webp", 1600, 1000), cap: "Buscando dentistas num raio de 10 km do centro de Austin. Dados de exemplo." },
         },
         {
           h: "Cada lead, analisado.",
           p: [
-            "O Prospector visita cada site, acha os emails publicados e anota o que vê: sem HTTPS, lento no celular, sem atualização há anos, as ferramentas que a empresa já usa.",
-            "O que ele procura depende do que você vende. Um estúdio de sites olha o site; uma agência de marketing olha avaliações e anúncios; uma empresa de software olha as ferramentas que faltam.",
+            "O Prospector visita cada site, acha os emails e anota o que pode melhorar: sem HTTPS, lento no celular, desatualizado. O que ele procura depende do que você vende.",
           ],
           fig: { kind: "browser", img: img("prospector/lead.pt.webp", 1600, 1000), cap: "Um lead no CRM, com o que a análise encontrou. Dados de exemplo." },
         },
         {
           h: "Um email com a sua cara.",
           p: [
-            "A IA escreve um primeiro email curto e pessoal, que cita o que ela realmente encontrou, na língua do lugar de cada empresa. Depois faz o acompanhamento, e cada lead anda no CRM do primeiro email até a reunião.",
-            "Uma regra nunca muda: <strong>nada é enviado sem a sua aprovação explícita</strong>. Mesmo no piloto automático, ele fica dentro dos limites que você define: lista de não contatar, limite diário, janela de envio e no máximo três emails por empresa.",
+            "A IA escreve um email curto e pessoal sobre o que encontrou, na língua de cada empresa, e faz o acompanhamento.",
+            "Revise cada email antes de sair, ou ligue o <strong>piloto automático</strong> e ele envia sozinho, dentro dos limites que você define.",
           ],
           fig: { kind: "browser", img: img("prospector/email.pt.webp", 1600, 1000), cap: "Um primeiro email, escrito a partir da análise e pronto para revisão. Dados de exemplo." },
         },
         {
           h: "Do nosso Mac para qualquer pessoa.",
           p: [
-            "O Prospector começou no Mac do Jean, para a prospecção da própria Adscendo. Em dois dias estava online para qualquer pessoa: entra com Google, conecta Gmail ou Outlook com permissão só para enviar (sem senha, sem acesso à sua caixa de entrada) e começa com 7 dias grátis.",
+            "Começou no Mac do Jean. Dois dias depois estava online para qualquer pessoa: conecte seu email, com permissão só para enviar, e comece com 7 dias grátis.",
           ],
           fig: { kind: "pair", items: [{ kind: "browser", img: img("prospector/crm.pt.webp", 1600, 1000) }, { kind: "phone", img: img("prospector/crm-m.pt.webp", 780, 1688), bar: "#fff" }], cap: "O CRM no computador e no celular. Dados de exemplo." },
         },
@@ -355,50 +362,46 @@ export const projects = [
     en: {
       name: "Minha companhia",
       kind: "Marketplace",
-      tagline: "A marketplace where families book verified professionals to accompany their parents.",
+      tagline: "A marketplace where families book verified professionals to take their parents to the doctor, the bank or the market.",
       seoTitle: "Minha companhia: verified help for older parents | Adscendo",
-      summary: "Families book verified professionals to go with their elderly parents to appointments, the bank or the market.",
+      summary: "Families book a verified professional to take their older parents to the doctor, an exam or the bank, and bring them home.",
       description: "How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026.",
       facts: [["What we did", "Planned and built in-house"], ["When", "October 2026"], ["Platform", "Web, phone and desktop"], ["Status", "Live, in validation"]],
       chapters: [
         {
           h: "A brief for screens only.",
           p: [
-            "The client wanted a platform where families hire someone to accompany an elderly mother or father on a task: a doctor's appointment, an exam, the bank, the market, a walk.",
-            "The first contract was deliberately small. Screens only, no working system yet, to validate the presentation, the content and the order of the hiring flow before building anything. The working name was <em>Filha de Aluguel</em>, Portuguese for “daughter for hire.”",
+            "Families needed someone they could trust to take an older parent to the doctor, an exam, the bank or the market, and bring them home. The first job was screens only, to test the idea before building anything.",
           ],
         },
         {
           h: "Designed for the daughter.",
           p: [
-            "The person who decides is usually the daughter. She is busy, often far away, and deciding on her phone. On October 20 the prototype was tested with a user, and the verdict was clear: the home page has to say at once that this is a marketplace where she picks and hires a professional.",
-            "The search came out of that session working for real, with filters by city, task, time and price that live in the URL.",
+            "The one who decides is usually the daughter: busy, often far away, on her phone. A user test on October 20 made it clear: the home page has to say at once that this is where she picks and hires a professional.",
           ],
           fig: { kind: "browser", img: img("minha-companhia/search.webp", 1440, 900), cap: "Search across Brazil: city, task, date, schedule and hourly rate." },
         },
         {
-          h: "Words carry weight.",
+          h: "A warm name.",
           p: [
-            "In Portuguese, the obvious word for a companion, <em>acompanhante</em>, also means escort. So it is never used. The service is “accompanying on tasks,” and the person is “a verified professional.”",
-            "The product got a new name to match the tone: <strong>Minha companhia</strong>, “my company,” as in someone keeping you company. Warm, respectful, and never talking down to the older person.",
+            "The working name was <em>Filha de Aluguel</em>, “daughter for hire.” It became <strong>Minha companhia</strong>, “my company”: someone who keeps your parents company. Warm, respectful, and never talking down to them.",
           ],
           fig: { kind: "phones", imgs: [img("minha-companhia/home-m.webp", 780, 1688), img("minha-companhia/portfolio-m.webp", 780, 1688)], cap: "Home and a professional's public portfolio, on a phone." },
         },
         {
-          h: "Trust, built into the flow.",
-          p: ["When a stranger accompanies your mother, trust can't be a badge. It has to be in every step."],
+          h: "Trust in every step.",
+          p: ["Someone new is going out with your mother, so trust has to be built into every step."],
           list: [
-            ["Monthly verification", "Documents are reviewed every month, with the last and next review dates on the profile."],
-            ["Honest quotes", "Hourly rate, minimum hours, and whether a car is included, all visible before hiring."],
-            ["Blind reviews, both ways", "Family and professional rate each other, and neither sees the other's score until both have rated or 14 days pass."],
-            ["Payment held until the review", "The money only goes to the professional after the family rates the visit."],
+            ["Monthly checks", "Documents reviewed every month."],
+            ["Clear prices", "Hourly rate, and whether a car is included, before you book."],
+            ["Two-way reviews", "Family and professional rate each other."],
+            ["Paid after the visit", "The professional is paid once the family rates the visit."],
           ],
         },
         {
           h: "From prototype to product.",
           p: [
-            "Within a week, the static prototype gained a real backend: accounts, service requests, two-way reviews and social sign-in. Each professional has a public portfolio she can share as her own page.",
-            "Minha companhia is live at minhacompanhia.com.br, covering all of Brazil, while the rest of the flow is validated.",
+            "Within a week it had a real backend: accounts, bookings, reviews and social sign-in. It's live at minhacompanhia.com.br, across Brazil.",
           ],
           fig: { kind: "browser", img: img("minha-companhia/portfolio.webp", 1440, 900), cap: "A professional's public portfolio, made to be shared as a link." },
         },
@@ -407,50 +410,46 @@ export const projects = [
     pt: {
       name: "Minha companhia",
       kind: "Marketplace",
-      tagline: "Um marketplace onde a família contrata profissionais verificadas para acompanhar os pais.",
+      tagline: "Um marketplace onde a família contrata profissionais verificadas para levar os pais à consulta, ao banco ou ao mercado.",
       seoTitle: "Minha companhia: profissionais para acompanhar seus pais | Adscendo",
-      summary: "A família contrata profissionais verificadas para acompanhar os pais idosos na consulta, no banco ou no mercado.",
+      summary: "A família contrata uma profissional verificada para levar os pais idosos à consulta, ao exame ou ao banco, e trazê-los de volta.",
       description: "Como a Minha companhia, um marketplace para famílias de pessoas idosas, saiu de um briefing só de telas para um produto no ar em outubro de 2026.",
       facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Outubro de 2026"], ["Plataforma", "Web, celular e computador"], ["Status", "No ar, em validação"]],
       chapters: [
         {
           h: "Um briefing só de telas.",
           p: [
-            "O cliente queria uma plataforma em que a família contrata alguém para acompanhar a mãe ou o pai idoso numa tarefa: uma consulta, um exame, o banco, o mercado, um passeio.",
-            "O primeiro contrato foi pequeno de propósito. Só telas, nada de sistema funcionando ainda, para validar a apresentação, o conteúdo e a ordem da contratação antes de construir qualquer coisa. O nome provisório era <em>Filha de Aluguel</em>.",
+            "As famílias precisavam de alguém de confiança para levar o pai ou a mãe idosa a uma consulta, um exame, o banco ou o mercado, e trazer de volta. O primeiro trabalho foi só de telas, para testar a ideia antes de construir qualquer coisa.",
           ],
         },
         {
           h: "Desenhado para a filha.",
           p: [
-            "Quem decide quase sempre é a filha. Ela não tem tempo, muitas vezes está longe e decide pelo celular. Em 20 de outubro o protótipo foi testado com uma usuária, e o veredito foi claro: a página inicial precisa dizer de cara que é um marketplace, onde ela escolhe e contrata uma profissional.",
-            "A busca saiu dessa sessão funcionando de verdade, com filtros por cidade, tarefa, horário e preço que ficam na URL.",
+            "Quem decide quase sempre é a filha: sem tempo, muitas vezes longe, pelo celular. Um teste com usuária em 20 de outubro deixou claro: a página inicial precisa dizer de cara que ali ela escolhe e contrata uma profissional.",
           ],
           fig: { kind: "browser", img: img("minha-companhia/search.webp", 1440, 900), cap: "Busca no Brasil todo: cidade, tarefa, data, horário e valor da hora." },
         },
         {
-          h: "Palavras pesam.",
+          h: "Um nome acolhedor.",
           p: [
-            "Em português, a palavra óbvia, <em>acompanhante</em>, também quer dizer outra coisa. Por isso ela nunca aparece. O serviço é “acompanhar em tarefas”, e quem presta é “a profissional verificada”.",
-            "O produto ganhou um nome à altura do tom: <strong>Minha companhia</strong>. Acolhedor, respeitoso, e sem nunca infantilizar a pessoa idosa.",
+            "O nome provisório era <em>Filha de Aluguel</em>. Virou <strong>Minha companhia</strong>: alguém que faz companhia aos seus pais. Acolhedor, respeitoso, e sem nunca infantilizar a pessoa idosa.",
           ],
           fig: { kind: "phones", imgs: [img("minha-companhia/home-m.webp", 780, 1688), img("minha-companhia/portfolio-m.webp", 780, 1688)], cap: "A página inicial e o portfólio público de uma profissional, no celular." },
         },
         {
-          h: "Confiança dentro do fluxo.",
-          p: ["Quando uma desconhecida acompanha sua mãe, confiança não pode ser um selo. Ela precisa estar em cada passo."],
+          h: "Confiança em cada passo.",
+          p: ["Uma pessoa nova vai sair com a sua mãe, então a confiança precisa estar em cada passo."],
           list: [
-            ["Verificação mensal", "Documentos revisados todo mês, com a data da última e da próxima revisão no perfil."],
-            ["Orçamento honesto", "Valor da hora, tempo mínimo e se o carro está incluso, tudo visível antes de contratar."],
-            ["Avaliação às cegas, nos dois sentidos", "Família e profissional se avaliam, e nenhuma vê a nota da outra até as duas avaliarem ou passarem 14 dias."],
-            ["Pagamento retido até a avaliação", "O dinheiro só vai para a profissional depois que a família avalia o atendimento."],
+            ["Verificação mensal", "Documentos revisados todo mês."],
+            ["Preço claro", "Valor da hora, e se o carro está incluso, antes de contratar."],
+            ["Avaliação nos dois sentidos", "Família e profissional se avaliam."],
+            ["Pagamento depois do atendimento", "A profissional recebe depois que a família avalia."],
           ],
         },
         {
           h: "Do protótipo ao produto.",
           p: [
-            "Em uma semana, o protótipo estático ganhou um backend de verdade: contas, pedidos, avaliações nos dois sentidos e login social. Cada profissional tem um portfólio público, para divulgar como página própria.",
-            "A Minha companhia está no ar em minhacompanhia.com.br, para o Brasil todo, enquanto o resto do fluxo é validado.",
+            "Em uma semana ganhou um backend de verdade: contas, pedidos, avaliações e login social. Está no ar em minhacompanhia.com.br, para o Brasil todo.",
           ],
           fig: { kind: "browser", img: img("minha-companhia/portfolio.webp", 1440, 900), cap: "O portfólio público de uma profissional, feito para ser compartilhado como link." },
         },
@@ -577,7 +576,7 @@ export const projects = [
     en: {
       name: "Adscendo",
       kind: "The studio",
-      tagline: "We help American businesses stand out from the crowd.",
+      tagline: "Adscendo is Latin for “I rise.” That's exactly what we want for every client: to rise above the crowd.",
       seoTitle: "About Adscendo: websites that help you stand out",
       summary: "Who we are, and how we help American businesses stand out from the crowd.",
       description: "Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers.",
@@ -586,43 +585,39 @@ export const projects = [
         {
           h: "Your customers are comparing you.",
           p: [
-            "When people need a dentist, a contractor or a lawyer, they search on their phone and open three or four websites. In a few seconds they decide who looks the most trustworthy. That business gets the call.",
-            "Most small business websites look the same: a template, stock photos, slow pages and no clear reason to choose them. To someone in a hurry, they blend into the crowd.",
+            "People search on their phone, open three or four websites and call the one that looks the most trustworthy. Most small business sites look the same, so they blend into the crowd.",
           ],
         },
         {
           h: "What Adscendo is.",
           p: [
-            "Adscendo is a small studio that designs and builds websites, and apps when a website isn't enough, for small and mid-size businesses in the United States.",
-            "It's led by Jean Menezes, who spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. Now that same care goes to businesses like yours, and you talk directly to the person building your site.",
+            "A small studio that builds websites, and apps when a website isn't enough, for businesses in the US.",
+            "It's led by Jean Menezes, who worked on digital projects for McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. You talk directly to the person building your site.",
           ],
           fig: { kind: "pair", items: [{ kind: "browser", img: img("minha-companhia/home.webp", 1440, 900), host: "minhacompanhia.com.br" }, { kind: "phone", img: img("sidemed/site-m.webp", 780, 1688), bar: "#faf7f0" }], cap: "Work we've shipped: Minha companhia, a marketplace for family care, and Sidemed, a health app used in 17 countries." },
         },
         {
           h: "How we make you stand out.",
           p: [
-            "We start with one question: why should a customer pick you over everyone else? Then we build the whole site around that answer.",
+            "One question first: why should a customer pick you? Then we build the whole site around the answer.",
           ],
           list: [
-            ["Clear in five seconds.", " The first screen says what you do, who it's for and why you're different, in plain words."],
-            ["Made for the phone.", " Most people will find you on one, so the site is fast and easy to use with a thumb."],
-            ["Easy to find.", " Set up for Google and for AI search, so people looking for what you do can find you."],
-            ["One clear next step.", " Call, book or send a message, always one tap away."],
+            ["Clear in five seconds.", " What you do and why you're different, on the first screen."],
+            ["Made for the phone.", " Fast and easy to use with a thumb."],
+            ["Easy to find.", " Ready for Google and for AI search."],
+            ["One clear next step.", " Call, book or message, one tap away."],
           ],
         },
         {
           h: "Brazilian warmth. American standards.",
           p: [
-            "We're a Brazilian studio, and we see that as a strength: fresh ideas and a close, human way of working, delivered to the standard American customers expect.",
-            "Getting started is simple. We listen to understand your business, build a first version, then adjust it with you and put it live. You get a first estimate in under a minute, and new clients get a launch discount.",
+            "We're a Brazilian studio: fresh ideas and a close, human way of working, delivered to the standard American customers expect.",
           ],
-          fig: { kind: "phones", imgs: [img("adscendo/chat-m.webp", 780, 1688)], cap: "The project chat on this site: a few questions, and a first estimate right away." },
         },
         {
-          h: "Why “Adscendo”.",
+          h: "New, and we say so.",
           p: [
-            "<em>Adscendo</em> is Latin for “I rise.” That's what we want for every client: to rise above the crowd.",
-            "The studio opened in October 2026. Its first product was <a href='/work/prospector'><strong>Prospector</strong></a>, an AI tool that finds local businesses and spots when their website is holding them back. We're new, and we say so. Everything on this site is real work, not promises.",
+            "The studio opened in October 2026, with <a href='/work/prospector'><strong>Prospector</strong></a> as its first product. Everything on this site is real work, not promises.",
           ],
         },
       ],
@@ -630,7 +625,7 @@ export const projects = [
     pt: {
       name: "Adscendo",
       kind: "O estúdio",
-      tagline: "Ajudamos empresas americanas a se destacarem no meio da multidão.",
+      tagline: "Adscendo é latim para “eu me elevo”. É exatamente o que queremos para cada cliente: se elevar acima da multidão.",
       seoTitle: "Sobre a Adscendo: sites que fazem você se destacar",
       summary: "Quem somos, e como ajudamos empresas americanas a se destacarem no meio da multidão.",
       description: "A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.",
@@ -639,43 +634,39 @@ export const projects = [
         {
           h: "Seus clientes estão comparando.",
           p: [
-            "Quando alguém precisa de um dentista, um empreiteiro ou um advogado, pesquisa no celular e abre três ou quatro sites. Em poucos segundos decide quem parece mais confiável. Essa empresa recebe a ligação.",
-            "A maioria dos sites de pequenas empresas é igual: um modelo pronto, fotos de banco de imagem, páginas lentas e nenhum motivo claro para escolher aquela empresa. Para quem está com pressa, elas se perdem na multidão.",
+            "As pessoas pesquisam no celular, abrem três ou quatro sites e ligam para quem parece mais confiável. A maioria dos sites de pequenas empresas é igual, então elas se perdem na multidão.",
           ],
         },
         {
           h: "O que é a Adscendo.",
           p: [
-            "A Adscendo é um pequeno estúdio que desenha e constrói sites, e apps quando um site não basta, para pequenas e médias empresas nos Estados Unidos.",
-            "Ela é liderada pelo Jean Menezes, que passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Agora esse mesmo cuidado vai para empresas como a sua, e você fala direto com quem constrói o seu site.",
+            "Um pequeno estúdio que constrói sites, e apps quando um site não basta, para empresas nos Estados Unidos.",
+            "É liderado pelo Jean Menezes, que trabalhou em projetos digitais para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Você fala direto com quem constrói o seu site.",
           ],
           fig: { kind: "pair", items: [{ kind: "browser", img: img("minha-companhia/home.webp", 1440, 900), host: "minhacompanhia.com.br" }, { kind: "phone", img: img("sidemed/site-m.pt.webp", 780, 1688), bar: "#faf7f0" }], cap: "Trabalhos entregues: a Minha companhia, um marketplace de cuidado familiar, e a Sidemed, um app de saúde usado em 17 países." },
         },
         {
           h: "Como fazemos você se destacar.",
           p: [
-            "Começamos com uma pergunta: por que um cliente deveria escolher você e não os outros? Depois construímos o site inteiro em volta dessa resposta.",
+            "Primeiro, uma pergunta: por que um cliente deveria escolher você? Depois construímos o site inteiro em volta da resposta.",
           ],
           list: [
-            ["Claro em cinco segundos.", " A primeira tela diz o que você faz, para quem e por que é diferente, em palavras simples."],
-            ["Feito para o celular.", " A maioria das pessoas vai te encontrar por ele, então o site é rápido e fácil de usar com o polegar."],
-            ["Fácil de encontrar.", " Preparado para o Google e para a busca por IA, para que quem procura o que você faz te encontre."],
-            ["Um próximo passo claro.", " Ligar, agendar ou mandar mensagem, sempre a um toque."],
+            ["Claro em cinco segundos.", " O que você faz e por que é diferente, logo na primeira tela."],
+            ["Feito para o celular.", " Rápido e fácil de usar com o polegar."],
+            ["Fácil de encontrar.", " Preparado para o Google e para a busca por IA."],
+            ["Um próximo passo claro.", " Ligar, agendar ou mandar mensagem, a um toque."],
           ],
         },
         {
           h: "Calor brasileiro. Padrão americano.",
           p: [
-            "Somos um estúdio brasileiro, e vemos isso como uma força: ideias novas e um jeito próximo e humano de trabalhar, entregues no padrão que o cliente americano espera.",
-            "Começar é simples. Ouvimos para entender o seu negócio, construímos uma primeira versão, ajustamos com você e colocamos no ar. Você recebe uma primeira estimativa em menos de um minuto, e clientes novos têm desconto de lançamento.",
+            "Somos um estúdio brasileiro: ideias novas e um jeito próximo e humano de trabalhar, entregues no padrão que o cliente americano espera.",
           ],
-          fig: { kind: "phones", imgs: [img("adscendo/chat-m.pt.webp", 780, 1688)], cap: "A conversa sobre o projeto neste site: algumas perguntas e uma primeira estimativa na hora." },
         },
         {
-          h: "Por que “Adscendo”.",
+          h: "Somos novos, e dizemos isso.",
           p: [
-            "<em>Adscendo</em> é latim para “eu subo”. É o que queremos para cada cliente: subir acima da multidão.",
-            "O estúdio abriu em outubro de 2026. O primeiro produto foi o <a href='/pt/work/prospector'><strong>Prospector</strong></a>, uma ferramenta com IA que acha empresas locais e percebe quando o site delas está atrapalhando. Somos novos, e dizemos isso. Tudo neste site é trabalho real, não promessa.",
+            "O estúdio abriu em outubro de 2026, com o <a href='/pt/work/prospector'><strong>Prospector</strong></a> como primeiro produto. Tudo neste site é trabalho real, não promessa.",
           ],
         },
       ],

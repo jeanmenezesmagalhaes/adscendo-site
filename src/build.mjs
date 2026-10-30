@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections } from "./content.mjs";
 
 // Public origin, e.g. "https://adscendo.com". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
@@ -15,6 +15,9 @@ const LANGS = ["en", "pt"];
 const base = lang => (lang === "en" ? "" : "/pt");
 const homePath = lang => base(lang) || "/";
 const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
+const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
+// The section's own address and its twin in the other language, for site.js.
+const sectionAttrs = (lang, id) => `id="${id}" data-path="${sectionPath(lang, id)}" data-alt="${sectionPath(other(lang), id)}"`;
 const other = lang => (lang === "en" ? "pt" : "en");
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|quot;)/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const strip = s => s.replace(/<[^>]+>/g, "");
@@ -80,37 +83,37 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <body>
 ${icons}`;
 
-const nav = (lang, altPath, onHome) => {
-  const t = ui[lang], h = onHome ? "" : homePath(lang);
+const nav = (lang, altPath) => {
+  const t = ui[lang];
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
 <header class="nav" id="top">
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>
     <ul>
-      <li><a href="${h}#build">${t.nav.services}</a></li>
-      <li><a href="${h}#work">${t.nav.work}</a></li>
-      <li><a href="${h}#process">${t.nav.process}</a></li>
-      <li><a href="${h}#about">${t.nav.about}</a></li>
+      <li><a href="${sectionPath(lang, "build")}">${t.nav.services}</a></li>
+      <li><a href="${sectionPath(lang, "work")}">${t.nav.work}</a></li>
+      <li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li>
+      <li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li>
     </ul>
     <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.switchTo}" title="${t.switchTo}"><svg aria-hidden="true"><use href="#flag-${lang}"/></svg>${lang.toUpperCase()}</a>
     <button class="theme" type="button" aria-pressed="false" aria-label="${t.darkMode}" title="${t.darkMode}" hidden>${icon("contrast")}</button>
-    <a class="btn btn--sm" href="${h}#contact">${t.nav.cta}</a>
+    <a class="btn btn--sm" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
   </div>
 </header>`;
 };
 
-// The footer pins while the wordmark grows from small to the full width of the screen; the tagline,
-// contact buttons and "back to top" settle in underneath (site.js drives --p from 0 to 1).
+// The footer fills the screen: as it comes into view the wordmark grows on its own from small to the
+// full width, and the tagline, contact buttons and "back to top" fade in underneath (site.js).
 const footer = (lang, altPath) => {
-  const t = ui[lang], h = homePath(lang);
-  return `<a class="btn float-cta" href="${h === "/" ? "" : h}#contact" hidden>${t.nav.cta}</a>
+  const t = ui[lang];
+  return `<a class="btn float-cta" href="${sectionPath(lang, "contact")}" hidden>${t.nav.cta}</a>
 <footer class="outro">
   <div class="outro-pin">
     <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
     <div class="outro-meta wrap">
-      <p class="outro-line" data-cursor="drag">${t.footer}</p>
+      <p class="outro-line">${t.footer}</p>
       <nav class="outro-links">
-        <a class="btn btn--sm" href="${h === "/" ? "" : h}#contact">${t.nav.cta}</a>
+        <a class="btn btn--sm" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
         <a class="btn btn--sm btn--ghost" href="mailto:${contact.email}">Email</a>
         <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
         <a class="btn btn--sm btn--ghost" href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
@@ -200,17 +203,17 @@ const homePage = lang => {
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
   const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
-  return head({ lang, title: c.title, description: c.description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath, true) + `
+  return head({ lang, title: c.title, description: c.description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath) + `
 <main id="main">
   <section class="hero wrap">
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
     <p class="sub">${c.sub}</p>
-    <div class="actions-row"><a class="btn" href="#work">${c.ctaWork}</a><a class="btn btn--ghost" href="#contact">${c.ctaTalk}</a></div>
+    <div class="actions-row"><a class="btn" href="${sectionPath(lang, "work")}">${c.ctaWork}</a><a class="btn btn--ghost" href="${sectionPath(lang, "contact")}">${c.ctaTalk}</a></div>
     <div class="demo-intro"><span class="demo-label"><i></i>${c.demoLabel}</span><p>${c.demoText}</p></div>
     ${heroDemo(lead, lang)}
   </section>
 
-  <section class="band band--gray process" id="process">
+  <section class="band band--gray process" ${sectionAttrs(lang, "process")}>
     <div class="process-pin">
       <div class="wrap" data-rise=".h2, .lede">
         <h2 class="h2">${c.processTitle}</h2>
@@ -218,19 +221,19 @@ const homePage = lang => {
         <ol class="steps">
         ${steps}
         </ol>
-        <p class="section-cta"><a class="btn" href="#contact">${c.processCta}</a></p>
+        <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.processCta}</a></p>
       </div>
     </div>
   </section>
 
-  <section class="band" id="work">
+  <section class="band" ${sectionAttrs(lang, "work")}>
     <div class="wrap" data-rise=".h2, .lede, .proj">
       <h2 class="h2">${c.workTitle}</h2>
       <p class="lede">${c.workLede}</p>
       <ul class="projects">
       ${projectsList}
       </ul>
-      <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="#contact">${c.workCta[1]}</a></div>
+      <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="${sectionPath(lang, "contact")}">${c.workCta[1]}</a></div>
     </div>
   </section>
 
@@ -251,26 +254,26 @@ const homePage = lang => {
     </div>
   </section>
 
-  <section class="band" id="about">
+  <section class="band" ${sectionAttrs(lang, "about")}>
     <div class="wrap founder" data-rise=".portrait, .h2, .body">
       ${founderPhoto ? `<figure class="portrait"><img src="${founderPhoto}" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>${c.sigRole}</span></figcaption></figure>` : ""}
       <h2 class="h2">${c.aboutTitle.replace(". ", ".<br>")}</h2>
-      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="#contact">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
+      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="${sectionPath(lang, "contact")}">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
     </div>
   </section>
 
-  <section class="band band--gray" id="build">
+  <section class="band band--gray" ${sectionAttrs(lang, "build")}>
     <div class="wrap" data-rise=".h2, .lede, .tile">
       <h2 class="h2">${c.doTitle}</h2>
       <p class="lede">${c.doLede}</p>
       <div class="tiles tiles--${c.tiles.length}">
         ${tiles}
       </div>
-      <p class="section-cta"><a class="btn" href="#contact">${c.buildCta}</a></p>
+      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.buildCta}</a></p>
     </div>
   </section>
 
-  <section class="band contact-light" id="contact">
+  <section class="band contact-light" ${sectionAttrs(lang, "contact")}>
     <div class="wrap" data-rise=".h2, .lede, .channels, .form">
       <h2 class="h2">${c.contactTitle.replace(". ", ".<br>")}</h2>
       <p class="lede">${c.contactLede}</p>
@@ -330,10 +333,10 @@ const casePage = (lang, i) => {
         </div>
         ${ch.fig ? figure(ch.fig, p, lang) : ""}
       </article>`).join("\n      ");
-  return head({ lang, title: d.seoTitle || `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld, image, imageAlt: `${d.name}: ${d.tagline}` }) + nav(lang, altPath, false) + `
+  return head({ lang, title: d.seoTitle || `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld, image, imageAlt: `${d.name}: ${d.tagline}` }) + nav(lang, altPath) + `
 <main id="main">
   <section class="case-head wrap">
-    <a class="back" href="${homePath(lang)}#work">${icon("arrow")}${t.back}</a>
+    <a class="back" href="${sectionPath(lang, "work")}">${icon("arrow")}${t.back}</a>
     <h1>${d.name}</h1>
     <p class="lede">${d.tagline}</p>
     ${actions ? `<div class="actions-row">${actions}</div>` : ""}
@@ -354,7 +357,7 @@ const casePage = (lang, i) => {
         <h2>${next[lang].name}${icon("arrow")}</h2>
         <p>${next[lang].summary}</p>
       </a>
-      <a class="btn btn--light" href="${homePath(lang)}#contact">${t.nav.cta}</a>
+      <a class="btn btn--light" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
     </div>
   </section>
 </main>
@@ -373,6 +376,15 @@ for (const lang of LANGS) {
   write(`${prefix}index.html`, homePage(lang));
   projects.forEach((p, i) => write(`${prefix}work/${p.slug}/index.html`, casePage(lang, i)));
 }
+
+// vercel.json: serve the home page at each section's clean address (serve.mjs does the same locally).
+const vercelFile = join(ROOT, "vercel.json");
+const vercel = JSON.parse(readFileSync(vercelFile, "utf8"));
+vercel.rewrites = LANGS.map(lang => ({
+  source: `${base(lang)}/(${[...new Set(Object.values(sections).map(s => s[lang]))].join("|")})`,
+  destination: homePath(lang),
+}));
+write("vercel.json", JSON.stringify(vercel, null, 2) + "\n");
 
 // Every page as [en path, pt path], for the sitemap and llms.txt.
 const pairs = [["/", "/pt"], ...projects.map(p => [casePath("en", p.slug), casePath("pt", p.slug)])];

@@ -175,7 +175,7 @@ section.band { padding: clamp(88px, 13vw, 160px) 0; }
 }
 
 /* ---------- process ---------- */
-/* With JS the section pins under the nav and the cards snap in one by one as you scroll (site.js). */
+/* With JS the cards land one after another, half a second apart, as they come into view (site.js). */
 section.process { padding: 0; }
 .process-pin { padding: clamp(88px, 13vw, 160px) 0; }
 .steps { margin: clamp(40px, 6vw, 72px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -184,20 +184,9 @@ section.process { padding: 0; }
 .step h3 { margin-top: 40px; font-size: clamp(30px, 3.4vw, 44px); letter-spacing: -0.04em; line-height: 1; }
 .step p:last-child { margin-top: 14px; font-size: 17px; color: var(--graphite); }
 @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } .step h3 { margin-top: 20px; } }
-html.js .process.pinned { height: 290vh; }
-html.js .process.pinned .process-pin { position: sticky; top: 52px; min-height: calc(100vh - 52px); min-height: calc(100svh - 52px); display: flex; align-items: center; padding: clamp(32px, 6vh, 72px) 0; }
-html.js .process.pinned .process-pin > .wrap { width: min(1080px, 100% - 2 * var(--pad)); }
-html.js .process.pinned .step { opacity: 0; transform: translateY(90px) scale(.96); transition: opacity .45s var(--ease), transform .75s cubic-bezier(.22, 1.35, .4, 1), background-color .4s; }
-html.js .process.pinned .step.on { opacity: 1; transform: none; }
-@media (max-width: 860px) {
-  /* Phones: the cards land on top of each other like a deck, the earlier ones tucking back. */
-  html.js .process.pinned .steps { grid-template-columns: 1fr; grid-template-areas: "deck"; }
-  html.js .process.pinned .step { grid-area: deck; min-height: 230px; position: relative; }
-  html.js .process.pinned .step:nth-child(2) { z-index: 2; }
-  html.js .process.pinned .step:nth-child(3) { z-index: 3; }
-  html.js .process.pinned .step.on.past { transform: translateY(calc(var(--back) * -14px)) scale(calc(1 - var(--back) * .05)); background: light-dark(#ececf0, #19191b); }
-}
-@media (prefers-reduced-motion: reduce) { html.js .process.pinned { height: auto; } html.js .process.pinned .process-pin { position: static; } html.js .process.pinned .step { opacity: 1; transform: none; transition: none; } }
+html.js .process.staged .step { opacity: 0; transform: translateY(90px) scale(.96); transition: opacity .45s var(--ease), transform .75s cubic-bezier(.22, 1.35, .4, 1); }
+html.js .process.staged .step.on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js .process.staged .step { opacity: 1; transform: none; transition: none; } }
 
 /* ---------- timeline (black band) ---------- */
 .timeline { margin: clamp(48px, 7vw, 80px) 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -308,13 +297,16 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 .cta-strip { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
 
 /* ---------- footer ---------- */
-/* The footer pins for a while: the wordmark grows from small to the full width of the screen, then the
-   tagline, contact buttons and "back to top" settle in underneath. site.js sets --s (scale) and --m. */
-.outro { position: relative; height: 160vh; height: 160svh; color: var(--muted); font-size: 13px; }
-.outro-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding-bottom: clamp(190px, 30vh, 260px); }
-.outro-sign { margin: 0; display: inline-flex; align-items: center; gap: .42em; font-size: 160px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); text-decoration: none; white-space: nowrap; transform: scale(var(--s, .2)); will-change: transform; }
+/* The footer fills the screen. When it comes into view the wordmark grows on its own from small to the
+   full width of the screen, then the tagline, contact buttons and "back to top" fade in underneath.
+   site.js sets --s (full scale) and adds .in. */
+.outro { position: relative; color: var(--muted); font-size: 13px; }
+.outro-pin { position: relative; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding-bottom: clamp(190px, 30vh, 260px); }
+.outro-sign { margin: 0; display: inline-flex; align-items: center; gap: .42em; font-size: 160px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); text-decoration: none; white-space: nowrap; transform: scale(calc(var(--s, 1) * .16)); transition: transform 1.1s cubic-bezier(.22, 1, .36, 1); will-change: transform; }
+.outro.in .outro-sign { transform: scale(var(--s, 1)); }
 .outro-sign svg { width: 1.58em; height: 1.05em; flex: none; }
-.outro-meta { position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 56px); display: grid; gap: 20px; opacity: var(--m, 1); transform: translateY(calc((1 - var(--m, 1)) * 28px)); }
+.outro-meta { position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 56px); display: grid; gap: 20px; opacity: 0; transition: opacity .6s ease .75s; }
+.outro.in .outro-meta { opacity: 1; }
 .outro-line { font-size: clamp(22px, 3vw, 36px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
 .outro-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .outro-row { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
@@ -322,8 +314,11 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 .outro-row a:hover { color: var(--ink); }
 .to-top { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 500; }
 .to-top svg { width: 14px; height: 14px; transform: rotate(-90deg); }
+html:not(.js) .outro-sign { transform: none; }
+html:not(.js) .outro-meta { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .outro { height: auto; }
+  .outro-sign { transform: none; transition: none; }
+  .outro-meta { opacity: 1; transition: none; }
   .outro-pin { position: static; height: auto; display: block; padding: 72px 0 48px; }
   .outro-sign { display: flex; justify-content: center; margin-bottom: 48px; }
   .outro-meta { position: static; }
@@ -502,8 +497,8 @@ html.js .rise.in { opacity: 1; transform: none; }
 /* Footer rubber letters (site.js). */
 .rb-word { display: inline-block; white-space: nowrap; }
 .rb { display: inline-block; will-change: transform; }
-.outro-line, .outro-sign { touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
-.outro-line.grabbing, .outro-sign.grabbing { cursor: grabbing; }
+.outro-sign { touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.outro-sign.grabbing { cursor: grabbing; }
 .outro-line { justify-self: start; }
 
 /* ---------- contact chat (chat.js) ---------- */

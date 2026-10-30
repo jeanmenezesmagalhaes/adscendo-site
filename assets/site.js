@@ -65,35 +65,20 @@ if (wa && CONFIG.whatsapp) {
   wa.hidden = false;
 }
 
-// How we work: the section pins and each card snaps in as the visitor scrolls further.
+// How we work: no scrolling needed to see the steps. Each card lands as it comes into view, at least
+// half a second after the one before, so on a wide screen the three follow each other on their own.
 const proc = document.querySelector(".process");
-if (proc && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  proc.classList.add("pinned");
-  const cards = [...proc.querySelectorAll(".step")];
-  const update = () => {
-    const r = proc.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
-    const shown = r.top > innerHeight * .4 ? 0 : p < .3 ? 1 : p < .62 ? 2 : 3;
-    cards.forEach((c, i) => {
-      c.classList.toggle("on", i < shown);
-      c.classList.toggle("past", i < shown - 1);
-      c.style.setProperty("--back", shown - 1 - i);
-    });
-  };
-  addEventListener("scroll", update, { passive: true });
-  addEventListener("resize", update);
-  update();
-  // "How we work" in the nav lands where all three steps are already on screen, not at the empty start
-  // of the pinned stretch. Same when arriving from another page with #process in the address.
-  const allSteps = () => proc.offsetTop + (proc.offsetHeight - innerHeight) * .72;
-  document.addEventListener("click", e => {
-    const a = e.target.closest('a[href$="#process"]');
-    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button || new URL(a.href, location.href).pathname.replace(/\/$/, "") !== location.pathname.replace(/\/$/, "")) return;
-    e.preventDefault();
-    history.pushState(null, "", "#process");
-    scrollTo({ top: allSteps(), behavior: "smooth" });
-  });
-  if (location.hash === "#process") addEventListener("load", () => setTimeout(() => scrollTo({ top: allSteps() }), 50), { once: true });
+if (proc && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  proc.classList.add("staged");
+  let next = 0;
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const now = performance.now(), at = Math.max(now, next);
+    next = at + 500;
+    setTimeout(() => e.target.classList.add("on"), at - now);
+  }), { rootMargin: "0px 0px -15% 0px" });
+  proc.querySelectorAll(".step").forEach(c => io.observe(c));
 }
 
 // WhatsApp links elsewhere on the page (footer) follow the same CONFIG.
@@ -103,26 +88,37 @@ document.querySelectorAll("[data-wa]").forEach(a => {
   a.hidden = false;
 });
 
-// Footer: the wordmark grows with the scroll until it spans the screen, then the rest fades in.
+// Footer: once it comes into view the wordmark grows on its own to span the screen and the rest fades
+// in (CSS transitions on .in). A little scroll into it is enough: when scrolling down stops with the
+// footer partly on screen, the page glides the rest of the way so the whole footer shows.
 const outro = document.querySelector(".outro");
 if (outro) {
-  const sign = outro.querySelector(".outro-sign"), meta = outro.querySelector(".outro-meta");
+  const sign = outro.querySelector(".outro-sign");
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const clamp = v => Math.min(1, Math.max(0, v));
-  const ease = v => 1 - Math.pow(1 - v, 3);
-  const frame = () => {
-    // Full size: the screen's width less a small margin, but never taller than 40% of the screen.
-    const fit = Math.min((innerWidth - 40) / sign.offsetWidth, innerHeight * .4 / sign.offsetHeight);
-    if (still) { sign.style.setProperty("--s", fit.toFixed(4)); return; }
-    // Progress runs from when the footer reaches mid-screen until the page ends.
-    const r = outro.getBoundingClientRect();
-    const p = clamp((innerHeight * .5 - r.top) / (r.height - innerHeight * .5));
-    sign.style.setProperty("--s", (fit * (.16 + .84 * ease(clamp(p / .62)))).toFixed(4));
-    meta.style.setProperty("--m", clamp((p - .58) / .32).toFixed(3));
-  };
-  addEventListener("scroll", frame, { passive: true });
-  addEventListener("resize", frame);
-  frame();
+  // Full size: the screen's width less a small margin, but never taller than 40% of the screen.
+  const fit = () => sign.style.setProperty("--s", Math.min((innerWidth - 40) / sign.offsetWidth, innerHeight * .4 / sign.offsetHeight).toFixed(4));
+  addEventListener("resize", fit);
+  fit();
+  if (still) outro.classList.add("in");
+  else {
+    new IntersectionObserver(([e], io) => {
+      if (e.isIntersecting) { outro.classList.add("in"); io.disconnect(); }
+    }, { threshold: .2 }).observe(outro);
+    let lastY = scrollY, down = false, rest = 0, glided = false;
+    addEventListener("scroll", () => {
+      down = scrollY > lastY;
+      lastY = scrollY;
+      const top = outro.getBoundingClientRect().top;
+      if (top > innerHeight) glided = false;
+      clearTimeout(rest);
+      rest = setTimeout(() => {
+        const t = outro.getBoundingClientRect().top;
+        if (!down || glided || t <= 1 || t > innerHeight * .8) return;
+        glided = true;
+        scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+      }, 140);
+    }, { passive: true });
+  }
 }
 
 // The floating "Get in touch" shows once the hero is behind, and steps aside near the contact form and footer.
@@ -152,23 +148,51 @@ if (floatCta) {
   show();
 }
 
+// Home sections have clean addresses (/how-we-work, /pt/como-trabalhamos…) that serve the home page.
+// On the home page, links to them scroll there without a reload and the address follows; arriving at
+// one scrolls to its section, and the language switch points at the same section in the other language.
+const sections = new Map([...document.querySelectorAll("section[data-path]")].map(s => [s.dataset.path, s]));
+const langLink = document.querySelector(".nav .lang"), altHome = langLink?.getAttribute("href");
+const motion = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
+const goTo = (path, behavior) => {
+  const s = sections.get(path);
+  if (langLink) langLink.href = s ? s.dataset.alt : altHome;
+  if (s) s.scrollIntoView({ behavior });
+  else scrollTo({ top: 0, behavior });
+};
+const here = path => path.replace(/\/$/, "") || "/";
+// This page's own path, also when the home page is showing at a section's address.
+const page = () => sections.has(location.pathname) ? here(new URL(document.querySelector(".brand").href).pathname) : here(location.pathname);
+if (sections.has(location.pathname)) {
+  goTo(location.pathname, "instant");
+  addEventListener("load", () => setTimeout(() => goTo(location.pathname, "instant"), 50), { once: true });
+} else if (location.hash) {
+  // Old links such as /#process: same section, clean address.
+  const s = document.getElementById(location.hash.slice(1));
+  if (s?.dataset.path) { history.replaceState(null, "", s.dataset.path); if (langLink) langLink.href = s.dataset.alt; }
+}
+// Back and Forward between sections scroll to the section of the address shown.
+addEventListener("popstate", () => { if (!location.hash && (sections.has(location.pathname) || here(location.pathname) === page())) goTo(location.pathname, motion()); });
+
 // "Back to top": the #top anchor is the sticky nav, which never looks far away to the browser,
 // so scroll to the real top of the page instead.
 // Links back to the page you are already on (the logo on the home page, the footer wordmark) do the
 // same: no reload, just a scroll to the top.
-const here = path => path.replace(/\/$/, "") || "/";
 document.addEventListener("click", e => {
   const a = e.target.closest("a[href]");
   if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
   const url = new URL(a.href, location.href);
   const top = a.getAttribute("href") === "#top";
-  if (!top && (url.origin !== location.origin || here(url.pathname) !== here(location.pathname) || url.hash)) return;
+  const path = here(url.pathname);
+  if (!top && (url.origin !== location.origin || url.hash || (!sections.has(path) && path !== page()))) return;
   e.preventDefault();
-  scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-  document.querySelector(".brand")?.focus({ preventScroll: true });
+  const to = top ? page() : path;
+  if (to !== here(location.pathname)) history.pushState(null, "", to);
+  goTo(to, motion());
+  if (!sections.has(to)) document.querySelector(".brand")?.focus({ preventScroll: true });
 });
 
-// Footer rubber: grab the tagline or the wordmark and drag; the letters near your hand stretch along,
+// Footer rubber: grab the wordmark and drag; the letters near your hand stretch along,
 // then spring back with a wobble when you let go. Hovering nudges the nearest letters toward the pointer.
 function rubber(box, items) {
   const n = items.length;
@@ -254,11 +278,6 @@ function letters(el) {
   return out;
 }
 if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const line = document.querySelector(".outro-line");
-  if (line) {
-    line.setAttribute("aria-label", line.textContent);
-    rubber(line, letters(line));
-  }
   const sign = document.querySelector(".outro-sign");
   if (sign) {
     const word = sign.querySelector("span");

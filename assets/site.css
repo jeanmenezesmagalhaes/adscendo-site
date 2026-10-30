@@ -92,6 +92,7 @@ p { margin: 0; text-wrap: pretty; }
 .lang svg { width: 20px; height: 14px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); flex: none; }
 .lang:hover { background: var(--pressed); }
 .nav--dark ul { color: var(--graphite); }
+.nav--snap, .nav--snap * { transition: none !important; } /* light/dark switch in one frame (site.js) */
 .theme { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px; background: var(--chip); color: var(--ink); cursor: pointer; transition: background-color .2s; }
 .theme:hover { background: var(--pressed); }
 .theme svg { width: 16px; height: 16px; }

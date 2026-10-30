@@ -22,13 +22,17 @@ document.querySelectorAll("[data-rise]").forEach(sec => {
   });
 });
 
-// The nav turns dark over the black band.
+// The nav turns dark over a black band. The switch is instant: with the usual transitions the nav and
+// its buttons would show their old colors for a moment, a flash against the band on a fast scroll.
 const nav = document.querySelector(".nav");
-const dark = document.querySelector(".band--black");
-if (nav && dark) {
+const darks = [...document.querySelectorAll(".band--black")];
+if (nav && darks.length) {
   const theme = () => {
-    const b = dark.getBoundingClientRect();
-    nav.classList.toggle("nav--dark", b.top <= 52 && b.bottom > 26);
+    const on = darks.some(d => { const b = d.getBoundingClientRect(); return b.top <= 52 && b.bottom > 26; });
+    if (on === nav.classList.contains("nav--dark")) return;
+    nav.classList.add("nav--snap");
+    nav.classList.toggle("nav--dark", on);
+    requestAnimationFrame(() => requestAnimationFrame(() => nav.classList.remove("nav--snap")));
   };
   addEventListener("scroll", theme, { passive: true });
   theme();

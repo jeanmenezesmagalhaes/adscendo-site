@@ -154,10 +154,12 @@ if (floatCta) {
 const sections = new Map([...document.querySelectorAll("section[data-path]")].map(s => [s.dataset.path, s]));
 const langLink = document.querySelector(".nav .lang"), altHome = langLink?.getAttribute("href");
 const motion = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
+// "Get in touch" lands on the project chat itself, centered on screen, not on the contact heading.
 const goTo = (path, behavior) => {
-  const s = sections.get(path);
+  const s = sections.get(path), chatBox = s?.querySelector("[data-chat]");
   if (langLink) langLink.href = s ? s.dataset.alt : altHome;
-  if (s) s.scrollIntoView({ behavior });
+  if (chatBox) chatBox.scrollIntoView({ behavior, block: "center" });
+  else if (s) s.scrollIntoView({ behavior });
   else scrollTo({ top: 0, behavior });
 };
 const here = path => path.replace(/\/$/, "") || "/";

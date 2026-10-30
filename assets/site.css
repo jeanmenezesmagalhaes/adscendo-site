@@ -263,7 +263,7 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 
 .chapters { display: grid; gap: clamp(72px, 10vw, 128px); }
 .chapter { display: grid; gap: 20px; }
-.chapter-row { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 20px clamp(32px, 6vw, 80px); align-items: start; }
+.chapter-row { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 20px clamp(32px, 6vw, 80px); align-items: center; }
 .chapter .num { font-size: 13px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
 .chapter h2 { margin-top: 10px; font-size: clamp(32px, 4.2vw, 52px); line-height: 1.04; letter-spacing: -0.04em; }
 .chapter .text p { font-size: 19px; line-height: 1.55; max-width: 40ch; }
@@ -274,7 +274,9 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 .chapter .text li { padding: 14px 18px; border-radius: 14px; background: var(--band); font-size: 17px; }
 .chapter .text li b { display: block; font-weight: 600; }
 .band--gray .chapter .text li { background: var(--surface); }
-@media (min-width: 821px) { .chapter header { position: sticky; top: 84px; } }
+/* Title and text sit side by side, centered on each other. The text is padded by the height of the
+   number over the title (its line plus the title's margin), so it centers on the title itself. */
+@media (min-width: 821px) { .chapter header { position: sticky; top: 84px; } .chapter .text { padding-top: 29px; } }
 @media (max-width: 820px) { .chapter-row { grid-template-columns: 1fr; } }
 
 figure { margin: 0; }

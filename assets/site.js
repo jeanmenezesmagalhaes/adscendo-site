@@ -22,6 +22,12 @@ document.querySelectorAll("[data-rise]").forEach(sec => {
   });
 });
 
+// Launch offer strip: closing it hides it on every page from then on (the <head> script reads the flag).
+document.querySelector(".offer-close")?.addEventListener("click", () => {
+  document.documentElement.classList.add("offer-closed");
+  try { localStorage.setItem("offer", "closed"); } catch {}
+});
+
 // The nav turns dark over a black band. The switch is instant: with the usual transitions the nav and
 // its buttons would show their old colors for a moment, a flash against the band on a fast scroll.
 const nav = document.querySelector(".nav");

@@ -76,6 +76,19 @@ p { margin: 0; text-wrap: pretty; }
 .link:hover svg { transform: translateX(2px); }
 .actions-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
+/* ---------- launch offer ---------- */
+/* A slim strip above the nav on every page, until the visitor closes it (site.js remembers). */
+.offer { position: relative; display: flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 52px; background: var(--ink); color: light-dark(#fff, #000); font-size: 13px; line-height: 1.4; text-align: center; letter-spacing: -0.005em; }
+.offer p { max-width: 920px; }
+.offer b { font-weight: 600; }
+.offer a { display: inline-flex; align-items: center; gap: 4px; color: inherit; font-weight: 600; white-space: nowrap; text-underline-offset: 3px; }
+.offer a svg { width: 12px; height: 12px; }
+.offer-close { position: absolute; right: 8px; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px; background: none; color: inherit; opacity: .7; cursor: pointer; transition: opacity .2s, background-color .2s; }
+.offer-close:hover { opacity: 1; background: rgba(128,128,128,.25); }
+.offer-close svg { width: 14px; height: 14px; }
+.offer-closed .offer { display: none; }
+@media (max-width: 560px) { .offer { justify-content: flex-start; text-align: left; padding: 10px 48px 10px 16px; } }
+
 /* ---------- nav ---------- */
 .nav {
   position: sticky; top: 0; z-index: 50; height: 52px;

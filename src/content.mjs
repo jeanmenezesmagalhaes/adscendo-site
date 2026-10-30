@@ -24,6 +24,8 @@ export const ui = {
     nav: { services: "Services", work: "Portfolio", process: "How we work", about: "About", cta: "Get in touch" },
     other: "Português", otherShort: "PT", switchTo: "Mudar para português", darkMode: "Dark mode",
     skip: "Skip to content",
+    // Strip above the nav on every page; {p} is the largest launch discount in `quote`.
+    offer: { label: "Launch offer", text: "We're taking on our first clients in the US to build our portfolio, so projects are up to {p}% off.", cta: "Get a quote", close: "Close" },
     readStory: "Read the full story",
     back: "All work",
     visit: "Visit site",
@@ -39,6 +41,7 @@ export const ui = {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
     other: "English", otherShort: "EN", switchTo: "Switch to English", darkMode: "Modo escuro",
     skip: "Pular para o conteúdo",
+    offer: { label: "Oferta de lançamento", text: "Estamos atendendo os primeiros clientes nos EUA para montar nosso portfólio, por isso os projetos têm até {p}% de desconto.", cta: "Peça um orçamento", close: "Fechar" },
     readStory: "Ler a história completa",
     back: "Todos os trabalhos",
     visit: "Ver site",

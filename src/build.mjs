@@ -76,16 +76,21 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/cursor.css">
-<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
 <script>${transitions}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
 ${icons}`;
 
+const bestOff = Math.max(...Object.values(quote).map(q => q.off));
 const nav = (lang, altPath) => {
   const t = ui[lang];
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
+<div class="offer" role="region" aria-label="${t.offer.label}">
+  <p><b>${t.offer.label}.</b> ${t.offer.text.replace("{p}", bestOff)} <a href="${sectionPath(lang, "contact")}">${t.offer.cta}${icon("arrow")}</a></p>
+  <button class="offer-close" type="button" aria-label="${t.offer.close}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
 <header class="nav" id="top">
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>

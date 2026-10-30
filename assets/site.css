@@ -206,20 +206,8 @@ html.js .process.pinned .step.on { opacity: 1; transform: none; }
 .tile--dark p { color: var(--dark-2); }
 .tile--dark li { background: var(--raised); }
 .tiles--2 { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
-.tiles--2 .tile.is-featured h3 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.045em; }
-/* The featured tile trades places every few seconds (site.js), in one slow glide: width, colors and the
-   title's size ease over together. The text keeps the same width in both sizes, so no line ever jumps. */
-.tiles--2 { --swap: cubic-bezier(.45, 0, .2, 1); transition: grid-template-columns 2.4s var(--swap); }
-.tiles--2.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr); }
-/* The featured tile is the plain tile inverted, so its colors can cross over smoothly in either theme. */
-.tiles--2 .tile { min-height: 400px; overflow: hidden; transition: filter 2.4s var(--swap); }
-.tiles--2 .tile.is-featured { filter: invert(.9); }
-/* Keep the rise-in transition too, or it would replace the filter's (same element, stronger selector). */
-html.js .tiles--2 .tile { transition: filter 2.4s var(--swap), opacity .9s var(--ease), transform .9s var(--ease); }
-.tiles--2 .tile h3 { white-space: nowrap; transition: font-size 2.4s var(--swap), letter-spacing 2.4s var(--swap); }
-.tiles--2 .tile p { max-width: 25ch; }
-.tiles--2 .tile ul { max-width: 300px; }
-@media (max-width: 900px) { .tiles--2 .tile { min-height: 0; } .tiles--2 .tile p, .tiles--2 .tile ul { max-width: none; } }
+.tiles--2 .tile:first-child h3 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.045em; }
+.tiles--2 .tile:first-child p { font-size: 19px; max-width: 34ch; }
 @media (max-width: 900px) { .tiles, .tiles--2 { grid-template-columns: 1fr; } .tile { min-height: 0; } }
 
 /* ---------- founder ---------- */

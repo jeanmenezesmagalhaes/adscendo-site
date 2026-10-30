@@ -242,18 +242,3 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     rubber(sign, [sign.querySelector("svg"), ...chars]);
   }
 }
-
-// What we build: the featured tile (wide, inverted) trades places every few seconds. It holds still while
-// the pointer is over it, while it is off screen, and for visitors who prefer less motion.
-const pair = document.querySelector(".tiles--2");
-if (pair && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  let seen = false, held = false;
-  new IntersectionObserver(([e]) => { seen = e.isIntersecting; }, { threshold: .4 }).observe(pair);
-  pair.addEventListener("pointerenter", () => { held = true; });
-  pair.addEventListener("pointerleave", () => { held = false; });
-  setInterval(() => {
-    if (!seen || held || document.hidden) return;
-    pair.classList.toggle("flip");
-    [...pair.children].forEach(t => t.classList.toggle("is-featured"));
-  }, 8000);
-}

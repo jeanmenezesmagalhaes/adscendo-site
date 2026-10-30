@@ -206,8 +206,15 @@ html.js .process.pinned .step.on { opacity: 1; transform: none; }
 .tile--dark p { color: var(--dark-2); }
 .tile--dark li { background: var(--raised); }
 .tiles--2 { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
-.tiles--2 .tile:first-child h3 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.045em; }
-.tiles--2 .tile:first-child p { font-size: 19px; max-width: 34ch; }
+.tiles--2 .tile.is-featured h3 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.045em; }
+.tiles--2 .tile.is-featured p { font-size: 19px; max-width: 34ch; }
+/* The featured tile trades places every few seconds (site.js): width, colors and title size ease over. */
+.tiles--2 { transition: grid-template-columns .9s var(--ease); }
+.tiles--2.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr); }
+.tiles--2 .tile { transition: background-color .8s var(--ease), color .8s var(--ease); }
+.tiles--2 .tile h3 { transition: font-size .9s var(--ease), letter-spacing .9s var(--ease); }
+.tiles--2 .tile p { transition: font-size .9s var(--ease), color .8s var(--ease); }
+.tiles--2 .tile li { transition: background-color .8s var(--ease), color .8s var(--ease); }
 @media (max-width: 900px) { .tiles, .tiles--2 { grid-template-columns: 1fr; } .tile { min-height: 0; } }
 
 /* ---------- founder ---------- */

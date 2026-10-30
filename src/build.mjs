@@ -188,7 +188,7 @@ const homePage = lang => {
     const [when, what] = m[lang];
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
-  const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
+  const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark is-featured" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
   return head({ lang, title: c.title, description: c.description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath, true) + `
 <main id="main">
   <section class="hero wrap">

@@ -253,7 +253,11 @@ if (pair && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   pair.addEventListener("pointerleave", () => { held = false; });
   setInterval(() => {
     if (!seen || held || document.hidden) return;
-    pair.classList.toggle("flip");
-    [...pair.children].forEach(t => { t.classList.toggle("tile--dark"); t.classList.toggle("is-featured"); });
-  }, 4500);
+    pair.classList.add("fading");
+    setTimeout(() => {
+      pair.classList.toggle("flip");
+      [...pair.children].forEach(t => { t.classList.toggle("tile--dark"); t.classList.toggle("is-featured"); });
+      setTimeout(() => pair.classList.remove("fading"), 1400);
+    }, 500);
+  }, 7000);
 }

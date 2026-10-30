@@ -76,7 +76,7 @@ export const home = {
     doLede: "One focus, done properly. Websites first, apps when you need more.",
     tiles: [
       { h: "Websites", p: "Beautiful, fast sites that tell your story in seconds and turn visitors into customers.", chips: ["Designed for phones", "Found on Google and AI search", "Booking and contact", "One or more languages"], dark: true },
-      { h: "Apps", p: "When a website isn't enough: apps your customers open every day.", chips: ["iOS", "Web apps"] },
+      { h: "Apps", p: "When a website isn't enough: apps your customers open every day.", chips: ["iOS", "Android", "Web apps"] },
     ],
     aboutTitle: "A new studio. Not new to the work.",
     about: [
@@ -118,7 +118,7 @@ export const home = {
     doLede: "Um foco, bem feito. Primeiro sites, e apps quando você precisar de mais.",
     tiles: [
       { h: "Sites", p: "Sites bonitos e rápidos, que contam sua história em segundos e transformam visitas em clientes.", chips: ["Pensados para o celular", "Encontrados no Google e na busca por IA", "Agendamento e contato", "Um ou mais idiomas"], dark: true },
-      { h: "Apps", p: "Quando um site não basta: apps que seus clientes abrem todo dia.", chips: ["iOS", "Web apps"] },
+      { h: "Apps", p: "Quando um site não basta: apps que seus clientes abrem todo dia.", chips: ["iOS", "Android", "Web apps"] },
     ],
     aboutTitle: "Um estúdio novo. Um trabalho antigo.",
     about: [

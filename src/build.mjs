@@ -1,7 +1,7 @@
 // Generates the static pages from src/content.mjs. No dependencies.
 //   node src/build.mjs
 // Output: index.html, work/<slug>/index.html, pt/index.html, pt/work/<slug>/index.html
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote } from "./content.mjs";
@@ -25,15 +25,20 @@ const ogImage = im => {
   const jpg = im.src.replace("/assets/work/", "/assets/og/").replace(/\.webp$/, ".jpg");
   return existsSync(join(ROOT, jpg)) ? { src: jpg, w: 1200, h: Math.round(1200 * im.h / im.w) } : im;
 };
+// Inlined in <head>: it must run before the page first paints (see the file).
+const transitions = readFileSync(join(ROOT, "assets/transitions.js"), "utf8").trim();
 
 const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff">${Array.from({ length: 12 }, (_, i) => `<circle cx="${1.6 + (i % 4) * 2.9}" cy="${1.8 + Math.floor(i / 4) * 3.5}" r=".55"/>`).join("")}</g></symbol>
   <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
   <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
 </svg>`;
+// Over a project the pointer becomes a "View project" disc in the client's own color (assets/cursor.js).
+const cursorTo = (p, kind = "view") => ` data-cursor="${kind}"${p.cursor ? ` data-cursor-color="${p.cursor[0]}" data-cursor-ink="${p.cursor[1]}"` : ""}`;
 const icon = (id, cls = "") => `<svg${cls ? ` class="${cls}"` : ""} aria-hidden="true"><use href="#${id}"/></svg>`;
 
 const head = ({ lang, title, description, path, altPath, ld, image, imageAlt }) => `<!doctype html>
@@ -50,7 +55,8 @@ const head = ({ lang, title, description, path, altPath, ld, image, imageAlt }) 
 <meta property="og:locale" content="${lang === "en" ? "en_US" : "pt_BR"}">
 <meta property="og:locale:alternate" content="${lang === "en" ? "pt_BR" : "en_US"}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <meta property="og:image" content="${SITE}${image.src}">
 <meta property="og:image:width" content="${image.w}">
@@ -61,11 +67,14 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <link rel="alternate" hreflang="${hreflang(other(lang))}" href="${SITE}${altPath}">
 <link rel="alternate" hreflang="x-default" href="${SITE}${lang === "en" ? path : altPath}">
 ` : ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>${transitions}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
@@ -84,6 +93,7 @@ const nav = (lang, altPath, onHome) => {
       <li><a href="${h}#about">${t.nav.about}</a></li>
     </ul>
     <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.switchTo}" title="${t.switchTo}"><svg aria-hidden="true"><use href="#flag-${lang}"/></svg>${lang.toUpperCase()}</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="${t.darkMode}" title="${t.darkMode}" hidden>${icon("contrast")}</button>
     <a class="btn btn--sm" href="${h}#contact">${t.nav.cta}</a>
   </div>
 </header>`;
@@ -96,9 +106,9 @@ const footer = (lang, altPath) => {
   return `<a class="btn float-cta" href="${h === "/" ? "" : h}#contact" hidden>${t.nav.cta}</a>
 <footer class="outro">
   <div class="outro-pin">
-    <p class="outro-sign" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
     <div class="outro-meta wrap">
-      <p class="outro-line">${t.footer}</p>
+      <p class="outro-line" data-cursor="drag">${t.footer}</p>
       <nav class="outro-links">
         <a class="btn btn--sm" href="${h === "/" ? "" : h}#contact">${t.nav.cta}</a>
         <a class="btn btn--sm btn--ghost" href="mailto:${contact.email}">Email</a>
@@ -115,6 +125,7 @@ const footer = (lang, altPath) => {
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
 </body>
 </html>
 `;
@@ -134,7 +145,7 @@ const aiScreen = lang => {
   const a = aiDemo[lang];
   const bars = (rows, unit) => rows.map(([k, v], i) => `<div class="ai-bar${i ? "" : " best"}"><span>${k}</span><i><b style="--w:${v / rows[0][1] * 100}%"></b></i><em>${v}${unit}</em></div>`).join("");
   return `<div class="ai-screen" tabindex="0" aria-label="${a.title}">
-    <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ai-tabs">${a.tabs.map((t, i) => `<i${i === 2 ? ` class="on"` : ""}>${t}</i>`).join("")}</span></div>
+    <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M19.4 26H35A7 7 0 1 0 31.37 13.02A8.5 8.5 0 0 0 14.53 15.22A5.5 5.5 0 0 0 8.55 23.73" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.2" cy="26" r="2.2" fill="currentColor"/></svg><span class="ai-tabs">${a.tabs.map((t, i) => `<i${i === 2 ? ` class="on"` : ""}>${t}</i>`).join("")}</span></div>
     <h3>${a.title}</h3><p class="ai-sub">${a.sub}</p>
     <div class="ai-kpis">${a.kpis.map(([k, v, s]) => `<div><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
     <div class="ai-card"><h4>${a.worksTitle}</h4>${a.works.map(([k, v, s]) => `<div class="ai-row"><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
@@ -146,7 +157,7 @@ const aiScreen = lang => {
 const heroDemo = (p, lang) => {
   const d = p[lang];
   // The demo only plays; a link laid over the whole browser opens Prospector's story.
-  return `<div class="duo duo--demo"><div class="browser browser--link"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
+  return `<div class="duo duo--demo"><div class="browser browser--link"${cursorTo(p)}><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
 };
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
@@ -178,7 +189,7 @@ const homePage = lang => {
   const projectsList = projects.filter(p => p.inWork !== false).map(p => {
     const d = p[lang];
     const cta = p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
-    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}>
+    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
         <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${cta}</div></div>
         <div class="media">${browser(cover(p, lang), p.host, d.name)}</div>
       </li>`;
@@ -287,7 +298,7 @@ const figure = (fig, p, lang) => {
   if (fig.kind === "browser") return `<figure class="shot">${browser(fig.img, p.host, alt)}${cap}</figure>`;
   if (fig.kind === "canvas") return `<figure class="shot"><div class="canvas-band">${imgTag(fig.img, alt).replace("<img", `<img style="width:100%;height:auto;border-radius:12px"`)}</div>${cap}</figure>`;
   if (fig.kind === "phones") return `<figure class="shot"><div class="canvas-band phones">${fig.imgs.map(im => phone(im, alt, false, p.phoneBar)).join("")}</div>${cap}</figure>`;
-  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt, false, it.bar || p.phoneBar) : browser(it.img, p.host, alt)).join("")}</div>${cap}</figure>`;
+  if (fig.kind === "pair") return `<figure class="shot"><div class="pair pair--bp">${fig.items.map(it => it.kind === "phone" ? phone(it.img, alt, false, it.bar || p.phoneBar) : browser(it.img, it.host || p.host, alt)).join("")}</div>${cap}</figure>`;
   return "";
 };
 
@@ -338,7 +349,7 @@ const casePage = (lang, i) => {
 
   <section class="band band--black">
     <div class="wrap cta-strip" data-rise>
-      <a class="next" href="${casePath(lang, next.slug)}">
+      <a class="next" href="${casePath(lang, next.slug)}"${cursorTo(next, "next")}>
         <p class="eyebrow">${t.next}</p>
         <h2>${next[lang].name}${icon("arrow")}</h2>
         <p>${next[lang].summary}</p>

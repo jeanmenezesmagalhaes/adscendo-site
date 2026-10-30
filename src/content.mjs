@@ -11,7 +11,7 @@ export const contact = {
 export const ui = {
   en: {
     nav: { services: "Services", work: "Portfolio", process: "How we work", about: "About", cta: "Get in touch" },
-    other: "Português", otherShort: "PT", switchTo: "Mudar para português",
+    other: "Português", otherShort: "PT", switchTo: "Mudar para português", darkMode: "Dark mode",
     skip: "Skip to content",
     readStory: "Read the full story",
     back: "All work",
@@ -26,7 +26,7 @@ export const ui = {
   },
   pt: {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
-    other: "English", otherShort: "EN", switchTo: "Switch to English",
+    other: "English", otherShort: "EN", switchTo: "Switch to English", darkMode: "Modo escuro",
     skip: "Pular para o conteúdo",
     readStory: "Ler a história completa",
     back: "Todos os trabalhos",
@@ -206,7 +206,7 @@ export const chat = {
     askTools: "Ele se conecta com outras ferramentas, como agendamento online, pagamentos ou um CRM?",
     estimate: "Aqui vai uma primeira estimativa. É só um ponto de partida: avaliamos seu projeto com mais calma antes de passar o valor final.",
     tiers: { new: "Um site novo, do zero", redo: "Uma nova versão do seu site", complex: "Um site novo, com as suas integrações" },
-    off: "{p}% de desconto", launch: "desconto de lançamento",
+    off: "{p}% de desconto", launch: "lançamento",
     fine: "Apenas uma estimativa. O valor final sai depois de avaliarmos seu projeto com calma.",
     maybeMore: "Se ele se conectar com outras ferramentas, começa em {price}.",
     askEmail: "Qual é o seu email? Mandamos os detalhes por lá.", emailPh: "voce@seunegocio.com.br", emailDomains: ["gmail.com", "hotmail.com", "outlook.com"],
@@ -346,6 +346,7 @@ export const projects = [
   {
     slug: "minha-companhia",
     tint: "#e5efe8", // card hover tone on the home page
+    cursor: ["#f18eb2", "#0f281f"], // pointer over the work: the site's pink, its dark green on top
     cta: "seeIt",
     url: "https://minhacompanhia.com.br/",
     host: "minhacompanhia.com.br",
@@ -459,6 +460,7 @@ export const projects = [
   {
     slug: "sidemed",
     tint: "#f3eee3", // card hover tone on the home page
+    cursor: ["#1957ff", "#ffffff"], // pointer over the work: Sidemed blue
     cta: "download",
     ctaUrl: "https://www.sidemed.com.br/app",
     url: "https://www.sidemed.com.br/",
@@ -566,86 +568,115 @@ export const projects = [
     tint: "#ececf0", // card hover tone on the home page
     inWork: false,
     url: null,
-    host: "adscendo",
-    cover: img("adscendo/launch-wipe.webp", 1440, 900),
-    coverPhone: img("adscendo/launch-m.webp", 780, 1688),
+    host: "adscendo-site.vercel.app",
+    cover: img("adscendo/home.webp", 1440, 900),
+    coverPt: img("adscendo/home.pt.webp", 1440, 900),
+    coverPhone: img("adscendo/home-m.webp", 780, 1688),
+    coverPhonePt: img("adscendo/home-m.pt.webp", 780, 1688),
+    phoneBar: "#000",
     en: {
       name: "Adscendo",
       kind: "The studio",
-      tagline: "To rise. To move upward. To climb.",
-      seoTitle: "Adscendo's story: how the studio began",
-      summary: "The consultancy that gives all this work a name. Founded on October 27, 2026, live the next day.",
-      description: "The story of Adscendo, the consultancy of Jean Menezes: founded on October 27, 2026 and live on October 28.",
-      facts: [["Role", "Founder"], ["Founded", "October 27, 2026"], ["Live since", "October 28, 2026"], ["Based in", "Brazil, working globally"]],
+      tagline: "We help American businesses stand out from the crowd.",
+      seoTitle: "About Adscendo: websites that help you stand out",
+      summary: "Who we are, and how we help American businesses stand out from the crowd.",
+      description: "Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers.",
+      facts: [["What we do", "Websites and apps"], ["For", "Small businesses in the US"], ["Led by", "Jean Menezes"], ["Since", "October 2026"]],
       chapters: [
         {
-          h: "A name that climbs.",
+          h: "Your customers are comparing you.",
           p: [
-            "<em>Adscendo</em> is Latin for “I rise.” To move upward, to climb. The mark is a single line-drawn cloud, and the tagline says what the work is for: from complexity to forward motion.",
-            "The visual rule is just as short. White and black, simple, in the spirit of Apple's product pages. The only color on the page belongs to the work it shows.",
+            "When people need a dentist, a contractor or a lawyer, they search on their phone and open three or four websites. In a few seconds they decide who looks the most trustworthy. That business gets the call.",
+            "Most small business websites look the same: a template, stock photos, slow pages and no clear reason to choose them. To someone in a hurry, they blend into the crowd.",
           ],
         },
         {
-          h: "Why a studio, and why now.",
+          h: "What Adscendo is.",
           p: [
-            "Jean spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. In 2026 he started building his own products, Sidemed first, and took on client work like Minha companhia.",
-            "Adscendo gives that work a name and a home. Born in Brazil, built to operate globally.",
+            "Adscendo is a small studio that designs and builds websites, and apps when a website isn't enough, for small and mid-size businesses in the United States.",
+            "It's led by Jean Menezes, who spent years on digital projects for companies like McDonald's, AT&amp;T, Petronas, PagBank and Multilaser. Now that same care goes to businesses like yours, and you talk directly to the person building your site.",
+          ],
+          fig: { kind: "pair", items: [{ kind: "browser", img: img("minha-companhia/home.webp", 1440, 900), host: "minhacompanhia.com.br" }, { kind: "phone", img: img("sidemed/site-m.webp", 780, 1688), bar: "#faf7f0" }], cap: "Work we've shipped: Minha companhia, a marketplace for family care, and Sidemed, a health app used in 17 countries." },
+        },
+        {
+          h: "How we make you stand out.",
+          p: [
+            "We start with one question: why should a customer pick you over everyone else? Then we build the whole site around that answer.",
+          ],
+          list: [
+            ["Clear in five seconds.", " The first screen says what you do, who it's for and why you're different, in plain words."],
+            ["Made for the phone.", " Most people will find you on one, so the site is fast and easy to use with a thumb."],
+            ["Easy to find.", " Set up for Google and for AI search, so people looking for what you do can find you."],
+            ["One clear next step.", " Call, book or send a message, always one tap away."],
           ],
         },
         {
-          h: "Day one: the system before the site.",
+          h: "Brazilian warmth. American standards.",
           p: [
-            "Adscendo was founded on October 27, 2026, and the first thing built was not a website. It was <a href='/work/prospector'><strong>Prospector</strong></a>, an AI prospecting system: it finds businesses on the map, analyzes each one's website, writes a personal email, and follows every lead in a CRM.",
-            "It has one golden rule. No email goes out without explicit approval.",
+            "We're a Brazilian studio, and we see that as a strength: fresh ideas and a close, human way of working, delivered to the standard American customers expect.",
+            "Getting started is simple. We listen to understand your business, build a first version, then adjust it with you and put it live. You get a first estimate in under a minute, and new clients get a launch discount.",
           ],
+          fig: { kind: "phones", imgs: [img("adscendo/chat-m.webp", 780, 1688)], cap: "The project chat on this site: a few questions, and a first estimate right away." },
         },
         {
-          h: "Day two: live.",
+          h: "Why “Adscendo”.",
           p: [
-            "On October 28 the first site went live. Its signature was a demonstration instead of a promise: as you scroll, a dated website turns into a modern one inside a browser frame.",
-            "This portfolio grew out of it, keeping the same design language and telling the story of each project, in English and Portuguese.",
+            "<em>Adscendo</em> is Latin for “I rise.” That's what we want for every client: to rise above the crowd.",
+            "The studio opened in October 2026. Its first product was <a href='/work/prospector'><strong>Prospector</strong></a>, an AI tool that finds local businesses and spots when their website is holding them back. We're new, and we say so. Everything on this site is real work, not promises.",
           ],
-          fig: { kind: "browser", img: img("adscendo/launch-wipe.webp", 1440, 900), cap: "The launch site, mid-scroll: an illustrative dental practice before and after." },
         },
       ],
     },
     pt: {
       name: "Adscendo",
       kind: "O estúdio",
-      tagline: "Subir. Mover-se para cima. Escalar.",
-      seoTitle: "A história da Adscendo: como o estúdio começou",
-      summary: "A consultoria que dá nome a todo esse trabalho. Fundada em 27 de outubro de 2026, no ar no dia seguinte.",
-      description: "A história da Adscendo, a consultoria de Jean Menezes: fundada em 27 de outubro de 2026 e no ar em 28 de outubro.",
-      facts: [["Papel", "Fundador"], ["Fundada", "27 de outubro de 2026"], ["No ar desde", "28 de outubro de 2026"], ["Base", "Brasil, para o mundo"]],
+      tagline: "Ajudamos empresas americanas a se destacarem no meio da multidão.",
+      seoTitle: "Sobre a Adscendo: sites que fazem você se destacar",
+      summary: "Quem somos, e como ajudamos empresas americanas a se destacarem no meio da multidão.",
+      description: "A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.",
+      facts: [["O que fazemos", "Sites e apps"], ["Para", "Pequenas empresas nos EUA"], ["Liderado por", "Jean Menezes"], ["Desde", "Outubro de 2026"]],
       chapters: [
         {
-          h: "Um nome que sobe.",
+          h: "Seus clientes estão comparando.",
           p: [
-            "<em>Adscendo</em> é latim para “eu subo”. Mover-se para cima, escalar. A marca é uma nuvem desenhada em uma linha só, e a frase diz para que serve o trabalho: da complexidade ao movimento.",
-            "A regra visual é igualmente curta. Branco e preto, simples, no espírito das páginas de produto da Apple. A única cor da página pertence ao trabalho que ela mostra.",
+            "Quando alguém precisa de um dentista, um empreiteiro ou um advogado, pesquisa no celular e abre três ou quatro sites. Em poucos segundos decide quem parece mais confiável. Essa empresa recebe a ligação.",
+            "A maioria dos sites de pequenas empresas é igual: um modelo pronto, fotos de banco de imagem, páginas lentas e nenhum motivo claro para escolher aquela empresa. Para quem está com pressa, elas se perdem na multidão.",
           ],
         },
         {
-          h: "Por que um estúdio, e por que agora.",
+          h: "O que é a Adscendo.",
           p: [
-            "O Jean passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Em 2026 começou a construir os próprios produtos, primeiro a Sidemed, e a atender clientes como a Minha companhia.",
-            "A Adscendo dá nome e casa a esse trabalho. Nascida no Brasil, feita para operar no mundo.",
+            "A Adscendo é um pequeno estúdio que desenha e constrói sites, e apps quando um site não basta, para pequenas e médias empresas nos Estados Unidos.",
+            "Ela é liderada pelo Jean Menezes, que passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Agora esse mesmo cuidado vai para empresas como a sua, e você fala direto com quem constrói o seu site.",
+          ],
+          fig: { kind: "pair", items: [{ kind: "browser", img: img("minha-companhia/home.webp", 1440, 900), host: "minhacompanhia.com.br" }, { kind: "phone", img: img("sidemed/site-m.pt.webp", 780, 1688), bar: "#faf7f0" }], cap: "Trabalhos entregues: a Minha companhia, um marketplace de cuidado familiar, e a Sidemed, um app de saúde usado em 17 países." },
+        },
+        {
+          h: "Como fazemos você se destacar.",
+          p: [
+            "Começamos com uma pergunta: por que um cliente deveria escolher você e não os outros? Depois construímos o site inteiro em volta dessa resposta.",
+          ],
+          list: [
+            ["Claro em cinco segundos.", " A primeira tela diz o que você faz, para quem e por que é diferente, em palavras simples."],
+            ["Feito para o celular.", " A maioria das pessoas vai te encontrar por ele, então o site é rápido e fácil de usar com o polegar."],
+            ["Fácil de encontrar.", " Preparado para o Google e para a busca por IA, para que quem procura o que você faz te encontre."],
+            ["Um próximo passo claro.", " Ligar, agendar ou mandar mensagem, sempre a um toque."],
           ],
         },
         {
-          h: "Dia um: o sistema antes do site.",
+          h: "Calor brasileiro. Padrão americano.",
           p: [
-            "A Adscendo foi fundada em 27 de outubro de 2026, e a primeira coisa construída não foi um site. Foi o <a href='/pt/work/prospector'><strong>Prospector</strong></a>, um sistema de prospecção com IA: ele acha empresas no mapa, analisa o site de cada uma, escreve um email pessoal e acompanha cada lead num CRM.",
-            "Ele tem uma regra de ouro. Nenhum email sai sem aprovação explícita.",
+            "Somos um estúdio brasileiro, e vemos isso como uma força: ideias novas e um jeito próximo e humano de trabalhar, entregues no padrão que o cliente americano espera.",
+            "Começar é simples. Ouvimos para entender o seu negócio, construímos uma primeira versão, ajustamos com você e colocamos no ar. Você recebe uma primeira estimativa em menos de um minuto, e clientes novos têm desconto de lançamento.",
           ],
+          fig: { kind: "phones", imgs: [img("adscendo/chat-m.pt.webp", 780, 1688)], cap: "A conversa sobre o projeto neste site: algumas perguntas e uma primeira estimativa na hora." },
         },
         {
-          h: "Dia dois: no ar.",
+          h: "Por que “Adscendo”.",
           p: [
-            "Em 28 de outubro o primeiro site entrou no ar. A assinatura dele era uma demonstração em vez de uma promessa: conforme você rola a página, um site antigo vira um site moderno dentro de uma janela de navegador.",
-            "Este portfólio nasceu dele, com a mesma linguagem visual, contando a história de cada projeto, em inglês e português.",
+            "<em>Adscendo</em> é latim para “eu subo”. É o que queremos para cada cliente: subir acima da multidão.",
+            "O estúdio abriu em outubro de 2026. O primeiro produto foi o <a href='/pt/work/prospector'><strong>Prospector</strong></a>, uma ferramenta com IA que acha empresas locais e percebe quando o site delas está atrapalhando. Somos novos, e dizemos isso. Tudo neste site é trabalho real, não promessa.",
           ],
-          fig: { kind: "browser", img: img("adscendo/launch-wipe.webp", 1440, 900), cap: "O site de lançamento, no meio da rolagem: um consultório odontológico ilustrativo, antes e depois." },
         },
       ],
     },

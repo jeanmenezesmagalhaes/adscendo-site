@@ -91,7 +91,7 @@
     <div class="demo-map"></div>
     <form class="demo-where" novalidate><input aria-label="${esc(T.where)}" placeholder="${esc(T.where)}" autocomplete="off"><button type="submit">${T.go}</button></form>
     <aside class="demo-panel">
-      <div class="dp-top"><b class="dp-brand"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Prospector</b>
+      <div class="dp-top"><b class="dp-brand"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M19.4 26H35A7 7 0 1 0 31.37 13.02A8.5 8.5 0 0 0 14.53 15.22A5.5 5.5 0 0 0 8.55 23.73" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.2" cy="26" r="2.2" fill="currentColor"/></svg>Prospector</b>
         <span class="dp-tabs" aria-hidden="true">${T.tabs.map((t, i) => `<i${i ? "" : ` class="on"`}>${t}</i>`).join("")}</span></div>
       <label class="dp-label" for="dp-term">${T.looking}</label>
       <input class="dp-input" id="dp-term" value="${esc(T.term)}" autocomplete="off">

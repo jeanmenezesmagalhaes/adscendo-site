@@ -1,0 +1,29 @@
+/* ---------- pointer (assets/cursor.js) ----------
+   One shape that changes with what is under it: a dot, a soft disc over links, a ring or highlight that
+   takes the shape of the button, a "View project" disc in the client's own color over their work, a hollow
+   ring with "Drag" on the footer. Text fields keep the system cursor. Mouse and trackpad only. */
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+html.has-cursor :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"]), textarea, select, [contenteditable]) { cursor: auto !important; }
+
+.cursor {
+  position: fixed; left: 0; top: 0; z-index: 2147483000; pointer-events: none;
+  display: grid; place-items: center; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink); color: var(--on-ink); opacity: 0;
+  transition: opacity .2s, background-color .25s, box-shadow .25s, color .25s;
+  will-change: transform, width, height;
+}
+.cursor.is-on { opacity: 1; }
+.cursor[data-mode="native"] { opacity: 0; }
+.cursor[data-mode="link"] { background: color-mix(in srgb, var(--ink) 14%, transparent); }
+.cursor[data-mode="fill"] { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.cursor:is([data-mode="ring"], [data-mode="drag"]) { background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); }
+.cursor:is([data-mode="view"], [data-mode="next"]) { background: var(--cur, var(--ink)); color: var(--cur-ink, var(--on-ink)); }
+
+.cursor-label {
+  display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
+  font: 500 13px/1 var(--sans); letter-spacing: -0.01em;
+  opacity: 0; transform: scale(.6); transition: opacity .2s, transform .4s var(--ease);
+}
+.cursor-label svg { width: 12px; height: 12px; }
+.cursor:is([data-mode="view"], [data-mode="next"], [data-mode="drag"]) .cursor-label { opacity: 1; transform: none; }
+.cursor[data-mode="drag"] .cursor-label { position: absolute; top: calc(100% + 10px); color: var(--ink); }

@@ -3,37 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A história da Adscendo: como o estúdio começou</title>
-<meta name="description" content="A história da Adscendo, a consultoria de Jean Menezes: fundada em 27 de outubro de 2026 e no ar em 28 de outubro.">
+<title>Sobre a Adscendo: sites que fazem você se destacar</title>
+<meta name="description" content="A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.">
 <meta property="og:site_name" content="Adscendo">
-<meta property="og:title" content="A história da Adscendo: como o estúdio começou">
-<meta property="og:description" content="A história da Adscendo, a consultoria de Jean Menezes: fundada em 27 de outubro de 2026 e no ar em 28 de outubro.">
+<meta property="og:title" content="Sobre a Adscendo: sites que fazem você se destacar">
+<meta property="og:description" content="A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:url" content="https://adscendo-site.vercel.app/pt/work/adscendo">
-<meta property="og:image" content="https://adscendo-site.vercel.app/assets/og/adscendo/launch-wipe.jpg">
+<meta property="og:image" content="https://adscendo-site.vercel.app/assets/og/adscendo/home.pt.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
-<meta property="og:image:alt" content="Adscendo: Subir. Mover-se para cima. Escalar.">
+<meta property="og:image:alt" content="Adscendo: Ajudamos empresas americanas a se destacarem no meio da multidão.">
 <link rel="canonical" href="https://adscendo-site.vercel.app/pt/work/adscendo">
 <link rel="alternate" hreflang="pt-BR" href="https://adscendo-site.vercel.app/pt/work/adscendo">
 <link rel="alternate" hreflang="en" href="https://adscendo-site.vercel.app/work/adscendo">
 <link rel="alternate" hreflang="x-default" href="https://adscendo-site.vercel.app/work/adscendo">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script>document.documentElement.classList.add("js")</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Adscendo","headline":"Subir. Mover-se para cima. Escalar.","description":"A história da Adscendo, a consultoria de Jean Menezes: fundada em 27 de outubro de 2026 e no ar em 28 de outubro.","inLanguage":"pt-BR","image":"https://adscendo-site.vercel.app/assets/og/adscendo/launch-wipe.jpg","creator":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo-site.vercel.app/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo-site.vercel.app/pt"},{"@type":"ListItem","position":2,"name":"Adscendo","item":"https://adscendo-site.vercel.app/pt/work/adscendo"}]}]}</script>
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Adscendo","headline":"Ajudamos empresas americanas a se destacarem no meio da multidão.","description":"A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.","inLanguage":"pt-BR","image":"https://adscendo-site.vercel.app/assets/og/adscendo/home.pt.jpg","creator":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo-site.vercel.app/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo-site.vercel.app/pt"},{"@type":"ListItem","position":2,"name":"Adscendo","item":"https://adscendo-site.vercel.app/pt/work/adscendo"}]}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
   <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
@@ -49,6 +95,7 @@
       <li><a href="/pt#about">Sobre</a></li>
     </ul>
     <a class="lang" href="/work/adscendo" hreflang="en" lang="en" aria-label="Switch to English" title="Switch to English"><svg aria-hidden="true"><use href="#flag-pt"/></svg>PT</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Modo escuro" title="Modo escuro" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
     <a class="btn btn--sm" href="/pt#contact">Fale com a gente</a>
   </div>
 </header>
@@ -56,48 +103,55 @@
   <section class="case-head wrap">
     <a class="back" href="/pt#work"><svg aria-hidden="true"><use href="#arrow"/></svg>Todos os trabalhos</a>
     <h1>Adscendo</h1>
-    <p class="lede">Subir. Mover-se para cima. Escalar.</p>
+    <p class="lede">Ajudamos empresas americanas a se destacarem no meio da multidão.</p>
     
-    <dl class="facts"><div><dt>Papel</dt><dd>Fundador</dd></div><div><dt>Fundada</dt><dd>27 de outubro de 2026</dd></div><div><dt>No ar desde</dt><dd>28 de outubro de 2026</dd></div><div><dt>Base</dt><dd>Brasil, para o mundo</dd></div></dl>
-    <div class="duo"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>adscendo</span></div><img src="/assets/work/adscendo/launch-wipe.webp" width="1440" height="900" alt="Adscendo, computador" fetchpriority="high" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#fff" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/adscendo/launch-m.webp" width="780" height="1688" alt="Adscendo, celular" fetchpriority="high" decoding="async"></div></div></div></div>
+    <dl class="facts"><div><dt>O que fazemos</dt><dd>Sites e apps</dd></div><div><dt>Para</dt><dd>Pequenas empresas nos EUA</dd></div><div><dt>Liderado por</dt><dd>Jean Menezes</dd></div><div><dt>Desde</dt><dd>Outubro de 2026</dd></div></dl>
+    <div class="duo"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>adscendo-site.vercel.app</span></div><img src="/assets/work/adscendo/home.pt.webp" width="1440" height="900" alt="Adscendo, computador" fetchpriority="high" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status status--dark" style="background:#000" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/adscendo/home-m.pt.webp" width="780" height="1688" alt="Adscendo, celular" fetchpriority="high" decoding="async"></div></div></div></div>
   </section>
 
   <section class="band">
     <div class="wrap chapters" data-rise=".chapter header, .chapter .text, .chapter figure">
       <article class="chapter">
         <div class="chapter-row">
-          <header><p class="num">01</p><h2>Um nome que sobe.</h2></header>
-          <div class="text"><p><em>Adscendo</em> é latim para “eu subo”. Mover-se para cima, escalar. A marca é uma nuvem desenhada em uma linha só, e a frase diz para que serve o trabalho: da complexidade ao movimento.</p><p>A regra visual é igualmente curta. Branco e preto, simples, no espírito das páginas de produto da Apple. A única cor da página pertence ao trabalho que ela mostra.</p></div>
+          <header><p class="num">01</p><h2>Seus clientes estão comparando.</h2></header>
+          <div class="text"><p>Quando alguém precisa de um dentista, um empreiteiro ou um advogado, pesquisa no celular e abre três ou quatro sites. Em poucos segundos decide quem parece mais confiável. Essa empresa recebe a ligação.</p><p>A maioria dos sites de pequenas empresas é igual: um modelo pronto, fotos de banco de imagem, páginas lentas e nenhum motivo claro para escolher aquela empresa. Para quem está com pressa, elas se perdem na multidão.</p></div>
         </div>
         
       </article>
       <article class="chapter">
         <div class="chapter-row">
-          <header><p class="num">02</p><h2>Por que um estúdio, e por que agora.</h2></header>
-          <div class="text"><p>O Jean passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Em 2026 começou a construir os próprios produtos, primeiro a Sidemed, e a atender clientes como a Minha companhia.</p><p>A Adscendo dá nome e casa a esse trabalho. Nascida no Brasil, feita para operar no mundo.</p></div>
+          <header><p class="num">02</p><h2>O que é a Adscendo.</h2></header>
+          <div class="text"><p>A Adscendo é um pequeno estúdio que desenha e constrói sites, e apps quando um site não basta, para pequenas e médias empresas nos Estados Unidos.</p><p>Ela é liderada pelo Jean Menezes, que passou anos em projetos digitais para empresas como McDonald's, AT&amp;T, Petronas, PagBank e Multilaser. Agora esse mesmo cuidado vai para empresas como a sua, e você fala direto com quem constrói o seu site.</p></div>
+        </div>
+        <figure class="shot"><div class="pair pair--bp"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>minhacompanhia.com.br</span></div><img src="/assets/work/minha-companhia/home.webp" width="1440" height="900" alt="Trabalhos entregues: a Minha companhia, um marketplace de cuidado familiar, e a Sidemed, um app de saúde usado em 17 países." loading="lazy" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#faf7f0" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/sidemed/site-m.pt.webp" width="780" height="1688" alt="Trabalhos entregues: a Minha companhia, um marketplace de cuidado familiar, e a Sidemed, um app de saúde usado em 17 países." loading="lazy" decoding="async"></div></div></div></div><figcaption>Trabalhos entregues: a Minha companhia, um marketplace de cuidado familiar, e a Sidemed, um app de saúde usado em 17 países.</figcaption></figure>
+      </article>
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">03</p><h2>Como fazemos você se destacar.</h2></header>
+          <div class="text"><p>Começamos com uma pergunta: por que um cliente deveria escolher você e não os outros? Depois construímos o site inteiro em volta dessa resposta.</p><ul><li><b>Claro em cinco segundos.</b> A primeira tela diz o que você faz, para quem e por que é diferente, em palavras simples.</li><li><b>Feito para o celular.</b> A maioria das pessoas vai te encontrar por ele, então o site é rápido e fácil de usar com o polegar.</li><li><b>Fácil de encontrar.</b> Preparado para o Google e para a busca por IA, para que quem procura o que você faz te encontre.</li><li><b>Um próximo passo claro.</b> Ligar, agendar ou mandar mensagem, sempre a um toque.</li></ul></div>
         </div>
         
       </article>
       <article class="chapter">
         <div class="chapter-row">
-          <header><p class="num">03</p><h2>Dia um: o sistema antes do site.</h2></header>
-          <div class="text"><p>A Adscendo foi fundada em 27 de outubro de 2026, e a primeira coisa construída não foi um site. Foi o <a href='/pt/work/prospector'><strong>Prospector</strong></a>, um sistema de prospecção com IA: ele acha empresas no mapa, analisa o site de cada uma, escreve um email pessoal e acompanha cada lead num CRM.</p><p>Ele tem uma regra de ouro. Nenhum email sai sem aprovação explícita.</p></div>
+          <header><p class="num">04</p><h2>Calor brasileiro. Padrão americano.</h2></header>
+          <div class="text"><p>Somos um estúdio brasileiro, e vemos isso como uma força: ideias novas e um jeito próximo e humano de trabalhar, entregues no padrão que o cliente americano espera.</p><p>Começar é simples. Ouvimos para entender o seu negócio, construímos uma primeira versão, ajustamos com você e colocamos no ar. Você recebe uma primeira estimativa em menos de um minuto, e clientes novos têm desconto de lançamento.</p></div>
         </div>
-        
+        <figure class="shot"><div class="canvas-band phones"><div class="phone"><div class="frame"><div class="screen"><div class="status status--dark" style="background:#000" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/adscendo/chat-m.pt.webp" width="780" height="1688" alt="A conversa sobre o projeto neste site: algumas perguntas e uma primeira estimativa na hora." loading="lazy" decoding="async"></div></div></div></div><figcaption>A conversa sobre o projeto neste site: algumas perguntas e uma primeira estimativa na hora.</figcaption></figure>
       </article>
       <article class="chapter">
         <div class="chapter-row">
-          <header><p class="num">04</p><h2>Dia dois: no ar.</h2></header>
-          <div class="text"><p>Em 28 de outubro o primeiro site entrou no ar. A assinatura dele era uma demonstração em vez de uma promessa: conforme você rola a página, um site antigo vira um site moderno dentro de uma janela de navegador.</p><p>Este portfólio nasceu dele, com a mesma linguagem visual, contando a história de cada projeto, em inglês e português.</p></div>
+          <header><p class="num">05</p><h2>Por que “Adscendo”.</h2></header>
+          <div class="text"><p><em>Adscendo</em> é latim para “eu subo”. É o que queremos para cada cliente: subir acima da multidão.</p><p>O estúdio abriu em outubro de 2026. O primeiro produto foi o <a href='/pt/work/prospector'><strong>Prospector</strong></a>, uma ferramenta com IA que acha empresas locais e percebe quando o site delas está atrapalhando. Somos novos, e dizemos isso. Tudo neste site é trabalho real, não promessa.</p></div>
         </div>
-        <figure class="shot"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>adscendo</span></div><img src="/assets/work/adscendo/launch-wipe.webp" width="1440" height="900" alt="O site de lançamento, no meio da rolagem: um consultório odontológico ilustrativo, antes e depois." loading="lazy" decoding="async"></div><figcaption>O site de lançamento, no meio da rolagem: um consultório odontológico ilustrativo, antes e depois.</figcaption></figure>
+        
       </article>
     </div>
   </section>
 
   <section class="band band--black">
     <div class="wrap cta-strip" data-rise>
-      <a class="next" href="/pt/work/prospector">
+      <a class="next" href="/pt/work/prospector" data-cursor="next">
         <p class="eyebrow">Próximo projeto</p>
         <h2>Prospector<svg aria-hidden="true"><use href="#arrow"/></svg></h2>
         <p>Acha empresas no mapa, analisa cada uma, escreve um email pessoal e acompanha cada lead num CRM. Nada sai sem a sua aprovação.</p>
@@ -109,9 +163,9 @@
 <a class="btn float-cta" href="/pt#contact" hidden>Fale com a gente</a>
 <footer class="outro">
   <div class="outro-pin">
-    <p class="outro-sign" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
     <div class="outro-meta wrap">
-      <p class="outro-line">Da complexidade ao movimento.</p>
+      <p class="outro-line" data-cursor="drag">Da complexidade ao movimento.</p>
       <nav class="outro-links">
         <a class="btn btn--sm" href="/pt#contact">Fale com a gente</a>
         <a class="btn btn--sm btn--ghost" href="mailto:jeanmenezesmagalhaes@icloud.com">Email</a>
@@ -128,5 +182,6 @@
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
 </body>
 </html>

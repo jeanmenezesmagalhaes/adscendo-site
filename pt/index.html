@@ -12,7 +12,8 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:url" content="https://adscendo-site.vercel.app/pt">
 <meta property="og:image" content="https://adscendo-site.vercel.app/assets/og/prospector/globe.pt.jpg">
 <meta property="og:image:width" content="1200">
@@ -23,17 +24,62 @@
 <link rel="alternate" hreflang="en" href="https://adscendo-site.vercel.app/">
 <link rel="alternate" hreflang="x-default" href="https://adscendo-site.vercel.app/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://adscendo-site.vercel.app/#website","url":"https://adscendo-site.vercel.app/pt","name":"Adscendo","inLanguage":["en","pt-BR"],"publisher":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo-site.vercel.app/#org"}},{"@type":"ProfessionalService","@id":"https://adscendo-site.vercel.app/#org","name":"Adscendo","url":"https://adscendo-site.vercel.app/","description":"A Adscendo desenha e constrói sites e apps que fazem mais gente te encontrar, confiar em você e te escolher. Veja nossos trabalhos e como fazemos.","logo":"https://adscendo-site.vercel.app/favicon.svg","image":"https://adscendo-site.vercel.app/assets/og/prospector/globe.pt.jpg","email":"jeanmenezesmagalhaes@icloud.com","foundingDate":"2026-10-27","areaServed":[{"@type":"Country","name":"United States"},{"@type":"Country","name":"Brazil"}],"knowsLanguage":["en","pt-BR"],"founder":{"@type":"Person","name":"Jean Menezes","image":"https://adscendo-site.vercel.app/assets/jean.webp","sameAs":["https://www.linkedin.com/in/jean-magalhaes/"]},"sameAs":["https://www.instagram.com/adscendo.consult/","https://www.linkedin.com/in/jean-magalhaes/"]}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
   <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
@@ -49,6 +95,7 @@
       <li><a href="#about">Sobre</a></li>
     </ul>
     <a class="lang" href="/" hreflang="en" lang="en" aria-label="Switch to English" title="Switch to English"><svg aria-hidden="true"><use href="#flag-pt"/></svg>PT</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Modo escuro" title="Modo escuro" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
     <a class="btn btn--sm" href="#contact">Fale com a gente</a>
   </div>
 </header>
@@ -58,8 +105,8 @@
     <p class="sub">Seu negócio merece ser visto. A gente garante isso.</p>
     <div class="actions-row"><a class="btn" href="#work">Ver trabalhos</a><a class="btn btn--ghost" href="#contact">Começar um projeto</a></div>
     <div class="demo-intro"><span class="demo-label"><i></i>Demonstração ao vivo</span><p><strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles.</p></div>
-    <div class="duo duo--demo"><div class="browser browser--link"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Prospector</span></div><div class="demo" data-demo><img src="/assets/work/prospector/globe.pt.webp" width="1600" height="1000" alt="Prospector, mapa no globo" fetchpriority="high" decoding="async"></div><a class="demo-hit" href="/pt/work/prospector" aria-label="Prospector: Encontre as empresas que precisam de você, e comece a conversa."></a></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#fff" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><div class="ai-screen" tabindex="0" aria-label="O que a IA aprendeu">
-    <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ai-tabs"><i>Mapa</i><i>CRM</i><i class="on">IA</i></span></div>
+    <div class="duo duo--demo"><div class="browser browser--link" data-cursor="view"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Prospector</span></div><div class="demo" data-demo><img src="/assets/work/prospector/globe.pt.webp" width="1600" height="1000" alt="Prospector, mapa no globo" fetchpriority="high" decoding="async"></div><a class="demo-hit" href="/pt/work/prospector" aria-label="Prospector: Encontre as empresas que precisam de você, e comece a conversa."></a></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#fff" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><div class="ai-screen" tabindex="0" aria-label="O que a IA aprendeu">
+    <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M19.4 26H35A7 7 0 1 0 31.37 13.02A8.5 8.5 0 0 0 14.53 15.22A5.5 5.5 0 0 0 8.55 23.73" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.2" cy="26" r="2.2" fill="currentColor"/></svg><span class="ai-tabs"><i>Mapa</i><i>CRM</i><i class="on">IA</i></span></div>
     <h3>O que a IA aprendeu</h3><p class="ai-sub">Dos seus últimos 122 leads com resultado.</p>
     <div class="ai-kpis"><div><span>Respostas esperadas</span><b>14</b><small>provavelmente 11–17</small></div><div><span>Novos clientes</span><b>3</b><small>de 48 leads em aberto</small></div><div><span>Taxa de resposta</span><b>18%</b><small>22 de 122 responderam</small></div><div><span>A IA está acertando?</span><b>17 / 18%</b><small>previsto / real</small></div></div>
     <div class="ai-card"><h4>O que está funcionando</h4><div class="ai-row"><span>Tom</span><b>Cordial</b><small>21% responderam, 96 envios</small></div><div class="ai-row"><span>Melhor horário</span><b>Ter–qui, 9h–11h</b><small>2× mais respostas</small></div><div class="ai-row"><span>Lembrete</span><b>Depois de 3 dias</b><small>27% das respostas</small></div></div>
@@ -89,15 +136,15 @@
       <h2 class="h2">Nosso trabalho.</h2>
       <p class="lede">Produtos e sites que desenhamos.</p>
       <ul class="projects">
-      <li class="proj" style="--tint:#e8edf4">
+      <li class="proj" style="--tint:#e8edf4" data-cursor="view">
         <div class="text"><p class="eyebrow">Vendas</p><h3>Prospector</h3><p>Acha empresas no mapa, analisa cada uma, escreve um email pessoal e acompanha cada lead num CRM. Nada sai sem a sua aprovação.</p><div class="proj-actions"><a class="link stretch" href="/pt/work/prospector">Ler a história completa<svg aria-hidden="true"><use href="#arrow"/></svg></a><a class="btn btn--sm cta" href="https://adscendo-prospector.vercel.app/" target="_blank" rel="noopener">Teste grátis<svg aria-hidden="true"><use href="#out"/></svg></a></div></div>
         <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>adscendo-prospector.vercel.app</span></div><img src="/assets/work/prospector/globe.pt.webp" width="1600" height="1000" alt="Prospector" loading="lazy" decoding="async"></div></div>
       </li>
-      <li class="proj" style="--tint:#e5efe8">
+      <li class="proj" style="--tint:#e5efe8" data-cursor="view" data-cursor-color="#f18eb2" data-cursor-ink="#0f281f">
         <div class="text"><p class="eyebrow">Marketplace</p><h3>Minha companhia</h3><p>A família contrata profissionais verificadas para acompanhar os pais idosos na consulta, no banco ou no mercado.</p><div class="proj-actions"><a class="link stretch" href="/pt/work/minha-companhia">Ler a história completa<svg aria-hidden="true"><use href="#arrow"/></svg></a><a class="btn btn--sm cta" href="https://minhacompanhia.com.br/" target="_blank" rel="noopener">Acesse e veja você mesmo<svg aria-hidden="true"><use href="#out"/></svg></a></div></div>
         <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>minhacompanhia.com.br</span></div><img src="/assets/work/minha-companhia/home.webp" width="1440" height="900" alt="Minha companhia" loading="lazy" decoding="async"></div></div>
       </li>
-      <li class="proj" style="--tint:#f3eee3">
+      <li class="proj" style="--tint:#f3eee3" data-cursor="view" data-cursor-color="#1957ff" data-cursor-ink="#ffffff">
         <div class="text"><p class="eyebrow">Saúde</p><h3>Sidemed</h3><p>Seu histórico médico organizado, traduzido para o idioma do médico e compartilhado em segundos. Usada em 17 países.</p><div class="proj-actions"><a class="link stretch" href="/pt/work/sidemed">Ler a história completa<svg aria-hidden="true"><use href="#arrow"/></svg></a><a class="btn btn--sm cta" href="https://www.sidemed.com.br/app" target="_blank" rel="noopener">Baixe grátis agora<svg aria-hidden="true"><use href="#out"/></svg></a></div></div>
         <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>sidemed.com.br</span></div><img src="/assets/work/sidemed/hero.pt.webp" width="1600" height="1000" alt="Sidemed" loading="lazy" decoding="async"></div></div>
       </li>
@@ -157,7 +204,7 @@
           <a href="https://www.instagram.com/adscendo.consult/" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
         </div>
       <div class="chat" data-chat><noscript><p class="chat-noscript">jeanmenezesmagalhaes@icloud.com</p></noscript></div>
-      <script type="application/json" id="chat-data">{"copy":{"title":"Conversa sobre o projeto","status":"Leva menos de um minuto","greet":"Oi! Vamos ver o que podemos construir para você.","askName":"Qual é o seu nome?","namePh":"Seu nome","askSite":"Prazer, {name}. Você já tem um site?","yes":"Sim","no":"Não","notSure":"Não sei","skip":"Pular","askLink":"Ótimo. Qual é o endereço?","linkPh":"seunegocio.com.br","askTools":"Ele se conecta com outras ferramentas, como agendamento online, pagamentos ou um CRM?","estimate":"Aqui vai uma primeira estimativa. É só um ponto de partida: avaliamos seu projeto com mais calma antes de passar o valor final.","tiers":{"new":"Um site novo, do zero","redo":"Uma nova versão do seu site","complex":"Um site novo, com as suas integrações"},"off":"{p}% de desconto","launch":"desconto de lançamento","fine":"Apenas uma estimativa. O valor final sai depois de avaliarmos seu projeto com calma.","maybeMore":"Se ele se conectar com outras ferramentas, começa em {price}.","askEmail":"Qual é o seu email? Mandamos os detalhes por lá.","emailPh":"voce@seunegocio.com.br","emailDomains":["gmail.com","hotmail.com","outlook.com"],"askPhone":"E um WhatsApp, se preferir conversar por lá?","phonePh":"+55 11 91234-5678","askMore":"Mais alguma coisa que devemos saber? Um objetivo, um prazo, uma ideia.","morePh":"Opcional","ready":"Tudo certo, {name}. Clique em enviar e você recebe uma resposta em até 6 horas.","sent":"Enviado! Obrigado, {name}. Você recebe uma resposta em até 6 horas.","sending":"Enviando…","hurry":"Com pressa? Pule a espera e fale com a gente no WhatsApp.","failed":"Não deu certo. Mande uma mensagem no WhatsApp e a gente segue por lá.","failedMail":"Não deu certo. Envie por email e a gente segue por lá.","sendWa":"Falar no WhatsApp","sendEmail":"Enviar por email","restart":"Recomeçar","send":"Enviar","bad":{"name":"Só o seu nome, por favor.","link":"Esse endereço não parece certo.","email":"Esse email não parece certo.","phone":"Use números, com o código do país."},"labels":{"name":"Nome","site":"Site","tools":"Integrações","estimate":"Estimativa","email":"Email","phone":"WhatsApp","notes":"Observações","none":"Ainda não tem"},"subject":"Novo projeto: {name}"},"quote":{"new":{"regular":800,"off":50},"redo":{"regular":1200,"off":30},"complex":{"regular":2000,"off":5}},"locale":"pt-BR"}</script>
+      <script type="application/json" id="chat-data">{"copy":{"title":"Conversa sobre o projeto","status":"Leva menos de um minuto","greet":"Oi! Vamos ver o que podemos construir para você.","askName":"Qual é o seu nome?","namePh":"Seu nome","askSite":"Prazer, {name}. Você já tem um site?","yes":"Sim","no":"Não","notSure":"Não sei","skip":"Pular","askLink":"Ótimo. Qual é o endereço?","linkPh":"seunegocio.com.br","askTools":"Ele se conecta com outras ferramentas, como agendamento online, pagamentos ou um CRM?","estimate":"Aqui vai uma primeira estimativa. É só um ponto de partida: avaliamos seu projeto com mais calma antes de passar o valor final.","tiers":{"new":"Um site novo, do zero","redo":"Uma nova versão do seu site","complex":"Um site novo, com as suas integrações"},"off":"{p}% de desconto","launch":"lançamento","fine":"Apenas uma estimativa. O valor final sai depois de avaliarmos seu projeto com calma.","maybeMore":"Se ele se conectar com outras ferramentas, começa em {price}.","askEmail":"Qual é o seu email? Mandamos os detalhes por lá.","emailPh":"voce@seunegocio.com.br","emailDomains":["gmail.com","hotmail.com","outlook.com"],"askPhone":"E um WhatsApp, se preferir conversar por lá?","phonePh":"+55 11 91234-5678","askMore":"Mais alguma coisa que devemos saber? Um objetivo, um prazo, uma ideia.","morePh":"Opcional","ready":"Tudo certo, {name}. Clique em enviar e você recebe uma resposta em até 6 horas.","sent":"Enviado! Obrigado, {name}. Você recebe uma resposta em até 6 horas.","sending":"Enviando…","hurry":"Com pressa? Pule a espera e fale com a gente no WhatsApp.","failed":"Não deu certo. Mande uma mensagem no WhatsApp e a gente segue por lá.","failedMail":"Não deu certo. Envie por email e a gente segue por lá.","sendWa":"Falar no WhatsApp","sendEmail":"Enviar por email","restart":"Recomeçar","send":"Enviar","bad":{"name":"Só o seu nome, por favor.","link":"Esse endereço não parece certo.","email":"Esse email não parece certo.","phone":"Use números, com o código do país."},"labels":{"name":"Nome","site":"Site","tools":"Integrações","estimate":"Estimativa","email":"Email","phone":"WhatsApp","notes":"Observações","none":"Ainda não tem"},"subject":"Novo projeto: {name}"},"quote":{"new":{"regular":800,"off":50},"redo":{"regular":1200,"off":30},"complex":{"regular":2000,"off":5}},"locale":"pt-BR"}</script>
       </div>
     </div>
   </section>
@@ -167,9 +214,9 @@
 <a class="btn float-cta" href="/pt#contact" hidden>Fale com a gente</a>
 <footer class="outro">
   <div class="outro-pin">
-    <p class="outro-sign" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
     <div class="outro-meta wrap">
-      <p class="outro-line">Da complexidade ao movimento.</p>
+      <p class="outro-line" data-cursor="drag">Da complexidade ao movimento.</p>
       <nav class="outro-links">
         <a class="btn btn--sm" href="/pt#contact">Fale com a gente</a>
         <a class="btn btn--sm btn--ghost" href="mailto:jeanmenezesmagalhaes@icloud.com">Email</a>
@@ -186,5 +233,6 @@
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
 </body>
 </html>

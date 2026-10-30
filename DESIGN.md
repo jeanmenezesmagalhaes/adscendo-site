@@ -235,6 +235,13 @@ The palette is a disciplined Apple-style gray family with no brand accent. Hiera
 
 **The Tone-Step Rule.** Separate regions by stepping tone (canvas to mist, black to ink, ink to dark-raised) or by space. Never draw a hairline between sections, list rows, or cards in page chrome. Row rules may appear inside illustrated UIs, where they belong to the depicted product.
 
+### Dark Mode
+The page follows the system's light or dark setting until the visitor picks one with the round toggle in the nav (saved in `localStorage`; picking the system's own scheme forgets the choice). Every token in `assets/site.css` is a `light-dark()` pair, and an element's `color-scheme` decides which side it gets. In dark: canvas #000, mist band #141416, cards on a band #1f1f21, chips #2c2c2e, ink #f5f5f7, graphite #a1a1a6, muted #86868b.
+
+**The Inverse Rule.** Accent surfaces take the scheme opposite to the page: the one black band, the dark tile, the CTA strip, and the nav while it sits over the band. In dark mode the black band becomes a light #f5f5f7 band, so it stays the page's key moment. Its "now" row flips back.
+
+**Devices stay true.** Screens inside device frames (screenshots, the Prospector demo, the phone) keep their light look; only the browser frame's toolbar turns dark. Project cards' hover tints become a dark tone of the same hue.
+
 ## Typography
 
 **Display Font:** Geist (with -apple-system, BlinkMacSystemFont, Helvetica Neue, Arial)

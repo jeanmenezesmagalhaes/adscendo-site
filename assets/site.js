@@ -1,7 +1,7 @@
 const CONFIG = {
-  // Where the contact chat sends its summary. FormSubmit (free, no account) delivers it to the email in the
-  // URL; the very first submission sends an activation link to that inbox. Empty = WhatsApp/email buttons.
-  formEndpoint: "https://formsubmit.co/ajax/jeanmenezesmagalhaes@icloud.com",
+  // Where the contact chat sends its summary: api/lead.mjs, which emails it through Resend (needs
+  // RESEND_API_KEY on Vercel). Empty = WhatsApp/email buttons.
+  formEndpoint: "/api/lead",
   // WhatsApp number in international format, digits only, e.g. "5511999999999". Empty = hidden.
   whatsapp: "5551993271160",
   email: "jeanmenezesmagalhaes@icloud.com",
@@ -32,6 +32,31 @@ if (nav && dark) {
   };
   addEventListener("scroll", theme, { passive: true });
   theme();
+}
+
+// Light or dark: follows the system until the visitor picks one. Picking the system's own scheme forgets
+// the choice, so the page goes back to following the system.
+const themeBtn = document.querySelector(".theme");
+if (themeBtn) {
+  const root = document.documentElement;
+  const sys = matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => (root.dataset.theme || (sys.matches ? "dark" : "light")) === "dark";
+  const sync = () => {
+    themeBtn.setAttribute("aria-pressed", isDark());
+    document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+      m.content = root.dataset.theme ? (isDark() ? "#000000" : "#ffffff") : m.media.includes("dark") ? "#000000" : "#ffffff";
+    });
+  };
+  themeBtn.hidden = false;
+  themeBtn.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    const follow = next === (sys.matches ? "dark" : "light");
+    if (follow) delete root.dataset.theme; else root.dataset.theme = next;
+    try { follow ? localStorage.removeItem("theme") : localStorage.setItem("theme", next); } catch (e) {}
+    sync();
+  });
+  sys.addEventListener("change", sync);
+  sync();
 }
 
 const wa = document.getElementById("wa");

@@ -138,7 +138,7 @@
     await finish();
   }
 
-  // One "Send" button: the summary goes to CONFIG.formEndpoint (FormSubmit, delivered to Jean's email).
+  // One "Send" button: the summary goes to CONFIG.formEndpoint (/api/lead, which emails it to Jean).
   // Only if that fails does the chat offer WhatsApp or email instead.
   async function finish() {
     const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name });
@@ -157,16 +157,18 @@
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             // Empty answers are left out, so the email only shows what the visitor actually said.
-            body: JSON.stringify(Object.fromEntries(Object.entries({
-              _subject: subject, _template: "table", _captcha: "false",
-              [L.name]: a.name, [L.email]: a.email, email: a.email, [L.phone]: a.phone || "",
-              [L.site]: a.site === "no" ? L.none : a.link || T.yes,
-              [L.tools]: a.site === "yes" ? { yes: T.yes, no: T.no, unsure: T.notSure }[a.tools] : "",
-              [L.estimate]: `${T.tiers[t]}: ${money(price(t))} (${fill(T.off, { p: Q[t].off })})`,
-              [L.notes]: a.notes || "",
-            }).filter(([, v]) => v))),
+            body: JSON.stringify({
+              subject, replyTo: a.email,
+              fields: [
+                [L.name, a.name], [L.email, a.email], [L.phone, a.phone || ""],
+                [L.site, a.site === "no" ? L.none : a.link || T.yes],
+                [L.tools, a.site === "yes" ? { yes: T.yes, no: T.no, unsure: T.notSure }[a.tools] : ""],
+                [L.estimate, `${T.tiers[t]}: ${money(price(t))} (${fill(T.off, { p: Q[t].off })})`],
+                [L.notes, a.notes || ""],
+              ].filter(([, v]) => v),
+            }),
           });
-          ok = res.ok && (await res.json().catch(() => ({}))).success !== "false";
+          ok = res.ok && (await res.json().catch(() => ({}))).success === true;
         } catch {}
       }
       dock.innerHTML = "";

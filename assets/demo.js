@@ -37,6 +37,8 @@
     ["são paulo", -46.6333, -23.5505], ["sao paulo", -46.6333, -23.5505], ["rio de janeiro", -43.1729, -22.9068], ["porto alegre", -51.2177, -30.0346],
     ["lisboa", -9.1393, 38.7223], ["lisbon", -9.1393, 38.7223], ["london", -0.1276, 51.5072], ["londres", -0.1276, 51.5072], ["toronto", -79.3832, 43.6532],
   ];
+  // Country names shown on the globe (ISO codes).
+  const COUNTRIES = ["US", "CA", "MX", "BR", "AR", "GB", "PT", "ES", "FR", "DE", "IT"];
   const KINDS = [
     { en: "Dentist", pt: "Dentista", words: ["dent", "odont", "orto"], names: ["Dental", "Smiles", "Family Dentistry", "Dental Studio", "Dental Care"] },
     { en: "Med spa", pt: "Clínica de estética", words: ["spa", "estét", "estet", "aesth", "skin", "pele"], names: ["Med Spa", "Skin Studio", "Aesthetics", "Skin & Laser"] },
@@ -307,6 +309,8 @@
         if (keep[l.id]) map.setLayerZoomRange(l.id, ...keep[l.id]);
         else map.setLayoutProperty(l.id, "visibility", "none");
       }
+      // And of those countries, only the main ones in the Americas and Europe.
+      map.setFilter("label_country_1", ["all", map.getFilter("label_country_1"), ["in", ["get", "iso_a2"], ["literal", COUNTRIES]]]);
       map.setSky({ "sky-color": "#f5f5f7", "horizon-color": "#ffffff", "fog-color": "#ffffff", "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 5, 1, 7, 0] });
     });
     map.on("load", () => {

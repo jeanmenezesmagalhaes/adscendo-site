@@ -291,7 +291,7 @@ const homePage = lang => {
           <a href="mailto:${contact.email}">Email<span>${contact.email}</span></a>
           <a id="wa" href="#" target="_blank" rel="noopener" hidden>WhatsApp<span>${contact.whatsappLabel}</span></a>
           <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
-          <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram<span>@adscendo.consult</span></a>
+          <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram<span>@adscendo.pro</span></a>
         </div>
       <div class="chat" data-chat><noscript><p class="chat-noscript">${contact.email}</p></noscript></div>
       <script type="application/json" id="chat-data">${JSON.stringify({ copy: chat[lang], quote, locale: lang === "en" ? "en-US" : "pt-BR" }).replace(/</g, "\\u003c")}</script>

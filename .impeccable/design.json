@@ -424,7 +424,7 @@
       "kind": "card",
       "refersTo": "list-row",
       "description": "White rows on mist; hover steps tone, not border.",
-      "html": "<div class=\"ds-ch\"><a>Email<span>hello@studio.com</span></a><a>Instagram<span>@adscendo.consult</span></a></div>",
+      "html": "<div class=\"ds-ch\"><a>Email<span>hello@studio.com</span></a><a>Instagram<span>@adscendo.pro</span></a></div>",
       "css": ".ds-ch { font-family: Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; background: #f5f5f7; padding: 24px; display: grid; gap: 4px; } .ds-ch a { display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; border-radius: 14px; background: #fff; color: #1d1d1f; font-size: 17px; cursor: pointer; transition: background-color .2s; } .ds-ch a:hover { background: #e8e8ed; } .ds-ch span { color: #6e6e73; font-size: 15px; } .ds-ch a:hover span { color: #1d1d1f; }"
     },
     {

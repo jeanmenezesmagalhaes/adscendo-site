@@ -210,8 +210,13 @@
       }
       // Jean reads the time in São Paulo, where his calendar is.
       a.meeting = `${when(at, "America/Sao_Paulo")}${res.meet ? ` · ${res.meet}` : ""}`;
-      sendLead(fill(T.subjectMeet, { name: a.name }));
+      const subject = fill(T.subjectMeet, { name: a.name });
+      sendLead(subject);
       await say(esc(fill(res.success ? T.booked : T.already, { when: whenText(at), email: a.email })));
+      // The conversation ends here, so it says so, and leaves WhatsApp as the way to reach Jean before the call.
+      await say(esc(T.bookedBye));
+      const wa = whatsapp(subject);
+      if (wa) dock.innerHTML = `<div class="chat-chips chat-final"><a class="btn" href="${wa}" target="_blank" rel="noopener">${esc(T.sendWa)}</a></div>`;
       return true;
     }
   }
@@ -243,6 +248,8 @@
     } catch { return false; }
   }
 
+  const whatsapp = subject => config().whatsapp ? `https://wa.me/${config().whatsapp}?text=${encodeURIComponent(`${subject}\n\n${summary()}`)}` : "";
+
   async function finish() {
     const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name }), cfg = config();
     await say(esc(fill(T.ready, { name: first })));
@@ -256,7 +263,7 @@
       dock.innerHTML = "";
       // Either way the last word is one WhatsApp button with the summary ready: on success it is the fast
       // lane for whoever is in a hurry; if sending failed it is how the message still reaches Jean.
-      const wa = cfg.whatsapp ? `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(`${subject}\n\n${text}`)}` : "";
+      const wa = whatsapp(subject);
       const fallback = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
       if (ok) {
         bubble(esc(T.send), "me");

@@ -6,9 +6,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections } from "./content.mjs";
 
-// Public origin, e.g. "https://adscendo.com". When set, pages get canonical, hreflang, og:url and
+// Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
-const SITE = "https://adscendo-site.vercel.app";
+const SITE = "https://adscendo.pro";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LANGS = ["en", "pt"];

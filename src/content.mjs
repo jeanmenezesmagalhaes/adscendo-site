@@ -66,7 +66,7 @@ export const home = {
     sub: "Your business deserves to be seen. We make sure it is.",
     ctaWork: "See our work",
     ctaTalk: "Start a project",
-    hostHero: "adscendo-prospector.vercel.app",
+    hostHero: "prospector.adscendo.pro",
     demoLabel: "Live demo",
     demoText: "<strong>This is Prospector, a product we built.</strong> It finds new clients for you on the map, so you spend your time closing deals instead of searching for them.",
     warmthTitle: "Brazilian warmth. American standards.",
@@ -108,7 +108,7 @@ export const home = {
     sub: "Seu negócio merece ser visto. A gente garante isso.",
     ctaWork: "Ver trabalhos",
     ctaTalk: "Começar um projeto",
-    hostHero: "adscendo-prospector.vercel.app",
+    hostHero: "prospector.adscendo.pro",
     demoLabel: "Demonstração ao vivo",
     demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles.",
     warmthTitle: "Calor brasileiro. Padrão americano.",
@@ -252,9 +252,9 @@ export const projects = [
   {
     slug: "prospector",
     tint: "#e8edf4", // card hover tone on the home page
-    url: "https://adscendo-prospector.vercel.app/",
+    url: "https://prospector.adscendo.pro/",
     cta: "trial",
-    host: "adscendo-prospector.vercel.app",
+    host: "prospector.adscendo.pro",
     cover: img("prospector/globe.webp", 1600, 1000),
     coverPt: img("prospector/globe.pt.webp", 1600, 1000),
     coverPhone: img("prospector/globe-m.webp", 780, 1688),
@@ -570,7 +570,7 @@ export const projects = [
     tint: "#ececf0", // card hover tone on the home page
     inWork: false,
     url: null,
-    host: "adscendo-site.vercel.app",
+    host: "adscendo.pro",
     cover: img("adscendo/home.webp", 1440, 900),
     coverPt: img("adscendo/home.pt.webp", 1440, 900),
     coverPhone: img("adscendo/home-m.webp", 780, 1688),

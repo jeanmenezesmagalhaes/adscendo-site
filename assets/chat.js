@@ -14,10 +14,11 @@
 
   root.innerHTML = `
     <div class="chat-head"><img src="/assets/jean.webp" alt="" width="36" height="36"><div><b>${esc(T.title)}</b><span>${esc(T.status)}</span></div>
-      <button type="button" class="chat-restart" hidden>${esc(T.restart)}</button></div>
+      <button type="button" class="chat-restart" hidden>${esc(T.restart)}</button>
+      <button type="button" class="chat-close" aria-label="${esc(T.close)}" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
     <div class="chat-log" role="log" aria-live="polite"></div>
     <div class="chat-input"></div>`;
-  const log = root.querySelector(".chat-log"), dock = root.querySelector(".chat-input"), restart = root.querySelector(".chat-restart");
+  const log = root.querySelector(".chat-log"), dock = root.querySelector(".chat-input"), restart = root.querySelector(".chat-restart"), close = root.querySelector(".chat-close");
   let a = {}, gen = 0;
 
   const scroll = () => log.scrollTo({ top: log.scrollHeight, behavior: REDUCED ? "auto" : "smooth" });
@@ -188,26 +189,42 @@
     });
   }
 
-  // Phones: while the keyboard is up, the chat shrinks to the strip of screen above it (below the sticky nav)
-  // and lines up with its top, so the question and the field stay in view together.
-  const vv = window.visualViewport, nav = document.querySelector(".nav");
-  if (vv && matchMedia("(pointer: coarse)").matches) {
-    let frame = 0;
-    const fit = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const typing = root.contains(document.activeElement) && document.activeElement.matches("input, textarea");
-        if (!typing || document.documentElement.clientHeight - vv.height < 120) return root.style.removeProperty("height");
-        const cover = nav ? Math.max(0, nav.getBoundingClientRect().bottom - vv.offsetTop) : 0;
-        root.style.height = `${Math.round(vv.height - cover - 16)}px`;
-        scrollBy({ top: root.getBoundingClientRect().top - vv.offsetTop - cover - 8, behavior: "instant" });
-        log.scrollTop = log.scrollHeight;
-      });
-    };
-    vv.addEventListener("resize", fit);
-    root.addEventListener("focusin", fit);
-    root.addEventListener("focusout", () => setTimeout(fit, 150));
-  }
+  // Phones: the first tap on the chat's field turns it into a full-screen conversation that tracks the strip
+  // of screen above the keyboard (the visual viewport), so only the chat shows until the visitor closes it.
+  const vv = window.visualViewport, phone = matchMedia("(pointer: coarse) and (max-width: 560px)");
+  let full = false, spacer = null;
+  const place = () => {
+    if (!full) return;
+    root.style.top = `${vv ? vv.offsetTop : 0}px`;
+    root.style.height = `${vv ? vv.height : innerHeight}px`;
+    log.scrollTop = log.scrollHeight;
+  };
+  const enter = () => {
+    if (full || !phone.matches) return;
+    full = true;
+    // A spacer holds the chat's place in the page, so nothing underneath shifts while it is lifted out.
+    spacer = Object.assign(document.createElement("div"), { style: `height:${root.offsetHeight}px` });
+    root.before(spacer);
+    root.classList.add("is-full");
+    document.documentElement.classList.add("chat-open");
+    close.hidden = false;
+    place();
+  };
+  const leave = () => {
+    full = false;
+    spacer?.remove();
+    root.classList.remove("is-full");
+    document.documentElement.classList.remove("chat-open");
+    root.style.removeProperty("top");
+    root.style.removeProperty("height");
+    close.hidden = true;
+    document.activeElement?.blur();
+    root.scrollIntoView({ block: "center", behavior: "instant" });
+  };
+  root.addEventListener("focusin", e => { if (e.target.matches("input, textarea")) enter(); });
+  vv?.addEventListener("resize", place);
+  vv?.addEventListener("scroll", place);
+  close.addEventListener("click", leave);
 
   restart.addEventListener("click", () => { dock.innerHTML = ""; run(); });
   // Start when the chat scrolls into view, so the conversation is fresh when someone gets there.

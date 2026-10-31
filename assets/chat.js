@@ -200,11 +200,29 @@
     const top = `${Math.round(vv ? vv.offsetTop : 0)}px`, height = `${Math.round(vv ? vv.height : innerHeight)}px`;
     if (root.style.top !== top) root.style.top = top;
     if (root.style.height !== height) root.style.height = height;
+    // With the keyboard up the home-indicator inset is hidden under it, so the field drops its bottom padding.
+    root.classList.toggle("is-kb", !!vv && document.documentElement.clientHeight - vv.height > 120);
     log.scrollTop = log.scrollHeight;
+    measure();
   };
+  // ?kb=1 prints the viewport numbers on the chat, to calibrate the fit against a real phone's keyboard.
+  const probe = /[?&]kb=1\b/.test(location.search) && root.appendChild(Object.assign(document.createElement("pre"), {
+    style: "position:absolute;top:64px;right:8px;z-index:2;margin:0;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,.75);color:#fff;font:11px/1.35 ui-monospace,monospace;pointer-events:none",
+  }));
+  function measure() {
+    if (!probe) return;
+    const r = root.getBoundingClientRect(), f = dock.querySelector("input, textarea")?.getBoundingClientRect();
+    probe.textContent = [
+      `vv ${vv ? `${Math.round(vv.height)} @${Math.round(vv.offsetTop)} x${vv.scale.toFixed(2)}` : "none"}`,
+      `inner ${innerHeight}  client ${document.documentElement.clientHeight}  screen ${screen.height}`,
+      `scrollY ${Math.round(scrollY)}`,
+      `chat ${Math.round(r.top)}–${Math.round(r.bottom)}${f ? `  field ${Math.round(f.top)}–${Math.round(f.bottom)}` : ""}`,
+    ].join("\n");
+  }
   // While the keyboard slides, iOS fires a burst of viewport events and pans the page itself; following each
   // one makes the chat jump. It waits for the viewport to stop moving, then fits once.
   const place = () => {
+    measure();
     if (!full) return;
     clearTimeout(settle);
     settle = setTimeout(() => requestAnimationFrame(() => full && fit()), 120);
@@ -239,6 +257,7 @@
     root.scrollIntoView({ block: "center", behavior: "instant" });
   };
   root.addEventListener("focusin", e => { if (e.target.matches("input, textarea") && e.target !== keep) enter(); });
+  measure();
   vv?.addEventListener("resize", place);
   vv?.addEventListener("scroll", place);
   close.addEventListener("click", leave);

@@ -533,9 +533,10 @@ html.js .rise.in { opacity: 1; transform: none; }
 .chat-restart:not([hidden]) + .chat-close { margin-left: 0; }
 .chat-close svg { width: 16px; height: 16px; }
 /* Phones, once the visitor starts typing: the chat takes the whole visible screen (chat.js sets top and height). */
-.chat.is-full { position: fixed; left: 0; right: 0; top: 0; z-index: 70; height: 100vh; border-radius: 0; }
+.chat.is-full { position: fixed; left: 0; right: 0; top: 0; z-index: 70; height: 100vh; border-radius: 0; box-shadow: 0 0 0 100vh var(--surface); }
 .chat.is-full .chat-head { padding-top: max(16px, env(safe-area-inset-top)); }
 .chat.is-full .chat-input { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+.chat.is-full.is-kb .chat-input { padding-bottom: 12px; }
 html.chat-open, html.chat-open body { overflow: hidden; }
 .chat-log { flex: 1; min-height: 0; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; overscroll-behavior: contain; }
 .msg { max-width: 84%; padding: 10px 15px; border-radius: 20px; font-size: 16px; line-height: 1.4; letter-spacing: -0.01em; animation: pop .35s var(--ease) both; overflow-wrap: anywhere; white-space: pre-line; }

@@ -13,7 +13,7 @@ export const sections = {
 };
 
 export const contact = {
-  email: "jeanmenezesmagalhaes@icloud.com",
+  email: "jean@adscendo.pro",
   whatsappLabel: "+55 51 99327-1160",
   linkedin: "https://www.linkedin.com/in/jean-magalhaes/",
   instagram: "https://www.instagram.com/adscendo.consult/",

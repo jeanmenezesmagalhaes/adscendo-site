@@ -2,14 +2,13 @@
 // No dependencies. Environment (Vercel project settings, or .env.local for src/serve.mjs):
 //   RESEND_API_KEY  required; without it the lead is only logged and the chat falls back to WhatsApp
 //   LEAD_TO         inbox that receives the leads (default below)
-//   LEAD_FROM       sender; until a domain is verified in Resend it must be onboarding@resend.dev, and then
-//                   Resend only delivers to the email of the Resend account itself
+//   LEAD_FROM       sender (default below), on adscendo.pro, the domain verified in Resend
 // Body: { subject, replyTo, fields: [[label, value], ...] }. The visitor's email goes in Reply-To, so
 // answering the email answers the lead.
 
-const TO = "jeanmenezesmagalhaes@icloud.com";
-const FROM = "Adscendo site <onboarding@resend.dev>";
-const ALLOWED = /^https:\/\/(adscendo\.com|www\.adscendo\.com|adscendo-site(-[\w-]+)?\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
+const TO = "jean@adscendo.pro";
+const FROM = "Adscendo site <site@adscendo.pro>";
+const ALLOWED = /^https:\/\/(adscendo\.pro|www\.adscendo\.pro|adscendo-site(-[\w-]+)?\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const str = (v, max) => (typeof v === "string" ? v.trim().slice(0, max) : "");

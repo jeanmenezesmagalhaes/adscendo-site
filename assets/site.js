@@ -4,7 +4,7 @@ const CONFIG = {
   formEndpoint: "/api/lead",
   // WhatsApp number in international format, digits only, e.g. "5511999999999". Empty = hidden.
   whatsapp: "5551993271160",
-  email: "jeanmenezesmagalhaes@icloud.com",
+  email: "jean@adscendo.pro",
 };
 
 const PT = document.documentElement.lang.startsWith("pt");

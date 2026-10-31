@@ -148,11 +148,12 @@ const phoneShell = (inner, bar = "#fff") => {
 };
 const phone = (im, alt, eager, bar) => phoneShell(imgTag(im, alt, eager), bar);
 
-// Prospector's "What the AI learned" screen, drawn in HTML so it stays sharp and can scroll inside the phone.
+// Prospector's "What the AI learned" screen, drawn in HTML so it stays sharp. It doesn't scroll: the phone
+// shows its top, like a screenshot.
 const aiScreen = lang => {
   const a = aiDemo[lang];
   const bars = (rows, unit) => rows.map(([k, v], i) => `<div class="ai-bar${i ? "" : " best"}"><span>${k}</span><i><b style="--w:${v / rows[0][1] * 100}%"></b></i><em>${v}${unit}</em></div>`).join("");
-  return `<div class="ai-screen" tabindex="0" aria-label="${a.title}">
+  return `<div class="ai-screen" aria-label="${a.title}">
     <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M19.4 26H35A7 7 0 1 0 31.37 13.02A8.5 8.5 0 0 0 14.53 15.22A5.5 5.5 0 0 0 8.55 23.73" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.2" cy="26" r="2.2" fill="currentColor"/></svg><span class="ai-tabs">${a.tabs.map((t, i) => `<i${i === 2 ? ` class="on"` : ""}>${t}</i>`).join("")}</span></div>
     <h3>${a.title}</h3><p class="ai-sub">${a.sub}</p>
     <div class="ai-kpis">${a.kpis.map(([k, v, s]) => `<div><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
@@ -164,8 +165,11 @@ const aiScreen = lang => {
 };
 const heroDemo = (p, lang) => {
   const d = p[lang];
-  // The demo only plays; a link laid over the whole browser opens Prospector's story.
-  return `<div class="duo duo--demo"><div class="browser browser--link"${cursorTo(p)}><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo>${imgTag(cover(p, lang), `${d.name}, ${lang === "en" ? "map on the globe" : "mapa no globo"}`, true)}</div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
+  // The demo is a video of the live app (src/record-demo.mjs): its first frame shows at once, as an image
+  // (the narrow cut on phones), and site.js plays the video over it. A link laid over the whole browser
+  // opens Prospector's story.
+  const still = `/assets/demo/${lang}-`, alt = lang === "en" ? "Prospector's AI pilot finding businesses on a map" : "O piloto de IA do Prospector achando empresas no mapa";
+  return `<div class="duo duo--demo"><div class="browser browser--link"${cursorTo(p)}><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo="${lang}"><picture><source media="(max-width: 600px)" srcset="${still}narrow.webp" width="1040" height="650"><img src="${still}wide.webp" width="1600" height="1000" alt="${alt}" fetchpriority="high" decoding="async"></picture><video muted loop playsinline preload="none" aria-hidden="true"></video></div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
 };
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
@@ -295,7 +299,6 @@ const homePage = lang => {
     </div>
   </section>
 </main>
-<script src="/assets/demo.js" defer></script>
 <script src="/assets/chat.js" defer></script>
 ` + footer(lang, altPath);
 };

@@ -1,6 +1,7 @@
-// The home hero's live Prospector demo: a MapLibre globe with sample businesses, a search circle and a
-// results panel that behave like the real app. Nothing leaves the page; every business is generated here.
-// The static screenshot under it stays visible until the map is ready, and remains if WebGL is missing.
+// The live Prospector demo that the home hero's video is filmed from: a MapLibre map with sample businesses,
+// a search circle and a results panel that behave like the real app. Pages don't load it any more: they
+// play the video (assets/demo/). src/record-demo.mjs loads this into the home page and films one lap,
+// which starts and ends on the same view of the whole country so the video loops without a seam.
 (() => {
   const root = document.querySelector("[data-demo]");
   if (!root) return;
@@ -15,7 +16,7 @@
     searching: n => `Buscando… ${n} empresas`, done: km => `Pronto · busca até ${km} km`, found: n => `${n} empresas`,
     filters: ["Todas", "Com email", "Sem site"], selected: (n, s) => `${n} de ${n} · ${s} selecionadas`,
     analyze: n => `Analisar e salvar no CRM (${n})`, saved: n => `A IA salvou ${n} leads no CRM`, inCrm: "já está no CRM",
-    noSite: "sem site", tapHint: "O piloto de IA escolhe a cidade e o tipo de negócio, e busca sozinho.", unknown: "Tente Austin, Miami, Nova York ou São Paulo.",
+    noSite: "sem site", tapHint: "O piloto de IA escolhe a cidade e o tipo de negócio, e busca sozinho.",
     pilot: "Piloto de IA", scanning: "Procurando a próxima cidade…", finding: (t, c) => `Buscando ${t} em ${c}`, saving: "Analisando e salvando os melhores leads…",
     empty: "Nenhuma empresa com esse filtro.",
   } : {
@@ -24,19 +25,11 @@
     searching: n => `Searching… ${n} businesses`, done: km => `Done · search up to ${km} km`, found: n => `${n} businesses`,
     filters: ["All", "With email", "No website"], selected: (n, s) => `${n} of ${n} · ${s} selected`,
     analyze: n => `Analyze and save to CRM (${n})`, saved: n => `The AI saved ${n} leads to the CRM`, inCrm: "already in CRM",
-    noSite: "no website", tapHint: "The AI pilot picks a city and a kind of business, then searches on its own.", unknown: "Try Austin, Miami, New York or São Paulo.",
+    noSite: "no website", tapHint: "The AI pilot picks a city and a kind of business, then searches on its own.",
     pilot: "AI pilot", scanning: "Looking for the next city…", finding: (t, c) => `Finding ${t} in ${c}`, saving: "Analyzing and saving the best leads…",
     empty: "No businesses with this filter.",
   };
 
-  const CITIES = [
-    ["austin", -97.7431, 30.2672], ["miami", -80.1918, 25.7617], ["new york", -73.9857, 40.7484], ["nova york", -73.9857, 40.7484],
-    ["chicago", -87.6298, 41.8781], ["los angeles", -118.2437, 34.0522], ["denver", -104.9903, 39.7392], ["seattle", -122.3321, 47.6062],
-    ["boston", -71.0589, 42.3601], ["atlanta", -84.388, 33.749], ["phoenix", -112.074, 33.4484], ["dallas", -96.797, 32.7767],
-    ["houston", -95.3698, 29.7604], ["san diego", -117.1611, 32.7157], ["orlando", -81.3792, 28.5383], ["tampa", -82.4572, 27.9506],
-    ["são paulo", -46.6333, -23.5505], ["sao paulo", -46.6333, -23.5505], ["rio de janeiro", -43.1729, -22.9068], ["porto alegre", -51.2177, -30.0346],
-    ["lisboa", -9.1393, 38.7223], ["lisbon", -9.1393, 38.7223], ["london", -0.1276, 51.5072], ["londres", -0.1276, 51.5072], ["toronto", -79.3832, 43.6532],
-  ];
   // Country names shown on the globe (ISO codes).
   const COUNTRIES = ["US", "CA", "MX", "BR", "AR", "GB", "PT", "ES", "FR", "DE", "IT"];
   const KINDS = [
@@ -169,7 +162,6 @@
     let finish;
     const finished = new Promise(r => { finish = r; });
     state.running = true;
-    stopSpin();
     popup?.remove();
     state.term = $("#dp-term").value.trim() || T.term;
     // Three times the candidates; once the map has settled, the ones that fall on water are dropped.
@@ -211,7 +203,8 @@
     };
     map.once("moveend", () => map.once("idle", begin));
     map.flyTo({ center: state.center, zoom: ZOOM[state.km], duration: REDUCED ? 0 : flight, essential: false });
-    setTimeout(begin, flight + 2900);
+    // Fallback only: normally "idle" (every tile loaded) starts it, so the water check sees the whole map.
+    setTimeout(begin, flight + 8000);
     return finished;
   }
 
@@ -224,12 +217,13 @@
   }
 
   // ---------- the AI pilot ----------
-  // Nobody drives this demo: it loops through cities on its own, the way the real pilot works through a market.
+  // Nobody drives this demo: it loops through a few cities on its own, the way the real pilot works through
+  // a market. Three inland US cities keep the flights short (few map tiles, cached after the first lap)
+  // and the businesses on dry land; between them the map pulls back to the whole country, not the globe.
   const TOUR = PT
-    ? [["Miami", -80.1918, 25.7617, "dentistas", 10], ["São Paulo", -46.6333, -23.5505, "clínicas de estética", 5], ["Nova York", -73.9857, 40.7484, "telhados", 5],
-       ["Austin", -97.7431, 30.2672, "quiropraxia", 10], ["Lisboa", -9.1393, 38.7223, "restaurantes", 2], ["Chicago", -87.6298, 41.8781, "encanadores", 10]]
-    : [["Miami", -80.1918, 25.7617, "dentists", 10], ["São Paulo", -46.6333, -23.5505, "med spas", 5], ["New York", -73.9857, 40.7484, "roofing", 5],
-       ["Austin", -97.7431, 30.2672, "chiropractors", 10], ["Lisbon", -9.1393, 38.7223, "restaurants", 2], ["Chicago", -87.6298, 41.8781, "plumbers", 10]];
+    ? [["Austin", -97.7431, 30.2672, "dentistas", 10], ["Atlanta", -84.388, 33.749, "clínicas de estética", 5], ["Denver", -104.9903, 39.7392, "telhados", 10]]
+    : [["Austin", -97.7431, 30.2672, "dentists", 10], ["Atlanta", -84.388, 33.749, "med spas", 5], ["Denver", -104.9903, 39.7392, "roofing", 10]];
+  const USA = [[-125, 24], [-66, 50]];
   let visible = true;
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(root);
   const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -242,13 +236,13 @@
     el.classList.remove("typing");
   }
   const moved = () => new Promise(r => map.once("moveend", r));
-  async function pilot(globeZoom) {
+  let lap = 0;
+  async function pilot() {
     $(".demo-ai b").textContent = T.pilot;
+    say(T.scanning);
+    await sleep(1200); await awake();
     for (let i = 0; ; i = (i + 1) % TOUR.length) {
       const [city, lng, lat, term, km] = TOUR[i];
-      say(T.scanning);
-      spinning = true; spin();
-      await sleep(3200); await awake();
       await type($(".demo-where input"), city);
       await sleep(300);
       await type($("#dp-term"), term);
@@ -258,7 +252,7 @@
       setTimeout(() => $(".dp-search").classList.remove("press"), 300);
       say(T.finding(term, city));
       state.center = [lng, lat];
-      await search(3800);
+      await search(3200);
       await sleep(900); await awake();
       // On a narrow frame a popup would cover most of the map: the pins alone tell the story there.
       const best = $(".demo-map").clientWidth > 480 ? state.list.find(b => !b.crm && b.email) || state.list[0] : null;
@@ -273,20 +267,15 @@
       await sleep(2600); await awake();
       popup?.remove();
       say(T.scanning);
-      map.flyTo({ center: [lng + 35, Math.max(-20, Math.min(30, lat))], zoom: globeZoom, duration: 3200, essential: false });
+      map.flyTo({ ...map.cameraForBounds(USA, { padding: 24 }), duration: 2400, essential: false });
       await moved();
+      // Back on the whole country after the last city: one lap done (the recorder films lap 1 to 2).
+      if (i === TOUR.length - 1) root.dataset.lap = ++lap;
+      await sleep(1200); await awake();
     }
   }
 
   // ---------- the map ----------
-  let spinning = !REDUCED, raf = 0;
-  const stopSpin = () => { spinning = false; cancelAnimationFrame(raf); };
-  const spin = () => {
-    if (!spinning || !map) return;
-    if (visible && map.getZoom() < 3.5) { const c = map.getCenter(); map.jumpTo({ center: [c.lng - .08, c.lat] }); }
-    raf = requestAnimationFrame(spin);
-  };
-
   const load = (tag, attrs) => new Promise((ok, fail) => { const el = document.createElement(tag); Object.assign(el, attrs, { onload: ok, onerror: fail }); document.head.appendChild(el); });
   async function start() {
     const gl = document.createElement("canvas").getContext("webgl2") || document.createElement("canvas").getContext("webgl");
@@ -295,9 +284,10 @@
       await Promise.all([load("link", { rel: "stylesheet", href: `${MAPLIBRE}.css` }), load("script", { src: `${MAPLIBRE}.js` })]);
     } catch { return; }
     map = new maplibregl.Map({
-      // The globe keeps the same size relative to the frame, however wide the frame is.
-      container: $(".demo-map"), style: STYLE, center: [-68, 14], zoom: Math.max(0, 1.9 + Math.log2(Math.min($(".demo-map").clientWidth, $(".demo-map").clientHeight) / 600)), maxZoom: 17,
-      interactive: false, attributionControl: { compact: true },
+      // It opens on the whole country, where every lap starts and ends. The map credits stay written out:
+      // in a video they can't hide behind a button.
+      container: $(".demo-map"), style: STYLE, bounds: USA, fitBoundsOptions: { padding: 24 }, maxZoom: 17,
+      interactive: false, attributionControl: { compact: false },
     });
     map.on("style.load", () => {
       map.setProjection({ type: "globe" });
@@ -324,11 +314,9 @@
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 2, 3, 8, 5, 13, 8],
         "circle-color": ["case", ["get", "crm"], "#a1a1a6", "#1d1d1f"],
         "circle-stroke-color": "#fff", "circle-stroke-width": 1.6 } });
-      // Credits fold into the "i" button, as in the real app.
-      live.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
-      live.querySelector(".maplibregl-ctrl-attrib")?.removeAttribute("open");
+      root.map = map; // for the recorder
       root.classList.add("ready");
-      if (!REDUCED) pilot(map.getZoom());
+      if (!REDUCED) pilot();
     });
   }
   // Load after the page has settled, so the map never slows the first paint.

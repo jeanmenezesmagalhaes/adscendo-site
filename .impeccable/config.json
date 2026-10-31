@@ -14,6 +14,33 @@
         "value": "geist",
         "createdAt": "2026-10-26T12:31:07.496Z",
         "reason": "project design system: DESIGN.md typography tokens set Geist for all text; predates this session"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "brand/manual-de-marca.html"
+        ],
+        "createdAt": "2026-10-31T11:21:26.962Z",
+        "reason": "Claude: static parser misreads theme tokens and !important tile fills; rendered-page contrast check in browser passed after fixing tagline and field-hint colors; remaining flagged swatches are color specimens"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "brand/manual-de-marca.html"
+        ],
+        "createdAt": "2026-10-31T11:22:01.381Z",
+        "reason": "Claude: static parser misses clamp() and descendant padding; source shows .tile clamp(24-40px), .wrap side gutter >=16px with padding-block, td 14x18px, stages center their content with grid place-items"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "georgia",
+        "files": [
+          "brand/manual-de-marca.html"
+        ],
+        "createdAt": "2026-10-31T12:27:46.709Z",
+        "reason": "Claude: Georgia appears only in the manual's 'wrong logo usage' example, documenting bad design"
       }
     ]
   }

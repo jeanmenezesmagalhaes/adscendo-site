@@ -28,6 +28,25 @@ document.querySelector(".offer-close")?.addEventListener("click", () => {
   try { localStorage.setItem("offer", "closed"); } catch {}
 });
 
+// Home hero: the Prospector demo is a video (src/record-demo.mjs) over its first frame. It loads only as
+// the frame comes near the screen, in the cut the image picked (wide, or narrow on phones), AV1 where the
+// browser plays it and H.264 elsewhere. With reduced motion, Save-Data or a 2G connection it stays a still.
+const demo = document.querySelector("[data-demo]");
+const conn = navigator.connection;
+if (demo && !matchMedia("(prefers-reduced-motion: reduce)").matches && !conn?.saveData && !/2g/.test(conn?.effectiveType || "")) {
+  new IntersectionObserver(([e], io) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    const video = demo.querySelector("video"), still = demo.querySelector("img");
+    if (!video) return;
+    const base = `/assets/demo/${demo.dataset.demo}-${(still.currentSrc || still.src).includes("narrow") ? "narrow" : "wide"}`;
+    video.innerHTML = `<source src="${base}.webm" type='video/webm; codecs="av01.0.08M.08"'><source src="${base}.mp4" type="video/mp4">`;
+    video.addEventListener("playing", () => demo.classList.add("playing"), { once: true });
+    video.load();
+    video.play().catch(() => {});
+  }, { rootMargin: "200px" }).observe(demo);
+}
+
 // The nav turns dark over a black band. The switch is instant: with the usual transitions the nav and
 // its buttons would show their old colors for a moment, a flash against the band on a fast scroll.
 const nav = document.querySelector(".nav");

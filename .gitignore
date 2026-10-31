@@ -3,3 +3,4 @@
 .claude/worktrees/
 .impeccable/hook.cache.json
 .env*
+node_modules

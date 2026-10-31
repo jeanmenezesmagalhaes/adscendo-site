@@ -17,8 +17,9 @@
       <button type="button" class="chat-restart" hidden>${esc(T.restart)}</button>
       <button type="button" class="chat-close" aria-label="${esc(T.close)}" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
     <div class="chat-log" role="log" aria-live="polite"></div>
-    <div class="chat-input"></div>`;
-  const log = root.querySelector(".chat-log"), dock = root.querySelector(".chat-input"), restart = root.querySelector(".chat-restart"), close = root.querySelector(".chat-close");
+    <div class="chat-input"></div>
+    <input class="chat-keep" tabindex="-1" aria-hidden="true" autocomplete="off">`;
+  const log = root.querySelector(".chat-log"), dock = root.querySelector(".chat-input"), restart = root.querySelector(".chat-restart"), close = root.querySelector(".chat-close"), keep = root.querySelector(".chat-keep");
   let a = {}, gen = 0;
 
   const scroll = () => log.scrollTo({ top: log.scrollHeight, behavior: REDUCED ? "auto" : "smooth" });
@@ -50,7 +51,7 @@
     const form = dock.querySelector("form"), field = form.querySelector("input, textarea"), err = form.querySelector(".chat-err");
     if (matchMedia("(hover: hover)").matches || root.contains(document.activeElement)) field.focus({ preventScroll: true });
     if (multiline) field.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
-    const finish = value => { dock.innerHTML = ""; if (value) bubble(esc(value), "me"); done(value); };
+    const finish = value => { holdKeyboard(); dock.innerHTML = ""; if (value) bubble(esc(value), "me"); done(value); };
     // Email shortcuts: once something is typed, offer the common providers; a tap completes the address.
     const hint = form.querySelector(".chat-suggest");
     if (hint) {
@@ -80,6 +81,7 @@
     });
   });
   const choose = options => new Promise(done => {
+    dropKeyboard();
     dock.innerHTML = `<div class="chat-chips">${options.map(([v, label]) => `<button type="button" class="chip" data-v="${v}">${esc(label)}</button>`).join("")}</div>`;
     dock.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
       dock.innerHTML = "";
@@ -145,6 +147,7 @@
     const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name });
     const cfg = typeof CONFIG !== "undefined" ? CONFIG : {};
     await say(esc(fill(T.ready, { name: first })));
+    dropKeyboard();
     dock.innerHTML = `<div class="chat-chips chat-final"><button type="button" class="btn">${esc(T.send)}</button></div>`;
     const btn = dock.querySelector("button");
     btn.addEventListener("click", async () => {
@@ -192,13 +195,26 @@
   // Phones: the first tap on the chat's field turns it into a full-screen conversation that tracks the strip
   // of screen above the keyboard (the visual viewport), so only the chat shows until the visitor closes it.
   const vv = window.visualViewport, phone = matchMedia("(pointer: coarse) and (max-width: 560px)");
-  let full = false, spacer = null;
-  const place = () => {
-    if (!full) return;
-    root.style.top = `${vv ? vv.offsetTop : 0}px`;
-    root.style.height = `${vv ? vv.height : innerHeight}px`;
+  let full = false, spacer = null, settle = 0;
+  const fit = () => {
+    const top = `${Math.round(vv ? vv.offsetTop : 0)}px`, height = `${Math.round(vv ? vv.height : innerHeight)}px`;
+    if (root.style.top !== top) root.style.top = top;
+    if (root.style.height !== height) root.style.height = height;
     log.scrollTop = log.scrollHeight;
   };
+  // While the keyboard slides, iOS fires a burst of viewport events and pans the page itself; following each
+  // one makes the chat jump. It waits for the viewport to stop moving, then fits once.
+  const place = () => {
+    if (!full) return;
+    clearTimeout(settle);
+    settle = setTimeout(() => requestAnimationFrame(() => full && fit()), 120);
+  };
+  // iOS only opens the keyboard from a tap, so a field that appears after the bot's reply could not raise it.
+  // Between text questions an invisible field holds the focus, and the keyboard stays up for the next one.
+  function holdKeyboard() {
+    if (full && document.activeElement?.matches("input, textarea") && root.contains(document.activeElement)) keep.focus({ preventScroll: true });
+  }
+  function dropKeyboard() { if (document.activeElement === keep) keep.blur(); }
   const enter = () => {
     if (full || !phone.matches) return;
     full = true;
@@ -208,10 +224,11 @@
     root.classList.add("is-full");
     document.documentElement.classList.add("chat-open");
     close.hidden = false;
-    place();
+    fit();
   };
   const leave = () => {
     full = false;
+    clearTimeout(settle);
     spacer?.remove();
     root.classList.remove("is-full");
     document.documentElement.classList.remove("chat-open");
@@ -221,7 +238,7 @@
     document.activeElement?.blur();
     root.scrollIntoView({ block: "center", behavior: "instant" });
   };
-  root.addEventListener("focusin", e => { if (e.target.matches("input, textarea")) enter(); });
+  root.addEventListener("focusin", e => { if (e.target.matches("input, textarea") && e.target !== keep) enter(); });
   vv?.addEventListener("resize", place);
   vv?.addEventListener("scroll", place);
   close.addEventListener("click", leave);

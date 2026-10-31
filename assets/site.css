@@ -520,7 +520,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 .outro-line { justify-self: start; }
 
 /* ---------- contact chat (chat.js) ---------- */
-.chat { display: flex; flex-direction: column; height: clamp(500px, 64vh, 620px); background: var(--band); border-radius: 28px; overflow: hidden; }
+.chat { position: relative; display: flex; flex-direction: column; height: clamp(500px, 64vh, 620px); background: var(--band); border-radius: 28px; overflow: hidden; }
 .chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--pressed); }
 .chat-head img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: top; background: var(--pressed); }
 .chat-head b { display: block; font-size: 15px; font-weight: 600; letter-spacing: -0.015em; }
@@ -529,6 +529,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 .chat-restart:hover { background: var(--pressed); }
 .chat-close { margin-left: auto; width: 36px; height: 36px; flex: none; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
 .chat-close[hidden] { display: none; }
+.chat-keep { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; padding: 0; border: 0; opacity: 0; font-size: 16px; pointer-events: none; }
 .chat-restart:not([hidden]) + .chat-close { margin-left: 0; }
 .chat-close svg { width: 16px; height: 16px; }
 /* Phones, once the visitor starts typing: the chat takes the whole visible screen (chat.js sets top and height). */

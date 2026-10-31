@@ -1,6 +1,7 @@
 // The contact chat: a short scripted conversation (no AI, nothing leaves the page until the visitor sends).
-// Name, website (and its integrations), a first estimate, email, optional WhatsApp and notes; then the
-// summary goes out on WhatsApp or by email, or to CONFIG.formEndpoint when one is set (site.js).
+// Name, website (and its integrations), a first estimate, email, optional WhatsApp and notes. Then, when
+// Jean's calendar has free times (CONFIG.meetingEndpoint), an offer to book a 15-minute call right there;
+// booking sends the summary too. Otherwise the summary goes to CONFIG.formEndpoint, WhatsApp or email (site.js).
 (() => {
   const root = document.querySelector("[data-chat]");
   const data = document.getElementById("chat-data");
@@ -80,9 +81,9 @@
       finish(v);
     });
   });
-  const choose = options => new Promise(done => {
+  const choose = (options, cls = "") => new Promise(done => {
     dropKeyboard();
-    dock.innerHTML = `<div class="chat-chips">${options.map(([v, label]) => `<button type="button" class="chip" data-v="${v}">${esc(label)}</button>`).join("")}</div>`;
+    dock.innerHTML = `<div class="chat-chips ${cls}">${options.map(([v, label]) => `<button type="button" class="chip" data-v="${v}">${esc(label)}</button>`).join("")}</div>`;
     dock.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
       dock.innerHTML = "";
       bubble(esc(b.textContent), "me");
@@ -110,6 +111,7 @@
       [L.email, a.email],
       a.phone ? [L.phone, a.phone] : null,
       a.notes ? [L.notes, a.notes] : null,
+      a.meeting ? [L.meeting, a.meeting] : null,
     ].filter(Boolean).map(([k, v]) => `${k}: ${v}`).join("\n");
   }
 
@@ -134,18 +136,115 @@
     await say(estimateCard(), "estimate");
     await say(esc(T.askEmail));
     a.email = await ask({ type: "email", inputmode: "email", autocomplete: "email", ph: T.emailPh, domains: T.emailDomains, check: v => !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && T.bad.email });
+    // The free times load while the last two questions are answered.
+    const offer = freeTimes();
     await say(esc(T.askPhone));
     a.phone = await ask({ type: "tel", inputmode: "tel", autocomplete: "tel", ph: T.phonePh, optional: true, check: v => !/^\+?[\d\s().-]{8,20}$/.test(v) && T.bad.phone });
     await say(esc(T.askMore));
     a.notes = await ask({ multiline: true, ph: T.morePh, optional: true });
+    if (await meeting(await offer)) return;
     await finish();
+  }
+
+  // The call: free times come from Jean's Google Calendar (api/meeting.mjs) and show in the visitor's own
+  // time zone. A day, then a time; booking also emails the summary, so there's nothing left to send.
+  // CONFIG comes from site.js, which loads after this file, so it is read when needed.
+  const config = () => (typeof CONFIG !== "undefined" ? CONFIG : {});
+  const freeTimes = () => config().meetingEndpoint
+    ? fetch(config().meetingEndpoint, { headers: { Accept: "application/json" } }).then(r => r.ok ? r.json() : {}).then(d => d.slots || []).catch(() => [])
+    : Promise.resolve([]);
+  const dayKey = d => new Date(d).toLocaleDateString("en-CA");
+  function dayName(d, zone) {
+    const opts = zone ? { timeZone: zone } : {};
+    const near = !zone && { [dayKey(Date.now())]: T.today, [dayKey(Date.now() + 864e5)]: T.tomorrow }[dayKey(d)];
+    const week = new Date(d).toLocaleDateString(locale, { weekday: "long", ...opts }).replace(/-feira$/, "");
+    const date = new Date(d).toLocaleDateString(locale, { day: "numeric", month: "short", ...opts }).replace(/\.$/, "").replace(" de ", " ");
+    return `${near || week[0].toUpperCase() + week.slice(1)}, ${date}`;
+  }
+  const timeName = (d, zone) => new Date(d).toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit", ...(zone && { timeZone: zone }) });
+  const when = (d, zone) => `${dayName(d, zone)}, ${timeName(d, zone)}`;
+  // In a sentence: "Booked for Monday, Nov 2, 2:00 PM" / "Marcado para segunda, 2 nov, 14:00".
+  const whenText = d => locale.startsWith("pt") ? when(d).replace(/^./, c => c.toLowerCase()) : when(d);
+
+  async function pickTime(slots) {
+    const days = new Map();
+    for (const s of slots) days.set(dayKey(s), [...(days.get(dayKey(s)) || []), s]);
+    for (;;) {
+      await say(esc(T.pickDay));
+      const day = await choose([...[...days].map(([k, list]) => [k, dayName(list[0])]), ["", T.meetNo]]);
+      if (!day) return "";
+      await say(esc(T.pickTime));
+      const time = await choose([...days.get(day).map(s => [s, timeName(s)]), ["", T.otherDay]], "chat-times");
+      if (time) return time;
+    }
+  }
+
+  async function meeting(slots) {
+    if (!slots.length) return false;
+    await say(esc(T.askMeet));
+    if (await choose([["yes", T.meetYes], ["no", T.meetNo]]) !== "yes") return false;
+    for (;;) {
+      const start = await pickTime(slots);
+      if (!start) return false;
+      const g = gen, dots = bubble("<i></i><i></i><i></i>", "bot", "typing");
+      let res = {};
+      try {
+        const r = await fetch(config().meetingEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ start, name: a.name, email: a.email, title: fill(T.meetTitle, { name: a.name }), fields: fields() }),
+        });
+        res = await r.json().catch(() => ({}));
+      } catch {}
+      dots.remove();
+      if (g !== gen) return new Promise(() => {});
+      if (res.error === "taken") {
+        await say(esc(T.taken));
+        slots = await freeTimes();
+        if (slots.length) continue;
+      }
+      const at = res.success ? res.start : res.error === "exists" && res.start;
+      if (!at) {
+        await say(esc(T.bookFailed));
+        return false;
+      }
+      // Jean reads the time in São Paulo, where his calendar is.
+      a.meeting = `${when(at, "America/Sao_Paulo")}${res.meet ? ` · ${res.meet}` : ""}`;
+      sendLead(fill(T.subjectMeet, { name: a.name }));
+      await say(esc(fill(res.success ? T.booked : T.already, { when: whenText(at), email: a.email })));
+      return true;
+    }
   }
 
   // One "Send" button: the summary goes to CONFIG.formEndpoint (/api/lead, which emails it to Jean).
   // Only if that fails does the chat offer WhatsApp or email instead.
+  // Empty answers are left out, so the email only shows what the visitor actually said.
+  function fields() {
+    const L = T.labels, t = tierOf();
+    return [
+      [L.name, a.name], [L.email, a.email], [L.phone, a.phone || ""],
+      [L.site, a.site === "no" ? L.none : a.link || T.yes],
+      [L.tools, a.site === "yes" ? { yes: T.yes, no: T.no, unsure: T.notSure }[a.tools] : ""],
+      [L.estimate, `${T.tiers[t]}: ${money(price(t))} (${fill(T.off, { p: Q[t].off })})`],
+      [L.notes, a.notes || ""],
+      [L.meeting, a.meeting || ""],
+    ].filter(([, v]) => v);
+  }
+  async function sendLead(subject) {
+    const { formEndpoint } = config();
+    if (!formEndpoint) return false;
+    try {
+      const res = await fetch(formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ subject, replyTo: a.email, fields: fields() }),
+      });
+      return res.ok && (await res.json().catch(() => ({}))).success === true;
+    } catch { return false; }
+  }
+
   async function finish() {
-    const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name });
-    const cfg = typeof CONFIG !== "undefined" ? CONFIG : {};
+    const first = a.name.split(" ")[0], text = summary(), subject = fill(T.subject, { name: a.name }), cfg = config();
     await say(esc(fill(T.ready, { name: first })));
     dropKeyboard();
     dock.innerHTML = `<div class="chat-chips chat-final"><button type="button" class="btn">${esc(T.send)}</button></div>`;
@@ -153,28 +252,7 @@
     btn.addEventListener("click", async () => {
       btn.disabled = true;
       btn.textContent = T.sending;
-      let ok = false;
-      if (cfg.formEndpoint) {
-        try {
-          const L = T.labels, t = tierOf();
-          const res = await fetch(cfg.formEndpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            // Empty answers are left out, so the email only shows what the visitor actually said.
-            body: JSON.stringify({
-              subject, replyTo: a.email,
-              fields: [
-                [L.name, a.name], [L.email, a.email], [L.phone, a.phone || ""],
-                [L.site, a.site === "no" ? L.none : a.link || T.yes],
-                [L.tools, a.site === "yes" ? { yes: T.yes, no: T.no, unsure: T.notSure }[a.tools] : ""],
-                [L.estimate, `${T.tiers[t]}: ${money(price(t))} (${fill(T.off, { p: Q[t].off })})`],
-                [L.notes, a.notes || ""],
-              ].filter(([, v]) => v),
-            }),
-          });
-          ok = res.ok && (await res.json().catch(() => ({}))).success === true;
-        } catch {}
-      }
+      const ok = await sendLead(subject);
       dock.innerHTML = "";
       // Either way the last word is one WhatsApp button with the summary ready: on success it is the fast
       // lane for whoever is in a hurry; if sending failed it is how the message still reaches Jean.

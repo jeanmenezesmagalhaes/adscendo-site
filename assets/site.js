@@ -2,6 +2,9 @@ const CONFIG = {
   // Where the contact chat sends its summary: api/lead.mjs, which emails it through Resend (needs
   // RESEND_API_KEY on Vercel). Empty = WhatsApp/email buttons.
   formEndpoint: "/api/lead",
+  // Free times on Jean's Google Calendar, and where the chat books a call: api/meeting.mjs (needs the
+  // GOOGLE_* variables on Vercel). Empty, or no free times, = the chat doesn't offer a call.
+  meetingEndpoint: "/api/meeting",
   // WhatsApp number in international format, digits only, e.g. "5511999999999". Empty = hidden.
   whatsapp: "5551993271160",
   email: "jean@adscendo.pro",

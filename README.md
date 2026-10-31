@@ -29,6 +29,7 @@ To add a project: add an entry to `projects` (and, if you want, to `timeline`) i
 ```
 index.html, work/<slug>/index.html         English pages (generated)
 pt/index.html, pt/work/<slug>/index.html   Portuguese pages (generated)
+privacy/, pt/privacidade/                  Privacy policy (generated from `privacy` in src/content.mjs; linked in the footer and on Google's sign-in screen)
 src/content.mjs                            All copy, EN and PT
 src/build.mjs                              Page templates and generator
 src/serve.mjs                              Local server with the production URL rules
@@ -36,8 +37,9 @@ assets/site.css, assets/site.js            Shared styles and script
 assets/demo/                               Home hero video of the Prospector demo: <lang>-<wide|narrow>.webm (AV1), .mp4 (H.264), .webp (first frame)
 assets/demo.js                             The live Prospector demo the video is filmed from (sample data only; pages don't load it)
 src/record-demo.mjs                        Films assets/demo.js into assets/demo/ (see below)
-assets/chat.js                             Contact chat: scripted questions, first estimate, one Send (/api/lead)
+assets/chat.js                             Contact chat: scripted questions, first estimate, a call (/api/meeting) or one Send (/api/lead)
 api/lead.mjs                               Vercel function: emails the chat's summary to Jean through Resend
+api/meeting.mjs                            Vercel function: free times on Jean's Google Calendar, and booking a call
 assets/work/                               Project screenshots (.webp)
 favicon.svg
 vercel.json                                Clean URLs, section rewrites (written by the build), screenshot cache, basic headers
@@ -58,6 +60,7 @@ It needs `ffmpeg` with `libsvtav1` and `libx264` (`brew install ffmpeg`). Four c
 ## Configuration
 
 - `CONFIG` at the top of `assets/site.js`: `formEndpoint` (`/api/lead`) is where the contact chat's single "Send" posts its summary. `api/lead.mjs` emails it through [Resend](https://resend.com), with the visitor's email as Reply-To. It needs `RESEND_API_KEY` in the Vercel project's environment variables (Production), then a redeploy; optional `LEAD_TO` (inbox, default `jean@adscendo.pro`) and `LEAD_FROM` (default `site@adscendo.pro`; the sender must be on adscendo.pro, the domain verified in Resend, whose DNS records live in Vercel DNS). Locally, `node src/serve.mjs` runs the function with the variables in `.env.local` (`npx vercel env pull .env.local`); without a key the lead is only printed in the terminal. If sending fails, the chat offers WhatsApp and email instead, and Vercel's function logs keep the lead's text. `whatsapp` (digits only; empty = hidden), `email`.
+- `meetingEndpoint` (`/api/meeting`): after the last question the chat offers a 15-minute video call, on free times from Jean's Google Calendar (Monday to Friday, 8:00 to 18:00 São Paulo time, at least 3 hours ahead, next 5 working days; constants at the top of `api/meeting.mjs`). The visitor picks a day, then a time, shown in their own time zone. Booking creates the event with a Google Meet link and the visitor as guest (Google emails the invite), and also sends the summary through `/api/lead`. One upcoming call per email, and at most 10 upcoming calls from the site. Setup: a Google Cloud project with the Calendar API enabled, an OAuth consent screen published as "In production" (in "Testing" the token expires after 7 days), and an OAuth client of type "Desktop app"; `node src/google-auth.mjs` with its `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` prints `GOOGLE_REFRESH_TOKEN`. Set the three on Vercel. Optional `GOOGLE_CALENDARS` (comma-separated, default `primary`) lists the calendars checked for conflicts; the call goes on the first. Without the variables the chat doesn't offer a call.
 - `sections` in `src/content.mjs`: the clean address of each home section (`/services`, `/portfolio`, `/how-we-work`, `/about`, `/contact`, and `/pt/servicos`… in Portuguese). Every link to a section uses it; the build writes the matching rewrites into `vercel.json`, so the home page is served there, and `site.js` scrolls to the section. Old `/#process`-style links still work and switch to the clean address.
 - `quote` in `src/content.mjs`: the contact chat's price tiers (regular price and discount %): `new` (no website yet), `redo` (has a website), `complex` (has a website with integrations). The chat's wording is in `chat`, EN and PT.
 - `founderPhoto` in `src/content.mjs`: path to Jean's photo (e.g. `/assets/jean.webp`). Empty = the cloud mark.

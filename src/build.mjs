@@ -1,10 +1,10 @@
 // Generates the static pages from src/content.mjs. No dependencies.
 //   node src/build.mjs
-// Output: index.html, work/<slug>/index.html, pt/index.html, pt/work/<slug>/index.html
+// Output: index.html, work/<slug>/index.html, privacy/index.html, and their twins under pt/
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy } from "./content.mjs";
 
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
@@ -16,6 +16,7 @@ const base = lang => (lang === "en" ? "" : "/pt");
 const homePath = lang => base(lang) || "/";
 const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
 const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
+const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 // The section's own address and its twin in the other language, for site.js.
 const sectionAttrs = (lang, id) => `id="${id}" data-path="${sectionPath(lang, id)}" data-alt="${sectionPath(other(lang), id)}"`;
 const other = lang => (lang === "en" ? "pt" : "en");
@@ -126,6 +127,7 @@ const footer = (lang, altPath) => {
       </nav>
       <div class="outro-row">
         <span>&copy; 2026 Adscendo</span>
+        <a href="${privacyPath(lang)}">${t.privacy}</a>
         <a href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}">${t.other}</a>
         <a class="to-top" href="#top">${t.backTop}<svg aria-hidden="true"><use href="#arrow"/></svg></a>
       </div>
@@ -372,6 +374,25 @@ const casePage = (lang, i) => {
 ` + footer(lang, altPath);
 };
 
+const privacyPage = lang => {
+  const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
+  const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
+  return head({ lang, title: `${d.title} | Adscendo`, description: d.lede, path, altPath, ld, image: ogImage(cover(projects[0], lang)), imageAlt: "Adscendo" }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="case-head wrap">
+    <h1>${d.title}</h1>
+    <p class="lede">${d.lede}</p>
+    <p class="legal-date">${d.updated}</p>
+  </section>
+  <section class="band">
+    <div class="wrap legal">
+      ${d.sections.map(x => `<article><h2>${x.h}</h2><div>${x.p.map(t => `<p>${t}</p>`).join("")}</div></article>`).join("\n      ")}
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
 const write = (rel, html) => {
   const file = join(ROOT, rel);
   mkdirSync(dirname(file), { recursive: true });
@@ -383,6 +404,7 @@ for (const lang of LANGS) {
   const prefix = lang === "en" ? "" : "pt/";
   write(`${prefix}index.html`, homePage(lang));
   projects.forEach((p, i) => write(`${prefix}work/${p.slug}/index.html`, casePage(lang, i)));
+  write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
 
 // vercel.json: serve the home page at each section's clean address (serve.mjs does the same locally).
@@ -403,7 +425,7 @@ if (SITE) {
   const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${pairs.flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc>${alts(pair)}</url>`)).join("\n")}
+${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc>${alts(pair)}</url>`)).join("\n")}
 </urlset>
 `);
 }

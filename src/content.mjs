@@ -36,6 +36,7 @@ export const ui = {
     next: "Next project",
     footer: "From complexity to forward motion.",
     backTop: "Back to top",
+    privacy: "Privacy",
   },
   pt: {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
@@ -52,6 +53,7 @@ export const ui = {
     next: "Próximo projeto",
     footer: "Da complexidade ao movimento.",
     backTop: "Voltar ao topo",
+    privacy: "Privacidade",
   },
 };
 
@@ -199,6 +201,13 @@ export const chat = {
     askEmail: "What's your email? We'll send the details there.", emailPh: "you@yourbusiness.com", emailDomains: ["gmail.com", "icloud.com", "outlook.com"],
     askPhone: "And a WhatsApp number, if you'd rather chat there?", phonePh: "+1 555 123 4567",
     askMore: "Anything else we should know? A goal, a deadline, an idea.", morePh: "Optional",
+    askMeet: "Want to talk this week? Grab 15 minutes on a video call with Jean.", meetYes: "Pick a time", meetNo: "Not now",
+    pickDay: "Which day works for you?", pickTime: "And what time?", otherDay: "Another day", today: "Today", tomorrow: "Tomorrow",
+    booked: "Booked for {when}. The invite with the Google Meet link is on its way to {email}.",
+    already: "You already have a call with us on {when}. See you then!",
+    taken: "Someone just took that time. Here's what's still open.",
+    bookFailed: "I couldn't book it right now. Jean will email you a few times instead.",
+    meetTitle: "Adscendo + {name}", subjectMeet: "Call booked: {name}",
     ready: "All set, {name}. Hit send and you'll hear from us within 6 hours.",
     sent: "Sent! Thanks, {name}. You'll hear from us within 6 hours.",
     sending: "Sending…",
@@ -207,7 +216,7 @@ export const chat = {
     failedMail: "That didn't go through. Send it by email and we'll take it from there.",
     sendWa: "Message us on WhatsApp", sendEmail: "Send by email", restart: "Start over", close: "Close chat", send: "Send",
     bad: { name: "Just your name, please.", link: "That address doesn't look right.", email: "That email doesn't look right.", phone: "Use digits, with the country code." },
-    labels: { name: "Name", site: "Website", tools: "Integrations", estimate: "Estimate", email: "Email", phone: "WhatsApp", notes: "Notes", none: "None yet" },
+    labels: { name: "Name", site: "Website", tools: "Integrations", estimate: "Estimate", email: "Email", phone: "WhatsApp", notes: "Notes", meeting: "Call", none: "None yet" },
     subject: "New project: {name}",
   },
   pt: {
@@ -226,6 +235,13 @@ export const chat = {
     askEmail: "Qual é o seu email? Mandamos os detalhes por lá.", emailPh: "voce@seunegocio.com.br", emailDomains: ["gmail.com", "hotmail.com", "outlook.com"],
     askPhone: "E um WhatsApp, se preferir conversar por lá?", phonePh: "+55 11 91234-5678",
     askMore: "Mais alguma coisa que devemos saber? Um objetivo, um prazo, uma ideia.", morePh: "Opcional",
+    askMeet: "Quer conversar ainda esta semana? Marque 15 minutos por vídeo com o Jean.", meetYes: "Escolher horário", meetNo: "Agora não",
+    pickDay: "Qual dia fica melhor para você?", pickTime: "E qual horário?", otherDay: "Outro dia", today: "Hoje", tomorrow: "Amanhã",
+    booked: "Marcado para {when}. O convite com o link do Google Meet está a caminho de {email}.",
+    already: "Você já tem uma conversa marcada para {when}. Até lá!",
+    taken: "Esse horário acabou de ser ocupado. Veja o que ainda está livre.",
+    bookFailed: "Não consegui marcar agora. O Jean manda alguns horários por email.",
+    meetTitle: "Adscendo + {name}", subjectMeet: "Chamada marcada: {name}",
     ready: "Tudo certo, {name}. Clique em enviar e você recebe uma resposta em até 6 horas.",
     sent: "Enviado! Obrigado, {name}. Você recebe uma resposta em até 6 horas.",
     sending: "Enviando…",
@@ -234,8 +250,75 @@ export const chat = {
     failedMail: "Não deu certo. Envie por email e a gente segue por lá.",
     sendWa: "Falar no WhatsApp", sendEmail: "Enviar por email", restart: "Recomeçar", close: "Fechar chat", send: "Enviar",
     bad: { name: "Só o seu nome, por favor.", link: "Esse endereço não parece certo.", email: "Esse email não parece certo.", phone: "Use números, com o código do país." },
-    labels: { name: "Nome", site: "Site", tools: "Integrações", estimate: "Estimativa", email: "Email", phone: "WhatsApp", notes: "Observações", none: "Ainda não tem" },
+    labels: { name: "Nome", site: "Site", tools: "Integrações", estimate: "Estimativa", email: "Email", phone: "WhatsApp", notes: "Observações", meeting: "Chamada", none: "Ainda não tem" },
     subject: "Novo projeto: {name}",
+  },
+};
+
+// The privacy policy, at /privacy and /pt/privacidade (linked from the footer, and from the Google sign-in
+// screen that lets the contact chat book calls on Jean's calendar). Keep it true to what the site does.
+export const privacy = {
+  en: {
+    slug: "privacy", title: "Privacy policy", updated: "Last updated October 31, 2026",
+    lede: "What this site collects, why, and what you can ask us to do with it.",
+    sections: [
+      { h: "Who we are", p: ["Adscendo is the web design and development studio of Jean Menezes, based in Brazil. For anything about your data, write to <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
+      { h: "What we collect", p: [
+        "Only what you choose to tell us in the project chat: your name, whether you have a website and its address, your email, and, if you give them, a WhatsApp number and notes. Nothing leaves the page until you send the chat or book a call.",
+        "If you book a call, we also keep the time you picked. We don't use analytics, advertising or tracking cookies.",
+      ] },
+      { h: "How we use it", p: [
+        "To reply to you about your project, and to hold the call you booked. We don't sell your data, share it for advertising, or add you to a mailing list.",
+      ] },
+      { h: "Who handles it for us", p: [
+        "<b>Resend</b> delivers the chat's summary to our inbox. <b>Google Calendar</b> holds the call you book: the event goes on Jean's calendar with you as a guest, and Google emails you the invite with a Google Meet link. <b>Vercel</b> hosts the site and keeps short-lived technical logs. If you message us on WhatsApp, that conversation follows WhatsApp's own terms.",
+        "Pages load fonts from Google Fonts, and the map on the home page loads from unpkg and OpenFreeMap, so those services see your IP address, as with any website.",
+      ] },
+      { h: "Google user data", p: [
+        "The site connects to one Google account only: Jean's own. It reads when his calendar is busy, so it can offer free times, and it creates the events for calls you book. It never asks for access to your Google account and doesn't read the details of other events. Adscendo's use and transfer of information received from Google APIs adheres to the <a href=\"https://developers.google.com/terms/api-services-user-data-policy\" target=\"_blank\" rel=\"noopener\">Google API Services User Data Policy</a>, including the Limited Use requirements.",
+      ] },
+      { h: "On your device", p: [
+        "The site remembers two small preferences in your browser: light or dark mode, and whether you closed the offer banner. They stay on your device and are never sent to us.",
+      ] },
+      { h: "How long we keep it", p: [
+        "As long as we're talking about your project, and after that only as long as the law requires for work we did together. You can ask us to delete it at any time.",
+      ] },
+      { h: "Your rights", p: [
+        "You can ask to see, correct or delete your data, or to stop us using it, under Brazil's LGPD and similar laws where you live. Write to <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a> and we'll answer within 15 days.",
+      ] },
+      { h: "Changes", p: ["If this policy changes, we update this page and the date at the top."] },
+    ],
+  },
+  pt: {
+    slug: "privacidade", title: "Política de privacidade", updated: "Atualizada em 31 de outubro de 2026",
+    lede: "O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.",
+    sections: [
+      { h: "Quem somos", p: ["A Adscendo é o estúdio de design e desenvolvimento web de Jean Menezes, no Brasil. Para qualquer assunto sobre os seus dados, escreva para <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
+      { h: "O que coletamos", p: [
+        "Só o que você escolhe contar na conversa sobre o projeto: seu nome, se você tem site e o endereço dele, seu email e, se quiser, um WhatsApp e observações. Nada sai da página até você enviar a conversa ou marcar uma chamada.",
+        "Se você marcar uma chamada, guardamos também o horário escolhido. Não usamos analytics, publicidade nem cookies de rastreamento.",
+      ] },
+      { h: "Como usamos", p: [
+        "Para responder sobre o seu projeto e para fazer a chamada que você marcou. Não vendemos seus dados, não compartilhamos para publicidade e não colocamos você em lista de email.",
+      ] },
+      { h: "Quem cuida disso com a gente", p: [
+        "A <b>Resend</b> entrega o resumo da conversa no nosso email. O <b>Google Agenda</b> guarda a chamada que você marca: o evento vai para a agenda do Jean com você como convidado, e o Google te manda o convite com o link do Google Meet. A <b>Vercel</b> hospeda o site e guarda registros técnicos por pouco tempo. Se você falar com a gente no WhatsApp, essa conversa segue os termos do próprio WhatsApp.",
+        "As páginas carregam fontes do Google Fonts, e o mapa da página inicial vem do unpkg e do OpenFreeMap, então esses serviços veem o seu endereço IP, como em qualquer site.",
+      ] },
+      { h: "Dados de usuário do Google", p: [
+        "O site se conecta a uma única conta Google: a do próprio Jean. Ele consulta quando a agenda dele está ocupada, para oferecer horários livres, e cria os eventos das chamadas que você marca. Ele nunca pede acesso à sua conta Google e não lê os detalhes de outros eventos. O uso e a transferência de informações recebidas das APIs do Google pela Adscendo seguem a <a href=\"https://developers.google.com/terms/api-services-user-data-policy\" target=\"_blank\" rel=\"noopener\">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.",
+      ] },
+      { h: "No seu aparelho", p: [
+        "O site lembra duas pequenas preferências no seu navegador: modo claro ou escuro, e se você fechou a faixa de oferta. Elas ficam no seu aparelho e nunca são enviadas para a gente.",
+      ] },
+      { h: "Por quanto tempo guardamos", p: [
+        "Enquanto estivermos conversando sobre o seu projeto e, depois disso, só pelo tempo que a lei exigir para trabalhos que fizemos juntos. Você pode pedir a exclusão a qualquer momento.",
+      ] },
+      { h: "Seus direitos", p: [
+        "Pela LGPD, você pode pedir para ver, corrigir ou apagar seus dados, ou para pararmos de usá-los. Escreva para <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a> e respondemos em até 15 dias.",
+      ] },
+      { h: "Mudanças", p: ["Se esta política mudar, atualizamos esta página e a data no topo."] },
+    ],
   },
 };
 

@@ -283,6 +283,15 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 .chapter .text p { font-size: 19px; line-height: 1.55; max-width: 40ch; }
 .chapter .text p + p { margin-top: 18px; }
 .chapter .text strong { font-weight: 600; }
+/* Privacy policy: a heading beside each block of text, one column on phones. */
+.legal-date { margin-top: 20px; font-size: 14px; color: var(--muted); }
+.legal { display: grid; gap: clamp(36px, 5vw, 56px); }
+.legal article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px 48px; }
+.legal h2 { font-size: 22px; line-height: 1.25; letter-spacing: -0.02em; }
+.legal p { font-size: 17px; line-height: 1.6; color: var(--graphite); max-width: 62ch; }
+.legal p + p { margin-top: 14px; }
+.legal a { color: inherit; }
+@media (max-width: 760px) { .legal article { grid-template-columns: 1fr; } }
 .chapter .text a { color: inherit; }
 .chapter .text ul { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; max-width: 46ch; }
 .chapter .text li { padding: 14px 18px; border-radius: 14px; background: var(--band); font-size: 17px; }
@@ -571,6 +580,7 @@ html.chat-open, html.chat-open body { overflow: hidden; }
 .chip:hover { background: var(--band); border-color: var(--faint); }
 .chat-form .chip { padding: 10px 14px; }
 .chat-final { justify-content: stretch; }
+.chat-times .chip { padding: 9px 14px; font-variant-numeric: tabular-nums; }
 .chat-final .btn { flex: 1; }
 .chat-noscript { padding: 20px; }
 @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } }

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidade | Adscendo</title>
+<meta name="description" content="O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="Política de privacidade | Adscendo">
+<meta property="og:description" content="O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/pt/privacidade">
+<meta property="og:image" content="https://adscendo.pro/assets/og/prospector/globe.pt.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="Adscendo">
+<link rel="canonical" href="https://adscendo.pro/pt/privacidade">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/privacidade">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/privacy">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/privacy">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Política de privacidade","inLanguage":"pt-BR","url":"https://adscendo.pro/pt/privacidade","publisher":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo.pro/#org"}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Pular para o conteúdo</a>
+<div class="offer" role="region" aria-label="Oferta de lançamento">
+  <p><b>Oferta de lançamento.</b> Estamos atendendo os primeiros clientes nos EUA para montar nosso portfólio, por isso os projetos têm até 50% de desconto. <a href="/pt/contato">Peça um orçamento<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+  <button class="offer-close" type="button" aria-label="Fechar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/pt" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li><a href="/pt/servicos">Serviços</a></li>
+      <li><a href="/pt/portfolio">Portfólio</a></li>
+      <li><a href="/pt/como-trabalhamos">Como trabalhamos</a></li>
+      <li><a href="/pt/sobre">Sobre</a></li>
+    </ul>
+    <a class="lang" href="/privacy" hreflang="en" lang="en" aria-label="Switch to English" title="Switch to English"><svg aria-hidden="true"><use href="#flag-pt"/></svg>PT</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Modo escuro" title="Modo escuro" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/pt/contato">Fale com a gente</a>
+  </div>
+</header>
+<main id="main">
+  <section class="case-head wrap">
+    <h1>Política de privacidade</h1>
+    <p class="lede">O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.</p>
+    <p class="legal-date">Atualizada em 31 de outubro de 2026</p>
+  </section>
+  <section class="band">
+    <div class="wrap legal">
+      <article><h2>Quem somos</h2><div><p>A Adscendo é o estúdio de design e desenvolvimento web de Jean Menezes, no Brasil. Para qualquer assunto sobre os seus dados, escreva para <a href="mailto:jean@adscendo.pro">jean@adscendo.pro</a>.</p></div></article>
+      <article><h2>O que coletamos</h2><div><p>Só o que você escolhe contar na conversa sobre o projeto: seu nome, se você tem site e o endereço dele, seu email e, se quiser, um WhatsApp e observações. Nada sai da página até você enviar a conversa ou marcar uma chamada.</p><p>Se você marcar uma chamada, guardamos também o horário escolhido. Não usamos analytics, publicidade nem cookies de rastreamento.</p></div></article>
+      <article><h2>Como usamos</h2><div><p>Para responder sobre o seu projeto e para fazer a chamada que você marcou. Não vendemos seus dados, não compartilhamos para publicidade e não colocamos você em lista de email.</p></div></article>
+      <article><h2>Quem cuida disso com a gente</h2><div><p>A <b>Resend</b> entrega o resumo da conversa no nosso email. O <b>Google Agenda</b> guarda a chamada que você marca: o evento vai para a agenda do Jean com você como convidado, e o Google te manda o convite com o link do Google Meet. A <b>Vercel</b> hospeda o site e guarda registros técnicos por pouco tempo. Se você falar com a gente no WhatsApp, essa conversa segue os termos do próprio WhatsApp.</p><p>As páginas carregam fontes do Google Fonts, e o mapa da página inicial vem do unpkg e do OpenFreeMap, então esses serviços veem o seu endereço IP, como em qualquer site.</p></div></article>
+      <article><h2>Dados de usuário do Google</h2><div><p>O site se conecta a uma única conta Google: a do próprio Jean. Ele consulta quando a agenda dele está ocupada, para oferecer horários livres, e cria os eventos das chamadas que você marca. Ele nunca pede acesso à sua conta Google e não lê os detalhes de outros eventos. O uso e a transferência de informações recebidas das APIs do Google pela Adscendo seguem a <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.</p></div></article>
+      <article><h2>No seu aparelho</h2><div><p>O site lembra duas pequenas preferências no seu navegador: modo claro ou escuro, e se você fechou a faixa de oferta. Elas ficam no seu aparelho e nunca são enviadas para a gente.</p></div></article>
+      <article><h2>Por quanto tempo guardamos</h2><div><p>Enquanto estivermos conversando sobre o seu projeto e, depois disso, só pelo tempo que a lei exigir para trabalhos que fizemos juntos. Você pode pedir a exclusão a qualquer momento.</p></div></article>
+      <article><h2>Seus direitos</h2><div><p>Pela LGPD, você pode pedir para ver, corrigir ou apagar seus dados, ou para pararmos de usá-los. Escreva para <a href="mailto:jean@adscendo.pro">jean@adscendo.pro</a> e respondemos em até 15 dias.</p></div></article>
+      <article><h2>Mudanças</h2><div><p>Se esta política mudar, atualizamos esta página e a data no topo.</p></div></article>
+    </div>
+  </section>
+</main>
+<a class="btn float-cta" href="/pt/contato" hidden>Fale com a gente</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">Da complexidade ao movimento.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/pt/contato">Fale com a gente</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/pt/privacidade">Privacidade</a>
+        <a href="/privacy" hreflang="en" lang="en">English</a>
+        <a class="to-top" href="#top">Voltar ao topo<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

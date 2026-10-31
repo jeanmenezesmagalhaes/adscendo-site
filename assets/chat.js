@@ -188,6 +188,27 @@
     });
   }
 
+  // Phones: while the keyboard is up, the chat shrinks to the strip of screen above it (below the sticky nav)
+  // and lines up with its top, so the question and the field stay in view together.
+  const vv = window.visualViewport, nav = document.querySelector(".nav");
+  if (vv && matchMedia("(pointer: coarse)").matches) {
+    let frame = 0;
+    const fit = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const typing = root.contains(document.activeElement) && document.activeElement.matches("input, textarea");
+        if (!typing || document.documentElement.clientHeight - vv.height < 120) return root.style.removeProperty("height");
+        const cover = nav ? Math.max(0, nav.getBoundingClientRect().bottom - vv.offsetTop) : 0;
+        root.style.height = `${Math.round(vv.height - cover - 16)}px`;
+        scrollBy({ top: root.getBoundingClientRect().top - vv.offsetTop - cover - 8, behavior: "instant" });
+        log.scrollTop = log.scrollHeight;
+      });
+    };
+    vv.addEventListener("resize", fit);
+    root.addEventListener("focusin", fit);
+    root.addEventListener("focusout", () => setTimeout(fit, 150));
+  }
+
   restart.addEventListener("click", () => { dock.innerHTML = ""; run(); });
   // Start when the chat scrolls into view, so the conversation is fresh when someone gets there.
   new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); run(); } }, { threshold: .35 }).observe(root);

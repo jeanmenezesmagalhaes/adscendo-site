@@ -564,7 +564,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 .chat-noscript { padding: 20px; }
 @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } }
 @keyframes bounce { 0%, 60%, 100% { transform: none; opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
-@media (max-width: 560px) { .chat { height: 72vh; height: 72svh; border-radius: 22px; } .msg { font-size: 15px; } }
+@media (max-width: 560px) { .chat { height: 72vh; height: 72svh; border-radius: 22px; } .msg { font-size: 15px; } .chat-log > :first-child { margin-top: auto; } }
 @media (prefers-reduced-motion: reduce) { .msg, .msg.typing i { animation: none; } }
 
 /* Phones: a little more air between blocks and calmer line lengths. */

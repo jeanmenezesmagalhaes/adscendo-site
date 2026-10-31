@@ -357,6 +357,60 @@ td code { white-space: nowrap; }
 .dd .tile--ink li { color: #a1a1a6; }
 .dd .tile--ink li svg { color: #f5f5f7; }
 
+/* redes sociais */
+.profiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; }
+.profile { display: grid; grid-template-columns: 24px minmax(0, 1fr) 14px; gap: 14px; align-items: center; padding: 16px 20px; border-radius: 14px; background: var(--band); text-decoration: none; transition: background-color .2s var(--ease); }
+a.profile:hover { background: var(--pressed); }
+.profile > svg:first-child { width: 22px; height: 22px; }
+.profile span { display: grid; font-size: 14px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+.profile b { font-size: 17px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+.profile .go { width: 14px; height: 14px; color: var(--muted); }
+.avatars { display: flex; flex-wrap: wrap; gap: 32px; }
+.avatars figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.avatars img { width: 140px; height: 140px; border-radius: 50%; box-shadow: 0 0 0 1px var(--line); }
+.avatars img.sq { border-radius: 16px; }
+.avatars figcaption, .banner figcaption { font-size: 13px; color: var(--muted); }
+.avatars figcaption b, .banner figcaption b { color: var(--ink); font-weight: 500; }
+.banner { position: relative; margin: 0 0 24px; }
+.banner img { display: block; width: 100%; height: auto; border-radius: 16px; }
+.banner figcaption { margin-top: 10px; }
+.bimg { position: relative; overflow: hidden; border-radius: 16px; }
+.banner .safe { position: absolute; left: 3%; bottom: 0; width: 19%; aspect-ratio: 1; translate: 0 50%; border-radius: 50%; outline: 2px dashed rgba(245,245,247,.6); outline-offset: -2px; background: rgba(245,245,247,.08); pointer-events: none; }
+.posts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-content: start; }
+.posts img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 0 0 1px var(--line); }
+.bios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 720px) { .bios { grid-template-columns: minmax(0, 1fr); } }
+.bio { display: grid; gap: 10px; justify-items: start; padding: 22px 24px; border-radius: 20px; background: var(--band); }
+.bio small { font-size: 13px; font-weight: 500; color: var(--muted); }
+.bio p { font-size: 17px; }
+.bio .btn--ghost { background: var(--bg); }
+.bio .btn--ghost:hover { background: var(--pressed); }
+
+/* downloads */
+.kit { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding: clamp(28px, 4vw, 44px); border-radius: 28px; background: #1d1d1f; color: #f5f5f7; }
+.kit h3 { font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -0.035em; line-height: 1.1; }
+.kit p { margin-top: 8px; color: #a1a1a6; font-size: 15px; }
+.btn--light { background: #ffffff; color: #1d1d1f; }
+.btn--light:hover { background: #e8e8ed; }
+.dl-group { margin-top: clamp(48px, 6vw, 72px); }
+.dl-group > .h3 { margin-bottom: 20px; }
+.dl-list { list-style: none; display: grid; gap: 6px; }
+.dl-list li { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 12px 16px 12px 12px; border-radius: 16px; background: var(--surface); }
+@media (max-width: 640px) { .dl-list li { grid-template-columns: 72px minmax(0, 1fr); } .dl-list .fmt { grid-column: 1 / -1; } }
+.thumb { display: grid; place-items: center; height: 60px; border-radius: 10px; background: #f5f5f7; overflow: hidden; color: #1d1d1f; }
+.thumb img { max-width: 76%; max-height: 50%; }
+.thumb svg { width: 24px; height: 24px; }
+.thumb--dark { background: #000; }
+.thumb--img img { max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: cover; }
+.thumb--type { font-size: 26px; font-weight: 600; letter-spacing: -0.04em; }
+.dl-list .name { display: grid; font-size: 14px; color: var(--muted); min-width: 0; }
+.dl-list .name b { font-size: 17px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+.fmt { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+@media (max-width: 640px) { .fmt { justify-content: flex-start; } }
+.fmt a { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--chip); font-size: 13px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color .2s var(--ease); }
+.fmt a:hover { background: var(--pressed); }
+.fmt a svg { width: 12px; height: 12px; }
+
 .footer { padding-block: clamp(64px, 10vw, 120px) clamp(40px, 6vw, 64px); }
 .footer .lockup { font-size: clamp(56px, 12vw, 140px); letter-spacing: -0.055em; }
 .footer p { margin-top: 28px; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 24px; }
@@ -371,6 +425,12 @@ td code { white-space: nowrap; }
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
   <symbol id="close" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="down" viewBox="0 0 16 16"><path d="M8 2.5v8M4.5 7.5L8 11l3.5-3.5M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="s-instagram" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="12" height="12" rx="3.6"/><circle cx="8" cy="8" r="2.8"/></g><circle cx="11.6" cy="4.4" r=".5" fill="currentColor"/></symbol>
+  <symbol id="s-linkedin" viewBox="0 0 16 16"><mask id="li-mask"><rect width="16" height="16" fill="#fff"/><g stroke="#000" stroke-width="1.6" fill="none"><path d="M5.2 7v5.2M8.2 12.2V7M8.2 9.4a2 2 0 0 1 4 0v2.8"/></g><circle cx="5.2" cy="4.7" r="1" fill="#000"/></mask><rect x="1.5" y="1.5" width="13" height="13" rx="2.6" fill="currentColor" mask="url(#li-mask)"/></symbol>
+  <symbol id="s-whatsapp" viewBox="0 0 16 16"><path d="M2.6 13.4l.8-2.7A5.8 5.8 0 1 1 5.4 12.7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6.1 5.6c-.4.4-.5 1-.2 1.6a5 5 0 0 0 2.9 2.9c.6.3 1.2.2 1.6-.2l.2-.4-1.3-.7-.6.5a3 3 0 0 1-1.9-1.9l.5-.6-.7-1.3z" fill="currentColor"/></symbol>
+  <symbol id="s-email" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3.5" width="12" height="9" rx="2"/><path d="M2.6 4.6L8 8.6l5.4-4"/></g></symbol>
+  <symbol id="s-site" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.7 1.6 2.5 3.6 2.5 6s-.8 4.4-2.5 6c-1.7-1.6-2.5-3.6-2.5-6S6.3 3.6 8 2z"/></g></symbol>
   <symbol id="check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -384,7 +444,9 @@ td code { white-space: nowrap; }
       <li><a href="#tipografia">Tipografia</a></li>
       <li><a href="#espacamento">Espaçamento</a></li>
       <li><a href="#componentes">Componentes</a></li>
+      <li><a href="#social">Redes sociais</a></li>
       <li><a href="#voz">Voz</a></li>
+      <li><a href="#downloads">Downloads</a></li>
     </ul>
   </div>
 </header>
@@ -395,6 +457,7 @@ td code { white-space: nowrap; }
       <h1 class="display">Adscendo.<span>Manual de marca.</span></h1>
       <p class="lede">Como usar o nome, a marca, as cores, a tipografia e o espaço, para que tudo o que sai do estúdio pareça vir do mesmo lugar.</p>
       <div class="meta"><span class="pill">Versão 1.0</span><span class="pill">31 de outubro de 2026</span><span class="pill">Fonte: site adscendo, DESIGN.md e site.css</span></div>
+      <div class="demo-row" style="margin-top:28px"><a class="btn" href="kit/adscendo-kit-de-marca.zip" download data-dl="kit/adscendo-kit-de-marca.zip">Baixar kit completo<svg aria-hidden="true"><use href="#down"/></svg></a><a class="btn btn--ghost" href="#downloads">Ver arquivos</a></div>
       <ol class="toc">
         <li><a href="#essencia"><span>01</span>Essência</a></li>
         <li><a href="#logo"><span>02</span>Logo</a></li>
@@ -405,8 +468,10 @@ td code { white-space: nowrap; }
         <li><a href="#componentes"><span>07</span>Componentes</a></li>
         <li><a href="#icones"><span>08</span>Ícones e movimento</a></li>
         <li><a href="#imagens"><span>09</span>Imagens</a></li>
-        <li><a href="#voz"><span>10</span>Voz e escrita</a></li>
-        <li><a href="#regras"><span>11</span>Faça e não faça</a></li>
+        <li><a href="#social"><span>10</span>Redes sociais</a></li>
+        <li><a href="#voz"><span>11</span>Voz e escrita</a></li>
+        <li><a href="#regras"><span>12</span>Faça e não faça</a></li>
+        <li><a href="#downloads"><span>13</span>Downloads</a></li>
       </ol>
     </div>
   </section>
@@ -806,11 +871,82 @@ td code { white-space: nowrap; }
     </div>
   </section>
 
-  <!-- 10 Voz -->
-  <section class="band" id="voz">
+  <!-- 10 Redes sociais -->
+  <section class="band" id="social">
     <div class="wrap">
       <div class="head">
         <p class="num">10</p>
+        <h2 class="h2">A mesma marca em cada perfil.</h2>
+        <p class="lede">Foto de perfil, capas, posts, ícones e bio prontos para Instagram e LinkedIn.</p>
+      </div>
+
+      <div class="profiles">
+        <a class="profile" href="https://www.instagram.com/adscendo.consult/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#s-instagram"/></svg><span><b>Instagram</b>@adscendo.consult</span><svg class="go" aria-hidden="true"><use href="#out"/></svg></a>
+        <a class="profile" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#s-linkedin"/></svg><span><b>LinkedIn</b>in/jean-magalhaes</span><svg class="go" aria-hidden="true"><use href="#out"/></svg></a>
+        <a class="profile" href="https://adscendo.pro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#s-site"/></svg><span><b>Site</b>adscendo.pro</span><svg class="go" aria-hidden="true"><use href="#out"/></svg></a>
+        <div class="profile"><svg aria-hidden="true"><use href="#s-email"/></svg><span><b>E-mail</b>jean@adscendo.pro</span></div>
+      </div>
+
+      <div class="sub">
+        <h3 class="h3">Foto de perfil</h3>
+        <div class="prose"><p>A nuvem sozinha, sem o nome, ocupando <b>58%</b> da largura. As plataformas cortam em círculo, e nessa medida a nuvem nunca encosta na borda. Envie em <b>1080 × 1080px</b>. Use a preta como padrão; a branca só onde o fundo da plataforma já é escuro.</p></div>
+        <div class="avatars">
+          <figure><img src="kit/social/avatar-preto-1080.png" alt="Foto de perfil preta com a nuvem branca" width="1080" height="1080" loading="lazy"><figcaption><b>Preta</b> · padrão</figcaption></figure>
+          <figure><img src="kit/social/avatar-branco-1080.png" alt="Foto de perfil branca com a nuvem em ink" width="1080" height="1080" loading="lazy"><figcaption><b>Branca</b> · fundos escuros</figcaption></figure>
+          <figure><img class="sq" src="kit/social/avatar-preto-1080.png" alt="" width="1080" height="1080" loading="lazy"><figcaption><b>Como é enviada</b> · quadrada</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3 class="h3">Capas do LinkedIn</h3>
+        <div class="prose"><p>Fundo preto, a assinatura e o slogan em dois tons. A foto de perfil cobre o canto inferior esquerdo da capa, então o texto começa depois de um terço da largura. Existe uma versão em inglês e outra em português: use a do idioma do perfil.</p></div>
+        <figure class="banner"><div class="bimg"><img src="kit/social/linkedin-perfil-pt-1584x396.png" alt="Capa do LinkedIn pessoal: Da complexidade ao movimento" width="1584" height="396" loading="lazy"><div class="safe" aria-hidden="true"></div></div><figcaption><b>Perfil pessoal</b> · 1584 × 396px · a área tracejada fica atrás da foto</figcaption></figure>
+        <figure class="banner"><img src="kit/social/linkedin-pagina-en-4200x700.png" alt="Capa da página de empresa no LinkedIn: From complexity to forward motion" width="4200" height="700" loading="lazy"><figcaption><b>Página da empresa</b> · 4200 × 700px</figcaption></figure>
+      </div>
+
+      <div class="sub grid-2">
+        <div>
+          <h3 class="h3">Posts</h3>
+          <div class="prose" style="margin-top:12px">
+            <p>Formato retrato <b>1080 × 1350px</b>, o que mais ocupa a tela no Instagram e também funciona no LinkedIn. Fundo branco, assinatura no topo, título grande em dois tons embaixo e o endereço do site.</p>
+            <p>Margens de <b>88px</b> nas laterais e <b>96px</b> em cima e embaixo. O título segue as regras da tipografia: no máximo duas linhas, ponto final, tracking negativo.</p>
+            <p>Posts com trabalho de cliente mostram a tela dentro de uma moldura de aparelho, como no site.</p>
+          </div>
+        </div>
+        <div class="posts">
+          <img src="kit/social/instagram-post-pt-1080x1350.png" alt="Post: Calor brasileiro. Padrão americano." width="1080" height="1350" loading="lazy">
+          <img src="kit/social/instagram-post-en-1080x1350.png" alt="Post: Brazilian warmth. American standards." width="1080" height="1350" loading="lazy">
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3 class="h3">Ícones de redes</h3>
+        <div class="prose"><p>Para rodapés, assinatura de e-mail, cartões e slides. Sempre em uma cor só, ink sobre claro ou mist sobre escuro, nunca nas cores das plataformas. Instagram e LinkedIn mantêm a forma dos glifos oficiais; não redesenhe nem gire.</p></div>
+        <div class="icons">
+          <div class="icon-cell"><svg class="big"><use href="#s-instagram"/></svg><svg class="small"><use href="#s-instagram"/></svg><span>Instagram</span></div>
+          <div class="icon-cell"><svg class="big"><use href="#s-linkedin"/></svg><svg class="small"><use href="#s-linkedin"/></svg><span>LinkedIn</span></div>
+          <div class="icon-cell"><svg class="big"><use href="#s-whatsapp"/></svg><svg class="small"><use href="#s-whatsapp"/></svg><span>WhatsApp</span></div>
+          <div class="icon-cell"><svg class="big"><use href="#s-email"/></svg><svg class="small"><use href="#s-email"/></svg><span>E-mail</span></div>
+          <div class="icon-cell"><svg class="big"><use href="#s-site"/></svg><svg class="small"><use href="#s-site"/></svg><span>Site</span></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3 class="h3">Bio</h3>
+        <div class="prose"><p>Curta, com o que fazemos, de onde viemos e o site. Cabe nos 150 caracteres do Instagram.</p></div>
+        <div class="bios">
+          <div class="bio"><small>Português</small><p id="bio-pt">Sites e apps para negócios em crescimento. Nascidos no Brasil, feitos para operar no mundo. adscendo.pro</p><button class="btn btn--sm btn--ghost" type="button" data-copy="bio-pt">Copiar</button></div>
+          <div class="bio"><small>English</small><p id="bio-en">Websites and apps for growing businesses. Born in Brazil, built to operate globally. adscendo.pro</p><button class="btn btn--sm btn--ghost" type="button" data-copy="bio-en">Copy</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 Voz -->
+  <section class="band band--gray" id="voz">
+    <div class="wrap">
+      <div class="head">
+        <p class="num">11</p>
         <h2 class="h2">Direta, próxima e honesta.</h2>
         <p class="lede">Escrevemos para o dono do negócio: resultado primeiro, sem jargão, frases curtas.</p>
       </div>
@@ -829,10 +965,10 @@ td code { white-space: nowrap; }
   </section>
 
   <!-- 11 Faça e não faça -->
-  <section class="band band--gray" id="regras">
+  <section class="band" id="regras">
     <div class="wrap">
       <div class="head">
-        <p class="num">11</p>
+        <p class="num">12</p>
         <h2 class="h2">Faça e não faça.</h2>
         <p class="lede">O resumo para consultar antes de publicar qualquer peça.</p>
       </div>
@@ -865,6 +1001,51 @@ td code { white-space: nowrap; }
     </div>
   </section>
 
+  <!-- 13 Downloads -->
+  <section class="band band--gray" id="downloads">
+    <div class="wrap">
+      <div class="head">
+        <p class="num">13</p>
+        <h2 class="h2">Tudo pronto para baixar.</h2>
+        <p class="lede">Logos com o texto já em curvas, imagens para redes e ícones. Não precisa ter a fonte instalada.</p>
+      </div>
+
+      <div class="kit">
+        <div><h3>Kit de marca completo</h3><p>23 arquivos em um .zip · 0,5 MB · logo, redes sociais e ícones</p></div>
+        <a class="btn btn--light" href="kit/adscendo-kit-de-marca.zip" download data-dl="kit/adscendo-kit-de-marca.zip">Baixar .zip<svg aria-hidden="true"><use href="#down"/></svg></a>
+      </div>
+
+      <div class="dl-group">
+        <h3 class="h3">Logo</h3>
+        <ul class="dl-list">
+          <li><span class="thumb"><img src="kit/logo/adscendo-assinatura-positivo.svg" alt=""></span><span class="name"><b>Assinatura positiva</b>Ink, fundo transparente · PNG 2000px</span><span class="fmt"><a href="kit/logo/adscendo-assinatura-positivo.svg" download data-dl>SVG</a><a href="kit/logo/adscendo-assinatura-positivo.png" download data-dl>PNG</a></span></li>
+          <li><span class="thumb thumb--dark"><img src="kit/logo/adscendo-assinatura-negativo.svg" alt=""></span><span class="name"><b>Assinatura negativa</b>Mist, para fundos escuros · PNG 2000px</span><span class="fmt"><a href="kit/logo/adscendo-assinatura-negativo.svg" download data-dl>SVG</a><a href="kit/logo/adscendo-assinatura-negativo.png" download data-dl>PNG</a></span></li>
+          <li><span class="thumb"><img src="kit/logo/adscendo-nuvem-positivo.svg" alt=""></span><span class="name"><b>Nuvem positiva</b>Só a marca · PNG 1000px</span><span class="fmt"><a href="kit/logo/adscendo-nuvem-positivo.svg" download data-dl>SVG</a><a href="kit/logo/adscendo-nuvem-positivo.png" download data-dl>PNG</a></span></li>
+          <li><span class="thumb thumb--dark"><img src="kit/logo/adscendo-nuvem-negativo.svg" alt=""></span><span class="name"><b>Nuvem negativa</b>Só a marca, para fundos escuros · PNG 1000px</span><span class="fmt"><a href="kit/logo/adscendo-nuvem-negativo.svg" download data-dl>SVG</a><a href="kit/logo/adscendo-nuvem-negativo.png" download data-dl>PNG</a></span></li>
+          <li><span class="thumb"><img src="kit/logo/adscendo-icone-app.svg" alt=""></span><span class="name"><b>Ícone</b>Favicon, app e avatar quadrado · PNG 1024px</span><span class="fmt"><a href="kit/logo/adscendo-icone-app.svg" download data-dl>SVG</a><a href="kit/logo/adscendo-icone-app.png" download data-dl>PNG</a></span></li>
+        </ul>
+      </div>
+
+      <div class="dl-group">
+        <h3 class="h3">Redes sociais</h3>
+        <ul class="dl-list">
+          <li><span class="thumb thumb--img"><img src="kit/social/avatar-preto-1080.png" alt=""></span><span class="name"><b>Foto de perfil</b>1080 × 1080px · preta ou branca</span><span class="fmt"><a href="kit/social/avatar-preto-1080.png" download data-dl>Preta</a><a href="kit/social/avatar-branco-1080.png" download data-dl>Branca</a></span></li>
+          <li><span class="thumb thumb--img"><img src="kit/social/linkedin-perfil-pt-1584x396.png" alt=""></span><span class="name"><b>Capa do LinkedIn, perfil</b>1584 × 396px</span><span class="fmt"><a href="kit/social/linkedin-perfil-pt-1584x396.png" download data-dl>PT</a><a href="kit/social/linkedin-perfil-en-1584x396.png" download data-dl>EN</a></span></li>
+          <li><span class="thumb thumb--img"><img src="kit/social/linkedin-pagina-en-4200x700.png" alt=""></span><span class="name"><b>Capa do LinkedIn, página</b>4200 × 700px</span><span class="fmt"><a href="kit/social/linkedin-pagina-pt-4200x700.png" download data-dl>PT</a><a href="kit/social/linkedin-pagina-en-4200x700.png" download data-dl>EN</a></span></li>
+          <li><span class="thumb thumb--img"><img src="kit/social/instagram-post-pt-1080x1350.png" alt=""></span><span class="name"><b>Post de apresentação</b>1080 × 1350px · Instagram e LinkedIn</span><span class="fmt"><a href="kit/social/instagram-post-pt-1080x1350.png" download data-dl>PT</a><a href="kit/social/instagram-post-en-1080x1350.png" download data-dl>EN</a></span></li>
+        </ul>
+      </div>
+
+      <div class="dl-group">
+        <h3 class="h3">Ícones e fonte</h3>
+        <ul class="dl-list">
+          <li><span class="thumb"><svg><use href="#s-instagram"/></svg></span><span class="name"><b>Ícones de redes</b>SVG em ink, grade de 16px</span><span class="fmt"><a href="kit/icones/instagram.svg" download data-dl>Instagram</a><a href="kit/icones/linkedin.svg" download data-dl>LinkedIn</a><a href="kit/icones/whatsapp.svg" download data-dl>WhatsApp</a><a href="kit/icones/email.svg" download data-dl>E-mail</a><a href="kit/icones/site.svg" download data-dl>Site</a></span></li>
+          <li><span class="thumb thumb--type">Aa</span><span class="name"><b>Geist</b>Fonte da marca, gratuita, no Google Fonts</span><span class="fmt"><a href="https://fonts.google.com/specimen/Geist" target="_blank" rel="noopener">Abrir<svg aria-hidden="true"><use href="#out"/></svg></a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="wrap">
       <span class="lockup"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</span>
@@ -875,6 +1056,7 @@ td code { white-space: nowrap; }
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 (function () {
   var toast = document.getElementById("toast"), t;
@@ -894,6 +1076,40 @@ td code { white-space: nowrap; }
       g.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === btn ? "true" : "false"); });
     });
   });
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.dataset.copy), text = el.textContent;
+      var fallback = function () { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); show("Texto selecionado"); };
+      try { navigator.clipboard.writeText(text).then(function () { show("Bio copiada"); }, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  // Downloads: in claude.ai the page hands files over through the downloads capability; opened as a
+  // local file, the plain <a download> links work on their own.
+  var dl = null, local = location.protocol === "file:";
+  if (window.claude && window.claude.use) window.claude.use("downloads").then(function (d) { dl = d; }, function () {});
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-dl]"); if (!a || local) return;
+    e.preventDefault();
+    var src = a.getAttribute("href"), name = src.split("/").pop();
+    if (!dl) { show("Abra o manual no claude.ai para baixar"); return; }
+    var get = function (u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); }); };
+    // The zip can't be served next to the page, so the kit is zipped here from the published files.
+    var file = /\.zip$/.test(src) && window.JSZip
+      ? Promise.all([].slice.call(document.querySelectorAll("a[data-dl]")).map(function (x) { return x.getAttribute("href"); })
+          .filter(function (u, i, all) { return !/\.zip$/.test(u) && all.indexOf(u) === i; })
+          .map(function (u) { return get(u).then(function (b) { return [u.replace(/^kit\//, ""), b]; }); }))
+          .then(function (entries) { var z = new JSZip(); entries.forEach(function (e) { z.file(e[0], e[1]); }); return z.generateAsync({ type: "blob" }); })
+      : get(src);
+    if (/\.zip$/.test(src)) show("Preparando o kit…");
+    file.then(function (blob) { return dl.save({ filename: name, data: blob }); })
+      .then(function () { show(name + " baixado"); }, function (err) {
+        var code = err && err.code;
+        if (code === "declined") return;
+        show(code === "rate_limited" ? "Aguarde um instante e tente de novo" : "Não foi possível baixar " + name);
+      });
+  });
+
   var rise = document.getElementById("rise");
   document.getElementById("replay").addEventListener("click", function () {
     rise.classList.remove("play"); void rise.offsetWidth; rise.classList.add("play");

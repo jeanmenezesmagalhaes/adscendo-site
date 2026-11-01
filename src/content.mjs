@@ -19,6 +19,9 @@ export const contact = {
   whatsappLabel: "+55 51 99327-1160",
   linkedin: "https://www.linkedin.com/in/jean-magalhaes/",
   instagram: "https://www.instagram.com/adscendo.pro/",
+  // Adscendo's Business Profile on Google (Search and Maps), by its stable Maps id. Also in the
+  // structured data's sameAs, which ties the site to the profile.
+  google: "https://maps.google.com/?cid=2100136628409895635",
 };
 
 export const ui = {
@@ -39,6 +42,7 @@ export const ui = {
     footer: "From complexity to forward motion.",
     backTop: "Back to top",
     privacy: "Privacy",
+    googleProfile: "Business Profile",
   },
   pt: {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
@@ -56,6 +60,7 @@ export const ui = {
     footer: "Da complexidade ao movimento.",
     backTop: "Voltar ao topo",
     privacy: "Privacidade",
+    googleProfile: "Perfil da empresa",
   },
 };
 

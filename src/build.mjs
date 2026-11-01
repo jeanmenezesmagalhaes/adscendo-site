@@ -144,6 +144,7 @@ const footer = (lang, altPath) => {
         <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
         <a class="btn btn--sm btn--ghost" href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
         <a class="btn btn--sm btn--ghost" href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="${contact.google}" target="_blank" rel="noopener">Google</a>
       </nav>
       <div class="outro-row">
         <span>&copy; 2026 Adscendo</span>
@@ -235,7 +236,7 @@ const homePage = lang => {
           ...c.tiles.filter(x => !x.dark).map(x => service(x.h, x.p)),
           ...c.found.map(x => service(x.h, x.p)),
         ] },
-        sameAs: [contact.instagram, contact.linkedin],
+        sameAs: [contact.google, contact.instagram, contact.linkedin],
       },
       { "@type": "Person", ...founder, name: "Jean Menezes", jobTitle: lang === "en" ? "Founder" : "Fundador", image: founderPhoto ? abs(founderPhoto) : undefined, worksFor: org, sameAs: [contact.linkedin] },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
@@ -367,6 +368,7 @@ const homePage = lang => {
           <a id="wa" href="#" target="_blank" rel="noopener" hidden>WhatsApp<span>${contact.whatsappLabel}</span></a>
           <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn<span>Jean Menezes</span></a>
           <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram<span>@adscendo.pro</span></a>
+          <a href="${contact.google}" target="_blank" rel="noopener">Google<span>${t.googleProfile}</span></a>
         </div>
       <div class="chat" data-chat><noscript><p class="chat-noscript">${contact.email}</p></noscript></div>
       <script type="application/json" id="chat-data">${JSON.stringify({ copy: chat[lang], quote, locale: lang === "en" ? "en-US" : "pt-BR" }).replace(/</g, "\\u003c")}</script>
@@ -550,4 +552,5 @@ ${pairs.map(([enPath, ptPath], i) => {
 - WhatsApp: ${contact.whatsappLabel}
 - LinkedIn: ${contact.linkedin}
 - Instagram: ${contact.instagram}
+- Google Business Profile: ${contact.google}
 `);

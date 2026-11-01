@@ -5,10 +5,15 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy } from "./content.mjs";
-
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
+// Google Analytics 4 measurement ID ("G-…"). Empty = no Google Analytics. Vercel Web Analytics and Speed
+// Insights load either way (they need Analytics and Speed Insights turned on in the Vercel project).
+const GA_ID = "G-9G2FPBFF2S";
+// Google Analytics' cookies stay off in the EEA, UK and Switzerland (it sends cookieless pings there);
+// ads storage is off everywhere, since the site runs no ads.
+const NO_COOKIES = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IS IE IT LV LI LT LU MT NL NO PL PT RO SK SI ES SE GB CH".split(" ");
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LANGS = ["en", "pt"];
@@ -29,6 +34,15 @@ const ogImage = im => {
   const jpg = im.src.replace("/assets/work/", "/assets/og/").replace(/\.webp$/, ".jpg");
   return existsSync(join(ROOT, jpg)) ? { src: jpg, w: 1200, h: Math.round(1200 * im.h / im.w) } : im;
 };
+// Prices in copy: {new}, {newRegular}, {newOff} and the same for redo and complex, from `quote`. Same format
+// as the chat (assets/chat.js): US dollars in both languages. A no-break space keeps "US$" with its number.
+const money = (lang, n) => (lang === "pt" ? "US$ " : "$") + n.toLocaleString(lang === "en" ? "en-US" : "pt-BR");
+const price = q => Math.round(q.regular * (100 - q.off) / 100);
+const fill = (lang, s) => s.replace(/\{(\w+?)(Regular|Off)?\}/g, (m, tier, kind) => {
+  const q = quote[tier];
+  if (!q) return m;
+  return kind === "Off" ? String(q.off) : money(lang, kind ? q.regular : price(q));
+});
 // Inlined in <head>: it must run before the page first paints (see the file).
 const transitions = readFileSync(join(ROOT, "assets/transitions.js"), "utf8").trim();
 
@@ -36,6 +50,7 @@ const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="
   <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff">${Array.from({ length: 12 }, (_, i) => `<circle cx="${1.6 + (i % 4) * 2.9}" cy="${1.8 + Math.floor(i / 4) * 3.5}" r=".55"/>`).join("")}</g></symbol>
   <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
@@ -80,7 +95,12 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
 <script>${transitions}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
-</head>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+${GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:${JSON.stringify(NO_COOKIES)}});gtag("js",new Date());gtag("config","${GA_ID}")</script>
+` : ""}</head>
 <body>
 ${icons}`;
 
@@ -184,19 +204,41 @@ const homePage = lang => {
   const t = ui[lang], c = home[lang], path = homePath(lang), altPath = homePath(other(lang));
   const lead = projects[0];
   const image = ogImage(cover(lead, lang));
+  const description = fill(lang, c.description);
+  const faq = c.faq.map(([q, a]) => [q, fill(lang, a)]);
+  // Everything in the structured data is also said on the page: services and prices (tiles, SEO and GEO
+  // cards, the questions), the founder (About) and the questions themselves.
+  const org = { "@id": abs("/#org") }, founder = { "@id": abs("/#jean") };
+  const prices = Object.values(quote);
+  const service = (name, desc, q) => ({
+    "@type": "Offer",
+    itemOffered: { "@type": "Service", name: strip(name), ...(desc ? { description: strip(desc) } : {}), provider: org },
+    ...(q ? { price: price(q), priceCurrency: "USD" } : {}),
+  });
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebSite", "@id": abs("/#website"), url: abs(path), name: "Adscendo", inLanguage: ["en", "pt-BR"], publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } },
+      { "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "Adscendo", inLanguage: ["en", "pt-BR"], publisher: org },
+      { "@type": "WebPage", "@id": abs(path), url: abs(path), name: c.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: org, primaryImageOfPage: abs(image.src) },
       {
-        "@type": "ProfessionalService", "@id": abs("/#org"), name: "Adscendo", url: abs("/"), description: c.description,
-        logo: abs("/favicon.svg"), image: abs(image.src),
-        email: contact.email, foundingDate: "2026-10-27",
+        "@type": "ProfessionalService", ...org, name: "Adscendo", url: abs("/"), description, slogan: t.footer,
+        logo: abs("/apple-touch-icon.png"), image: abs(image.src),
+        email: contact.email, telephone: "+" + contact.whatsappLabel.replace(/\D/g, ""), foundingDate: "2026-10-27",
+        priceRange: `${money(lang, Math.min(...prices.map(price)))}–${money(lang, Math.max(...prices.map(q => q.regular)))}`,
         areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
         knowsLanguage: ["en", "pt-BR"],
-        founder: { "@type": "Person", name: "Jean Menezes", image: founderPhoto ? abs(founderPhoto) : undefined, sameAs: [contact.linkedin] },
+        knowsAbout: ["Web design", "Web development", "App development", "Search engine optimization", "Generative engine optimization", "Local SEO"],
+        contactPoint: { "@type": "ContactPoint", contactType: "sales", email: contact.email, telephone: "+" + contact.whatsappLabel.replace(/\D/g, ""), availableLanguage: ["English", "Portuguese"] },
+        founder,
+        hasOfferCatalog: { "@type": "OfferCatalog", name: c.doTitle.replace(/\.$/, ""), itemListElement: [
+          ...Object.entries(quote).map(([k, q]) => service(chat[lang].tiers[k], null, q)),
+          ...c.tiles.filter(x => !x.dark).map(x => service(x.h, x.p)),
+          ...c.found.map(x => service(x.h, x.p)),
+        ] },
         sameAs: [contact.instagram, contact.linkedin],
       },
+      { "@type": "Person", ...founder, name: "Jean Menezes", jobTitle: lang === "en" ? "Founder" : "Fundador", image: founderPhoto ? abs(founderPhoto) : undefined, worksFor: org, sameAs: [contact.linkedin] },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
     ],
   };
   // The whole card opens the story (the story link stretches over it); the CTA button sits above that layer.
@@ -214,7 +256,16 @@ const homePage = lang => {
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
   const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
-  return head({ lang, title: c.title, description: c.description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath) + `
+  // SEO and GEO cards, each above a small mock-up: a search result and an AI answer naming the business.
+  const search = c.foundSearch, ai = c.foundAi;
+  const shots = [
+    `<div class="find-shot" aria-hidden="true"><p class="find-label">${search.label}</p><p class="find-q">${search.query}</p><div class="find-hit"><small>${search.host}</small><b>${search.name}</b><span>${search.meta}</span></div><i class="find-ghost"></i><i class="find-ghost"></i></div>`,
+    `<div class="find-shot" aria-hidden="true"><p class="find-label">${ai.label}</p><p class="find-ask">${ai.ask}</p><p class="find-answer">${ai.answer}</p><span class="find-src">${ai.source}</span></div>`,
+  ];
+  const found = c.found.map((x, n) => `<article class="find">${shots[n]}<div class="find-text"><p class="eyebrow">${x.eyebrow}</p><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></div></article>`).join("\n        ");
+  // The first answer starts open, so the list reads as questions with answers, not a wall of headings.
+  const questions = faq.map(([q, a], n) => `<details${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  return head({ lang, title: c.title, description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath) + `
 <main id="main">
   <section class="hero wrap">
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
@@ -245,6 +296,18 @@ const homePage = lang => {
       ${projectsList}
       </ul>
       <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="${sectionPath(lang, "contact")}">${c.workCta[1]}</a></div>
+    </div>
+  </section>
+
+  <section class="band band--black found" ${sectionAttrs(lang, "found")}>
+    <div class="wrap" data-rise=".h2, .lede, .find">
+      <h2 class="h2">${c.foundTitle.replace(". ", ".<br>")}</h2>
+      <p class="lede">${c.foundLede}</p>
+      <div class="finds">
+        ${found}
+      </div>
+      <p class="find-note">${c.foundNote}</p>
+      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.foundCta}</a></p>
     </div>
   </section>
 
@@ -281,6 +344,16 @@ const homePage = lang => {
         ${tiles}
       </div>
       <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.buildCta}</a></p>
+    </div>
+  </section>
+
+  <section class="band faq" ${sectionAttrs(lang, "faq")}>
+    <div class="wrap" data-rise=".h2, .lede, .faq-list details">
+      <h2 class="h2">${c.faqTitle}</h2>
+      <p class="lede">${c.faqLede}</p>
+      <div class="faq-list">
+        ${questions}
+      </div>
     </div>
   </section>
 
@@ -393,9 +466,12 @@ const privacyPage = lang => {
 ` + footer(lang, altPath);
 };
 
+// Files whose content this build changed: their pages get today's date as <lastmod> in the sitemap.
+const changed = new Set();
 const write = (rel, html) => {
   const file = join(ROOT, rel);
   mkdirSync(dirname(file), { recursive: true });
+  if (!existsSync(file) || readFileSync(file, "utf8") !== html) changed.add(rel);
   writeFileSync(file, html);
   console.log("wrote", rel);
 };
@@ -419,31 +495,59 @@ write("vercel.json", JSON.stringify(vercel, null, 2) + "\n");
 // Every page as [en path, pt path], for the sitemap and llms.txt.
 const pairs = [["/", "/pt"], ...projects.map(p => [casePath("en", p.slug), casePath("pt", p.slug)])];
 
-write("robots.txt", `User-agent: *\nAllow: /\n${SITE ? `\nSitemap: ${SITE}/sitemap.xml\n` : ""}`);
+// Search engines and AI assistants (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, PerplexityBot,
+// Claude-SearchBot…) may read every page: being quoted by them is the point. Only the form endpoint is off.
+write("robots.txt", `User-agent: *\nAllow: /\nDisallow: /api/\n${SITE ? `\nSitemap: ${SITE}/sitemap.xml\n` : ""}`);
 
 if (SITE) {
+  // <lastmod> moves only when the page itself changed; otherwise it keeps the date already in the sitemap.
+  const sitemapFile = join(ROOT, "sitemap.xml");
+  const before = existsSync(sitemapFile) ? Object.fromEntries([...readFileSync(sitemapFile, "utf8").matchAll(/<loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)].map(m => [m[1], m[2]])) : {};
+  const today = new Date().toISOString().slice(0, 10);
+  const fileOf = loc => `${loc === "/" ? "" : loc.slice(1) + "/"}index.html`;
+  const lastmod = loc => (!changed.has(fileOf(loc)) && before[SITE + loc]) || today;
   const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc>${alts(pair)}</url>`)).join("\n")}
+${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
 </urlset>
 `);
 }
 
-// A plain summary for AI assistants and search agents (llmstxt.org).
+// A plain summary for AI assistants and search agents (llmstxt.org): what Adscendo is, prices, the
+// questions from the home page and every page in both languages.
+const en = home.en;
 write("llms.txt", `# Adscendo
 
-> ${strip(home.en.description)}
+> ${fill("en", en.description)}
 
-Adscendo is the web design and development studio of Jean Menezes. English at /, Portuguese at /pt.
+Adscendo is the web design and development studio of Jean Menezes, founded in October 2026. It builds websites and apps for small and mid-size businesses in the United States, Brazil and elsewhere, in English and Portuguese. English site at ${SITE}/, Portuguese at ${SITE}/pt.
+
+## Services
+
+${[...en.tiles, ...en.found].map(x => `- ${x.h}: ${strip(x.p)}`).join("\n")}
+
+## Prices (USD)
+
+${Object.entries(quote).map(([k, q]) => `- ${chat.en.tiers[k]}: ${money("en", q.regular)}, or ${money("en", price(q))} with the ${q.off}% launch discount`).join("\n")}
+- ${chat.en.fine}
+
+## Questions
+
+${en.faq.map(([q, a]) => `### ${q}\n\n${strip(fill("en", a))}`).join("\n\n")}
 
 ## Pages
 
-${pairs.map(([en], i) => i ? `- [${projects[i - 1].en.name}](${SITE}${en}): ${projects[i - 1].en.description}` : `- [Home](${SITE}${en}): ${strip(home.en.description)}`).join("\n")}
+${pairs.map(([enPath, ptPath], i) => {
+  const [name, desc] = i ? [projects[i - 1].en.name, projects[i - 1].en.description] : ["Home", fill("en", en.description)];
+  return `- [${name}](${SITE}${enPath}): ${strip(desc)} Portuguese: ${SITE}${ptPath}`;
+}).join("\n")}
 
 ## Contact
 
+- Start a project (chat with a first estimate): ${SITE}${sectionPath("en", "contact")}
 - Email: ${contact.email}
+- WhatsApp: ${contact.whatsappLabel}
 - LinkedIn: ${contact.linkedin}
 - Instagram: ${contact.instagram}
 `);

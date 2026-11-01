@@ -123,6 +123,7 @@
     await say(esc(T.greet));
     await say(esc(T.askName));
     a.name = await ask({ ph: T.namePh, autocomplete: "name", check: v => (!v || v.length > 60 || /[<>@\d]{2,}/.test(v)) && T.bad.name });
+    window.track?.("chat_start");
     restart.hidden = false;
     await say(esc(fill(T.askSite, { name: a.name.split(" ")[0] })));
     a.site = await choose([["yes", T.yes], ["no", T.no]]);
@@ -204,6 +205,7 @@
         if (slots.length) continue;
       }
       const at = res.success ? res.start : res.error === "exists" && res.start;
+      if (res.success) window.track?.("book_call");
       if (!at) {
         await say(esc(T.bookFailed));
         return false;
@@ -266,6 +268,7 @@
       const wa = whatsapp(subject);
       const fallback = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
       if (ok) {
+        window.track?.("generate_lead", { value: price(tierOf()), currency: "USD", tier: tierOf() });
         bubble(esc(T.send), "me");
         await say(esc(fill(T.sent, { name: first })));
         if (!wa) return;

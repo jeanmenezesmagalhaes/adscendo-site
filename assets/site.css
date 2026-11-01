@@ -213,6 +213,43 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 .timeline li.now time, .timeline li.now small { color: var(--muted); }
 @media (max-width: 720px) { .timeline li { grid-template-columns: 1fr; padding: 16px 18px; } .timeline small { text-align: left; } }
 
+/* ---------- found: SEO + GEO (black band) ---------- */
+.finds { margin-top: clamp(48px, 7vw, 80px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+/* Each card spans two rows of the grid (mock-up, text) so both mock-ups and both titles line up. */
+.find { border-radius: 28px; padding: clamp(20px, 2.6vw, 28px); background: var(--surface); display: grid; grid-row: span 2; grid-template-rows: subgrid; gap: 0; }
+.find-shot { display: grid; align-content: start; gap: 12px; min-height: 236px; padding: 20px; border-radius: 18px; background: var(--band); font-size: 15px; line-height: 1.4; }
+.find-label { font-size: 12px; font-weight: 500; color: var(--muted); }
+.find-q { padding: 10px 16px; border-radius: 99px; background: var(--surface); color: var(--ink); }
+.find-hit { display: grid; gap: 2px; padding: 14px 16px; border-radius: 14px; background: var(--surface); box-shadow: 0 0 0 1.5px var(--ink); }
+.find-hit small { font-size: 12px; color: var(--muted); }
+.find-hit b { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
+.find-hit span { font-size: 13px; color: var(--graphite); }
+.find-ghost { display: block; height: 10px; width: 78%; border-radius: 99px; background: var(--chip); }
+.find-ghost + .find-ghost { width: 56%; }
+.find-ask { justify-self: end; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 4px 18px; background: var(--ink); color: var(--on-ink); }
+.find-answer { color: var(--graphite); }
+.find-answer b { color: var(--ink); font-weight: 600; }
+.find-src { justify-self: start; padding: 5px 11px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); font-size: 12px; color: var(--graphite); }
+.find-text { padding: clamp(24px, 3vw, 32px) clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px); display: flex; flex-direction: column; flex: 1; }
+.find h3 { margin-top: 6px; font-size: clamp(26px, 2.8vw, 34px); letter-spacing: -0.035em; line-height: 1.08; }
+.find-text > p:not(.eyebrow) { margin-top: 14px; font-size: 17px; color: var(--graphite); }
+.find ul { margin: auto 0 0; padding: 28px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.find li { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: var(--chip); }
+.find-note { margin-top: 24px; max-width: 52ch; font-size: 15px; color: var(--muted); }
+@media (max-width: 900px) { .finds { grid-template-columns: 1fr; } .find-shot { min-height: 0; } }
+
+/* ---------- questions ---------- */
+.faq-list { margin-top: clamp(48px, 7vw, 80px); display: grid; gap: 6px; max-width: 860px; }
+.faq-list details { border-radius: 18px; background: var(--band); transition: background-color .2s; }
+.faq-list summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; border-radius: 18px; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list details:not([open]):hover { background: var(--pressed); }
+.faq-list h3 { font-size: clamp(18px, 1.9vw, 21px); letter-spacing: -0.02em; line-height: 1.3; }
+.faq-list summary svg { width: 18px; height: 18px; flex: none; color: var(--muted); transition: transform .3s var(--ease); }
+.faq-list details[open] summary svg { transform: rotate(45deg); }
+.faq-list details p { padding: 0 24px 24px; max-width: 64ch; font-size: 17px; line-height: 1.55; color: var(--graphite); }
+@media (prefers-reduced-motion: reduce) { .faq-list summary svg { transition: none; } }
+
 /* ---------- tiles ---------- */
 .tiles { margin-top: clamp(48px, 7vw, 80px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .tile { border-radius: 28px; padding: clamp(28px, 3.6vw, 44px); min-height: 360px; display: flex; flex-direction: column; background: var(--band); }
@@ -594,7 +631,9 @@ html.chat-open, html.chat-open body { overflow: hidden; }
   .lede { margin-top: 16px; font-size: 18px; line-height: 1.45; }
   .hero .sub { line-height: 1.45; }
   .proj p, .founder .body p, .chapter .text p { font-size: 17px; line-height: 1.6; }
-  .projects, .tiles, .steps, .timeline { margin-top: 40px; }
+  .projects, .tiles, .steps, .timeline, .finds, .faq-list { margin-top: 40px; }
+  .faq-list summary { padding: 18px 20px; }
+  .faq-list details p { padding: 0 20px 20px; }
   .proj { gap: 24px; }
   .contact { gap: 28px; }
   .channels a { padding: 15px 18px; }

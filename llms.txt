@@ -1,19 +1,65 @@
 # Adscendo
 
-> Adscendo designs and builds websites and apps that help more people find you, trust you and choose you. See our work and how we do it.
+> Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch.
 
-Adscendo is the web design and development studio of Jean Menezes. English at /, Portuguese at /pt.
+Adscendo is the web design and development studio of Jean Menezes, founded in October 2026. It builds websites and apps for small and mid-size businesses in the United States, Brazil and elsewhere, in English and Portuguese. English site at https://adscendo.pro/, Portuguese at https://adscendo.pro/pt.
+
+## Services
+
+- Websites: Beautiful, fast sites that tell your story in seconds and turn visitors into customers.
+- Apps: When a website isn't enough: apps your customers open every day.
+- Search Engine Optimization: Google needs to understand what you do and where you do it. We give it fast pages, a clear structure and the words your customers really type.
+- Generative Engine Optimization: Ask ChatGPT, Gemini or Perplexity for a recommendation and they read the web, then name a few businesses. We make your site easy for them to read, trust and quote.
+
+## Prices (USD)
+
+- A new website, from scratch: $800, or $400 with the 50% launch discount
+- A new version of your website: $1,200, or $840 with the 30% launch discount
+- A new website, with your integrations: $2,000, or $1,900 with the 5% launch discount
+- Estimate only. Final price after a closer look at your project.
+
+## Questions
+
+### What does Adscendo do?
+
+Adscendo is a web design and development studio that builds websites and apps for small and mid-size businesses. Every site is designed for phones, loads fast and is set up to be found on Google and recommended by AI assistants like ChatGPT, Gemini and Perplexity.
+
+### How much does a website cost?
+
+A new website built from scratch costs $800, or $400 with our 50% launch discount. A new version of an existing website costs $1,200 ($840 at launch), and a website with integrations like online booking, payments or a CRM costs $2,000 ($1,900 at launch). The final price comes after a closer look at your project.
+
+### Who will build my website?
+
+Jean Menezes, Adscendo's founder, works with you directly. Before founding Adscendo in October 2026, Jean spent years designing and building digital products for large companies, with projects for McDonald's, AT&T, Petronas, PagBank and Multilaser.
+
+### How does a project work?
+
+In three steps. First we meet to learn how your business works and where you want to go. Then we design and build a first version you can try on your own phone and computer. Finally we adjust what's needed and put it live. You never have to touch anything technical.
+
+### Will my business show up on Google and in ChatGPT?
+
+We build every site to be found: fast pages, a clear structure, structured data, local search and content written the way your customers ask. Search engines and AI assistants can read it, trust it and quote it. Nobody can honestly guarantee first place, so we show you where you stand and what is improving.
+
+### Do you work with businesses outside the US?
+
+Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several.
+
+### How do I get started?
+
+Answer a few questions in the chat below. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer.
 
 ## Pages
 
-- [Home](https://adscendo.pro/): Adscendo designs and builds websites and apps that help more people find you, trust you and choose you. See our work and how we do it.
-- [Prospector](https://adscendo.pro/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026.
-- [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026.
-- [Sidemed](https://adscendo.pro/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house.
-- [Adscendo](https://adscendo.pro/work/adscendo): Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers.
+- [Home](https://adscendo.pro/): Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch. Portuguese: https://adscendo.pro/pt
+- [Prospector](https://adscendo.pro/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026. Portuguese: https://adscendo.pro/pt/work/prospector
+- [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026. Portuguese: https://adscendo.pro/pt/work/minha-companhia
+- [Sidemed](https://adscendo.pro/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house. Portuguese: https://adscendo.pro/pt/work/sidemed
+- [Adscendo](https://adscendo.pro/work/adscendo): Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers. Portuguese: https://adscendo.pro/pt/work/adscendo
 
 ## Contact
 
+- Start a project (chat with a first estimate): https://adscendo.pro/contact
 - Email: jean@adscendo.pro
+- WhatsApp: +55 51 99327-1160
 - LinkedIn: https://www.linkedin.com/in/jean-magalhaes/
 - Instagram: https://www.instagram.com/adscendo.pro/

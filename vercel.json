@@ -27,11 +27,11 @@
   ],
   "rewrites": [
     {
-      "source": "/(services|portfolio|how-we-work|about|contact)",
+      "source": "/(services|portfolio|seo|how-we-work|about|faq|contact)",
       "destination": "/"
     },
     {
-      "source": "/pt/(servicos|portfolio|como-trabalhamos|sobre|contato)",
+      "source": "/pt/(servicos|portfolio|seo|como-trabalhamos|sobre|perguntas|contato)",
       "destination": "/pt"
     }
   ]

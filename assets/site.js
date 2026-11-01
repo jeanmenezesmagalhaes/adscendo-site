@@ -15,6 +15,15 @@ const T = PT
   ? { wa: "Oi Jean, vi o portfólio da Adscendo e queria conversar sobre um projeto." }
   : { wa: "Hi Jean, I saw the Adscendo portfolio and I'd like to talk about a project." };
 
+// Analytics: every way of reaching Jean (WhatsApp, email, LinkedIn, Instagram) counts as a "contact" event
+// (window.track is in <head>: Google Analytics and Vercel Web Analytics).
+const CHANNELS = { "wa.me": "whatsapp", "mailto:": "email", "linkedin.com": "linkedin", "instagram.com": "instagram" };
+document.addEventListener("click", e => {
+  const href = e.target.closest?.("a[href]")?.href || "";
+  const method = Object.entries(CHANNELS).find(([k]) => href.includes(k))?.[1];
+  if (method) window.track?.("contact", { method });
+}, true);
+
 // Rise into place as sections enter the viewport.
 const io = new IntersectionObserver(entries => entries.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }

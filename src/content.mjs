@@ -7,8 +7,10 @@
 export const sections = {
   build: { en: "services", pt: "servicos" },
   work: { en: "portfolio", pt: "portfolio" },
+  found: { en: "seo", pt: "seo" },
   process: { en: "how-we-work", pt: "como-trabalhamos" },
   about: { en: "about", pt: "sobre" },
+  faq: { en: "faq", pt: "perguntas" },
   contact: { en: "contact", pt: "contato" },
 };
 
@@ -62,10 +64,11 @@ export const founderPhoto = "/assets/jean.webp";
 
 export const home = {
   en: {
-    title: "Adscendo. Websites and apps that help your business be seen",
-    description: "Adscendo designs and builds websites and apps that help more people find you, trust you and choose you. See our work and how we do it.",
+    // Title and description name what people search for. {new} and the other prices come from `quote`.
+    title: "Adscendo | Small business websites, found on Google and AI",
+    description: "Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from {new} at launch.",
     h1: ["Ideas, made real.", "Designed and built."],
-    sub: "Your business deserves to be seen. We make sure it is.",
+    sub: "Your business deserves to be seen. We build websites and apps that get it found on Google and recommended by AI.",
     ctaWork: "See our work",
     ctaTalk: "Start a project",
     hostHero: "prospector.adscendo.pro",
@@ -86,6 +89,17 @@ export const home = {
     buildCta: "Ask for a quote",
     workTitle: "Our work.",
     workLede: "Products and websites we have designed.",
+    // SEO + GEO. The two mock-ups are generic on purpose: no search engine's or AI's look or logo.
+    foundTitle: "Found on Google. Recommended by AI.",
+    foundLede: "Your next customer will search on Google, or just ask ChatGPT. We build your site so the answer they get is you.",
+    found: [
+      { eyebrow: "SEO", h: "Search Engine Optimization", p: "Google needs to understand what you do and where you do it. We give it fast pages, a clear structure and the words your customers really type.", chips: ["Local search and Maps", "Speed", "Structured pages", "Content that ranks"] },
+      { eyebrow: "GEO", h: "Generative Engine Optimization", p: "Ask ChatGPT, Gemini or Perplexity for a recommendation and they read the web, then name a few businesses. We make your site easy for them to read, trust and quote.", chips: ["Open to AI crawlers", "Answers AI can quote", "Structured data", "llms.txt"] },
+    ],
+    foundSearch: { label: "Search", query: "family dentist austin", name: "Your Business", host: "yourbusiness.com", meta: "4.9 ★ · Open now · 1.2 mi" },
+    foundAi: { label: "AI answer", ask: "Who's a good family dentist in Austin?", answer: "A great pick is <b>Your Business</b>: highly rated, open on Saturdays and known for being gentle with kids.", source: "yourbusiness.com" },
+    foundNote: "Nobody can honestly promise first place. We do the work that gets you there, and show you where you stand.",
+    foundCta: "Get your business found",
     storyTitle: "Our year so far.",
     storyLede: "Ideas that became products people use. All in one year.",
     doTitle: "What we build.",
@@ -100,14 +114,27 @@ export const home = {
       "Today we bring that same standard to businesses like yours. Side by side with you, we build a presence that shows who you are and earns your customers' trust.",
     ],
     sigRole: "Founder. Born in Brazil, built to operate globally.",
+    // Questions a business owner asks before hiring us, each answered in its first sentence so search
+    // engines and AI assistants can quote it on its own. Also the FAQPage data and llms.txt.
+    faqTitle: "Questions, answered.",
+    faqLede: "What business owners ask us before we start.",
+    faq: [
+      ["What does Adscendo do?", "Adscendo is a web design and development studio that builds websites and apps for small and mid-size businesses. Every site is designed for phones, loads fast and is set up to be found on Google and recommended by AI assistants like ChatGPT, Gemini and Perplexity."],
+      ["How much does a website cost?", "A new website built from scratch costs {newRegular}, or {new} with our {newOff}% launch discount. A new version of an existing website costs {redoRegular} ({redo} at launch), and a website with integrations like online booking, payments or a CRM costs {complexRegular} ({complex} at launch). The final price comes after a closer look at your project."],
+      ["Who will build my website?", "Jean Menezes, Adscendo's founder, works with you directly. Before founding Adscendo in October 2026, Jean spent years designing and building digital products for large companies, with projects for McDonald's, AT&T, Petronas, PagBank and Multilaser."],
+      ["How does a project work?", "In three steps. First we meet to learn how your business works and where you want to go. Then we design and build a first version you can try on your own phone and computer. Finally we adjust what's needed and put it live. You never have to touch anything technical."],
+      ["Will my business show up on Google and in ChatGPT?", "We build every site to be found: fast pages, a clear structure, structured data, local search and content written the way your customers ask. Search engines and AI assistants can read it, trust it and quote it. Nobody can honestly guarantee first place, so we show you where you stand and what is improving."],
+      ["Do you work with businesses outside the US?", "Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several."],
+      ["How do I get started?", "Answer a few questions in the chat below. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer."],
+    ],
     contactTitle: "You imagine it. We build it.",
     contactLede: "Tell us about your business and what you have in mind. We design it, build it and put it live.",
   },
   pt: {
-    title: "Adscendo. Sites e apps que fazem seu negócio ser visto",
-    description: "A Adscendo desenha e constrói sites e apps que fazem mais gente te encontrar, confiar em você e te escolher. Veja nossos trabalhos e como fazemos.",
+    title: "Adscendo | Criação de sites com SEO para pequenas empresas",
+    description: "A Adscendo cria sites e apps rápidos para pequenas empresas, feitos para aparecer no Google e ser recomendados pelo ChatGPT. Sites novos a partir de {new}.",
     h1: ["Ideias que saem do papel.", "Desenhadas e construídas."],
-    sub: "Seu negócio merece ser visto. A gente garante isso.",
+    sub: "Seu negócio merece ser visto. A gente cria sites e apps para ele ser encontrado no Google e recomendado pela IA.",
     ctaWork: "Ver trabalhos",
     ctaTalk: "Começar um projeto",
     hostHero: "prospector.adscendo.pro",
@@ -128,6 +155,16 @@ export const home = {
     buildCta: "Peça um orçamento",
     workTitle: "Nosso trabalho.",
     workLede: "Produtos e sites que desenhamos.",
+    foundTitle: "Encontrado no Google. Recomendado pela IA.",
+    foundLede: "Seu próximo cliente vai pesquisar no Google, ou simplesmente perguntar ao ChatGPT. A gente prepara seu site para que a resposta seja você.",
+    found: [
+      { eyebrow: "SEO", h: "Otimização para buscadores", p: "O Google precisa entender o que você faz e onde. A gente entrega páginas rápidas, uma estrutura clara e as palavras que seus clientes realmente digitam.", chips: ["Busca local e Maps", "Velocidade", "Páginas estruturadas", "Conteúdo que ranqueia"] },
+      { eyebrow: "GEO", h: "Otimização para IAs generativas", p: "Peça uma indicação ao ChatGPT, Gemini ou Perplexity e eles leem a internet e citam alguns negócios. A gente deixa seu site fácil de eles lerem, confiarem e citarem.", chips: ["Aberto aos robôs de IA", "Respostas que a IA cita", "Dados estruturados", "llms.txt"] },
+    ],
+    foundSearch: { label: "Busca", query: "dentista porto alegre", name: "Seu Negócio", host: "seunegocio.com.br", meta: "4,9 ★ · Aberto agora · 2 km" },
+    foundAi: { label: "Resposta da IA", ask: "Qual um bom dentista em Porto Alegre?", answer: "Uma ótima opção é o <b>Seu Negócio</b>: muito bem avaliado, abre aos sábados e é conhecido pelo cuidado com crianças.", source: "seunegocio.com.br" },
+    foundNote: "Ninguém pode prometer o primeiro lugar com honestidade. A gente faz o trabalho que te leva até lá e mostra onde você está.",
+    foundCta: "Quero ser encontrado",
     storyTitle: "Nosso ano até aqui.",
     storyLede: "Ideias que viraram produtos que as pessoas usam. Tudo em um ano.",
     doTitle: "O que construímos.",
@@ -142,6 +179,17 @@ export const home = {
       "Hoje levamos esse mesmo padrão para negócios como o seu. Lado a lado com você, construímos uma presença que mostra quem você é e conquista a confiança dos seus clientes.",
     ],
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
+    faqTitle: "Perguntas frequentes.",
+    faqLede: "O que os donos de negócio perguntam antes de começar.",
+    faq: [
+      ["O que a Adscendo faz?", "A Adscendo é um estúdio de design e desenvolvimento que cria sites e apps para pequenas e médias empresas. Todo site é pensado para o celular, carrega rápido e é preparado para ser encontrado no Google e recomendado por assistentes de IA como ChatGPT, Gemini e Perplexity."],
+      ["Quanto custa um site?", "Um site novo, feito do zero, custa {newRegular}, ou {new} com {newOff}% de desconto de lançamento. Uma nova versão de um site que já existe custa {redoRegular} ({redo} no lançamento), e um site com integrações como agendamento online, pagamentos ou CRM custa {complexRegular} ({complex} no lançamento). O valor final sai depois de avaliarmos seu projeto com calma."],
+      ["Quem vai fazer meu site?", "Jean Menezes, fundador da Adscendo, trabalha diretamente com você. Antes de fundar a Adscendo em outubro de 2026, Jean passou anos desenhando e construindo produtos digitais para grandes empresas, com projetos para McDonald's, AT&T, Petronas, PagBank e Multilaser."],
+      ["Como funciona um projeto?", "Em três etapas. Primeiro fazemos uma reunião para entender como seu negócio funciona e aonde você quer chegar. Depois desenhamos e construímos uma primeira versão, que você testa no seu celular e no seu computador. Por fim, ajustamos o que for preciso e colocamos no ar. Você não precisa mexer em nada técnico."],
+      ["Meu negócio vai aparecer no Google e no ChatGPT?", "Todo site que fazemos é feito para ser encontrado: páginas rápidas, estrutura clara, dados estruturados, busca local e textos escritos do jeito que seus clientes perguntam. Buscadores e assistentes de IA conseguem ler, confiar e citar. Ninguém pode garantir o primeiro lugar com honestidade, por isso mostramos onde você está e o que está melhorando."],
+      ["Vocês atendem empresas no Brasil?", "Sim. A Adscendo é um estúdio brasileiro que trabalha de forma remota com empresas no Brasil, nos Estados Unidos e em qualquer lugar, em português ou inglês. Seu site pode ter um idioma ou vários."],
+      ["Como eu começo?", "Responda algumas perguntas no chat abaixo. Leva menos de um minuto e já mostra uma primeira estimativa. Respondemos em até 6 horas por email, ou pelo WhatsApp se preferir."],
+    ],
     contactTitle: "Você imagina. A gente constrói.",
     contactLede: "Conte sobre seu negócio e o que você tem em mente. A gente desenha, constrói e coloca no ar.",
   },
@@ -261,13 +309,14 @@ export const chat = {
 // screen that lets the contact chat book calls on Jean's calendar). Keep it true to what the site does.
 export const privacy = {
   en: {
-    slug: "privacy", title: "Privacy policy", updated: "Last updated October 31, 2026",
+    slug: "privacy", title: "Privacy policy", updated: "Last updated November 1, 2026",
     lede: "What this site collects, why, and what you can ask us to do with it.",
     sections: [
       { h: "Who we are", p: ["Adscendo is the web design and development studio of Jean Menezes, based in Brazil. For anything about your data, write to <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
       { h: "What we collect", p: [
         "Only what you choose to tell us in the project chat: your name, whether you have a website and its address, your email, and, if you give them, a WhatsApp number and notes. Nothing leaves the page until you send the chat or book a call.",
-        "If you book a call, we also keep the time you picked. We don't use analytics, advertising or tracking cookies.",
+        "If you book a call, we also keep the time you picked.",
+        "To learn which pages people read and how they found us, we count visits with <b>Google Analytics</b> and <b>Vercel Web Analytics</b>: pages viewed, how you arrived (a search, a link, a post), your approximate country and city, and your kind of device. We also count when someone starts the chat, sends it, books a call or taps WhatsApp or email, never what was typed. We don't run ads or advertising cookies.",
       ] },
       { h: "How we use it", p: [
         "To reply to you about your project, and to hold the call you booked. We don't sell your data, share it for advertising, or add you to a mailing list.",
@@ -281,6 +330,7 @@ export const privacy = {
       ] },
       { h: "On your device", p: [
         "The site remembers two small preferences in your browser: light or dark mode, and whether you closed the offer banner. They stay on your device and are never sent to us.",
+        "Google Analytics sets cookies (named <code>_ga</code>) to tell a returning visit from a new one; outside Europe they last up to 14 months, and in the European Economic Area, the UK and Switzerland they are not set at all. Vercel Web Analytics uses no cookies. To opt out of Google Analytics on every site, use Google's <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener\">opt-out add-on</a>.",
       ] },
       { h: "How long we keep it", p: [
         "As long as we're talking about your project, and after that only as long as the law requires for work we did together. You can ask us to delete it at any time.",
@@ -292,13 +342,14 @@ export const privacy = {
     ],
   },
   pt: {
-    slug: "privacidade", title: "Política de privacidade", updated: "Atualizada em 31 de outubro de 2026",
+    slug: "privacidade", title: "Política de privacidade", updated: "Atualizada em 1º de novembro de 2026",
     lede: "O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.",
     sections: [
       { h: "Quem somos", p: ["A Adscendo é o estúdio de design e desenvolvimento web de Jean Menezes, no Brasil. Para qualquer assunto sobre os seus dados, escreva para <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
       { h: "O que coletamos", p: [
         "Só o que você escolhe contar na conversa sobre o projeto: seu nome, se você tem site e o endereço dele, seu email e, se quiser, um WhatsApp e observações. Nada sai da página até você enviar a conversa ou marcar uma chamada.",
-        "Se você marcar uma chamada, guardamos também o horário escolhido. Não usamos analytics, publicidade nem cookies de rastreamento.",
+        "Se você marcar uma chamada, guardamos também o horário escolhido.",
+        "Para saber quais páginas as pessoas leem e como nos encontraram, contamos as visitas com o <b>Google Analytics</b> e o <b>Vercel Web Analytics</b>: páginas vistas, como você chegou (uma busca, um link, um post), país e cidade aproximados e o tipo de aparelho. Também contamos quando alguém começa a conversa, envia, marca uma chamada ou toca no WhatsApp ou no email, nunca o que foi digitado. Não fazemos anúncios nem usamos cookies de publicidade.",
       ] },
       { h: "Como usamos", p: [
         "Para responder sobre o seu projeto e para fazer a chamada que você marcou. Não vendemos seus dados, não compartilhamos para publicidade e não colocamos você em lista de email.",
@@ -312,6 +363,7 @@ export const privacy = {
       ] },
       { h: "No seu aparelho", p: [
         "O site lembra duas pequenas preferências no seu navegador: modo claro ou escuro, e se você fechou a faixa de oferta. Elas ficam no seu aparelho e nunca são enviadas para a gente.",
+        "O Google Analytics grava cookies (chamados <code>_ga</code>) para distinguir uma visita de volta de uma nova; fora da Europa eles duram até 14 meses, e no Espaço Econômico Europeu, no Reino Unido e na Suíça nem são gravados. O Vercel Web Analytics não usa cookies. Para não ser contado pelo Google Analytics em nenhum site, use o <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener\">complemento de desativação</a> do Google.",
       ] },
       { h: "Por quanto tempo guardamos", p: [
         "Enquanto estivermos conversando sobre o seu projeto e, depois disso, só pelo tempo que a lei exigir para trabalhos que fizemos juntos. Você pode pedir a exclusão a qualquer momento.",

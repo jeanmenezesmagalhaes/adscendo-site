@@ -77,27 +77,47 @@ if (nav && darks.length) {
 
 // Light or dark: follows the system until the visitor picks one. Picking the system's own scheme forgets
 // the choice, so the page goes back to following the system.
-const themeBtn = document.querySelector(".theme");
-if (themeBtn) {
+// Two switches, same job: the round one in the nav and the labelled one in the phone menu.
+const themeBtns = [...document.querySelectorAll(".theme")];
+if (themeBtns.length) {
   const root = document.documentElement;
   const sys = matchMedia("(prefers-color-scheme: dark)");
   const isDark = () => (root.dataset.theme || (sys.matches ? "dark" : "light")) === "dark";
   const sync = () => {
-    themeBtn.setAttribute("aria-pressed", isDark());
+    themeBtns.forEach(b => b.setAttribute("aria-pressed", isDark()));
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
       m.content = root.dataset.theme ? (isDark() ? "#000000" : "#ffffff") : m.media.includes("dark") ? "#000000" : "#ffffff";
     });
   };
-  themeBtn.hidden = false;
-  themeBtn.addEventListener("click", () => {
+  themeBtns.forEach(b => { b.hidden = false; b.addEventListener("click", () => {
     const next = isDark() ? "light" : "dark";
     const follow = next === (sys.matches ? "dark" : "light");
     if (follow) delete root.dataset.theme; else root.dataset.theme = next;
     try { follow ? localStorage.removeItem("theme") : localStorage.setItem("theme", next); } catch (e) {}
     sync();
-  });
+  }); });
   sys.addEventListener("change", sync);
   sync();
+}
+
+// Phone menu: the button opens the sheet under the nav; a link, Escape, the button again or a wide enough
+// window closes it. The page behind doesn't scroll while it's open.
+const burger = document.querySelector(".burger"), sheet = document.getElementById("nav-sheet");
+if (burger && sheet) {
+  const root = document.documentElement, wide = matchMedia("(min-width: 941px)");
+  const set = open => {
+    if (open) root.style.setProperty("--nav-bottom", Math.max(0, burger.closest(".nav").getBoundingClientRect().bottom) + "px");
+    sheet.hidden = false;
+    requestAnimationFrame(() => root.classList.toggle("menu-open", open));
+    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-label", open ? burger.dataset.close : burger.dataset.open);
+    if (!open) setTimeout(() => { if (!root.classList.contains("menu-open")) sheet.hidden = true; }, 300);
+  };
+  burger.hidden = false;
+  burger.addEventListener("click", () => set(burger.getAttribute("aria-expanded") !== "true"));
+  sheet.addEventListener("click", e => { if (e.target.closest("a")) set(false); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && root.classList.contains("menu-open")) { set(false); burger.focus(); } });
+  wide.addEventListener("change", () => wide.matches && set(false));
 }
 
 const wa = document.getElementById("wa");
@@ -122,10 +142,75 @@ if (proc && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-mo
   proc.querySelectorAll(".step").forEach(c => io.observe(c));
 }
 
-// WhatsApp links elsewhere on the page (footer) follow the same CONFIG.
+// AI page, "How AI picks": Read, Trust and Quote light up in turn (each card's bar fills) while a dot carries
+// the data along the line to the next card, then it all starts over. Runs only while it's on screen; with
+// reduced motion the three cards simply show as done.
+const flow = document.querySelector("[data-flow]");
+if (flow) {
+  const steps = [...flow.querySelectorAll(".step")], nodes = [...flow.querySelectorAll(".flow-node")], last = steps.length - 1;
+  // n = the card loading now; the ones before it are done. -1 = all clear, steps.length = all done.
+  const show = n => {
+    flow.classList.toggle("flow--reset", n < 0);
+    flow.style.setProperty("--at", Math.max(0, Math.min(n, last)) / last * 100 + "%");
+    steps.forEach((s, i) => { s.classList.toggle("done", i < n); s.classList.toggle("loading", i === n); });
+    nodes.forEach((d, i) => d.classList.toggle("on", i <= n));
+  };
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) show(steps.length);
+  else {
+    let n = steps.length, timer = 0;
+    const next = () => {
+      n = n >= steps.length ? -1 : n + 1;
+      show(n);
+      timer = setTimeout(next, n < 0 ? 500 : n > last ? 1800 : 2400);
+    };
+    new IntersectionObserver(([e]) => {
+      clearTimeout(timer);
+      if (e.isIntersecting) { n = steps.length; next(); }
+    }, { threshold: 0.35 }).observe(flow);
+  }
+}
+
+// Questions open and close with a slide instead of a jump, and the answer fades in as it drops. One answer
+// at a time: opening a question closes the open one. The markup does that too (<details name="faq">), for
+// visitors without JavaScript or with reduced motion; here the name comes off so the closing one can slide.
+const faqs = [...document.querySelectorAll(".faq-list details")];
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const ease = "cubic-bezier(.4, 0, .2, 1)";
+  const anims = new Map();
+  const slide = (d, open) => {
+    const summary = d.querySelector("summary"), answer = d.querySelector(":scope > p");
+    const from = d.offsetHeight + "px";
+    anims.get(d)?.cancel();
+    let anim;
+    if (!open) {
+      d.classList.add("closing");
+      anim = d.animate({ height: [from, summary.offsetHeight + "px"] }, { duration: 300, easing: ease });
+      anim.onfinish = () => { d.open = false; d.classList.remove("closing"); anims.delete(d); };
+    } else {
+      d.classList.remove("closing");
+      d.open = true;
+      anim = d.animate({ height: [from, d.offsetHeight + "px"] }, { duration: 380, easing: ease });
+      anim.onfinish = () => anims.delete(d);
+      answer?.animate({ opacity: [0, 1], transform: ["translateY(-8px)", "none"] }, { duration: 380, easing: ease });
+    }
+    anims.set(d, anim);
+  };
+  faqs.forEach(d => {
+    d.removeAttribute("name");
+    d.querySelector("summary").addEventListener("click", e => {
+      e.preventDefault();
+      if (d.open && !d.classList.contains("closing")) return slide(d, false);
+      d.closest(".faq-list").querySelectorAll("details").forEach(o => { if (o !== d && o.open && !o.classList.contains("closing")) slide(o, false); });
+      slide(d, true);
+    });
+  });
+}
+
+// WhatsApp links elsewhere on the page (footer, the AI page's free check) follow the same CONFIG; data-wa-text
+// replaces the default message.
 document.querySelectorAll("[data-wa]").forEach(a => {
   if (!CONFIG.whatsapp) return;
-  a.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(T.wa);
+  a.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(a.dataset.waText || T.wa);
   a.hidden = false;
 });
 

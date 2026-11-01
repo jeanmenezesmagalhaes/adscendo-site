@@ -99,16 +99,29 @@
   <div class="wrap">
     <a class="brand" href="/pt" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
     <ul>
-      <li><a href="/pt/servicos">Serviços</a></li>
-      <li><a href="/pt/portfolio">Portfólio</a></li>
+      <li class="has-menu"><a href="/pt/servicos">Serviços<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/pt/sites"><b>Sites</b><span>Sites rápidos que trazem clientes</span></a><a href="/pt/apps"><b>Apps</b><span>Para iPhone, Android e web</span></a><a href="/pt/ia"><b>Otimização para IA</b><span>Seja indicado pelo ChatGPT e outras IAs</span></a></div></div></li>
+      <li class="has-menu"><a href="/pt/portfolio">Portfólio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/pt/work/prospector"><b>Prospector</b><span>Vendas</span></a><a href="/pt/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/pt/work/sidemed"><b>Sidemed</b><span>Saúde</span></a><a href="/pt/portfolio"><b>Ver todos os trabalhos</b></a></div></div></li>
       <li><a href="/pt/como-trabalhamos">Como trabalhamos</a></li>
       <li><a href="/pt/sobre">Sobre</a></li>
     </ul>
     <a class="lang" href="/work/adscendo" hreflang="en" lang="en" aria-label="Switch to English" title="Switch to English"><svg aria-hidden="true"><use href="#flag-pt"/></svg>PT</a>
     <button class="theme" type="button" aria-pressed="false" aria-label="Modo escuro" title="Modo escuro" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
     <a class="btn btn--sm" href="/pt/contato">Fale com a gente</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Abrir menu" data-open="Abrir menu" data-close="Fechar menu" hidden><i></i><i></i></button>
   </div>
 </header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Serviços</p><ul><li><a href="/pt/sites">Sites</a></li><li><a href="/pt/apps">Apps</a></li><li><a href="/pt/ia">Otimização para IA</a></li></ul>
+      <p class="sheet-label">Portfólio</p><ul><li><a href="/pt/work/prospector">Prospector</a></li><li><a href="/pt/work/minha-companhia">Minha companhia</a></li><li><a href="/pt/work/sidemed">Sidemed</a></li><li><a href="/pt/portfolio">Ver todos os trabalhos</a></li></ul>
+      <ul class="sheet-more"><li><a href="/pt/como-trabalhamos">Como trabalhamos</a></li><li><a href="/pt/sobre">Sobre</a></li></ul>
+      <a class="btn sheet-cta" href="/pt/contato">Fale com a gente</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/work/adscendo" hreflang="en" lang="en"><svg aria-hidden="true"><use href="#flag-en"/></svg>English</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Modo escuro</button>
+      </div>
+    </nav>
+  </div>
 <main id="main">
   <section class="case-head wrap">
     <a class="back" href="/pt/portfolio"><svg aria-hidden="true"><use href="#arrow"/></svg>Todos os trabalhos</a>

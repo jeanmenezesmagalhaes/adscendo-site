@@ -29,6 +29,8 @@ To add a project: add an entry to `projects` (and, if you want, to `timeline`) i
 ```
 index.html, work/<slug>/index.html         English pages (generated)
 pt/index.html, pt/work/<slug>/index.html   Portuguese pages (generated)
+ai/, pt/ia/                                AI optimization page: new website + GEO, prices, free AI check (generated from `aiPage` in src/content.mjs; linked from the home SEO section)
+websites/, apps/, pt/sites/, pt/apps/     Service pages: what's included, how we work, work, prices, questions (generated from `servicePages` in src/content.mjs; linked from the Services menu and the home tiles)
 privacy/, pt/privacidade/                  Privacy policy (generated from `privacy` in src/content.mjs; linked in the footer and on Google's sign-in screen)
 src/content.mjs                            All copy, EN and PT
 src/build.mjs                              Page templates and generator

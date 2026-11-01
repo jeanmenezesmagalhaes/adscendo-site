@@ -109,7 +109,59 @@ p { margin: 0; text-wrap: pretty; }
 .theme { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px; background: var(--chip); color: var(--ink); cursor: pointer; transition: background-color .2s; }
 .theme:hover { background: var(--pressed); }
 .theme svg { width: 16px; height: 16px; }
-@media (max-width: 940px) { .nav ul { display: none; } .nav .wrap { gap: 16px; } }
+/* Drop-downs under Services and Portfolio: open on hover or keyboard focus. The padding on .menu bridges
+   the gap under the nav item so the pointer can travel into the panel. */
+.has-menu { position: relative; }
+.has-menu > a { display: inline-flex; align-items: center; gap: 4px; }
+.has-menu > a svg { width: 10px; height: 10px; transition: transform .25s var(--ease); }
+.has-menu:is(:hover, :has(:focus-visible)) > a { color: var(--ink); }
+.has-menu:is(:hover, :has(:focus-visible)) > a svg { transform: rotate(180deg); }
+.menu { position: absolute; top: 100%; left: 50%; padding-top: 16px; translate: -50% 0; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px); transition: opacity .2s ease, transform .3s var(--ease), visibility 0s .3s; }
+.has-menu:is(:hover, :has(:focus-visible)) .menu { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition-delay: 0s; }
+/* Keyboard focus (not a click) keeps a menu open; pointing at another nav item closes it, so there is
+   only one drop-down at a time. A closing menu takes no pointer: while it fades it overlaps the other
+   one, and catching the pointer would reopen it and make the two flicker. */
+ul:has(> li:hover) > .has-menu:not(:hover) > a { color: inherit; }
+ul:has(> li:hover) > .has-menu:not(:hover) > a svg { transform: none; }
+ul:has(> li:hover) > .has-menu:not(:hover) .menu { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px); transition: opacity .2s ease, transform .3s var(--ease), visibility 0s .3s; }
+.menu-panel { display: grid; gap: 2px; width: 290px; padding: 8px; border-radius: 18px; background: var(--surface); box-shadow: 0 0 0 1px var(--line), 0 24px 48px -16px rgba(0,0,0,.28); }
+.nav .menu a { display: grid; gap: 2px; padding: 10px 14px; border-radius: 12px; color: var(--ink); transition: background-color .2s; }
+.nav .menu a:hover, .nav .menu a:focus-visible { background: var(--chip); }
+.menu b { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; }
+.menu span { font-size: 13px; color: var(--muted); }
+.menu a:last-child:not(:has(span)) { margin-top: 4px; border-top: 1px solid var(--line); border-radius: 0 0 12px 12px; padding-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .menu, .has-menu > a svg { transition: none; } }
+@media (max-width: 940px) { .nav .wrap > ul { display: none; } .nav .wrap { gap: 16px; } }
+
+/* ---------- phone menu ---------- */
+/* Up to 940px the links, language and dark mode move into a sheet behind the menu button (site.js). */
+.burger { display: none; position: relative; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px; background: var(--chip); color: var(--ink); cursor: pointer; }
+.burger i { position: absolute; left: 10px; width: 12px; height: 1.5px; border-radius: 1px; background: currentColor; transition: transform .3s var(--ease), top .3s var(--ease); }
+.burger i:first-child { top: 12.5px; }
+.burger i:last-child { top: 18px; }
+.menu-open .burger i:first-child { top: 15.25px; transform: rotate(45deg); }
+.menu-open .burger i:last-child { top: 15.25px; transform: rotate(-45deg); }
+.sheet { position: fixed; inset: var(--nav-bottom, 52px) 0 0; z-index: 49; overflow-y: auto; overscroll-behavior: contain; background: var(--bg); color: var(--ink); opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .3s var(--ease); }
+.menu-open .sheet { opacity: 1; transform: none; }
+.sheet-body { display: flex; flex-direction: column; padding-top: 20px; padding-bottom: calc(32px + env(safe-area-inset-bottom)); min-height: 100%; }
+.sheet-label { margin-top: 20px; font-size: 13px; font-weight: 500; color: var(--muted); }
+.sheet-label:first-child { margin-top: 0; }
+.sheet ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; }
+.sheet ul a { display: block; padding: 5px 0; font-size: 24px; font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; color: var(--ink); text-decoration: none; }
+.sheet ul a:hover { color: var(--graphite); }
+.sheet .sheet-more { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.sheet-cta { margin-top: 24px; align-self: flex-start; }
+.sheet-prefs { margin-top: auto; padding-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+.sheet-prefs .lang, .theme--label { height: 40px; padding: 0 16px 0 12px; gap: 8px; font: 500 14px/1 var(--sans); }
+.theme--label { width: auto; display: inline-flex; align-items: center; }
+.theme--label[hidden] { display: none; }
+.menu-open, .menu-open body { overflow: hidden; }
+@media (max-width: 940px) {
+  .js .nav .wrap > .lang, .js .nav .wrap > .theme { display: none; }
+  .burger:not([hidden]) { display: inline-block; }
+}
+@media (min-width: 941px) { .sheet { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sheet, .burger i { transition: none; } }
 @media (max-width: 430px) { .nav .btn--sm { display: none; } }
 
 /* ---------- type ---------- */
@@ -240,13 +292,14 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 
 /* ---------- questions ---------- */
 .faq-list { margin-top: clamp(48px, 7vw, 80px); display: grid; gap: 6px; max-width: 860px; }
-.faq-list details { border-radius: 18px; background: var(--band); transition: background-color .2s; }
+.faq-list details { border-radius: 18px; background: var(--band); overflow: hidden; transition: background-color .2s; }
 .faq-list summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; border-radius: 18px; }
 .faq-list summary::-webkit-details-marker { display: none; }
 .faq-list details:not([open]):hover { background: var(--pressed); }
 .faq-list h3 { font-size: clamp(18px, 1.9vw, 21px); letter-spacing: -0.02em; line-height: 1.3; }
 .faq-list summary svg { width: 18px; height: 18px; flex: none; color: var(--muted); transition: transform .3s var(--ease); }
 .faq-list details[open] summary svg { transform: rotate(45deg); }
+.faq-list details.closing summary svg { transform: none; } /* site.js slides the answer shut */
 .faq-list details p { padding: 0 24px 24px; max-width: 64ch; font-size: 17px; line-height: 1.55; color: var(--graphite); }
 @media (prefers-reduced-motion: reduce) { .faq-list summary svg { transition: none; } }
 
@@ -259,6 +312,7 @@ html.js .process.staged .step.on { opacity: 1; transform: none; }
 .tile li { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: var(--surface); }
 .tile--dark { background: var(--surface); color: var(--ink); }
 .tile--dark li { background: var(--chip); }
+.tile-more { margin-top: 24px; align-self: flex-start; }
 .tiles--2 { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
 .tiles--2 .tile:first-child h3 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.045em; }
 .tiles--2 .tile:first-child p { font-size: 19px; max-width: 34ch; }
@@ -357,6 +411,39 @@ figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); max-width: 
 .next:hover h2 svg { transform: translateX(.08em); }
 .next p:not(.eyebrow) { margin-top: 18px; color: var(--graphite); font-size: clamp(19px, 2vw, 24px); max-width: 36ch; }
 .cta-strip { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+
+/* ---------- AI page ---------- */
+.case-head > .eyebrow + h1 { margin-top: 16px; }
+.ai-head { padding-bottom: clamp(88px, 13vw, 160px); }
+.ai-compare { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ai-compare .find-shot { min-height: 0; padding: clamp(20px, 3vw, 32px); border-radius: 28px; font-size: 17px; }
+.find-shot--now { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.tiles--plain .tile { min-height: 0; }
+.tile .eyebrow + h3 { margin-top: 10px; }
+.tile--price h3 { font-size: clamp(44px, 5vw, 64px); letter-spacing: -0.045em; line-height: 1; }
+.band--black .tile { background: var(--surface); }
+.band--black .tile li { background: var(--chip); }
+.cta-strip .lede { max-width: 40ch; }
+@media (max-width: 720px) { .ai-compare { grid-template-columns: 1fr; } }
+
+/* "How AI picks": a line joins Read, Trust and Quote. site.js lights each card in turn (its bar fills) and
+   moves the dot along the line to the next one, setting --at on .flow. */
+.flow-track { position: relative; height: 14px; margin: clamp(40px, 6vw, 72px) calc((100% - 32px) / 6) 0; }
+.flow-track::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; border-radius: 2px; background: var(--line); }
+.flow-fill { position: absolute; left: 0; top: 6px; height: 2px; width: var(--at, 0%); border-radius: 2px; background: var(--ink); transition: width .7s var(--ease); }
+.flow-node { position: absolute; top: 1px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--band); box-shadow: inset 0 0 0 2px var(--line); transition: background-color .3s, box-shadow .3s; }
+.flow-node.on { background: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.flow-dot { position: absolute; top: -4px; left: var(--at, 0%); width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 14%, transparent); transition: left .7s var(--ease); }
+.flow .steps { margin-top: 20px; }
+.flow .step { transition: box-shadow .35s; }
+.flow .step.loading { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.flow-bar { display: block; height: 3px; margin-bottom: 24px; border-radius: 3px; background: var(--chip); overflow: hidden; }
+.flow-bar i { display: block; height: 100%; background: var(--ink); transform: scaleX(0); transform-origin: left; }
+.step.loading .flow-bar i { transform: scaleX(1); transition: transform 1.4s linear .6s; }
+.step.done .flow-bar i { transform: scaleX(1); }
+.flow--reset *, html:not(.js) .flow * { transition: none !important; }
+html:not(.js) .flow-bar i { transform: scaleX(1); }
+@media (max-width: 860px) { .flow-track { display: none; } .flow .steps { margin-top: clamp(40px, 6vw, 72px); } }
 
 /* ---------- footer ---------- */
 /* The footer fills the screen. When it comes into view the wordmark grows on its own from small to the

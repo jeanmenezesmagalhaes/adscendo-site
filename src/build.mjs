@@ -1,10 +1,10 @@
 // Generates the static pages from src/content.mjs. No dependencies.
 //   node src/build.mjs
-// Output: index.html, work/<slug>/index.html, privacy/index.html, and their twins under pt/
+// Output: index.html, work/<slug>/index.html, ai/index.html, privacy/index.html, and their twins under pt/
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -22,6 +22,10 @@ const homePath = lang => base(lang) || "/";
 const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
 const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
 const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
+const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
+const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
+// Where a "Services" menu item or a home tile points: the AI page, a service page or a home section.
+const toPath = (lang, to) => to === "ai" ? aiPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
 // The section's own address and its twin in the other language, for site.js.
 const sectionAttrs = (lang, id) => `id="${id}" data-path="${sectionPath(lang, id)}" data-alt="${sectionPath(other(lang), id)}"`;
 const other = lang => (lang === "en" ? "pt" : "en");
@@ -104,7 +108,30 @@ ${GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_I
 <body>
 ${icons}`;
 
+// A nav item whose menu drops down on hover or keyboard focus (CSS only); the item itself still links to
+// its section. Items are [href, title, line].
+const chevron = `<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const dropdown = (href, label, items) => `<li class="has-menu"><a href="${href}">${label}${chevron}</a><div class="menu"><div class="menu-panel">${items.map(([h, b, line]) => `<a href="${h}"><b>${b}</b>${line ? `<span>${line}</span>` : ""}</a>`).join("")}</div></div></li>`;
 const bestOff = Math.max(...Object.values(quote).map(q => q.off));
+// Phones and small tablets: the links fold into a sheet behind the menu button, with the language and
+// dark mode at its foot (site.js opens it; without JavaScript the button stays hidden).
+const sheet = (lang, altPath) => {
+  const t = ui[lang];
+  const group = (label, items) => `<p class="sheet-label">${label}</p><ul>${items.map(([h, b]) => `<li><a href="${h}">${b}</a></li>`).join("")}</ul>`;
+  return `<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      ${group(t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h]))}
+      ${group(t.nav.work, [...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name]), [sectionPath(lang, "work"), t.menu.allWork]])}
+      <ul class="sheet-more"><li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li><li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li></ul>
+      <a class="btn sheet-cta" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}"><svg aria-hidden="true"><use href="#flag-${other(lang)}"/></svg>${t.other}</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden>${icon("contrast")}${t.darkMode}</button>
+      </div>
+    </nav>
+  </div>`;
+};
+
 const nav = (lang, altPath) => {
   const t = ui[lang];
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
@@ -116,16 +143,21 @@ const nav = (lang, altPath) => {
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>
     <ul>
-      <li><a href="${sectionPath(lang, "build")}">${t.nav.services}</a></li>
-      <li><a href="${sectionPath(lang, "work")}">${t.nav.work}</a></li>
+      ${dropdown(sectionPath(lang, "build"), t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h, x.p]))}
+      ${dropdown(sectionPath(lang, "work"), t.nav.work, [
+        ...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name, p[lang].kind]),
+        [sectionPath(lang, "work"), t.menu.allWork],
+      ])}
       <li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li>
       <li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li>
     </ul>
     <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.switchTo}" title="${t.switchTo}"><svg aria-hidden="true"><use href="#flag-${lang}"/></svg>${lang.toUpperCase()}</a>
     <button class="theme" type="button" aria-pressed="false" aria-label="${t.darkMode}" title="${t.darkMode}" hidden>${icon("contrast")}</button>
     <a class="btn btn--sm" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="${t.menuOpen}" data-open="${t.menuOpen}" data-close="${t.menuClose}" hidden><i></i><i></i></button>
   </div>
-</header>`;
+</header>
+${sheet(lang, altPath)}`;
 };
 
 // The footer fills the screen: as it comes into view the wordmark grows on its own from small to the
@@ -256,7 +288,7 @@ const homePage = lang => {
     const [when, what] = m[lang];
     return `<li${m.now ? ` class="now"` : ""}><time>${when}</time><a href="${casePath(lang, m.slug)}">${what}</a></li>`;
   }).join("\n        ");
-  const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
+  const tiles = c.tiles.map(x => `<article class="tile${x.dark ? " tile--dark" : ""}"><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>${x.to ? `<a class="link tile-more" href="${toPath(lang, x.to)}">${t.learnMore}${icon("arrow")}</a>` : ""}</article>`).join("\n        ");
   // SEO and GEO cards, each above a small mock-up: a search result and an AI answer naming the business.
   const search = c.foundSearch, ai = c.foundAi;
   const shots = [
@@ -265,7 +297,7 @@ const homePage = lang => {
   ];
   const found = c.found.map((x, n) => `<article class="find">${shots[n]}<div class="find-text"><p class="eyebrow">${x.eyebrow}</p><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></div></article>`).join("\n        ");
   // The first answer starts open, so the list reads as questions with answers, not a wall of headings.
-  const questions = faq.map(([q, a], n) => `<details${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
   return head({ lang, title: c.title, description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath) + `
 <main id="main">
   <section class="hero wrap">
@@ -308,7 +340,7 @@ const homePage = lang => {
         ${found}
       </div>
       <p class="find-note">${c.foundNote}</p>
-      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.foundCta}</a></p>
+      <p class="section-cta actions-row"><a class="btn" href="${sectionPath(lang, "contact")}">${c.foundCta}</a><a class="link" href="${aiPath(lang)}">${c.foundMore}${icon("arrow")}</a></p>
     </div>
   </section>
 
@@ -449,6 +481,231 @@ const casePage = (lang, i) => {
 ` + footer(lang, altPath);
 };
 
+// The AI optimization page: a new website sold together with GEO. Before/after AI answers, how AI picks a
+// business, why it takes a new site, what's included, prices (from `quote`), questions and a free AI check.
+const aiPageHtml = lang => {
+  const d = aiPage[lang], c = home[lang], t = ui[lang], path = aiPath(lang), altPath = aiPath(other(lang));
+  const description = fill(lang, d.description);
+  const image = ogImage(cover(projects[0], lang));
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) } },
+      {
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: "Generative engine optimization", description, provider: org,
+        areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
+        offers: Object.entries(quote).map(([k, q]) => ({ "@type": "Offer", name: chat[lang].tiers[k], price: price(q), priceCurrency: "USD" })),
+      },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  // Same question, two answers: today a few other businesses, after the work yours (the home's mock-up).
+  const ai = c.foundAi;
+  const answer = (label, text, source, now) => `<div class="find-shot${now ? " find-shot--now" : ""}"><p class="find-label">${label}</p><p class="find-ask">${ai.ask}</p><p class="find-answer">${text}</p><span class="find-src">${source}</span></div>`;
+  // Without JavaScript the free-check buttons fall back to email; site.js points them at WhatsApp.
+  const check = cls => `<a class="${cls}" data-wa data-wa-text="${esc(d.waText)}" href="mailto:${contact.email}?subject=${encodeURIComponent(d.ctaCheck)}">${d.ctaCheck}</a>`;
+  const card = (x, cls = "") => `<article class="tile${cls}">${x.eyebrow ? `<p class="eyebrow">${x.eyebrow}</p>` : ""}<h3>${x.h}</h3><p>${x.p}</p>${x.chips ? `<ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>` : ""}</article>`;
+  const prices = Object.entries(quote).map(([k, q]) => card({
+    eyebrow: chat[lang].tiers[k], h: money(lang, price(q)),
+    p: d.regular.replace("{price}", money(lang, q.regular)).replace("{off}", q.off), chips: [d.included],
+  }, " tile--price")).join("\n        ");
+  const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  return head({ lang, title: d.title, description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="case-head ai-head wrap">
+    <p class="eyebrow">${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <div class="actions-row">${check("btn")}<a class="btn btn--ghost" href="#prices">${d.ctaPrices}</a></div>
+    <div class="ai-compare" aria-hidden="true">
+      ${answer(d.before.label, d.before.answer, d.before.source)}
+      ${answer(d.after, ai.answer, ai.source, true)}
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .flow">
+      <h2 class="h2">${d.howTitle}</h2>
+      <p class="lede">${d.howLede}</p>
+      <div class="flow" data-flow>
+        <div class="flow-track" aria-hidden="true"><i class="flow-fill"></i>${d.how.map((x, n) => `<i class="flow-node" style="left:${n / (d.how.length - 1) * 100}%"></i>`).join("")}<b class="flow-dot"></b></div>
+        <ol class="steps">
+          ${d.how.map(([h, s], n) => `<li class="step"><span class="flow-bar" aria-hidden="true"><i></i></span><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ")}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+      <h2 class="h2">${d.whyTitle}</h2>
+      <p class="lede">${d.whyLede}</p>
+      <div class="tiles tiles--plain">
+        ${d.why.map(([h, p]) => card({ h, p })).join("\n        ")}
+      </div>
+      <p class="find-note">${d.whyNote}</p>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">${d.incTitle}</h2>
+      <p class="lede">${d.incLede}</p>
+      <div class="tiles tiles--2">
+        ${d.inc.map(x => card(x)).join("\n        ")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="prices">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+      <h2 class="h2">${d.pricesTitle}</h2>
+      <p class="lede">${d.pricesLede}</p>
+      <div class="tiles">
+        ${prices}
+      </div>
+      <p class="find-note">${chat[lang].fine} ${d.honest}</p>
+      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${d.ctaProject}</a></p>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
+      <div class="actions-row">${check("btn")}<a class="btn btn--ghost" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a></div>
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
+// A service page (Websites, Apps): the hero project on a computer and a phone, what's included, how we
+// work (the home's steps), the projects that show it, prices (websites) or how pricing works (apps),
+// questions and a closing call to action. Copy in `servicePages`.
+const servicePageHtml = (lang, key) => {
+  const sp = servicePages[key], d = sp[lang], c = home[lang], t = ui[lang];
+  const path = servicePath(lang, key), altPath = servicePath(other(lang), key);
+  const description = fill(lang, d.description);
+  const hero = projects.find(p => p.slug === sp.hero);
+  const image = ogImage(cover(hero, lang));
+  const faq = d.faq.map(([q, a]) => [q, fill(lang, a)]);
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) }, primaryImageOfPage: abs(image.src) },
+      {
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: sp.serviceType, description, provider: org,
+        areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
+        ...(sp.prices ? { offers: Object.entries(quote).map(([k, q]) => ({ "@type": "Offer", name: chat[lang].tiers[k], price: price(q), priceCurrency: "USD" })) } : {}),
+      },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  const card = (x, cls = "") => `<article class="tile${cls}">${x.eyebrow ? `<p class="eyebrow">${x.eyebrow}</p>` : ""}<h3>${x.h}</h3><p>${x.p}</p>${x.chips ? `<ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>` : ""}</article>`;
+  const work = sp.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
+    const w = p[lang];
+    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
+        <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
+        <div class="media">${browser(cover(p, lang), p.host, w.name)}</div>
+      </li>`;
+  }).join("\n      ");
+  const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
+  const prices = sp.prices ? `<div class="tiles">
+        ${Object.entries(quote).map(([k, q]) => card({
+          eyebrow: chat[lang].tiers[k], h: money(lang, price(q)),
+          p: d.regular.replace("{price}", money(lang, q.regular)).replace("{off}", q.off), chips: d.priceChips,
+        }, " tile--price")).join("\n        ")}
+      </div>
+      <p class="find-note">${chat[lang].fine}</p>` : "";
+  const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const contactHref = sectionPath(lang, "contact");
+  return head({ lang, title: d.title, description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a><a class="btn btn--ghost" href="#${sp.prices ? "prices" : "work"}">${d.ctaSecond}</a></div>
+    ${duo(hero, lang, true)}
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">${d.incTitle}</h2>
+      <p class="lede">${d.incLede}</p>
+      <div class="tiles tiles--plain">
+        ${d.inc.map(([h, p]) => card({ h, p })).join("\n        ")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .step">
+      <h2 class="h2">${c.processTitle}</h2>
+      <p class="lede">${c.processLede}</p>
+      <ol class="steps">
+          ${steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="work">
+    <div class="wrap" data-rise=".h2, .lede, .proj">
+      <h2 class="h2">${d.workTitle}</h2>
+      <p class="lede">${d.workLede}</p>
+      <ul class="projects">
+      ${work}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="prices">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note, .section-cta">
+      <h2 class="h2">${d.pricesTitle}</h2>
+      <p class="lede">${d.pricesLede}</p>
+      ${prices}
+      <p class="section-cta"><a class="btn" href="${contactHref}">${d.ctaMain}</a></p>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
+      <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a></div>
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
 const privacyPage = lang => {
   const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
   const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
@@ -482,6 +739,8 @@ for (const lang of LANGS) {
   const prefix = lang === "en" ? "" : "pt/";
   write(`${prefix}index.html`, homePage(lang));
   projects.forEach((p, i) => write(`${prefix}work/${p.slug}/index.html`, casePage(lang, i)));
+  write(`${prefix}${aiPage[lang].slug}/index.html`, aiPageHtml(lang));
+  for (const key in servicePages) write(`${prefix}${servicePages[key][lang].slug}/index.html`, servicePageHtml(lang, key));
   write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
 
@@ -494,8 +753,14 @@ vercel.rewrites = LANGS.map(lang => ({
 }));
 write("vercel.json", JSON.stringify(vercel, null, 2) + "\n");
 
-// Every page as [en path, pt path], for the sitemap and llms.txt.
-const pairs = [["/", "/pt"], ...projects.map(p => [casePath("en", p.slug), casePath("pt", p.slug)])];
+// Every page with its English name and description, for the sitemap and llms.txt.
+const pages = [
+  { paths: ["/", "/pt"], name: "Home", desc: fill("en", home.en.description) },
+  ...Object.keys(servicePages).map(key => ({ paths: [servicePath("en", key), servicePath("pt", key)], name: servicePages[key].en.name, desc: fill("en", servicePages[key].en.description) })),
+  { paths: [aiPath("en"), aiPath("pt")], name: aiPage.en.name, desc: fill("en", aiPage.en.description) },
+  ...projects.map(p => ({ paths: [casePath("en", p.slug), casePath("pt", p.slug)], name: p.en.name, desc: p.en.description })),
+];
+const pairs = pages.map(p => p.paths);
 
 // Search engines and AI assistants (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, PerplexityBot,
 // Claude-SearchBot…) may read every page: being quoted by them is the point. Only the form endpoint is off.
@@ -540,10 +805,7 @@ ${en.faq.map(([q, a]) => `### ${q}\n\n${strip(fill("en", a))}`).join("\n\n")}
 
 ## Pages
 
-${pairs.map(([enPath, ptPath], i) => {
-  const [name, desc] = i ? [projects[i - 1].en.name, projects[i - 1].en.description] : ["Home", fill("en", en.description)];
-  return `- [${name}](${SITE}${enPath}): ${strip(desc)} Portuguese: ${SITE}${ptPath}`;
-}).join("\n")}
+${pages.map(({ paths: [enPath, ptPath], name, desc }) => `- [${name}](${SITE}${enPath}): ${strip(desc)} Portuguese: ${SITE}${ptPath}`).join("\n")}
 
 ## Contact
 

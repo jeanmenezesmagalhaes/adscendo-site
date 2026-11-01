@@ -8,8 +8,8 @@ Adscendo is the web design and development studio of Jean Menezes, founded in Oc
 
 - Websites: Beautiful, fast sites that tell your story in seconds and turn visitors into customers.
 - Apps: When a website isn't enough: apps your customers open every day.
-- Search Engine Optimization: Google needs to understand what you do and where you do it. We give it fast pages, a clear structure and the words your customers really type.
-- Generative Engine Optimization: Ask ChatGPT, Gemini or Perplexity for a recommendation and they read the web, then name a few businesses. We make your site easy for them to read, trust and quote.
+- Show up on Google: Google needs to understand what you do and where you do it. We give it fast pages, clear organization and the words your customers really type.
+- Get recommended by AI: Ask ChatGPT, Gemini or Perplexity for a recommendation and they read the web, then name a few businesses. We make your site easy for them to read, trust and recommend.
 
 ## Prices (USD)
 
@@ -38,7 +38,7 @@ In three steps. First we meet to learn how your business works and where you wan
 
 ### Will my business show up on Google and in ChatGPT?
 
-We build every site to be found: fast pages, a clear structure, structured data, local search and content written the way your customers ask. Search engines and AI assistants can read it, trust it and quote it. Nobody can honestly guarantee first place, so we show you where you stand and what is improving.
+We build every site to be found: fast pages, clear organization, your details in a format Google and AI understand, and words written the way your customers ask. Search engines and AI assistants can read it, trust it and recommend it. Nobody can honestly guarantee first place, so we show you where you stand and what is improving.
 
 ### Do you work with businesses outside the US?
 
@@ -51,6 +51,9 @@ Answer a few questions in the chat below. It takes less than a minute and gives 
 ## Pages
 
 - [Home](https://adscendo.pro/): Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch. Portuguese: https://adscendo.pro/pt
+- [Websites](https://adscendo.pro/websites): Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
+- [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online. Portuguese: https://adscendo.pro/pt/apps
+- [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch. Portuguese: https://adscendo.pro/pt/ia
 - [Prospector](https://adscendo.pro/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026. Portuguese: https://adscendo.pro/pt/work/prospector
 - [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026. Portuguese: https://adscendo.pro/pt/work/minha-companhia
 - [Sidemed](https://adscendo.pro/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house. Portuguese: https://adscendo.pro/pt/work/sidemed

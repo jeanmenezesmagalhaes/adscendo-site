@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Websites built for AI search: ChatGPT, Gemini and Perplexity | Adscendo</title>
+<meta name="description" content="A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="Websites built for AI search: ChatGPT, Gemini and Perplexity | Adscendo">
+<meta property="og:description" content="A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/ai">
+<meta property="og:image" content="https://adscendo.pro/assets/og/prospector/globe.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="Be the answer AI gives.">
+<link rel="canonical" href="https://adscendo.pro/ai">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/ai">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/ia">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/ai">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://adscendo.pro/ai","url":"https://adscendo.pro/ai","name":"Websites built for AI search: ChatGPT, Gemini and Perplexity | Adscendo","description":"A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.","inLanguage":"en","isPartOf":{"@id":"https://adscendo.pro/#website"},"about":{"@id":"https://adscendo.pro/ai#service"}},{"@type":"Service","@id":"https://adscendo.pro/ai#service","name":"AI optimization","serviceType":"Generative engine optimization","description":"A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.","provider":{"@id":"https://adscendo.pro/#org"},"areaServed":[{"@type":"Country","name":"United States"},{"@type":"Country","name":"Brazil"}],"offers":[{"@type":"Offer","name":"A new website, from scratch","price":400,"priceCurrency":"USD"},{"@type":"Offer","name":"A new version of your website","price":840,"priceCurrency":"USD"},{"@type":"Offer","name":"A new website, with your integrations","price":1900,"priceCurrency":"USD"}]},{"@type":"FAQPage","@id":"https://adscendo.pro/ai#faq","inLanguage":"en","mainEntity":[{"@type":"Question","name":"What is AI optimization?","acceptedAnswer":{"@type":"Answer","text":"It's the work that makes your website easy for AI assistants like ChatGPT, Gemini and Perplexity to read, trust and recommend. Being found on Google gets you on a list of links. Being recommended by AI gets your name in the answer. You may also see it called GEO."}},{"@type":"Question","name":"Why do you sell it with a new website?","acceptedAnswer":{"@type":"Answer","text":"Because most of what AI needs is built into the site itself: how the pages load, how they are organized and what they say. Fixing that on an old site usually costs more and works worse than building a new one the right way, so we do both in one project, for one price."}},{"@type":"Question","name":"Can you guarantee ChatGPT will recommend my business?","acceptedAnswer":{"@type":"Answer","text":"No, and be careful with anyone who does. AI answers change with each question, each person and each day. We guarantee that AI can read, understand and trust your site, and we show you where you stand before and after launch."}},{"@type":"Question","name":"How long until AI starts mentioning my business?","acceptedAnswer":{"@type":"Answer","text":"It varies. AI tools that look things up online as they answer, like ChatGPT, Perplexity and Google's AI answers, can find a new site within a few weeks. What they already \"know\" changes more slowly, over months. We ask the same questions at launch and again later, so you see what changed."}},{"@type":"Question","name":"Does this replace being found on Google?","acceptedAnswer":{"@type":"Answer","text":"No, they work together. AI tools use Google and Bing to find websites, so every site we build is set up for both."}},{"@type":"Question","name":"What is the free AI check?","acceptedAnswer":{"@type":"Answer","text":"We ask ChatGPT, Gemini and Perplexity the questions your customers ask, look at how your website is built and send you one page with what we found. It is free, and you don't have to hire us."}},{"@type":"Question","name":"Do you keep track after launch?","acceptedAnswer":{"@type":"Answer","text":"If you want. We can repeat the AI check every month and send you a short report: where your business appeared, who appeared instead and what we changed. Ask about it when we talk."}},{"@type":"Question","name":"My website is new and I like it. Can you do only the AI part?","acceptedAnswer":{"@type":"Answer","text":"Sometimes. If your site is recent and well built, we can add AI optimization to it. Send us the address and we'll tell you honestly whether it's worth it."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo.pro/"},{"@type":"ListItem","position":2,"name":"AI optimization","item":"https://adscendo.pro/ai"}]}]}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<div class="offer" role="region" aria-label="Launch offer">
+  <p><b>Launch offer.</b> We're taking on our first clients in the US to build our portfolio, so projects are up to 50% off. <a href="/contact">Get a quote<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+  <button class="offer-close" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/websites"><b>Websites</b><span>Fast sites that bring in customers</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a><a href="/ai"><b>AI optimization</b><span>Get recommended by ChatGPT and other AIs</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/portfolio"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/ia" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/contact">Get in touch</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li><li><a href="/ai">AI optimization</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/portfolio">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="/contact">Get in touch</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/ia" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="case-head ai-head wrap">
+    <p class="eyebrow">New website + AI optimization</p>
+    <h1>Be the answer AI gives.</h1>
+    <p class="lede">More and more customers ask ChatGPT before they search on Google. We build you a new website made for AI to read, trust and recommend.</p>
+    <div class="actions-row"><a class="btn" data-wa data-wa-text="Hi Jean, I'd like a free AI check for my business. My website is: " href="mailto:jean@adscendo.pro?subject=Get%20a%20free%20AI%20check">Get a free AI check</a><a class="btn btn--ghost" href="#prices">See prices</a></div>
+    <div class="ai-compare" aria-hidden="true">
+      <div class="find-shot"><p class="find-label">Before</p><p class="find-ask">Who's a good family dentist in Austin?</p><p class="find-answer">Three popular options are <b>Practice A</b>, <b>Practice B</b> and <b>Practice C</b>.</p><span class="find-src">3 other websites</span></div>
+      <div class="find-shot find-shot--now"><p class="find-label">After</p><p class="find-ask">Who's a good family dentist in Austin?</p><p class="find-answer">A great pick is <b>Your Business</b>: highly rated, open on Saturdays and known for being gentle with kids.</p><span class="find-src">yourbusiness.com</span></div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .flow">
+      <h2 class="h2">How AI picks who to recommend.</h2>
+      <p class="lede">ChatGPT, Gemini and Perplexity read the web, then name a few businesses. To be one of them, your site has to pass three tests.</p>
+      <div class="flow" data-flow>
+        <div class="flow-track" aria-hidden="true"><i class="flow-fill"></i><i class="flow-node" style="left:0%"></i><i class="flow-node" style="left:50%"></i><i class="flow-node" style="left:100%"></i><b class="flow-dot"></b></div>
+        <ol class="steps">
+          <li class="step"><span class="flow-bar" aria-hidden="true"><i></i></span><p class="num">01</p><h3>Read</h3><p>AI tools visit websites to read them, a bit like a person would. If your site turns them away or is hard to read, they move on to the next one.</p></li>
+          <li class="step"><span class="flow-bar" aria-hidden="true"><i></i></span><p class="num">02</p><h3>Trust</h3><p>They check that you are real: the same name, address and phone everywhere, reviews, and who runs the business.</p></li>
+          <li class="step"><span class="flow-bar" aria-hidden="true"><i></i></span><p class="num">03</p><h3>Quote</h3><p>They pick sentences that answer the question directly. A site that answers what your customers ask, in plain words, gets quoted.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+      <h2 class="h2">Why it comes with a new website.</h2>
+      <p class="lede">Most small business sites were made before anyone asked AI for a recommendation. They tend to fail in the same three ways.</p>
+      <div class="tiles tiles--plain">
+        <article class="tile"><h3>Closed to AI</h3><p>Many sites turn AI tools away without the owner knowing, because of a setting nobody remembers turning on.</p></article>
+        <article class="tile"><h3>Hard to read</h3><p>On many sites the important words are inside pictures, behind pop-ups or slow to appear. People can see them. AI often can't.</p></article>
+        <article class="tile"><h3>Nothing to quote</h3><p>The site never says clearly what you do, where and for whom, and doesn't answer the questions customers really ask.</p></article>
+      </div>
+      <p class="find-note">Patching an old site piece by piece usually costs more and works worse. So we build the new one with AI optimization inside from day one.</p>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">What's included.</h2>
+      <p class="lede">One project, one price: a new website, and everything AI needs to recommend it.</p>
+      <div class="tiles tiles--2">
+        <article class="tile"><h3>A new website</h3><p>Fast, beautiful and made for phones. It tells your story in seconds and turns visits into calls, bookings and messages.</p><ul><li>Designed for phones</li><li>Fast loading</li><li>Booking and contact</li><li>One or more languages</li><li>Ready for Google</li></ul></article>
+        <article class="tile"><h3>AI optimization</h3><p>What ChatGPT, Gemini and Perplexity look for when they decide who to recommend.</p><ul><li>Open to AI tools</li><li>A summary of your business written for AI</li><li>Your details in a format AI understands</li><li>Answers to your customers' questions</li><li>A page for each service</li><li>Your experience and reviews</li><li>Same details on Google, Bing and Apple Maps</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="prices">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+      <h2 class="h2">Prices.</h2>
+      <p class="lede">AI optimization is included in every website.</p>
+      <div class="tiles">
+        <article class="tile tile--price"><p class="eyebrow">A new website, from scratch</p><h3>$400</h3><p>$800 regular · 50% launch discount</p><ul><li>AI optimization included</li></ul></article>
+        <article class="tile tile--price"><p class="eyebrow">A new version of your website</p><h3>$840</h3><p>$1,200 regular · 30% launch discount</p><ul><li>AI optimization included</li></ul></article>
+        <article class="tile tile--price"><p class="eyebrow">A new website, with your integrations</p><h3>$1,900</h3><p>$2,000 regular · 5% launch discount</p><ul><li>AI optimization included</li></ul></article>
+      </div>
+      <p class="find-note">Estimate only. Final price after a closer look at your project. Nobody can honestly guarantee that an AI will recommend you: answers change with each question and each person. We guarantee that AI can read, understand and trust your site, and we show you where you stand.</p>
+      <p class="section-cta"><a class="btn" href="/contact">Start a project</a></p>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">Questions about AI optimization.</h2>
+      <div class="faq-list">
+        <details name="faq" open><summary><h3>What is AI optimization?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>It's the work that makes your website easy for AI assistants like ChatGPT, Gemini and Perplexity to read, trust and recommend. Being found on Google gets you on a list of links. Being recommended by AI gets your name in the answer. You may also see it called GEO.</p></details>
+        <details name="faq"><summary><h3>Why do you sell it with a new website?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Because most of what AI needs is built into the site itself: how the pages load, how they are organized and what they say. Fixing that on an old site usually costs more and works worse than building a new one the right way, so we do both in one project, for one price.</p></details>
+        <details name="faq"><summary><h3>Can you guarantee ChatGPT will recommend my business?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>No, and be careful with anyone who does. AI answers change with each question, each person and each day. We guarantee that AI can read, understand and trust your site, and we show you where you stand before and after launch.</p></details>
+        <details name="faq"><summary><h3>How long until AI starts mentioning my business?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>It varies. AI tools that look things up online as they answer, like ChatGPT, Perplexity and Google's AI answers, can find a new site within a few weeks. What they already "know" changes more slowly, over months. We ask the same questions at launch and again later, so you see what changed.</p></details>
+        <details name="faq"><summary><h3>Does this replace being found on Google?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>No, they work together. AI tools use Google and Bing to find websites, so every site we build is set up for both.</p></details>
+        <details name="faq"><summary><h3>What is the free AI check?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>We ask ChatGPT, Gemini and Perplexity the questions your customers ask, look at how your website is built and send you one page with what we found. It is free, and you don't have to hire us.</p></details>
+        <details name="faq"><summary><h3>Do you keep track after launch?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>If you want. We can repeat the AI check every month and send you a short report: where your business appeared, who appeared instead and what we changed. Ask about it when we talk.</p></details>
+        <details name="faq"><summary><h3>My website is new and I like it. Can you do only the AI part?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Sometimes. If your site is recent and well built, we can add AI optimization to it. Send us the address and we'll tell you honestly whether it's worth it.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">Is AI recommending you?</h2><p class="lede">Send us your website. We ask ChatGPT, Gemini and Perplexity what your customers ask, and show you what they answer. Free, on one page.</p></div>
+      <div class="actions-row"><a class="btn" data-wa data-wa-text="Hi Jean, I'd like a free AI check for my business. My website is: " href="mailto:jean@adscendo.pro?subject=Get%20a%20free%20AI%20check">Get a free AI check</a><a class="btn btn--ghost" href="/contact">Get in touch</a></div>
+    </div>
+  </section>
+</main>
+<a class="btn float-cta" href="/contact" hidden>Get in touch</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/contact">Get in touch</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/ia" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small business website design, built to be found | Adscendo</title>
+<meta name="description" content="Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="Small business website design, built to be found | Adscendo">
+<meta property="og:description" content="Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/websites">
+<meta property="og:image" content="https://adscendo.pro/assets/og/minha-companhia/home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="A website that brings you customers.">
+<link rel="canonical" href="https://adscendo.pro/websites">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/websites">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/sites">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/websites">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://adscendo.pro/websites","url":"https://adscendo.pro/websites","name":"Small business website design, built to be found | Adscendo","description":"Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.","inLanguage":"en","isPartOf":{"@id":"https://adscendo.pro/#website"},"about":{"@id":"https://adscendo.pro/websites#service"},"primaryImageOfPage":"https://adscendo.pro/assets/og/minha-companhia/home.jpg"},{"@type":"Service","@id":"https://adscendo.pro/websites#service","name":"Websites","serviceType":"Web design","description":"Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.","provider":{"@id":"https://adscendo.pro/#org"},"areaServed":[{"@type":"Country","name":"United States"},{"@type":"Country","name":"Brazil"}],"offers":[{"@type":"Offer","name":"A new website, from scratch","price":400,"priceCurrency":"USD"},{"@type":"Offer","name":"A new version of your website","price":840,"priceCurrency":"USD"},{"@type":"Offer","name":"A new website, with your integrations","price":1900,"priceCurrency":"USD"}]},{"@type":"FAQPage","@id":"https://adscendo.pro/websites#faq","inLanguage":"en","mainEntity":[{"@type":"Question","name":"How much does a website cost?","acceptedAnswer":{"@type":"Answer","text":"A new website built from scratch costs $800, or $400 with our 50% launch discount. A new version of an existing website costs $1,200 ($840 at launch), and a website with integrations like online booking, payments or a CRM costs $2,000 ($1,900 at launch). The final price comes after a closer look at your project."}},{"@type":"Question","name":"I already have a website. Do I need a new one?","acceptedAnswer":{"@type":"Answer","text":"Not always. If your site is slow, hard to use on a phone or doesn't bring in customers, a new version usually pays off, and it costs less than starting from scratch because we reuse what already works: $840 at launch. Send us the address and we'll tell you honestly what we'd do."}},{"@type":"Question","name":"Will my business show up on Google and in ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"We build every site to be found: fast pages, clear organization, your details in a format Google and AI understand, and words written the way your customers ask. Nobody can honestly guarantee first place, so we show you where you stand and what is improving."}},{"@type":"Question","name":"Do we need to meet in person?","acceptedAnswer":{"@type":"Answer","text":"No. Adscendo works 100% remotely: we talk by video call, send updates by email or WhatsApp, and you try each version on your own phone and computer before it goes live."}},{"@type":"Question","name":"Who will build my website?","acceptedAnswer":{"@type":"Answer","text":"Jean Menezes, Adscendo's founder, works with you directly. Before founding Adscendo in October 2026, Jean spent years designing and building digital products for large companies, with projects for McDonald's, AT&T, Petronas, PagBank and Multilaser."}},{"@type":"Question","name":"How do I get started?","acceptedAnswer":{"@type":"Answer","text":"Answer a few questions in the chat on our contact page. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo.pro/"},{"@type":"ListItem","position":2,"name":"Websites","item":"https://adscendo.pro/websites"}]}]}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<div class="offer" role="region" aria-label="Launch offer">
+  <p><b>Launch offer.</b> We're taking on our first clients in the US to build our portfolio, so projects are up to 50% off. <a href="/contact">Get a quote<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+  <button class="offer-close" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/websites"><b>Websites</b><span>Fast sites that bring in customers</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a><a href="/ai"><b>AI optimization</b><span>Get recommended by ChatGPT and other AIs</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/portfolio"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/sites" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/contact">Get in touch</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li><li><a href="/ai">AI optimization</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/portfolio">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="/contact">Get in touch</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/sites" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">Websites</p>
+    <h1>A website that brings you customers.</h1>
+    <p class="lede">Beautiful, fast sites that tell your story in seconds and turn visits into calls, bookings and messages. We design it, build it and put it live for you.</p>
+    <div class="actions-row"><a class="btn" href="/contact">Get a quote</a><a class="btn btn--ghost" href="#prices">See prices</a></div>
+    <div class="duo"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>minhacompanhia.com.br</span></div><img src="/assets/work/minha-companhia/home.webp" width="1440" height="900" alt="Minha companhia, desktop" fetchpriority="high" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#fff" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/minha-companhia/home-m.webp" width="780" height="1688" alt="Minha companhia, phone" fetchpriority="high" decoding="async"></div></div></div></div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">What every website includes.</h2>
+      <p class="lede">Nothing to add on later. Every site comes with the basics done properly.</p>
+      <div class="tiles tiles--plain">
+        <article class="tile"><h3>Designed for phones</h3><p>Most customers will meet your business on a phone first. We design for that screen, then for the computer.</p></article>
+        <article class="tile"><h3>Fast</h3><p>Pages that open in a blink, even on a weak signal. Slow sites lose visitors before they read a word.</p></article>
+        <article class="tile"><h3>Found on Google</h3><p>Clear pages, the words your customers really type and your details where Google looks for them, Maps included.</p></article>
+        <article class="tile"><h3>Recommended by AI</h3><p>Built so ChatGPT, Gemini and Perplexity can read your site, trust it and name you in their answers.</p></article>
+        <article class="tile"><h3>Booking and contact</h3><p>A way to call, message, book or ask for a quote on every page, so a visit turns into a conversation.</p></article>
+        <article class="tile"><h3>One or more languages</h3><p>One language or several, each with its own address, so Google shows each customer the right one.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .step">
+      <h2 class="h2">How we work.</h2>
+      <p class="lede">Simple, from the first conversation to launch day.</p>
+      <ol class="steps">
+          <li class="step"><p class="num">01</p><h3>Listen</h3><p>We meet, learn how your business works, what gets in the way and where you want to go. Then we show you how we can help.</p></li>
+          <li class="step"><p class="num">02</p><h3>Build</h3><p>We design and build a first version, and you see it working on your own phone and computer.</p></li>
+          <li class="step"><p class="num">03</p><h3>Launch</h3><p>We adjust whatever is needed and put it live for you. You never have to touch anything technical.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="work">
+    <div class="wrap" data-rise=".h2, .lede, .proj">
+      <h2 class="h2">Websites we've built.</h2>
+      <p class="lede">Each one with its full story: the brief, the decisions and the site as it went live.</p>
+      <ul class="projects">
+      <li class="proj" style="--tint:#e5efe8" data-cursor="view" data-cursor-color="#f18eb2" data-cursor-ink="#0f281f">
+        <div class="text"><p class="eyebrow">Marketplace</p><h3>Minha companhia</h3><p>Families book a verified professional to take their older parents to the doctor, an exam or the bank, and bring them home.</p><div class="proj-actions"><a class="link stretch" href="/work/minha-companhia">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>minhacompanhia.com.br</span></div><img src="/assets/work/minha-companhia/home.webp" width="1440" height="900" alt="Minha companhia" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#f3eee3" data-cursor="view" data-cursor-color="#1957ff" data-cursor-ink="#ffffff">
+        <div class="text"><p class="eyebrow">Health</p><h3>Sidemed</h3><p>Your medical history, organized, translated into your doctor's language and shared in seconds. Used in 17 countries.</p><div class="proj-actions"><a class="link stretch" href="/work/sidemed">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>sidemed.com.br</span></div><img src="/assets/work/sidemed/hero.webp" width="1600" height="1000" alt="Sidemed" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#ececf0" data-cursor="view">
+        <div class="text"><p class="eyebrow">The studio</p><h3>Adscendo</h3><p>Who we are, and how we help American businesses stand out from the crowd.</p><div class="proj-actions"><a class="link stretch" href="/work/adscendo">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>adscendo.pro</span></div><img src="/assets/work/adscendo/home.webp" width="1440" height="900" alt="Adscendo" loading="lazy" decoding="async"></div></div>
+      </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="prices">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note, .section-cta">
+      <h2 class="h2">Prices.</h2>
+      <p class="lede">One price for the whole project, with a launch discount for our first clients in the US.</p>
+      <div class="tiles">
+        <article class="tile tile--price"><p class="eyebrow">A new website, from scratch</p><h3>$400</h3><p>$800 regular · 50% launch discount</p><ul><li>Design and build</li><li>Google and AI setup</li><li>Put live for you</li></ul></article>
+        <article class="tile tile--price"><p class="eyebrow">A new version of your website</p><h3>$840</h3><p>$1,200 regular · 30% launch discount</p><ul><li>Design and build</li><li>Google and AI setup</li><li>Put live for you</li></ul></article>
+        <article class="tile tile--price"><p class="eyebrow">A new website, with your integrations</p><h3>$1,900</h3><p>$2,000 regular · 5% launch discount</p><ul><li>Design and build</li><li>Google and AI setup</li><li>Put live for you</li></ul></article>
+      </div>
+      <p class="find-note">Estimate only. Final price after a closer look at your project.</p>
+      <p class="section-cta"><a class="btn" href="/contact">Get a quote</a></p>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">Questions about websites.</h2>
+      <div class="faq-list">
+        <details name="faq" open><summary><h3>How much does a website cost?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>A new website built from scratch costs $800, or $400 with our 50% launch discount. A new version of an existing website costs $1,200 ($840 at launch), and a website with integrations like online booking, payments or a CRM costs $2,000 ($1,900 at launch). The final price comes after a closer look at your project.</p></details>
+        <details name="faq"><summary><h3>I already have a website. Do I need a new one?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Not always. If your site is slow, hard to use on a phone or doesn't bring in customers, a new version usually pays off, and it costs less than starting from scratch because we reuse what already works: $840 at launch. Send us the address and we'll tell you honestly what we'd do.</p></details>
+        <details name="faq"><summary><h3>Will my business show up on Google and in ChatGPT?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>We build every site to be found: fast pages, clear organization, your details in a format Google and AI understand, and words written the way your customers ask. Nobody can honestly guarantee first place, so we show you where you stand and what is improving.</p></details>
+        <details name="faq"><summary><h3>Do we need to meet in person?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>No. Adscendo works 100% remotely: we talk by video call, send updates by email or WhatsApp, and you try each version on your own phone and computer before it goes live.</p></details>
+        <details name="faq"><summary><h3>Who will build my website?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Jean Menezes, Adscendo's founder, works with you directly. Before founding Adscendo in October 2026, Jean spent years designing and building digital products for large companies, with projects for McDonald's, AT&T, Petronas, PagBank and Multilaser.</p></details>
+        <details name="faq"><summary><h3>How do I get started?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Answer a few questions in the chat on our contact page. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">Let's build yours.</h2><p class="lede">Tell us about your business. In less than a minute you get a first estimate, and we reply within 6 hours.</p></div>
+      <div class="actions-row"><a class="btn" href="/contact">Get a quote</a></div>
+    </div>
+  </section>
+</main>
+<a class="btn float-cta" href="/contact" hidden>Get in touch</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/contact">Get in touch</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/sites" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

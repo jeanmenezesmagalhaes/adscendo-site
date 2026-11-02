@@ -486,6 +486,16 @@ html:not(.js) .outro-meta { opacity: 1; }
 /* ---------- motion ---------- */
 html.js .rise { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
 html.js .rise.in { opacity: 1; transform: none; }
+/* On phones everything stacks, so cards enter one at a time and a fade fired on arrival reads as a pop.
+   There the rise follows the scroll instead: each block slides up as it comes into view and is in place
+   after about 240px of scrolling, whatever its height. Browsers without scroll-driven animations keep the
+   fade above. */
+@supports (animation-timeline: view()) {
+  @media (max-width: 820px) {
+    html.js .rise, html.js .rise.in { opacity: 1; transform: none; transition: none; animation: rise-in linear both; animation-timeline: view(); animation-range: entry 0px entry 240px; }
+  }
+}
+@keyframes rise-in { from { opacity: 0; transform: translateY(48px); } }
 /* Page to page: the page underneath fades out and the next one rises in, the nav holds still, and the
    project's screenshot and name travel to their place on the next page (assets/transitions.js names them). */
 @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
@@ -498,7 +508,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(16px); } }
 @media (prefers-reduced-motion: reduce) {
-  html.js .rise { opacity: 1; transform: none; transition: none; }
+  html.js .rise, html.js .rise.in { opacity: 1; transform: none; transition: none; animation: none; }
   html { scroll-behavior: auto; }
   .hero > * { animation: none; }
 }

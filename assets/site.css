@@ -134,16 +134,18 @@ ul:has(> li:hover) > .has-menu:not(:hover) .menu { opacity: 0; visibility: hidde
 @media (max-width: 940px) { .nav .wrap > ul { display: none; } .nav .wrap { gap: 16px; } }
 
 /* ---------- phone menu ---------- */
-/* Up to 940px the links, language and dark mode move into a sheet behind the menu button (site.js). */
+/* Up to 940px the links, language and dark mode move into a sheet behind the menu button (site.js). It
+   covers the whole screen under the nav, so nothing of the page shows around it even when iOS lets the
+   page scroll underneath; its content starts below the nav (--nav-bottom, kept current by site.js). */
 .burger { display: none; position: relative; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px; background: var(--chip); color: var(--ink); cursor: pointer; }
 .burger i { position: absolute; left: 10px; width: 12px; height: 1.5px; border-radius: 1px; background: currentColor; transition: transform .3s var(--ease), top .3s var(--ease); }
 .burger i:first-child { top: 12.5px; }
 .burger i:last-child { top: 18px; }
 .menu-open .burger i:first-child { top: 15.25px; transform: rotate(45deg); }
 .menu-open .burger i:last-child { top: 15.25px; transform: rotate(-45deg); }
-.sheet { position: fixed; inset: var(--nav-bottom, 52px) 0 0; z-index: 49; overflow-y: auto; overscroll-behavior: contain; background: var(--bg); color: var(--ink); opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .3s var(--ease); }
+.sheet { position: fixed; inset: 0; z-index: 49; overflow-y: auto; overscroll-behavior: contain; background: var(--bg); color: var(--ink); opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .3s var(--ease); }
 .menu-open .sheet { opacity: 1; transform: none; }
-.sheet-body { display: flex; flex-direction: column; padding-top: 20px; padding-bottom: calc(32px + env(safe-area-inset-bottom)); min-height: 100%; }
+.sheet-body { display: flex; flex-direction: column; padding-top: calc(var(--nav-bottom, 52px) + 20px); padding-bottom: calc(32px + env(safe-area-inset-bottom)); min-height: 100%; }
 .sheet-label { margin-top: 20px; font-size: 13px; font-weight: 500; color: var(--muted); }
 .sheet-label:first-child { margin-top: 0; }
 .sheet ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; }
@@ -155,7 +157,8 @@ ul:has(> li:hover) > .has-menu:not(:hover) .menu { opacity: 0; visibility: hidde
 .sheet-prefs .lang, .theme--label { height: 40px; padding: 0 16px 0 12px; gap: 8px; font: 500 14px/1 var(--sans); }
 .theme--label { width: auto; display: inline-flex; align-items: center; }
 .theme--label[hidden] { display: none; }
-.menu-open, .menu-open body { overflow: hidden; }
+/* Only the root: overflow on body would make it a scroll container and unstick the nav. */
+html.menu-open { overflow: hidden; }
 @media (max-width: 940px) {
   .js .nav .wrap > .lang, .js .nav .wrap > .theme { display: none; }
   .burger:not([hidden]) { display: inline-block; }

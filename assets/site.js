@@ -104,9 +104,10 @@ if (themeBtns.length) {
 // window closes it. The page behind doesn't scroll while it's open.
 const burger = document.querySelector(".burger"), sheet = document.getElementById("nav-sheet");
 if (burger && sheet) {
-  const root = document.documentElement, wide = matchMedia("(min-width: 941px)");
+  const root = document.documentElement, wide = matchMedia("(min-width: 941px)"), bar = burger.closest(".nav");
+  const place = () => root.style.setProperty("--nav-bottom", Math.max(0, bar.getBoundingClientRect().bottom) + "px");
   const set = open => {
-    if (open) root.style.setProperty("--nav-bottom", Math.max(0, burger.closest(".nav").getBoundingClientRect().bottom) + "px");
+    if (open) place();
     sheet.hidden = false;
     requestAnimationFrame(() => root.classList.toggle("menu-open", open));
     burger.setAttribute("aria-expanded", open);
@@ -118,6 +119,8 @@ if (burger && sheet) {
   sheet.addEventListener("click", e => { if (e.target.closest("a")) set(false); });
   addEventListener("keydown", e => { if (e.key === "Escape" && root.classList.contains("menu-open")) { set(false); burger.focus(); } });
   wide.addEventListener("change", () => wide.matches && set(false));
+  // iOS scrolls the page under an open sheet anyway; keep the sheet's content just below the nav.
+  addEventListener("scroll", () => root.classList.contains("menu-open") && place(), { passive: true });
 }
 
 const wa = document.getElementById("wa");

@@ -245,8 +245,11 @@ const heroDemo = (p, lang) => {
 };
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
+// Native Mac apps (p.window) show their own window, title bar included, instead of a browser and a phone.
+const shot = (p, lang, alt, eager) => p.window ? `<div class="mac-window">${imgTag(cover(p, lang), alt, eager)}</div>` : browser(cover(p, lang), p.host, alt, eager);
 const duo = (p, lang, eager) => {
   const d = p[lang];
+  if (p.window) return `<div class="duo duo--window">${shot(p, lang, `${d.name}, ${lang === "en" ? "Mac app" : "app para Mac"}`, eager)}</div>`;
   return `<div class="duo">${browser(cover(p, lang), p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(coverPhone(p, lang), `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager, p.phoneBar)}</div>`;
 };
 
@@ -297,7 +300,7 @@ const homePage = lang => {
     const cta = p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
     return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
         <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${cta}</div></div>
-        <div class="media">${browser(cover(p, lang), p.host, d.name)}</div>
+        <div class="media">${shot(p, lang, d.name)}</div>
       </li>`;
   }).join("\n      ");
   const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n        ");
@@ -642,7 +645,7 @@ const servicePageHtml = (lang, key) => {
     const w = p[lang];
     return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
         <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
-        <div class="media">${browser(cover(p, lang), p.host, w.name)}</div>
+        <div class="media">${shot(p, lang, w.name)}</div>
       </li>`;
   }).join("\n      ");
   const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
@@ -760,7 +763,7 @@ const consultoriaPageHtml = () => {
     const w = p[lang];
     return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
         <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
-        <div class="media">${browser(cover(p, lang), p.host, w.name)}</div>
+        <div class="media">${shot(p, lang, w.name)}</div>
       </li>`;
   }).join("\n      ");
   const steps = d.how.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");

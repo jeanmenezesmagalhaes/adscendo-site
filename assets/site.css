@@ -755,3 +755,7 @@ html.chat-open, html.chat-open body { overflow: hidden; }
 .cc-actions { display: flex; gap: 8px; }
 .cc-ask .float-cta { display: none; }
 @media (max-width: 560px) { .cc-ask .cc { left: 12px; right: 12px; bottom: 12px; } .cc-actions { width: 100%; } .cc-actions .btn { flex: 1; height: 40px; } }
+
+/* A native Mac app's own window (title bar and rounded corners are in the image), in place of the browser frame. */
+.mac-window img { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(0,0,0,.18)) drop-shadow(0 4px 12px rgba(0,0,0,.08)); }
+.duo--window { padding-right: 0; }

@@ -445,7 +445,7 @@ export const aiPage = {
 // (build.mjs). `work` lists the projects shown as proof. Keep every claim true to the rest of the site.
 export const consultoriaPage = {
   slug: "consultoria-ia",
-  work: ["prospector", "minha-companhia", "sidemed"],
+  work: ["prospector", "blip", "orbit", "minha-companhia", "sidemed"],
   name: "Consultoria de IA",
   title: "Consultoria de IA para empresas | Jean Menezes, Adscendo",
   description: "Implantação de IA na sua empresa: diagnóstico, automação de processos, agentes de atendimento e treinamento da equipe. Fale com o Jean Menezes no WhatsApp.",
@@ -493,7 +493,7 @@ export const consultoriaPage = {
   ],
   howCta: "Começar pelo diagnóstico",
   workTitle: "Projetos que construímos.",
-  workLede: "Produtos reais, no ar. O Prospector, nosso primeiro produto, usa IA para encontrar clientes e escrever emails.",
+  workLede: "Produtos reais, em uso. Com IA, o Prospector encontra clientes e escreve emails, o Blip procura vagas e adapta currículos, e o Orbit junta email, agenda e tarefas no Mac.",
   aboutTitle: "Você fala com quem constrói.",
   about: [
     "A consultoria é conduzida pelo <strong>Jean Menezes</strong>, fundador da Adscendo. Antes dela, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, e trabalhou em projetos para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
@@ -592,7 +592,7 @@ export const servicePages = {
   },
   apps: {
     hero: "sidemed",
-    work: ["sidemed", "prospector", "minha-companhia"],
+    work: ["sidemed", "prospector", "orbit", "blip", "minha-companhia"],
     prices: false,
     serviceType: "Mobile and web app development",
     en: {
@@ -1163,6 +1163,229 @@ export const projects = [
           p: [
             "O estúdio abriu em outubro de 2026, com o <a href='/pt/work/prospector'><strong>Prospector</strong></a> como primeiro produto. Tudo neste site é trabalho real, não promessa.",
           ],
+        },
+      ],
+    },
+  },
+  {
+    slug: "blip",
+    tint: "#efeaf4", // card hover tone on the home page
+    inWork: false, // AI proof for the consultoria and apps pages; kept off the home and the menu
+    url: null,
+    links: [{ href: "https://github.com/jeanmenezesmagalhaes/blip", en: "View on GitHub", pt: "Ver no GitHub" }],
+    host: "localhost:8765", // Blip runs on the person's own Mac; this is its local address
+    cover: img("blip/board.webp", 1600, 1000),
+    coverPt: img("blip/board.pt.webp", 1600, 1000),
+    coverPhone: img("blip/job-m.webp", 780, 1688),
+    coverPhonePt: img("blip/job-m.pt.webp", 780, 1688),
+    phoneBar: "#fff",
+    en: {
+      name: "Blip",
+      kind: "Career",
+      tagline: "Finds the jobs, tailors the resume, prepares the application. You click Send.",
+      seoTitle: "Blip: AI job search with ATS-ready resumes | Adscendo",
+      summary: "Finds jobs across dozens of sites, tailors your resume for each ATS, prepares the application and tracks it all on a board.",
+      description: "How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026.",
+      facts: [["What we did", "Planned and built in-house"], ["When", "November 2026"], ["Platform", "Mac app, runs locally"], ["Status", "Open source on GitHub"]],
+      chapters: [
+        {
+          h: "Job hunting became a second job.",
+          p: [
+            "Ten sites a day, reading post after post, rewriting the resume so each one gets past the ATS filter, filling in the same form again, remembering who never replied. Blip does that work for you, with AI as the engine.",
+          ],
+        },
+        {
+          h: "Every source, one board.",
+          p: [
+            "Blip searches dozens of sources at once: LinkedIn without logging in, company pages on Greenhouse, Lever and Ashby, remote job boards and Hacker News. Only what fits gets in: remote, with a visa, or in your country.",
+            "Each job lands on a board, from found to offer.",
+          ],
+          fig: { kind: "browser", img: img("blip/board.webp", 1600, 1000), cap: "The board, from found to interview, with match scores and visa tags. Sample data." },
+        },
+        {
+          h: "From 12% to 94%, without inventing anything.",
+          p: [
+            "Blip reads the job the way an ATS does and weighs each keyword. Then it edits your own resume file, changing as little as it can, until the job's keywords are there.",
+            "It never touches names, employers, dates or numbers. Below 85%, the resume doesn't leave Blip: it asks what you have and where you used it.",
+          ],
+          fig: { kind: "browser", img: img("blip/job.webp", 1600, 1000), cap: "A tailored resume: 12% match with the job before, 94% after. Sample data." },
+        },
+        {
+          h: "Everything ready. You click Send.",
+          p: [
+            "Blip writes the cover letter and the form answers, opens the form in Chrome, fills it in and attaches the files. You review and click <strong>Send</strong>. Nothing is automated on LinkedIn.",
+            "After that, it reminds you to follow up and helps you practice for the interview for that job.",
+          ],
+          fig: { kind: "browser", img: img("blip/interview.webp", 1600, 1000), cap: "Interview practice for one job, with a score and what to improve. Sample data." },
+        },
+        {
+          h: "Ask in plain words.",
+          p: [
+            "Type or say what you want: “find jobs in Dublin with a visa and tailor the 5 best.” The same tools work from Claude Desktop and Claude Code through an MCP server.",
+            "Everything runs on your Mac. Jobs, resumes and applications stay in a local folder; only the job searches and the calls to Claude go out.",
+          ],
+          fig: { kind: "browser", img: img("blip/command.webp", 1600, 1000), cap: "Ask Blip: plain-language commands that act on the board. Sample data." },
+        },
+      ],
+    },
+    pt: {
+      name: "Blip",
+      kind: "Carreira",
+      tagline: "Acha as vagas, adapta o currículo, prepara a candidatura. Você clica em Enviar.",
+      seoTitle: "Blip: busca de vagas com IA e currículo para ATS | Adscendo",
+      summary: "Acha vagas em dezenas de sites, adapta o currículo para o ATS de cada uma, prepara a candidatura e acompanha tudo num quadro.",
+      description: "Como o Blip, um app de código aberto que usa IA para achar vagas, adaptar o currículo para o ATS e acompanhar cada candidatura, foi construído em novembro de 2026.",
+      facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Novembro de 2026"], ["Plataforma", "App para Mac, roda local"], ["Status", "Código aberto no GitHub"]],
+      chapters: [
+        {
+          h: "Procurar emprego virou um segundo emprego.",
+          p: [
+            "Abrir dez sites por dia, ler vaga por vaga, reescrever o currículo para cada uma passar no filtro do ATS, preencher o mesmo formulário de novo, lembrar quem não respondeu. O Blip faz esse trabalho por você, com IA como motor.",
+          ],
+        },
+        {
+          h: "Todas as fontes, um quadro.",
+          p: [
+            "O Blip procura em dezenas de fontes ao mesmo tempo: LinkedIn sem login, páginas das empresas no Greenhouse, Lever e Ashby, sites de vagas remotas e o Hacker News. Só entra o que serve: remota, com visto ou no seu país.",
+            "Cada vaga cai num quadro, de encontrada até proposta.",
+          ],
+          fig: { kind: "browser", img: img("blip/board.pt.webp", 1600, 1000), cap: "O quadro, de vaga encontrada até entrevista, com match e selo de visto. Dados de exemplo." },
+        },
+        {
+          h: "De 12% para 94%, sem inventar nada.",
+          p: [
+            "O Blip lê a vaga como um ATS lê e dá peso a cada palavra-chave. Depois edita o seu próprio arquivo de currículo, mudando o mínimo possível, até as palavras da vaga estarem lá.",
+            "Nome, empresas, datas e números não mudam. Abaixo de 85%, o currículo não sai do Blip: ele pergunta o que você tem e onde usou.",
+          ],
+          fig: { kind: "browser", img: img("blip/job.pt.webp", 1600, 1000), cap: "Um currículo adaptado: 12% de match com a vaga antes, 94% depois. Dados de exemplo." },
+        },
+        {
+          h: "Tudo pronto. Você clica em Enviar.",
+          p: [
+            "O Blip escreve a carta e as respostas do formulário, abre o formulário no Chrome, preenche e anexa os arquivos. Você revisa e clica em <strong>Enviar</strong>. Nada é automatizado no LinkedIn.",
+            "Depois, ele avisa a hora do follow-up e treina você para a entrevista daquela vaga.",
+          ],
+          fig: { kind: "browser", img: img("blip/interview.pt.webp", 1600, 1000), cap: "Treino de entrevista para uma vaga, com nota e o que melhorar. Dados de exemplo." },
+        },
+        {
+          h: "Peça com as suas palavras.",
+          p: [
+            "Escreva ou fale o que você quer: “procura vagas em Dublin com visto e adapta as 5 melhores.” As mesmas ferramentas funcionam no Claude Desktop e no Claude Code, por um servidor MCP.",
+            "Tudo roda no seu Mac. Vagas, currículos e candidaturas ficam numa pasta local; só saem as buscas nos sites de vagas e as chamadas ao Claude.",
+          ],
+          fig: { kind: "browser", img: img("blip/command.pt.webp", 1600, 1000), cap: "Pedir ao Blip: ordens em linguagem natural que mexem no quadro. Dados de exemplo." },
+        },
+      ],
+    },
+  },
+  {
+    slug: "orbit",
+    tint: "#eceef1", // card hover tone on the home page
+    inWork: false, // AI proof for the consultoria and apps pages; kept off the home and the menu
+    window: true, // native Mac app: shown in its own window, no browser frame or phone
+    url: null,
+    links: [{ href: "https://github.com/jeanmenezesmagalhaes/homebrew-orbit", en: "Install with Homebrew", pt: "Instalar pelo Homebrew" }],
+    host: "Orbit",
+    cover: img("orbit/home.webp", 1600, 1000), // the app is in Portuguese only, so both languages share the shots
+    en: {
+      name: "Orbit",
+      kind: "Productivity",
+      tagline: "Email, calendar and tasks in one Mac app, with an AI that drafts and never sends on its own.",
+      seoTitle: "Orbit: email, calendar and AI in one Mac app | Adscendo",
+      summary: "One native Mac app for every email account and calendar, tasks linked to emails, and the AI you choose.",
+      description: "How Orbit, a native Mac app for email, calendar and tasks with a bring-your-own AI assistant, was planned and built in November 2026.",
+      facts: [["What we did", "Planned and built in-house"], ["When", "November 2026"], ["Platform", "macOS, native"], ["Status", "Free, installed with Homebrew"]],
+      chapters: [
+        {
+          h: "Three apps for one workday.",
+          p: [
+            "Email in one app, the calendar in another, tasks in a third and the AI in a browser tab. A date in an email had to be typed into the calendar by hand. A request in an email became a to-do only if you remembered it.",
+            "Orbit puts all of it in one Mac app, for every account you have: Google, Microsoft, iCloud or any IMAP server.",
+          ],
+        },
+        {
+          h: "One screen to start the day.",
+          p: [
+            "Orbit opens on a grid of widgets: emails waiting for your reply, today's meetings, the next free hour and what's due. You choose the widgets, their order and their size.",
+            "Which emails need a reply is decided by plain rules, not AI: sent to you, not automated, and not answered yet.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/home.webp", 1600, 1000), cap: "The home screen, with replies, meetings, focus time and tasks. Sample data." },
+        },
+        {
+          h: "Type the event the way you'd say it.",
+          p: [
+            "Day, week and month views, with every calendar from every account. To add something, type it: “café com Júlia sexta 16h no Café Faro” (coffee with Júlia, Friday at 4 pm).",
+            "Dates, times and repeats come from Orbit's own rules, written for Portuguese, because small AI models get the day of the week wrong. The AI only suggests the title and the place, and the New event window works with no AI at all. Nothing is created until you click.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/ask.webp", 1600, 1000), cap: "Two events typed in plain Portuguese with ⌘K, one already created. Sample data." },
+        },
+        {
+          h: "Email that drafts, and waits for you.",
+          p: [
+            "One inbox for every account. Open an email and the AI proposes a reply after reading it and the conversation before it. It can also shorten, polish or make a draft more formal.",
+            "It only fills in the editor. You read it, change it and send it, with 5 seconds to undo.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/mail-reply.webp", 1600, 1000), cap: "A reply proposed by the AI, with the conversation on the side. Sample data." },
+        },
+        {
+          h: "Tasks that remember the email.",
+          p: [
+            "Any email becomes a card on a kanban board, linked to the message it came from, even after the email is archived.",
+            "Bring your own AI: Apple Intelligence or Ollama run free on the Mac, or use your own Claude or ChatGPT key, kept in the Keychain. An optional MCP server lets Claude or ChatGPT read your calendar and add events; deleting one always needs your click in Orbit.",
+            "It's signed and notarized by Apple, and installs with one Homebrew command.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/tasks.webp", 1600, 1000), cap: "The task board. Five of the open tasks came from emails. Sample data." },
+        },
+      ],
+    },
+    pt: {
+      name: "Orbit",
+      kind: "Produtividade",
+      tagline: "Email, agenda e tarefas num app para Mac, com uma IA que escreve e nunca envia sozinha.",
+      seoTitle: "Orbit: email, agenda e IA num app para Mac | Adscendo",
+      summary: "Um app nativo para Mac com todas as contas de email e agendas, tarefas ligadas a emails e a IA que você escolher.",
+      description: "Como o Orbit, um app nativo para Mac de email, agenda e tarefas, com assistente de IA à sua escolha, foi planejado e construído em novembro de 2026.",
+      facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Novembro de 2026"], ["Plataforma", "macOS, nativo"], ["Status", "Grátis, instalado pelo Homebrew"]],
+      chapters: [
+        {
+          h: "Três apps para um dia de trabalho.",
+          p: [
+            "Email num app, agenda em outro, tarefas num terceiro e a IA numa aba do navegador. A data de um email tinha de ser digitada na agenda à mão. Um pedido num email só virava tarefa se alguém lembrasse.",
+            "O Orbit junta tudo num app para Mac, com todas as suas contas: Google, Microsoft, iCloud ou qualquer servidor IMAP.",
+          ],
+        },
+        {
+          h: "Uma tela para começar o dia.",
+          p: [
+            "O Orbit abre numa grade de widgets: emails esperando resposta, reuniões de hoje, o próximo horário livre e o que vence. Você escolhe os widgets, a ordem e o tamanho.",
+            "Quais emails pedem resposta é decidido por regras simples, sem IA: enviado para você, não automático e ainda sem resposta.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/home.webp", 1600, 1000), cap: "A tela de início, com respostas, reuniões, tempo de foco e tarefas. Dados de exemplo." },
+        },
+        {
+          h: "Escreva o evento do jeito que você fala.",
+          p: [
+            "Visões de dia, semana e mês, com as agendas de todas as contas. Para marcar algo, é só escrever: “café com Júlia sexta 16h no Café Faro”.",
+            "Data, hora e repetição saem de regras do próprio Orbit, em português, porque modelos de IA pequenos erram o dia da semana. A IA só sugere o título e o local, e a janela Novo evento funciona sem IA nenhuma. Nada é criado antes do seu clique.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/ask.webp", 1600, 1000), cap: "Dois eventos escritos em português no ⌘K, um deles já criado. Dados de exemplo." },
+        },
+        {
+          h: "Email que a IA rascunha, e espera por você.",
+          p: [
+            "Uma caixa de entrada para todas as contas. Abra um email e a IA propõe uma resposta depois de ler a mensagem e a conversa anterior. Ela também encurta, revisa ou deixa o texto mais formal.",
+            "Ela só preenche o editor. Você lê, ajusta e envia, com 5 segundos para desfazer.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/mail-reply.webp", 1600, 1000), cap: "Uma resposta proposta pela IA, com a conversa ao lado. Dados de exemplo." },
+        },
+        {
+          h: "Tarefas que lembram do email.",
+          p: [
+            "Qualquer email vira um cartão num quadro kanban, ligado à mensagem de origem, mesmo depois que o email é arquivado.",
+            "Use a IA que preferir: Apple Intelligence ou Ollama rodam grátis no Mac, ou use sua própria chave do Claude ou do ChatGPT, guardada no Keychain. Um servidor MCP opcional deixa o Claude ou o ChatGPT ler sua agenda e criar eventos; apagar um evento sempre pede o seu clique no Orbit.",
+            "O app é assinado e notarizado pela Apple, e instala com um comando do Homebrew.",
+          ],
+          fig: { kind: "canvas", img: img("orbit/tasks.webp", 1600, 1000), cap: "O quadro de tarefas. Cinco das tarefas abertas vieram de emails. Dados de exemplo." },
         },
       ],
     },

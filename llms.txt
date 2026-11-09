@@ -46,6 +46,8 @@ Answer a few questions in the chat below. It takes less than a minute and gives 
 - [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026. Portuguese: https://adscendo.pro/pt/work/minha-companhia
 - [Sidemed](https://adscendo.pro/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house. Portuguese: https://adscendo.pro/pt/work/sidemed
 - [Adscendo](https://adscendo.pro/work/adscendo): Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers. Portuguese: https://adscendo.pro/pt/work/adscendo
+- [Blip](https://adscendo.pro/work/blip): How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026. Portuguese: https://adscendo.pro/pt/work/blip
+- [Orbit](https://adscendo.pro/work/orbit): How Orbit, a native Mac app for email, calendar and tasks with a bring-your-own AI assistant, was planned and built in November 2026. Portuguese: https://adscendo.pro/pt/work/orbit
 
 ## Contact
 

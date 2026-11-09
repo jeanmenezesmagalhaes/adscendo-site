@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blip: AI job search with ATS-ready resumes | Adscendo</title>
+<meta name="description" content="How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="Blip: AI job search with ATS-ready resumes | Adscendo">
+<meta property="og:description" content="How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/work/blip">
+<meta property="og:image" content="https://adscendo.pro/assets/work/blip/board.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta property="og:image:alt" content="Blip: Finds the jobs, tailors the resume, prepares the application. You click Send.">
+<link rel="canonical" href="https://adscendo.pro/work/blip">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/work/blip">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/work/blip">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/work/blip">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Blip","headline":"Finds the jobs, tailors the resume, prepares the application. You click Send.","description":"How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026.","inLanguage":"en","image":"https://adscendo.pro/assets/work/blip/board.webp","creator":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo.pro/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo.pro/"},{"@type":"ListItem","position":2,"name":"Blip","item":"https://adscendo.pro/work/blip"}]}]}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<div class="offer" role="region" aria-label="Launch offer">
+  <p><b>Launch offer.</b> We're taking on our first clients in the US to build our portfolio, so projects are up to 50% off. <a href="/contact">Get a quote<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+  <button class="offer-close" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/websites"><b>Websites</b><span>Fast sites that bring in customers</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a><a href="/ai"><b>AI optimization</b><span>Get recommended by ChatGPT and other AIs</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/portfolio"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/work/blip" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/contact">Get in touch</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li><li><a href="/ai">AI optimization</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/portfolio">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="/contact">Get in touch</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/work/blip" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="case-head wrap">
+    <a class="back" href="/portfolio"><svg aria-hidden="true"><use href="#arrow"/></svg>All work</a>
+    <h1>Blip</h1>
+    <p class="lede">Finds the jobs, tailors the resume, prepares the application. You click Send.</p>
+    <div class="actions-row"><a class="btn btn--ghost" href="https://github.com/jeanmenezesmagalhaes/blip" target="_blank" rel="noopener">View on GitHub<svg aria-hidden="true"><use href="#out"/></svg></a></div>
+    <dl class="facts"><div><dt>What we did</dt><dd>Planned and built in-house</dd></div><div><dt>When</dt><dd>November 2026</dd></div><div><dt>Platform</dt><dd>Mac app, runs locally</dd></div><div><dt>Status</dt><dd>Open source on GitHub</dd></div></dl>
+    <div class="duo"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/board.webp" width="1600" height="1000" alt="Blip, desktop" fetchpriority="high" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#fff" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/blip/job-m.webp" width="780" height="1688" alt="Blip, phone" fetchpriority="high" decoding="async"></div></div></div></div>
+  </section>
+
+  <section class="band">
+    <div class="wrap chapters" data-rise=".chapter header, .chapter .text, .chapter figure">
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">01</p><h2>Job hunting became a second job.</h2></header>
+          <div class="text"><p>Ten sites a day, reading post after post, rewriting the resume so each one gets past the ATS filter, filling in the same form again, remembering who never replied. Blip does that work for you, with AI as the engine.</p></div>
+        </div>
+        
+      </article>
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">02</p><h2>Every source, one board.</h2></header>
+          <div class="text"><p>Blip searches dozens of sources at once: LinkedIn without logging in, company pages on Greenhouse, Lever and Ashby, remote job boards and Hacker News. Only what fits gets in: remote, with a visa, or in your country.</p><p>Each job lands on a board, from found to offer.</p></div>
+        </div>
+        <figure class="shot"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/board.webp" width="1600" height="1000" alt="The board, from found to interview, with match scores and visa tags. Sample data." loading="lazy" decoding="async"></div><figcaption>The board, from found to interview, with match scores and visa tags. Sample data.</figcaption></figure>
+      </article>
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">03</p><h2>From 12% to 94%, without inventing anything.</h2></header>
+          <div class="text"><p>Blip reads the job the way an ATS does and weighs each keyword. Then it edits your own resume file, changing as little as it can, until the job's keywords are there.</p><p>It never touches names, employers, dates or numbers. Below 85%, the resume doesn't leave Blip: it asks what you have and where you used it.</p></div>
+        </div>
+        <figure class="shot"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/job.webp" width="1600" height="1000" alt="A tailored resume: 12% match with the job before, 94% after. Sample data." loading="lazy" decoding="async"></div><figcaption>A tailored resume: 12% match with the job before, 94% after. Sample data.</figcaption></figure>
+      </article>
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">04</p><h2>Everything ready. You click Send.</h2></header>
+          <div class="text"><p>Blip writes the cover letter and the form answers, opens the form in Chrome, fills it in and attaches the files. You review and click <strong>Send</strong>. Nothing is automated on LinkedIn.</p><p>After that, it reminds you to follow up and helps you practice for the interview for that job.</p></div>
+        </div>
+        <figure class="shot"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/interview.webp" width="1600" height="1000" alt="Interview practice for one job, with a score and what to improve. Sample data." loading="lazy" decoding="async"></div><figcaption>Interview practice for one job, with a score and what to improve. Sample data.</figcaption></figure>
+      </article>
+      <article class="chapter">
+        <div class="chapter-row">
+          <header><p class="num">05</p><h2>Ask in plain words.</h2></header>
+          <div class="text"><p>Type or say what you want: “find jobs in Dublin with a visa and tailor the 5 best.” The same tools work from Claude Desktop and Claude Code through an MCP server.</p><p>Everything runs on your Mac. Jobs, resumes and applications stay in a local folder; only the job searches and the calls to Claude go out.</p></div>
+        </div>
+        <figure class="shot"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/command.webp" width="1600" height="1000" alt="Ask Blip: plain-language commands that act on the board. Sample data." loading="lazy" decoding="async"></div><figcaption>Ask Blip: plain-language commands that act on the board. Sample data.</figcaption></figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <a class="next" href="/work/orbit" data-cursor="next">
+        <p class="eyebrow">Next project</p>
+        <h2>Orbit<svg aria-hidden="true"><use href="#arrow"/></svg></h2>
+        <p>One native Mac app for every email account and calendar, tasks linked to emails, and the AI you choose.</p>
+      </a>
+      <a class="btn btn--light" href="/contact">Get in touch</a>
+    </div>
+  </section>
+</main>
+<a class="btn float-cta" href="/contact" hidden>Get in touch</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/contact">Get in touch</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/work/blip" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

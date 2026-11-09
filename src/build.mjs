@@ -327,7 +327,19 @@ const homePage = lang => {
     <div class="demo-intro"><span class="demo-label"><i></i>${c.demoLabel}</span><p>${c.demoText}</p></div>
     ${heroDemo(lead, lang)}
   </section>
-
+${c.consult ? `
+  <section class="band band--black consult" id="consultoria">
+    <div class="wrap" data-rise=".eyebrow, .h2, .lede, .tile">
+      <p class="eyebrow">${c.consult.eyebrow}</p>
+      <h2 class="h2">${c.consult.title.replace(". ", ".<br>")}</h2>
+      <p class="lede">${c.consult.lede}</p>
+      <div class="tiles tiles--plain">
+        ${c.consult.points.map(([h, p]) => `<article class="tile tile--dark"><h3>${h}</h3><p>${p}</p></article>`).join("\n        ")}
+      </div>
+      <p class="section-cta actions-row"><a class="btn" href="${consultoriaPath}">${c.consult.cta}</a><a class="link" href="${consultoriaPath}#casos">${c.consult.more}${icon("arrow")}</a></p>
+    </div>
+  </section>
+` : ""}
   <section class="band band--gray process" ${sectionAttrs(lang, "process")}>
     <div class="process-pin">
       <div class="wrap" data-rise=".h2, .lede">
@@ -640,7 +652,7 @@ const servicePageHtml = (lang, key) => {
       ] },
     ],
   };
-  const card = (x, cls = "") => `<article class="tile${cls}">${x.eyebrow ? `<p class="eyebrow">${x.eyebrow}</p>` : ""}<h3>${x.h}</h3><p>${x.p}</p>${x.chips ? `<ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>` : ""}</article>`;
+  const card = (x, cls = "") => `<article class="tile${cls}">${x.eyebrow ? `<p class="eyebrow">${x.eyebrow}</p>` : ""}<h3>${x.h}</h3><p>${x.p}</p>${x.chips ? `<ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>` : ""}${x.to ? `<a class="link tile-more" href="${toPath(lang, x.to)}">${t.learnMore}${icon("arrow")}</a>` : ""}</article>`;
   const work = sp.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
     const w = p[lang];
     return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
@@ -673,7 +685,7 @@ const servicePageHtml = (lang, key) => {
       <h2 class="h2">${d.incTitle}</h2>
       <p class="lede">${d.incLede}</p>
       <div class="tiles tiles--plain">
-        ${d.inc.map(([h, p]) => card({ h, p })).join("\n        ")}
+        ${d.inc.map(([h, p, to]) => card({ h, p, to })).join("\n        ")}
       </div>
     </div>
   </section>

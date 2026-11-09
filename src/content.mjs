@@ -31,9 +31,9 @@ export const ui = {
     // under "Portfolio" lists the projects, then `allWork`.
     menu: {
       services: [
-        { h: "Websites", p: "Fast sites that bring in customers", to: "websites" },
+        // AI optimization lives inside Websites (the websites page links to it), not as its own item.
+        { h: "Websites", p: "Fast sites, found on Google and AI", to: "websites" },
         { h: "Apps", p: "For iPhone, Android and the web", to: "apps" },
-        { h: "AI optimization", p: "Get recommended by ChatGPT and other AIs", to: "ai" },
       ],
       allWork: "See all work",
     },
@@ -60,11 +60,11 @@ export const ui = {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
     menu: {
       services: [
-        { h: "Sites", p: "Sites rápidos que trazem clientes", to: "websites" },
+        // AI consulting first (Portuguese only: the page has no English twin). AI optimization lives
+        // inside Sites (the sites page links to it), not as its own item.
+        { h: "Consultoria de IA", p: "Mais eficiência e lucro com IA", to: "consultoria" },
+        { h: "Sites", p: "Sites rápidos, achados no Google e nas IAs", to: "websites" },
         { h: "Apps", p: "Para iPhone, Android e web", to: "apps" },
-        { h: "Otimização para IA", p: "Seja indicado pelo ChatGPT e outras IAs", to: "ai" },
-        // Portuguese only: the AI consulting page has no English twin.
-        { h: "Consultoria de IA", p: "IA nos processos da sua empresa", to: "consultoria" },
       ],
       allWork: "Ver todos os trabalhos",
     },
@@ -167,6 +167,20 @@ export const home = {
     hostHero: "prospector.adscendo.pro",
     demoLabel: "Demonstração ao vivo",
     demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles.",
+    // Right under the hero: AI consulting, the offer the Portuguese site leads with. English has no
+    // consulting page, so it has no `consult` block and no section.
+    consult: {
+      eyebrow: "Consultoria de IA",
+      title: "Sua empresa mais eficiente. E mais rentável.",
+      lede: "A gente descobre onde a inteligência artificial corta tempo e custo no seu negócio, e coloca para funcionar com a sua equipe. Sem projeto eterno: começa por onde o retorno aparece primeiro.",
+      points: [
+        ["Menos trabalho repetitivo", "Processos que hoje são feitos à mão passam a rodar sozinhos: planilhas, cadastros, documentos e respostas padrão."],
+        ["Mais vendas com o mesmo time", "Agentes de IA que respondem, qualificam contatos e fazem o acompanhamento, para a equipe focar em fechar."],
+        ["Atendimento mais rápido", "Respostas na hora, a qualquer hora, com as informações da sua empresa e um humano por perto quando precisa."],
+      ],
+      cta: "Conhecer a consultoria",
+      more: "Ver projetos com IA",
+    },
     warmthTitle: "Calor brasileiro. Padrão americano.",
     warmthLede: "Levamos a criatividade e o calor humano do Brasil para empresas americanas: um trabalho feito com olhar de artista, próximo e cheio de vida, entregue do jeito que elas esperam.",
     processTitle: "Como trabalhamos.",
@@ -537,7 +551,7 @@ export const servicePages = {
         ["Designed for phones", "Most customers will meet your business on a phone first. We design for that screen, then for the computer."],
         ["Fast", "Pages that open in a blink, even on a weak signal. Slow sites lose visitors before they read a word."],
         ["Found on Google", "Clear pages, the words your customers really type and your details where Google looks for them, Maps included."],
-        ["Recommended by AI", "Built so ChatGPT, Gemini and Perplexity can read your site, trust it and name you in their answers."],
+        ["Recommended by AI", "Built so ChatGPT, Gemini and Perplexity can read your site, trust it and name you in their answers.", "ai"],
         ["Booking and contact", "A way to call, message, book or ask for a quote on every page, so a visit turns into a conversation."],
         ["One or more languages", "One language or several, each with its own address, so Google shows each customer the right one."],
       ],
@@ -571,7 +585,7 @@ export const servicePages = {
         ["Pensado para o celular", "A maioria dos clientes conhece seu negócio primeiro pelo celular. A gente desenha para essa tela, e depois para o computador."],
         ["Rápido", "Páginas que abrem num piscar de olhos, mesmo com sinal fraco. Site lento perde visitas antes de alguém ler uma palavra."],
         ["Encontrado no Google", "Páginas claras, as palavras que seus clientes realmente digitam e seus dados onde o Google procura, inclusive no Maps."],
-        ["Recomendado pela IA", "Feito para o ChatGPT, o Gemini e o Perplexity conseguirem ler seu site, confiar nele e citar você nas respostas."],
+        ["Recomendado pela IA", "Feito para o ChatGPT, o Gemini e o Perplexity conseguirem ler seu site, confiar nele e citar você nas respostas.", "ai"],
         ["Agendamento e contato", "Um jeito de ligar, mandar mensagem, agendar ou pedir orçamento em todas as páginas, para a visita virar conversa."],
         ["Um ou mais idiomas", "Um idioma ou vários, cada um com seu próprio endereço, para o Google mostrar a versão certa para cada cliente."],
       ],

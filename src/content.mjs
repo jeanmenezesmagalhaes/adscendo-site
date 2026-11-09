@@ -63,6 +63,8 @@ export const ui = {
         { h: "Sites", p: "Sites rápidos que trazem clientes", to: "websites" },
         { h: "Apps", p: "Para iPhone, Android e web", to: "apps" },
         { h: "Otimização para IA", p: "Seja indicado pelo ChatGPT e outras IAs", to: "ai" },
+        // Portuguese only: the AI consulting page has no English twin.
+        { h: "Consultoria de IA", p: "IA nos processos da sua empresa", to: "consultoria" },
       ],
       allWork: "Ver todos os trabalhos",
     },
@@ -438,6 +440,78 @@ export const aiPage = {
   },
 };
 
+// AI implementation consulting, at /pt/consultoria-ia. Portuguese only (no English twin), for Meta ads
+// traffic: every main button opens WhatsApp with `waText`, and the page alone carries the Meta Pixel
+// (build.mjs). `work` lists the projects shown as proof. Keep every claim true to the rest of the site.
+export const consultoriaPage = {
+  slug: "consultoria-ia",
+  work: ["prospector", "minha-companhia", "sidemed"],
+  name: "Consultoria de IA",
+  title: "Consultoria de IA para empresas | Jean Menezes, Adscendo",
+  description: "Implantação de IA na sua empresa: diagnóstico, automação de processos, agentes de atendimento e treinamento da equipe. Fale com o Jean Menezes no WhatsApp.",
+  waText: "Oi Jean, vi o anúncio sobre consultoria de IA e quero entender como aplicar na minha empresa.",
+  // Cookie banner: the Meta Pixel loads only after "Aceitar".
+  cookies: {
+    label: "Cookies",
+    text: "Usamos cookies da Meta para medir quais anúncios trazem você até aqui. Eles só são ativados se você aceitar.",
+    more: "Política de privacidade",
+    href: "/pt/privacidade",
+    deny: "Recusar",
+    accept: "Aceitar",
+  },
+  ctaWa: "Conversar no WhatsApp",
+  ctaNav: "WhatsApp",
+  eyebrow: "Consultoria de implantação de IA",
+  h1: "IA na rotina da sua empresa.",
+  lede: "A gente descobre onde a inteligência artificial economiza tempo no atendimento, nas vendas e na operação, e coloca para funcionar com a sua equipe.",
+  ctaHow: "Como funciona",
+  heroNote: "O Prospector, nosso sistema de prospecção com IA, no computador e no celular. Dados de exemplo.",
+  problemTitle: "Muito se fala de IA. Pouco muda.",
+  problemLede: "Talvez alguém da equipe até use o ChatGPT de vez em quando. Mas o atendimento, as vendas e a rotina continuam do mesmo jeito.",
+  problems: [
+    ["Não sabe por onde começar", "São muitas ferramentas e muita promessa. Sem olhar como a empresa funciona, fica difícil saber o que vale a pena."],
+    ["Testou e não deu em nada", "Cada um usando o ChatGPT do seu jeito não muda nenhum processo. A IA precisa estar ligada ao trabalho de verdade."],
+    ["Sem tempo para testar", "Quem toca a empresa não tem semanas para estudar ferramentas e errar. Precisa de alguém que já construiu isso antes."],
+  ],
+  doTitle: "O que a consultoria faz.",
+  doLede: "Começamos pelo que dá retorno mais rápido e vamos até a IA estar funcionando no dia a dia.",
+  do: [
+    ["Diagnóstico", "Entendemos como sua empresa funciona hoje e mostramos onde a IA economiza tempo ou dinheiro. E também onde não vale a pena."],
+    ["Automação de tarefas repetitivas", "Copiar dados de um sistema para outro, montar planilhas e relatórios, responder sempre as mesmas coisas. O que a equipe faz no automático, a máquina pode fazer."],
+    ["Agentes de IA para atendimento", "Um assistente que responde as dúvidas comuns no WhatsApp ou no site, a qualquer hora, e passa para uma pessoa da equipe quando o assunto pede."],
+    ["IA em vendas e no backoffice", "Qualificar contatos, escrever a primeira mensagem, organizar pedidos e documentos. É o tipo de trabalho que o nosso Prospector faz em vendas."],
+    ["Integração com o que você já usa", "A IA trabalha junto com suas planilhas, seu email, seu WhatsApp e seus sistemas, quando eles permitem. Sem trocar tudo de uma vez."],
+    ["Treinamento da equipe", "Sua equipe aprende a usar as ferramentas com exemplos da própria empresa, e não com um curso genérico."],
+  ],
+  howTitle: "Como funciona.",
+  howLede: "Do primeiro diagnóstico ao acompanhamento, em quatro etapas.",
+  how: [
+    ["Diagnóstico", "Conversamos com você e com quem faz o trabalho, olhamos os processos e os sistemas, e listamos onde a IA pode ajudar."],
+    ["Plano", "Você recebe um plano com o que fazer primeiro, o que cada mudança resolve e quanto custa, antes de qualquer implantação."],
+    ["Implantação", "Construímos as automações e os agentes, ligados aos seus sistemas, e testamos com casos reais da empresa antes de colocar no ar."],
+    ["Acompanhamento", "Treinamos a equipe, olhamos o que mudou na rotina e ajustamos o que for preciso nas semanas seguintes."],
+  ],
+  howCta: "Começar pelo diagnóstico",
+  workTitle: "Projetos que construímos.",
+  workLede: "Produtos reais, no ar. O Prospector, nosso primeiro produto, usa IA para encontrar clientes e escrever emails.",
+  aboutTitle: "Você fala com quem constrói.",
+  about: [
+    "A consultoria é conduzida pelo <strong>Jean Menezes</strong>, fundador da Adscendo. Antes dela, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, e trabalhou em projetos para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
+    "Em 2026 criou a Sidemed, um app de saúde usado em 17 países, e lançou o Prospector, um sistema de prospecção com IA. Na consultoria, quem entende o seu negócio é a mesma pessoa que constrói a solução.",
+  ],
+  faqTitle: "Perguntas frequentes.",
+  faq: [
+    ["Preciso entender de tecnologia para contratar?", "Não. Você explica como a empresa funciona e onde o trabalho trava. A parte técnica fica com a gente, e a equipe aprende só o que vai usar no dia a dia."],
+    ["Minha empresa é pequena. Faz sentido?", "Muitas vezes, sim: numa empresa pequena, algumas horas a menos de trabalho repetitivo por semana já fazem diferença. O diagnóstico serve para dizer com honestidade se vale a pena e por onde começar."],
+    ["Quanto custa?", "Depende do tamanho da empresa e do que for implantado, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o que está incluído e quanto custa, antes de qualquer trabalho começar."],
+    ["A IA vai substituir minha equipe?", "A ideia é tirar da equipe o trabalho repetitivo, para sobrar tempo para o que precisa de uma pessoa: atender bem, vender e resolver problemas. Onde a IA não dá conta, uma pessoa continua no controle."],
+    ["E os dados da minha empresa?", "Definimos com você quais dados a IA pode usar, damos a cada automação acesso só ao que ela precisa e escolhemos as ferramentas de acordo com a LGPD."],
+  ],
+  ctaTitle: "Por onde começar na sua empresa?",
+  ctaText: "Mande uma mensagem contando o que sua empresa faz e onde o trabalho mais trava. O Jean responde pessoalmente.",
+  ctaEmail: "Prefiro email",
+};
+
 // One page per service, at /websites and /apps (/pt/sites, /pt/apps), linked from the "Services" menu
 // and the home's "What we build" tiles. `hero` is the project shown on a computer and a phone, `work` the
 // projects listed further down. Websites show the prices in `quote`; apps are priced per project.
@@ -588,17 +662,17 @@ export const servicePages = {
 // screen that lets the contact chat book calls on Jean's calendar). Keep it true to what the site does.
 export const privacy = {
   en: {
-    slug: "privacy", title: "Privacy policy", updated: "Last updated November 1, 2026",
+    slug: "privacy", title: "Privacy policy", updated: "Last updated November 9, 2026",
     lede: "What this site collects, why, and what you can ask us to do with it.",
     sections: [
       { h: "Who we are", p: ["Adscendo is the web design and development studio of Jean Menezes, based in Brazil. For anything about your data, write to <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
       { h: "What we collect", p: [
         "Only what you choose to tell us in the project chat: your name, whether you have a website and its address, your email, and, if you give them, a WhatsApp number and notes. Nothing leaves the page until you send the chat or book a call.",
         "If you book a call, we also keep the time you picked.",
-        "To learn which pages people read and how they found us, we count visits with <b>Google Analytics</b> and <b>Vercel Web Analytics</b>: pages viewed, how you arrived (a search, a link, a post), your approximate country and city, and your kind of device. We also count when someone starts the chat, sends it, books a call or taps WhatsApp or email, never what was typed. We don't run ads or advertising cookies.",
+        "To learn which pages people read and how they found us, we count visits with <b>Google Analytics</b> and <b>Vercel Web Analytics</b>: pages viewed, how you arrived (a search, a link, a post), your approximate country and city, and your kind of device. We also count when someone starts the chat, sends it, books a call or taps WhatsApp or email, never what was typed. Apart from the ad landing pages described below, we use no advertising cookies.",
       ] },
       { h: "How we use it", p: [
-        "To reply to you about your project, and to hold the call you booked. We don't sell your data, share it for advertising, or add you to a mailing list.",
+        "To reply to you about your project, and to hold the call you booked. We don't sell your data, share what you write with advertisers, or add you to a mailing list.",
       ] },
       { h: "Who handles it for us", p: [
         "<b>Resend</b> delivers the chat's summary to our inbox. <b>Google Calendar</b> holds the call you book: the event goes on Jean's calendar with you as a guest, and Google emails you the invite with a Google Meet link. <b>Vercel</b> hosts the site and keeps short-lived technical logs. If you message us on WhatsApp, that conversation follows WhatsApp's own terms.",
@@ -610,6 +684,7 @@ export const privacy = {
       { h: "On your device", p: [
         "The site remembers two small preferences in your browser: light or dark mode, and whether you closed the offer banner. They stay on your device and are never sent to us.",
         "Google Analytics sets cookies (named <code>_ga</code>) to tell a returning visit from a new one; outside Europe they last up to 14 months, and in the European Economic Area, the UK and Switzerland they are not set at all. Vercel Web Analytics uses no cookies. To opt out of Google Analytics on every site, use Google's <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener\">opt-out add-on</a>.",
+        "Pages that receive visits from our ads on Facebook and Instagram (for now, only our Portuguese AI consulting page) also load the <b>Meta Pixel</b>, so we can see how many people arrive from an ad and how many then tap WhatsApp. It sets cookies (such as <code>_fbp</code>, which lasts up to 90 days) and sends Meta the page you visited, your browser and your IP address, which Meta may link to your Facebook or Instagram account under the <a href=\"https://www.facebook.com/privacy/policy/\" target=\"_blank\" rel=\"noopener\">Meta Privacy Policy</a>. You can change which ads you see in your Meta account's ad preferences. It loads only after you tap <b>Aceitar</b> (Accept) on the cookie notice; if you decline, nothing is sent to Meta. To change your choice, clear this site's data in your browser. No other page of the site loads it.",
       ] },
       { h: "How long we keep it", p: [
         "As long as we're talking about your project, and after that only as long as the law requires for work we did together. You can ask us to delete it at any time.",
@@ -621,17 +696,17 @@ export const privacy = {
     ],
   },
   pt: {
-    slug: "privacidade", title: "Política de privacidade", updated: "Atualizada em 1º de novembro de 2026",
+    slug: "privacidade", title: "Política de privacidade", updated: "Atualizada em 9 de novembro de 2026",
     lede: "O que este site coleta, por quê, e o que você pode pedir que a gente faça com isso.",
     sections: [
       { h: "Quem somos", p: ["A Adscendo é o estúdio de design e desenvolvimento web de Jean Menezes, no Brasil. Para qualquer assunto sobre os seus dados, escreva para <a href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro</a>."] },
       { h: "O que coletamos", p: [
         "Só o que você escolhe contar na conversa sobre o projeto: seu nome, se você tem site e o endereço dele, seu email e, se quiser, um WhatsApp e observações. Nada sai da página até você enviar a conversa ou marcar uma chamada.",
         "Se você marcar uma chamada, guardamos também o horário escolhido.",
-        "Para saber quais páginas as pessoas leem e como nos encontraram, contamos as visitas com o <b>Google Analytics</b> e o <b>Vercel Web Analytics</b>: páginas vistas, como você chegou (uma busca, um link, um post), país e cidade aproximados e o tipo de aparelho. Também contamos quando alguém começa a conversa, envia, marca uma chamada ou toca no WhatsApp ou no email, nunca o que foi digitado. Não fazemos anúncios nem usamos cookies de publicidade.",
+        "Para saber quais páginas as pessoas leem e como nos encontraram, contamos as visitas com o <b>Google Analytics</b> e o <b>Vercel Web Analytics</b>: páginas vistas, como você chegou (uma busca, um link, um post), país e cidade aproximados e o tipo de aparelho. Também contamos quando alguém começa a conversa, envia, marca uma chamada ou toca no WhatsApp ou no email, nunca o que foi digitado. Fora das páginas de anúncio descritas abaixo, não usamos cookies de publicidade.",
       ] },
       { h: "Como usamos", p: [
-        "Para responder sobre o seu projeto e para fazer a chamada que você marcou. Não vendemos seus dados, não compartilhamos para publicidade e não colocamos você em lista de email.",
+        "Para responder sobre o seu projeto e para fazer a chamada que você marcou. Não vendemos seus dados, não compartilhamos o que você escreve com anunciantes e não colocamos você em lista de email.",
       ] },
       { h: "Quem cuida disso com a gente", p: [
         "A <b>Resend</b> entrega o resumo da conversa no nosso email. O <b>Google Agenda</b> guarda a chamada que você marca: o evento vai para a agenda do Jean com você como convidado, e o Google te manda o convite com o link do Google Meet. A <b>Vercel</b> hospeda o site e guarda registros técnicos por pouco tempo. Se você falar com a gente no WhatsApp, essa conversa segue os termos do próprio WhatsApp.",
@@ -643,6 +718,7 @@ export const privacy = {
       { h: "No seu aparelho", p: [
         "O site lembra duas pequenas preferências no seu navegador: modo claro ou escuro, e se você fechou a faixa de oferta. Elas ficam no seu aparelho e nunca são enviadas para a gente.",
         "O Google Analytics grava cookies (chamados <code>_ga</code>) para distinguir uma visita de volta de uma nova; fora da Europa eles duram até 14 meses, e no Espaço Econômico Europeu, no Reino Unido e na Suíça nem são gravados. O Vercel Web Analytics não usa cookies. Para não ser contado pelo Google Analytics em nenhum site, use o <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener\">complemento de desativação</a> do Google.",
+        "As páginas que recebem visitas dos nossos anúncios no Facebook e no Instagram (por enquanto, só a de <a href=\"/pt/consultoria-ia\">consultoria de IA</a>) também carregam o <b>Pixel da Meta</b>, para sabermos quantas pessoas chegaram por um anúncio e quantas tocaram no WhatsApp. Ele grava cookies (como o <code>_fbp</code>, que dura até 90 dias) e envia à Meta a página visitada, o seu navegador e o seu endereço IP, que a Meta pode associar à sua conta do Facebook ou do Instagram, conforme a <a href=\"https://www.facebook.com/privacy/policy/\" target=\"_blank\" rel=\"noopener\">Política de Privacidade da Meta</a>. Você pode mudar os anúncios que vê nas preferências de anúncios da sua conta Meta. O pixel só é carregado depois que você toca em <b>Aceitar</b> no aviso de cookies; se você recusar, nada é enviado à Meta. Para mudar a escolha, limpe os dados do site no seu navegador. Nenhuma outra página do site carrega o pixel.",
       ] },
       { h: "Por quanto tempo guardamos", p: [
         "Enquanto estivermos conversando sobre o seu projeto e, depois disso, só pelo tempo que a lei exigir para trabalhos que fizemos juntos. Você pode pedir a exclusão a qualquer momento.",

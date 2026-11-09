@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -14,6 +14,11 @@ const GA_ID = "G-9G2FPBFF2S";
 // Google Analytics' cookies stay off in the EEA, UK and Switzerland (it sends cookieless pings there);
 // ads storage is off everywhere, since the site runs no ads.
 const NO_COOKIES = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IS IE IT LV LI LT LU MT NL NO PL PT RO SK SI ES SE GB CH".split(" ");
+// Meta Pixel ID, for the pages that receive Meta (Facebook, Instagram) ads traffic only: today the AI
+// consulting page. It counts PageView, and Contact when a WhatsApp link is tapped. Empty = no pixel.
+const META_PIXEL = "906744972526359";
+// Meta domain verification for adscendo.pro, on the home page only (Meta reads it at the root).
+const META_DOMAIN = "wzz2ygucbtcraro5f6os35r0nj7oy2";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LANGS = ["en", "pt"];
@@ -24,8 +29,13 @@ const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
 const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
-// Where a "Services" menu item or a home tile points: the AI page, a service page or a home section.
-const toPath = (lang, to) => to === "ai" ? aiPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
+// The AI consulting page exists in Portuguese only.
+const consultoriaPath = `/pt/${consultoriaPage.slug}`;
+// Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
+// or a home section.
+const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
+// A WhatsApp link to Jean with a message already typed.
+const waHref = text => `https://wa.me/${contact.whatsappLabel.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 // The section's own address and its twin in the other language, for site.js.
 const sectionAttrs = (lang, id) => `id="${id}" data-path="${sectionPath(lang, id)}" data-alt="${sectionPath(other(lang), id)}"`;
 const other = lang => (lang === "en" ? "pt" : "en");
@@ -64,20 +74,23 @@ const icons = `<svg width="0" height="0" style="position:absolute" aria-hidden="
 const cursorTo = (p, kind = "view") => ` data-cursor="${kind}"${p.cursor ? ` data-cursor-color="${p.cursor[0]}" data-cursor-ink="${p.cursor[1]}"` : ""}`;
 const icon = (id, cls = "") => `<svg${cls ? ` class="${cls}"` : ""} aria-hidden="true"><use href="#${id}"/></svg>`;
 
-const head = ({ lang, title, description, path, altPath, ld, image, imageAlt }) => `<!doctype html>
+// `single`: the page has no twin in the other language (no alternate locale or hreflang). `extra`: more
+// markup at the end of <head> (the Meta Pixel).
+const head = ({ lang, title, description, path, altPath, ld, image, imageAlt, single, extra = "" }) => `<!doctype html>
 <html lang="${hreflang(lang)}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)}</title>
+${META_DOMAIN && path === "/" ? `<meta name="facebook-domain-verification" content="${META_DOMAIN}">
+` : ""}<title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <meta property="og:site_name" content="Adscendo">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${lang === "en" ? "en_US" : "pt_BR"}">
-<meta property="og:locale:alternate" content="${lang === "en" ? "pt_BR" : "en_US"}">
-<meta name="twitter:card" content="summary_large_image">
+${single ? "" : `<meta property="og:locale:alternate" content="${lang === "en" ? "pt_BR" : "en_US"}">
+`}<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 ${SITE ? `<meta property="og:url" content="${SITE}${path}">
@@ -87,9 +100,9 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <meta property="og:image:alt" content="${esc(imageAlt)}">
 <link rel="canonical" href="${SITE}${path}">
 <link rel="alternate" hreflang="${hreflang(lang)}" href="${SITE}${path}">
-<link rel="alternate" hreflang="${hreflang(other(lang))}" href="${SITE}${altPath}">
+${single ? "" : `<link rel="alternate" hreflang="${hreflang(other(lang))}" href="${SITE}${altPath}">
 <link rel="alternate" hreflang="x-default" href="${SITE}${lang === "en" ? path : altPath}">
-` : ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+`}` : ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,7 +117,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <script defer src="/_vercel/speed-insights/script.js"></script>
 ${GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:${JSON.stringify(NO_COOKIES)}});gtag("js",new Date());gtag("config","${GA_ID}")</script>
-` : ""}</head>
+` : ""}${extra}</head>
 <body>
 ${icons}`;
 
@@ -115,15 +128,17 @@ const dropdown = (href, label, items) => `<li class="has-menu"><a href="${href}"
 const bestOff = Math.max(...Object.values(quote).map(q => q.off));
 // Phones and small tablets: the links fold into a sheet behind the menu button, with the language and
 // dark mode at its foot (site.js opens it; without JavaScript the button stays hidden).
-const sheet = (lang, altPath) => {
-  const t = ui[lang];
+// `cta` ({ href, label, attrs }) replaces "Get in touch" in the nav, the sheet and the floating button.
+const ctaLink = (lang, cta) => cta || { href: sectionPath(lang, "contact"), label: ui[lang].nav.cta, attrs: "" };
+const sheet = (lang, altPath, cta) => {
+  const t = ui[lang], c = ctaLink(lang, cta);
   const group = (label, items) => `<p class="sheet-label">${label}</p><ul>${items.map(([h, b]) => `<li><a href="${h}">${b}</a></li>`).join("")}</ul>`;
   return `<div class="sheet" id="nav-sheet" hidden>
     <nav class="sheet-body wrap" aria-label="Menu">
       ${group(t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h]))}
       ${group(t.nav.work, [...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name]), [sectionPath(lang, "work"), t.menu.allWork]])}
       <ul class="sheet-more"><li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li><li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li></ul>
-      <a class="btn sheet-cta" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+      <a class="btn sheet-cta" href="${c.href}"${c.attrs}>${c.label}</a>
       <div class="sheet-prefs">
         <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}"><svg aria-hidden="true"><use href="#flag-${other(lang)}"/></svg>${t.other}</a>
         <button class="theme theme--label" type="button" aria-pressed="false" hidden>${icon("contrast")}${t.darkMode}</button>
@@ -132,14 +147,15 @@ const sheet = (lang, altPath) => {
   </div>`;
 };
 
-const nav = (lang, altPath) => {
-  const t = ui[lang];
+// `offer: false` leaves out the launch offer strip (it is about websites, so not on the AI consulting page).
+const nav = (lang, altPath, { cta, offer = true } = {}) => {
+  const t = ui[lang], c = ctaLink(lang, cta);
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
-<div class="offer" role="region" aria-label="${t.offer.label}">
+${offer ? `<div class="offer" role="region" aria-label="${t.offer.label}">
   <p><b>${t.offer.label}.</b> ${t.offer.text.replace("{p}", bestOff)} <a href="${sectionPath(lang, "contact")}">${t.offer.cta}${icon("arrow")}</a></p>
   <button class="offer-close" type="button" aria-label="${t.offer.close}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 </div>
-<header class="nav" id="top">
+` : ""}<header class="nav" id="top">
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>
     <ul>
@@ -153,27 +169,28 @@ const nav = (lang, altPath) => {
     </ul>
     <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.switchTo}" title="${t.switchTo}"><svg aria-hidden="true"><use href="#flag-${lang}"/></svg>${lang.toUpperCase()}</a>
     <button class="theme" type="button" aria-pressed="false" aria-label="${t.darkMode}" title="${t.darkMode}" hidden>${icon("contrast")}</button>
-    <a class="btn btn--sm" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+    <a class="btn btn--sm" href="${c.href}"${c.attrs}>${c.label}</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="${t.menuOpen}" data-open="${t.menuOpen}" data-close="${t.menuClose}" hidden><i></i><i></i></button>
   </div>
 </header>
-${sheet(lang, altPath)}`;
+${sheet(lang, altPath, cta)}`;
 };
 
 // The footer fills the screen: as it comes into view the wordmark grows on its own from small to the
 // full width, and the tagline, contact buttons and "back to top" fade in underneath (site.js).
-const footer = (lang, altPath) => {
-  const t = ui[lang];
-  return `<a class="btn float-cta" href="${sectionPath(lang, "contact")}" hidden>${t.nav.cta}</a>
+// With a `cta` of its own (the AI consulting page's WhatsApp), the footer drops its separate WhatsApp button.
+const footer = (lang, altPath, { cta } = {}) => {
+  const t = ui[lang], c = ctaLink(lang, cta);
+  return `<a class="btn float-cta" href="${c.href}"${c.attrs} hidden>${c.label}</a>
 <footer class="outro">
   <div class="outro-pin">
     <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
     <div class="outro-meta wrap">
       <p class="outro-line">${t.footer}</p>
       <nav class="outro-links">
-        <a class="btn btn--sm" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+        <a class="btn btn--sm" href="${c.href}"${c.attrs}>${c.label}</a>
         <a class="btn btn--sm btn--ghost" href="mailto:${contact.email}">Email</a>
-        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        ${cta ? "" : `<a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>`}
         <a class="btn btn--sm btn--ghost" href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
         <a class="btn btn--sm btn--ghost" href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn btn--sm btn--ghost" href="${contact.google}" target="_blank" rel="noopener">Google</a>
@@ -706,6 +723,129 @@ const servicePageHtml = (lang, key) => {
 ` + footer(lang, altPath);
 };
 
+// The AI consulting landing page (Portuguese only, for Meta ads): problem, what the consulting does, how it
+// works, real projects, who runs it, questions and WhatsApp. It alone loads the Meta Pixel.
+const consultoriaPageHtml = () => {
+  const lang = "pt", d = consultoriaPage, t = ui[lang], path = consultoriaPath, altPath = homePath("en");
+  const lead = projects.find(p => p.slug === "prospector");
+  const image = ogImage(cover(lead, lang));
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description: d.description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) } },
+      {
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: "AI implementation consulting", description: d.description, provider: org,
+        areaServed: { "@type": "Country", name: "Brazil" }, availableLanguage: "pt-BR",
+      },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  // Every WhatsApp button carries the same message, so the chat shows where the visitor came from. The
+  // href works without JavaScript; the Meta Pixel counts a tap on any wa.me link as Contact.
+  const wa = waHref(d.waText), out = ` target="_blank" rel="noopener"`;
+  const waBtn = (label = d.ctaWa, cls = "btn") => `<a class="${cls}" href="${wa}"${out}>${label}</a>`;
+  // The pixel waits for consent (LGPD): nothing loads from Meta until the visitor taps "Aceitar" on the
+  // cookie banner, and the choice is remembered in localStorage. Without JavaScript nothing loads at all.
+  const pixel = META_PIXEL ? `<script>(function(){var K="cookies",d=document.documentElement,c;function load(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL}");fbq("track","PageView")}try{c=localStorage.getItem(K)}catch(e){}if(c==="granted")load();else if(c!=="denied")d.classList.add("cc-ask");document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-consent]");if(a){var v=a.dataset.consent;try{localStorage.setItem(K,v)}catch(x){}d.classList.remove("cc-ask");if(v==="granted")load();return}if(window.fbq&&e.target.closest&&e.target.closest('a[href*="wa.me/"]'))fbq("track","Contact")},true)})()</script>
+` : "";
+  const banner = META_PIXEL ? `<div class="cc" role="region" aria-label="${d.cookies.label}"><p>${d.cookies.text} <a href="${d.cookies.href}">${d.cookies.more}</a></p><div class="cc-actions"><button type="button" class="btn btn--sm btn--ghost" data-consent="denied">${d.cookies.deny}</button><button type="button" class="btn btn--sm" data-consent="granted">${d.cookies.accept}</button></div></div>
+` : "";
+  const card = ([h, p]) => `<article class="tile"><h3>${h}</h3><p>${p}</p></article>`;
+  const work = d.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
+    const w = p[lang];
+    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
+        <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
+        <div class="media">${browser(cover(p, lang), p.host, w.name)}</div>
+      </li>`;
+  }).join("\n      ");
+  const steps = d.how.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
+  const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const navCta = { href: wa, label: d.ctaNav, attrs: out };
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image, imageAlt: d.h1, single: true, extra: pixel })
+    + nav(lang, altPath, { cta: navCta, offer: false }) + banner + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <div class="actions-row">${waBtn()}<a class="btn btn--ghost" href="#como-funciona">${d.ctaHow}</a></div>
+    ${duo(lead, lang, true)}
+    <p class="find-note">${d.heroNote}</p>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">${d.problemTitle.replace(". ", ".<br>")}</h2>
+      <p class="lede">${d.problemLede}</p>
+      <div class="tiles tiles--plain">
+        ${d.problems.map(card).join("\n        ")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">${d.doTitle}</h2>
+      <p class="lede">${d.doLede}</p>
+      <div class="tiles tiles--plain">
+        ${d.do.map(card).join("\n        ")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="como-funciona">
+    <div class="wrap" data-rise=".h2, .lede, .step, .section-cta">
+      <h2 class="h2">${d.howTitle}</h2>
+      <p class="lede">${d.howLede}</p>
+      <ol class="steps steps--2">
+          ${steps}
+      </ol>
+      <p class="section-cta">${waBtn(d.howCta)}</p>
+    </div>
+  </section>
+
+  <section class="band" id="casos">
+    <div class="wrap" data-rise=".h2, .lede, .proj">
+      <h2 class="h2">${d.workTitle}</h2>
+      <p class="lede">${d.workLede}</p>
+      <ul class="projects">
+      ${work}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap founder" data-rise=".portrait, .h2, .body">
+      ${founderPhoto ? `<figure class="portrait"><img src="${founderPhoto}" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>${home[lang].sigRole}</span></figcaption></figure>` : ""}
+      <h2 class="h2">${d.aboutTitle}</h2>
+      <div class="body">${d.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row">${waBtn()}<a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
+      <div class="actions-row">${waBtn()}<a class="btn btn--ghost" href="mailto:${contact.email}?subject=${encodeURIComponent(d.name)}">${d.ctaEmail}</a></div>
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath, { cta: { href: wa, label: d.ctaWa, attrs: out } });
+};
+
 const privacyPage = lang => {
   const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
   const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
@@ -743,6 +883,7 @@ for (const lang of LANGS) {
   for (const key in servicePages) write(`${prefix}${servicePages[key][lang].slug}/index.html`, servicePageHtml(lang, key));
   write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
+write(`${consultoriaPath.slice(1)}/index.html`, consultoriaPageHtml());
 
 // vercel.json: serve the home page at each section's clean address (serve.mjs does the same locally).
 const vercelFile = join(ROOT, "vercel.json");
@@ -773,10 +914,11 @@ if (SITE) {
   const today = new Date().toISOString().slice(0, 10);
   const fileOf = loc => `${loc === "/" ? "" : loc.slice(1) + "/"}index.html`;
   const lastmod = loc => (!changed.has(fileOf(loc)) && before[SITE + loc]) || today;
-  const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
+  // A page with no twin in the other language (the AI consulting page) is listed alone, without alternates.
+  const alts = ([en, pt]) => !pt ? "" : `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
+${[...pairs, [privacyPath("en"), privacyPath("pt")], [consultoriaPath]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
 </urlset>
 `);
 }

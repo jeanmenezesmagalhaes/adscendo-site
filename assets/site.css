@@ -248,6 +248,7 @@ section.band { padding: clamp(88px, 13vw, 160px) 0; }
 section.process { padding: 0; }
 .process-pin { padding: clamp(88px, 13vw, 160px) 0; }
 .steps { margin: clamp(40px, 6vw, 72px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.steps--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .step { background: var(--surface); border-radius: 28px; padding: clamp(28px, 3.6vw, 44px); }
 .step .num { font-size: 13px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
 .step h3 { margin-top: 40px; font-size: clamp(30px, 3.4vw, 44px); letter-spacing: -0.04em; line-height: 1; }
@@ -739,3 +740,18 @@ html.chat-open, html.chat-open body { overflow: hidden; }
   .channels a { padding: 15px 18px; }
   .channels a span { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 }
+
+/* Cookie notice (only on pages that carry the Meta Pixel). Hidden unless the visitor hasn't chosen yet. */
+.cc { display: none; }
+.cc-ask .cc {
+  display: flex; align-items: center; gap: 16px 20px; flex-wrap: wrap;
+  position: fixed; left: 20px; bottom: 20px; z-index: 50; max-width: 560px;
+  padding: 16px 16px 16px 20px; border-radius: 20px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,.35);
+}
+.cc p { flex: 1 1 260px; margin: 0; font-size: 14px; line-height: 1.45; color: var(--graphite); }
+.cc a { color: var(--ink); }
+.cc-actions { display: flex; gap: 8px; }
+.cc-ask .float-cta { display: none; }
+@media (max-width: 560px) { .cc-ask .cc { left: 12px; right: 12px; bottom: 12px; } .cc-actions { width: 100%; } .cc-actions .btn { flex: 1; height: 40px; } }

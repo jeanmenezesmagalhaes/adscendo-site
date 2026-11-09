@@ -27,11 +27,14 @@ export const contact = {
 export const ui = {
   en: {
     nav: { services: "Services", work: "Portfolio", process: "How we work", about: "About", cta: "Get in touch" },
-    // Drop-down under "Services" in the nav (`to`: a home section id, or "ai" for the AI page). The one
-    // under "Portfolio" lists the projects, then `allWork`.
+    // Drop-down under "Services" in the nav, also the phone menu's list (`to`: a service page key,
+    // "consultoria" for the AI consulting page, "ai" for the AI page or a home section id). The one under
+    // "Portfolio" lists the projects, then `allWork`.
     menu: {
       services: [
-        // AI optimization lives inside Websites (the websites page links to it), not as its own item.
+        // AI consulting first. AI optimization lives inside Websites (the websites page links to it), not
+        // as its own item.
+        { h: "AI consulting", p: "More efficiency and profit with AI", to: "consultoria" },
         { h: "Websites", p: "Fast sites, found on Google and AI", to: "websites" },
         { h: "Apps", p: "For iPhone, Android and the web", to: "apps" },
       ],
@@ -60,8 +63,8 @@ export const ui = {
     nav: { services: "Serviços", work: "Portfólio", process: "Como trabalhamos", about: "Sobre", cta: "Fale com a gente" },
     menu: {
       services: [
-        // AI consulting first (Portuguese only: the page has no English twin). AI optimization lives
-        // inside Sites (the sites page links to it), not as its own item.
+        // AI consulting first. AI optimization lives inside Sites (the sites page links to it), not as its
+        // own item.
         { h: "Consultoria de IA", p: "Mais eficiência e lucro com IA", to: "consultoria" },
         { h: "Sites", p: "Sites rápidos, achados no Google e nas IAs", to: "websites" },
         { h: "Apps", p: "Para iPhone, Android e web", to: "apps" },
@@ -103,6 +106,20 @@ export const home = {
     hostHero: "prospector.adscendo.pro",
     demoLabel: "Live demo",
     demoText: "<strong>This is Prospector, a product we built.</strong> It finds new clients for you on the map, so you spend your time closing deals instead of searching for them.",
+    // Right under the hero: AI consulting, the offer the site leads with. It links to the consulting page
+    // and its projects (`consultoriaPage`).
+    consult: {
+      eyebrow: "AI consulting",
+      title: "A more efficient business. And a more profitable one.",
+      lede: "We find where AI cuts time and cost in your business, then put it to work with your team. No endless project: we start where the payoff shows up first.",
+      points: [
+        ["Less busywork", "Work your team does by hand today runs on its own: spreadsheets, data entry, paperwork and routine replies."],
+        ["More sales, same team", "AI agents that answer, qualify leads and follow up, so your people can focus on closing."],
+        ["Faster customer service", "Answers right away, at any hour, using your business's own information, with a person close by when it's needed."],
+      ],
+      cta: "Explore AI consulting",
+      more: "See our AI projects",
+    },
     warmthTitle: "Brazilian warmth. American standards.",
     warmthLede: "We bring Brazil's creativity and human touch to American businesses: work made with an artist's eye, close and full of life, delivered the way you expect.",
     processTitle: "How we work.",
@@ -167,8 +184,8 @@ export const home = {
     hostHero: "prospector.adscendo.pro",
     demoLabel: "Demonstração ao vivo",
     demoText: "<strong>Este é o Prospector, um produto que construímos.</strong> Ele encontra novos clientes para você no mapa, para você gastar seu tempo fechando negócios, e não procurando por eles.",
-    // Right under the hero: AI consulting, the offer the Portuguese site leads with. English has no
-    // consulting page, so it has no `consult` block and no section.
+    // Right under the hero: AI consulting, the offer the site leads with. It links to the consulting page
+    // and its projects (`consultoriaPage`).
     consult: {
       eyebrow: "Consultoria de IA",
       title: "Sua empresa mais eficiente. E mais rentável.",
@@ -454,76 +471,144 @@ export const aiPage = {
   },
 };
 
-// AI implementation consulting, at /pt/consultoria-ia. Portuguese only (no English twin), for Meta ads
-// traffic: every main button opens WhatsApp with `waText`, and the page alone carries the Meta Pixel
-// (build.mjs). `work` lists the projects shown as proof. Keep every claim true to the rest of the site.
+// AI implementation consulting, at /ai-consulting and /pt/consultoria-ia, each the other's hreflang twin.
+// The Portuguese page is where the Meta ads point: its main buttons open WhatsApp with `waText`, and
+// `pixel: true` gives it (and only it) the Meta Pixel behind the cookie banner in `cookies`. Without
+// `waText` (English) the buttons go to the site's contact chat, plus email. `howId` and `workId` are the
+// anchors of "How it works" and the projects (the home's consulting block links to the latter). `work`
+// lists the projects shown as proof. Keep every claim true to the rest of the site.
 export const consultoriaPage = {
-  slug: "consultoria-ia",
   work: ["prospector", "blip", "orbit", "minha-companhia", "sidemed"],
-  name: "Consultoria de IA",
-  title: "Consultoria de IA para empresas | Jean Menezes, Adscendo",
-  description: "Implantação de IA na sua empresa: diagnóstico, automação de processos, agentes de atendimento e treinamento da equipe. Fale com o Jean Menezes no WhatsApp.",
-  waText: "Oi Jean, vi o anúncio sobre consultoria de IA e quero entender como aplicar na minha empresa.",
-  // Cookie banner: the Meta Pixel loads only after "Aceitar".
-  cookies: {
-    label: "Cookies",
-    text: "Usamos cookies da Meta para medir quais anúncios trazem você até aqui. Eles só são ativados se você aceitar.",
-    more: "Política de privacidade",
-    href: "/pt/privacidade",
-    deny: "Recusar",
-    accept: "Aceitar",
+  en: {
+    slug: "ai-consulting",
+    howId: "how-it-works",
+    workId: "projects",
+    areaServed: "United States",
+    name: "AI consulting",
+    title: "AI consulting for small businesses | Jean Menezes, Adscendo",
+    description: "Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.",
+    ctaMain: "Talk to us",
+    eyebrow: "AI implementation consulting",
+    h1: "Put AI to work in your business.",
+    lede: "We find where AI saves time in customer service, sales and day-to-day operations, then set it up and get it working with your team.",
+    ctaHow: "How it works",
+    heroNote: "Prospector, our AI prospecting tool, on a computer and a phone. Sample data.",
+    problemTitle: "Everyone talks about AI. Not much changes.",
+    problemLede: "Maybe someone on your team uses ChatGPT now and then. But customer service, sales and the daily routine still run the same way they always have.",
+    problems: [
+      ["Not sure where to start", "There are too many tools and too many promises. Without looking at how your business actually runs, it's hard to tell what's worth it."],
+      ["Tried it, nothing changed", "Everyone using ChatGPT their own way doesn't change a single process. AI has to be connected to the real work."],
+      ["No time to experiment", "When you run the business, you don't have weeks to study tools and get it wrong. You need someone who has built this before."],
+    ],
+    doTitle: "What we do.",
+    doLede: "We start where the payoff comes fastest, and keep going until AI is part of the everyday work.",
+    do: [
+      ["Assessment", "We learn how your business runs today and show you where AI saves time or money. And where it doesn't."],
+      ["Less repetitive work", "Copying data from one system to another, building spreadsheets and reports, answering the same questions over and over. If your team does it on autopilot, software can do it."],
+      ["AI agents for customer service", "An assistant that answers common questions on your website, by text or by email, at any hour, and hands off to someone on your team when it should."],
+      ["AI in sales and the back office", "Qualifying leads, writing the first message, organizing orders and paperwork. It's the kind of work our own Prospector does in sales."],
+      ["Works with what you already use", "AI works alongside your spreadsheets, email, phone and business software, where they allow it. No need to replace everything at once."],
+      ["Team training", "Your team learns the tools with examples from your own business, not a generic course."],
+    ],
+    howTitle: "How it works.",
+    howLede: "From the first assessment to follow-up, in four steps.",
+    how: [
+      ["Assessment", "We talk with you and with the people who do the work, look at your processes and software, and list where AI can help."],
+      ["Plan", "You get a plan: what to do first, what each change solves and what it costs, before anything gets built."],
+      ["Build", "We build the automations and agents, connect them to your systems and test them on real cases from your business before they go live."],
+      ["Follow-up", "We train your team, look at what changed in the daily routine and fine-tune whatever needs it in the weeks that follow."],
+    ],
+    howCta: "Start with an assessment",
+    workTitle: "Projects we've built.",
+    workLede: "Real products, in use. With AI, Prospector finds new customers and writes the first email, Blip finds jobs and tailors resumes, and Orbit brings email, calendar and tasks together on the Mac.",
+    aboutTitle: "You talk to the person who builds it.",
+    about: [
+      "The consulting is led by <strong>Jean Menezes</strong>, founder of Adscendo. Before that, he spent years designing and building digital products for enterprise companies, with projects for McDonald's, AT&amp;T, Petronas, PagBank and Multilaser.",
+      "In 2026 he created Sidemed, a health app used in 17 countries, and launched Prospector, an AI prospecting tool. The person who learns how your business works is the same person who builds the solution.",
+    ],
+    faqTitle: "Questions about AI consulting.",
+    faq: [
+      ["Do I need to be technical to hire you?", "No. You explain how your business runs and where the work gets stuck. We handle the technical side, and your team learns only what it will use day to day."],
+      ["My business is small. Does this make sense?", "Often, yes: in a small business, a few hours less of repetitive work each week already makes a difference. The assessment tells you honestly whether it's worth it and where to start."],
+      ["How much does it cost?", "It depends on the size of your business and what we build, so there's no price list. After a first conversation, which is free, we send you a proposal with what's included and what it costs, before any work starts."],
+      ["Will AI replace my team?", "The idea is to take repetitive work off your team's plate, so they have more time for what needs a person: taking care of customers, selling and solving problems. Where AI falls short, a person stays in charge."],
+      ["What about my business data?", "We decide with you which data AI can use, give each automation access only to what it needs, and choose tools that fit the privacy rules your business has to follow."],
+    ],
+    ctaTitle: "Where should your business start?",
+    ctaText: "Tell us what your business does and where the work gets stuck the most. Jean replies personally.",
+    ctaEmail: "Prefer email",
   },
-  ctaWa: "Conversar no WhatsApp",
-  ctaNav: "WhatsApp",
-  eyebrow: "Consultoria de implantação de IA",
-  h1: "IA na rotina da sua empresa.",
-  lede: "A gente descobre onde a inteligência artificial economiza tempo no atendimento, nas vendas e na operação, e coloca para funcionar com a sua equipe.",
-  ctaHow: "Como funciona",
-  heroNote: "O Prospector, nosso sistema de prospecção com IA, no computador e no celular. Dados de exemplo.",
-  problemTitle: "Muito se fala de IA. Pouco muda.",
-  problemLede: "Talvez alguém da equipe até use o ChatGPT de vez em quando. Mas o atendimento, as vendas e a rotina continuam do mesmo jeito.",
-  problems: [
-    ["Não sabe por onde começar", "São muitas ferramentas e muita promessa. Sem olhar como a empresa funciona, fica difícil saber o que vale a pena."],
-    ["Testou e não deu em nada", "Cada um usando o ChatGPT do seu jeito não muda nenhum processo. A IA precisa estar ligada ao trabalho de verdade."],
-    ["Sem tempo para testar", "Quem toca a empresa não tem semanas para estudar ferramentas e errar. Precisa de alguém que já construiu isso antes."],
-  ],
-  doTitle: "O que a consultoria faz.",
-  doLede: "Começamos pelo que dá retorno mais rápido e vamos até a IA estar funcionando no dia a dia.",
-  do: [
-    ["Diagnóstico", "Entendemos como sua empresa funciona hoje e mostramos onde a IA economiza tempo ou dinheiro. E também onde não vale a pena."],
-    ["Automação de tarefas repetitivas", "Copiar dados de um sistema para outro, montar planilhas e relatórios, responder sempre as mesmas coisas. O que a equipe faz no automático, a máquina pode fazer."],
-    ["Agentes de IA para atendimento", "Um assistente que responde as dúvidas comuns no WhatsApp ou no site, a qualquer hora, e passa para uma pessoa da equipe quando o assunto pede."],
-    ["IA em vendas e no backoffice", "Qualificar contatos, escrever a primeira mensagem, organizar pedidos e documentos. É o tipo de trabalho que o nosso Prospector faz em vendas."],
-    ["Integração com o que você já usa", "A IA trabalha junto com suas planilhas, seu email, seu WhatsApp e seus sistemas, quando eles permitem. Sem trocar tudo de uma vez."],
-    ["Treinamento da equipe", "Sua equipe aprende a usar as ferramentas com exemplos da própria empresa, e não com um curso genérico."],
-  ],
-  howTitle: "Como funciona.",
-  howLede: "Do primeiro diagnóstico ao acompanhamento, em quatro etapas.",
-  how: [
-    ["Diagnóstico", "Conversamos com você e com quem faz o trabalho, olhamos os processos e os sistemas, e listamos onde a IA pode ajudar."],
-    ["Plano", "Você recebe um plano com o que fazer primeiro, o que cada mudança resolve e quanto custa, antes de qualquer implantação."],
-    ["Implantação", "Construímos as automações e os agentes, ligados aos seus sistemas, e testamos com casos reais da empresa antes de colocar no ar."],
-    ["Acompanhamento", "Treinamos a equipe, olhamos o que mudou na rotina e ajustamos o que for preciso nas semanas seguintes."],
-  ],
-  howCta: "Começar pelo diagnóstico",
-  workTitle: "Projetos que construímos.",
-  workLede: "Produtos reais, em uso. Com IA, o Prospector encontra clientes e escreve emails, o Blip procura vagas e adapta currículos, e o Orbit junta email, agenda e tarefas no Mac.",
-  aboutTitle: "Você fala com quem constrói.",
-  about: [
-    "A consultoria é conduzida pelo <strong>Jean Menezes</strong>, fundador da Adscendo. Antes dela, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, e trabalhou em projetos para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
-    "Em 2026 criou a Sidemed, um app de saúde usado em 17 países, e lançou o Prospector, um sistema de prospecção com IA. Na consultoria, quem entende o seu negócio é a mesma pessoa que constrói a solução.",
-  ],
-  faqTitle: "Perguntas frequentes.",
-  faq: [
-    ["Preciso entender de tecnologia para contratar?", "Não. Você explica como a empresa funciona e onde o trabalho trava. A parte técnica fica com a gente, e a equipe aprende só o que vai usar no dia a dia."],
-    ["Minha empresa é pequena. Faz sentido?", "Muitas vezes, sim: numa empresa pequena, algumas horas a menos de trabalho repetitivo por semana já fazem diferença. O diagnóstico serve para dizer com honestidade se vale a pena e por onde começar."],
-    ["Quanto custa?", "Depende do tamanho da empresa e do que for implantado, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o que está incluído e quanto custa, antes de qualquer trabalho começar."],
-    ["A IA vai substituir minha equipe?", "A ideia é tirar da equipe o trabalho repetitivo, para sobrar tempo para o que precisa de uma pessoa: atender bem, vender e resolver problemas. Onde a IA não dá conta, uma pessoa continua no controle."],
-    ["E os dados da minha empresa?", "Definimos com você quais dados a IA pode usar, damos a cada automação acesso só ao que ela precisa e escolhemos as ferramentas de acordo com a LGPD."],
-  ],
-  ctaTitle: "Por onde começar na sua empresa?",
-  ctaText: "Mande uma mensagem contando o que sua empresa faz e onde o trabalho mais trava. O Jean responde pessoalmente.",
-  ctaEmail: "Prefiro email",
+  pt: {
+    slug: "consultoria-ia",
+    howId: "como-funciona",
+    workId: "casos",
+    areaServed: "Brazil",
+    pixel: true,
+    name: "Consultoria de IA",
+    title: "Consultoria de IA para empresas | Jean Menezes, Adscendo",
+    description: "Implantação de IA na sua empresa: diagnóstico, automação de processos, agentes de atendimento e treinamento da equipe. Fale com o Jean Menezes no WhatsApp.",
+    waText: "Oi Jean, vi o anúncio sobre consultoria de IA e quero entender como aplicar na minha empresa.",
+    // Cookie banner: the Meta Pixel loads only after "Aceitar".
+    cookies: {
+      label: "Cookies",
+      text: "Usamos cookies da Meta para medir quais anúncios trazem você até aqui. Eles só são ativados se você aceitar.",
+      more: "Política de privacidade",
+      href: "/pt/privacidade",
+      deny: "Recusar",
+      accept: "Aceitar",
+    },
+    ctaWa: "Conversar no WhatsApp",
+    ctaNav: "WhatsApp",
+    eyebrow: "Consultoria de implantação de IA",
+    h1: "IA na rotina da sua empresa.",
+    lede: "A gente descobre onde a inteligência artificial economiza tempo no atendimento, nas vendas e na operação, e coloca para funcionar com a sua equipe.",
+    ctaHow: "Como funciona",
+    heroNote: "O Prospector, nosso sistema de prospecção com IA, no computador e no celular. Dados de exemplo.",
+    problemTitle: "Muito se fala de IA. Pouco muda.",
+    problemLede: "Talvez alguém da equipe até use o ChatGPT de vez em quando. Mas o atendimento, as vendas e a rotina continuam do mesmo jeito.",
+    problems: [
+      ["Não sabe por onde começar", "São muitas ferramentas e muita promessa. Sem olhar como a empresa funciona, fica difícil saber o que vale a pena."],
+      ["Testou e não deu em nada", "Cada um usando o ChatGPT do seu jeito não muda nenhum processo. A IA precisa estar ligada ao trabalho de verdade."],
+      ["Sem tempo para testar", "Quem toca a empresa não tem semanas para estudar ferramentas e errar. Precisa de alguém que já construiu isso antes."],
+    ],
+    doTitle: "O que a consultoria faz.",
+    doLede: "Começamos pelo que dá retorno mais rápido e vamos até a IA estar funcionando no dia a dia.",
+    do: [
+      ["Diagnóstico", "Entendemos como sua empresa funciona hoje e mostramos onde a IA economiza tempo ou dinheiro. E também onde não vale a pena."],
+      ["Automação de tarefas repetitivas", "Copiar dados de um sistema para outro, montar planilhas e relatórios, responder sempre as mesmas coisas. O que a equipe faz no automático, a máquina pode fazer."],
+      ["Agentes de IA para atendimento", "Um assistente que responde as dúvidas comuns no WhatsApp ou no site, a qualquer hora, e passa para uma pessoa da equipe quando o assunto pede."],
+      ["IA em vendas e no backoffice", "Qualificar contatos, escrever a primeira mensagem, organizar pedidos e documentos. É o tipo de trabalho que o nosso Prospector faz em vendas."],
+      ["Integração com o que você já usa", "A IA trabalha junto com suas planilhas, seu email, seu WhatsApp e seus sistemas, quando eles permitem. Sem trocar tudo de uma vez."],
+      ["Treinamento da equipe", "Sua equipe aprende a usar as ferramentas com exemplos da própria empresa, e não com um curso genérico."],
+    ],
+    howTitle: "Como funciona.",
+    howLede: "Do primeiro diagnóstico ao acompanhamento, em quatro etapas.",
+    how: [
+      ["Diagnóstico", "Conversamos com você e com quem faz o trabalho, olhamos os processos e os sistemas, e listamos onde a IA pode ajudar."],
+      ["Plano", "Você recebe um plano com o que fazer primeiro, o que cada mudança resolve e quanto custa, antes de qualquer implantação."],
+      ["Implantação", "Construímos as automações e os agentes, ligados aos seus sistemas, e testamos com casos reais da empresa antes de colocar no ar."],
+      ["Acompanhamento", "Treinamos a equipe, olhamos o que mudou na rotina e ajustamos o que for preciso nas semanas seguintes."],
+    ],
+    howCta: "Começar pelo diagnóstico",
+    workTitle: "Projetos que construímos.",
+    workLede: "Produtos reais, em uso. Com IA, o Prospector encontra clientes e escreve emails, o Blip procura vagas e adapta currículos, e o Orbit junta email, agenda e tarefas no Mac.",
+    aboutTitle: "Você fala com quem constrói.",
+    about: [
+      "A consultoria é conduzida pelo <strong>Jean Menezes</strong>, fundador da Adscendo. Antes dela, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, e trabalhou em projetos para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
+      "Em 2026 criou a Sidemed, um app de saúde usado em 17 países, e lançou o Prospector, um sistema de prospecção com IA. Na consultoria, quem entende o seu negócio é a mesma pessoa que constrói a solução.",
+    ],
+    faqTitle: "Perguntas frequentes.",
+    faq: [
+      ["Preciso entender de tecnologia para contratar?", "Não. Você explica como a empresa funciona e onde o trabalho trava. A parte técnica fica com a gente, e a equipe aprende só o que vai usar no dia a dia."],
+      ["Minha empresa é pequena. Faz sentido?", "Muitas vezes, sim: numa empresa pequena, algumas horas a menos de trabalho repetitivo por semana já fazem diferença. O diagnóstico serve para dizer com honestidade se vale a pena e por onde começar."],
+      ["Quanto custa?", "Depende do tamanho da empresa e do que for implantado, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o que está incluído e quanto custa, antes de qualquer trabalho começar."],
+      ["A IA vai substituir minha equipe?", "A ideia é tirar da equipe o trabalho repetitivo, para sobrar tempo para o que precisa de uma pessoa: atender bem, vender e resolver problemas. Onde a IA não dá conta, uma pessoa continua no controle."],
+      ["E os dados da minha empresa?", "Definimos com você quais dados a IA pode usar, damos a cada automação acesso só ao que ela precisa e escolhemos as ferramentas de acordo com a LGPD."],
+    ],
+    ctaTitle: "Por onde começar na sua empresa?",
+    ctaText: "Mande uma mensagem contando o que sua empresa faz e onde o trabalho mais trava. O Jean responde pessoalmente.",
+    ctaEmail: "Prefiro email",
+  },
 };
 
 // One page per service, at /websites and /apps (/pt/sites, /pt/apps), linked from the "Services" menu

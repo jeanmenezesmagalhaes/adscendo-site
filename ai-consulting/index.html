@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI consulting for small businesses | Jean Menezes, Adscendo</title>
+<meta name="description" content="Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="AI consulting for small businesses | Jean Menezes, Adscendo">
+<meta property="og:description" content="Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/ai-consulting">
+<meta property="og:image" content="https://adscendo.pro/assets/og/prospector/globe.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="Put AI to work in your business.">
+<link rel="canonical" href="https://adscendo.pro/ai-consulting">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/ai-consulting">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/consultoria-ia">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/ai-consulting">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://adscendo.pro/ai-consulting","url":"https://adscendo.pro/ai-consulting","name":"AI consulting for small businesses | Jean Menezes, Adscendo","description":"Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.","inLanguage":"en","isPartOf":{"@id":"https://adscendo.pro/#website"},"about":{"@id":"https://adscendo.pro/ai-consulting#service"}},{"@type":"Service","@id":"https://adscendo.pro/ai-consulting#service","name":"AI consulting","serviceType":"AI implementation consulting","description":"Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.","provider":{"@id":"https://adscendo.pro/#org"},"areaServed":{"@type":"Country","name":"United States"},"availableLanguage":"en"},{"@type":"FAQPage","@id":"https://adscendo.pro/ai-consulting#faq","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Do I need to be technical to hire you?","acceptedAnswer":{"@type":"Answer","text":"No. You explain how your business runs and where the work gets stuck. We handle the technical side, and your team learns only what it will use day to day."}},{"@type":"Question","name":"My business is small. Does this make sense?","acceptedAnswer":{"@type":"Answer","text":"Often, yes: in a small business, a few hours less of repetitive work each week already makes a difference. The assessment tells you honestly whether it's worth it and where to start."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on the size of your business and what we build, so there's no price list. After a first conversation, which is free, we send you a proposal with what's included and what it costs, before any work starts."}},{"@type":"Question","name":"Will AI replace my team?","acceptedAnswer":{"@type":"Answer","text":"The idea is to take repetitive work off your team's plate, so they have more time for what needs a person: taking care of customers, selling and solving problems. Where AI falls short, a person stays in charge."}},{"@type":"Question","name":"What about my business data?","acceptedAnswer":{"@type":"Answer","text":"We decide with you which data AI can use, give each automation access only to what it needs, and choose tools that fit the privacy rules your business has to follow."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo.pro/"},{"@type":"ListItem","position":2,"name":"AI consulting","item":"https://adscendo.pro/ai-consulting"}]}]}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/ai-consulting"><b>AI consulting</b><span>More efficiency and profit with AI</span></a><a href="/websites"><b>Websites</b><span>Fast sites, found on Google and AI</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/portfolio"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/consultoria-ia" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/contact">Get in touch</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/ai-consulting">AI consulting</a></li><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/portfolio">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="/contact">Get in touch</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/consultoria-ia" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">AI implementation consulting</p>
+    <h1>Put AI to work in your business.</h1>
+    <p class="lede">We find where AI saves time in customer service, sales and day-to-day operations, then set it up and get it working with your team.</p>
+    <div class="actions-row"><a class="btn" href="/contact">Talk to us</a><a class="btn btn--ghost" href="#how-it-works">How it works</a></div>
+    <div class="duo"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>prospector.adscendo.pro</span></div><img src="/assets/work/prospector/globe.webp" width="1600" height="1000" alt="Prospector, desktop" fetchpriority="high" decoding="async"></div><div class="phone"><div class="frame"><div class="screen"><div class="status" style="background:#f5f5f7" aria-hidden="true"><span>9:41</span><i class="island"></i><svg><use href="#status"/></svg></div><img src="/assets/work/prospector/globe-m.webp" width="780" height="1688" alt="Prospector, phone" fetchpriority="high" decoding="async"></div></div></div></div>
+    <p class="find-note">Prospector, our AI prospecting tool, on a computer and a phone. Sample data.</p>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">Everyone talks about AI.<br>Not much changes.</h2>
+      <p class="lede">Maybe someone on your team uses ChatGPT now and then. But customer service, sales and the daily routine still run the same way they always have.</p>
+      <div class="tiles tiles--plain">
+        <article class="tile"><h3>Not sure where to start</h3><p>There are too many tools and too many promises. Without looking at how your business actually runs, it's hard to tell what's worth it.</p></article>
+        <article class="tile"><h3>Tried it, nothing changed</h3><p>Everyone using ChatGPT their own way doesn't change a single process. AI has to be connected to the real work.</p></article>
+        <article class="tile"><h3>No time to experiment</h3><p>When you run the business, you don't have weeks to study tools and get it wrong. You need someone who has built this before.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">What we do.</h2>
+      <p class="lede">We start where the payoff comes fastest, and keep going until AI is part of the everyday work.</p>
+      <div class="tiles tiles--plain">
+        <article class="tile"><h3>Assessment</h3><p>We learn how your business runs today and show you where AI saves time or money. And where it doesn't.</p></article>
+        <article class="tile"><h3>Less repetitive work</h3><p>Copying data from one system to another, building spreadsheets and reports, answering the same questions over and over. If your team does it on autopilot, software can do it.</p></article>
+        <article class="tile"><h3>AI agents for customer service</h3><p>An assistant that answers common questions on your website, by text or by email, at any hour, and hands off to someone on your team when it should.</p></article>
+        <article class="tile"><h3>AI in sales and the back office</h3><p>Qualifying leads, writing the first message, organizing orders and paperwork. It's the kind of work our own Prospector does in sales.</p></article>
+        <article class="tile"><h3>Works with what you already use</h3><p>AI works alongside your spreadsheets, email, phone and business software, where they allow it. No need to replace everything at once.</p></article>
+        <article class="tile"><h3>Team training</h3><p>Your team learns the tools with examples from your own business, not a generic course.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="how-it-works">
+    <div class="wrap" data-rise=".h2, .lede, .step, .section-cta">
+      <h2 class="h2">How it works.</h2>
+      <p class="lede">From the first assessment to follow-up, in four steps.</p>
+      <ol class="steps steps--2">
+          <li class="step"><p class="num">01</p><h3>Assessment</h3><p>We talk with you and with the people who do the work, look at your processes and software, and list where AI can help.</p></li>
+          <li class="step"><p class="num">02</p><h3>Plan</h3><p>You get a plan: what to do first, what each change solves and what it costs, before anything gets built.</p></li>
+          <li class="step"><p class="num">03</p><h3>Build</h3><p>We build the automations and agents, connect them to your systems and test them on real cases from your business before they go live.</p></li>
+          <li class="step"><p class="num">04</p><h3>Follow-up</h3><p>We train your team, look at what changed in the daily routine and fine-tune whatever needs it in the weeks that follow.</p></li>
+      </ol>
+      <p class="section-cta"><a class="btn" href="/contact">Start with an assessment</a></p>
+    </div>
+  </section>
+
+  <section class="band" id="projects">
+    <div class="wrap" data-rise=".h2, .lede, .proj">
+      <h2 class="h2">Projects we've built.</h2>
+      <p class="lede">Real products, in use. With AI, Prospector finds new customers and writes the first email, Blip finds jobs and tailors resumes, and Orbit brings email, calendar and tasks together on the Mac.</p>
+      <ul class="projects">
+      <li class="proj" style="--tint:#e8edf4" data-cursor="view">
+        <div class="text"><p class="eyebrow">Sales</p><h3>Prospector</h3><p>Finds businesses on the map, analyzes each one, writes a personal email and tracks every lead in a CRM.</p><div class="proj-actions"><a class="link stretch" href="/work/prospector">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>prospector.adscendo.pro</span></div><img src="/assets/work/prospector/globe.webp" width="1600" height="1000" alt="Prospector" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#efeaf4" data-cursor="view">
+        <div class="text"><p class="eyebrow">Career</p><h3>Blip</h3><p>Finds jobs across dozens of sites, tailors your resume for each ATS, prepares the application and tracks it all on a board.</p><div class="proj-actions"><a class="link stretch" href="/work/blip">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:8765</span></div><img src="/assets/work/blip/board.webp" width="1600" height="1000" alt="Blip" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#eceef1" data-cursor="view">
+        <div class="text"><p class="eyebrow">Productivity</p><h3>Orbit</h3><p>One native Mac app for every email account and calendar, tasks linked to emails, and the AI you choose.</p><div class="proj-actions"><a class="link stretch" href="/work/orbit">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="mac-window"><img src="/assets/work/orbit/home.webp" width="1600" height="1000" alt="Orbit" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#e5efe8" data-cursor="view" data-cursor-color="#f18eb2" data-cursor-ink="#0f281f">
+        <div class="text"><p class="eyebrow">Marketplace</p><h3>Minha companhia</h3><p>Families book a verified professional to take their older parents to the doctor, an exam or the bank, and bring them home.</p><div class="proj-actions"><a class="link stretch" href="/work/minha-companhia">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>minhacompanhia.com.br</span></div><img src="/assets/work/minha-companhia/home.webp" width="1440" height="900" alt="Minha companhia" loading="lazy" decoding="async"></div></div>
+      </li>
+      <li class="proj" style="--tint:#f3eee3" data-cursor="view" data-cursor-color="#1957ff" data-cursor-ink="#ffffff">
+        <div class="text"><p class="eyebrow">Health</p><h3>Sidemed</h3><p>Your medical history, organized, translated into your doctor's language and shared in seconds. Used in 17 countries.</p><div class="proj-actions"><a class="link stretch" href="/work/sidemed">Read the full story<svg aria-hidden="true"><use href="#arrow"/></svg></a></div></div>
+        <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>sidemed.com.br</span></div><img src="/assets/work/sidemed/hero.webp" width="1600" height="1000" alt="Sidemed" loading="lazy" decoding="async"></div></div>
+      </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap founder" data-rise=".portrait, .h2, .body">
+      <figure class="portrait"><img src="/assets/jean.webp" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>Founder. Born in Brazil, built to operate globally.</span></figcaption></figure>
+      <h2 class="h2">You talk to the person who builds it.</h2>
+      <div class="body"><p>The consulting is led by <strong>Jean Menezes</strong>, founder of Adscendo. Before that, he spent years designing and building digital products for enterprise companies, with projects for McDonald's, AT&amp;T, Petronas, PagBank and Multilaser.</p><p>In 2026 he created Sidemed, a health app used in 17 countries, and launched Prospector, an AI prospecting tool. The person who learns how your business works is the same person who builds the solution.</p><p class="actions-row"><a class="btn" href="/contact">Talk to us</a><a class="link" href="/work/adscendo">Read the studio's story<svg aria-hidden="true"><use href="#arrow"/></svg></a></p></div>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">Questions about AI consulting.</h2>
+      <div class="faq-list">
+        <details name="faq" open><summary><h3>Do I need to be technical to hire you?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>No. You explain how your business runs and where the work gets stuck. We handle the technical side, and your team learns only what it will use day to day.</p></details>
+        <details name="faq"><summary><h3>My business is small. Does this make sense?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Often, yes: in a small business, a few hours less of repetitive work each week already makes a difference. The assessment tells you honestly whether it's worth it and where to start.</p></details>
+        <details name="faq"><summary><h3>How much does it cost?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>It depends on the size of your business and what we build, so there's no price list. After a first conversation, which is free, we send you a proposal with what's included and what it costs, before any work starts.</p></details>
+        <details name="faq"><summary><h3>Will AI replace my team?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>The idea is to take repetitive work off your team's plate, so they have more time for what needs a person: taking care of customers, selling and solving problems. Where AI falls short, a person stays in charge.</p></details>
+        <details name="faq"><summary><h3>What about my business data?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>We decide with you which data AI can use, give each automation access only to what it needs, and choose tools that fit the privacy rules your business has to follow.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">Where should your business start?</h2><p class="lede">Tell us what your business does and where the work gets stuck the most. Jean replies personally.</p></div>
+      <div class="actions-row"><a class="btn" href="/contact">Talk to us</a><a class="btn btn--ghost" href="mailto:jean@adscendo.pro?subject=AI%20consulting">Prefer email</a></div>
+    </div>
+  </section>
+</main>
+<a class="btn float-cta" href="/contact" hidden>Get in touch</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/contact">Get in touch</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/consultoria-ia" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

@@ -6,6 +6,7 @@ Adscendo is the web design and development studio of Jean Menezes, founded in Oc
 
 ## Services
 
+- AI consulting: Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.
 - Websites: Beautiful, fast sites that tell your story in seconds and turn visitors into customers.
 - Apps: When a website isn't enough: apps your customers open every day.
 - Show up on Google: Google needs to understand what you do and where you do it. We give it fast pages, clear organization and the words your customers really type.
@@ -41,6 +42,7 @@ Answer a few questions in the chat below. It takes less than a minute and gives 
 - [Home](https://adscendo.pro/): Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch. Portuguese: https://adscendo.pro/pt
 - [Websites](https://adscendo.pro/websites): Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
 - [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online. Portuguese: https://adscendo.pro/pt/apps
+- [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free. Portuguese: https://adscendo.pro/pt/consultoria-ia
 - [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch. Portuguese: https://adscendo.pro/pt/ia
 - [Prospector](https://adscendo.pro/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026. Portuguese: https://adscendo.pro/pt/work/prospector
 - [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026. Portuguese: https://adscendo.pro/pt/work/minha-companhia

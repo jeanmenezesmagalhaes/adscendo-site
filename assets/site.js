@@ -298,9 +298,13 @@ if (sections.has(location.pathname)) {
   goTo(location.pathname, "instant");
   addEventListener("load", () => setTimeout(() => goTo(location.pathname, "instant"), 50), { once: true });
 } else if (location.hash) {
-  // Old links such as /#process: same section, clean address.
+  // Links such as /#contact (every link to a section is written this way): same section, clean address.
   const s = document.getElementById(location.hash.slice(1));
-  if (s?.dataset.path) { history.replaceState(null, "", s.dataset.path); if (langLink) langLink.href = s.dataset.alt; }
+  if (s?.dataset.path) {
+    history.replaceState(null, "", s.dataset.path);
+    goTo(s.dataset.path, "instant");
+    addEventListener("load", () => setTimeout(() => goTo(s.dataset.path, "instant"), 50), { once: true });
+  }
 }
 // Back and Forward between sections scroll to the section of the address shown.
 addEventListener("popstate", () => { if (!location.hash && (sections.has(location.pathname) || here(location.pathname) === page())) goTo(location.pathname, motion()); });
@@ -314,8 +318,11 @@ document.addEventListener("click", e => {
   if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
   const url = new URL(a.href, location.href);
   const top = a.getAttribute("href") === "#top";
-  const path = here(url.pathname);
-  if (!top && (url.origin !== location.origin || url.hash || (!sections.has(path) && path !== page()))) return;
+  // A section of this page linked by anchor (/#contact) goes to its clean address (/contact).
+  const anchored = !top && url.origin === location.origin && url.hash && here(url.pathname) === page()
+    ? document.getElementById(url.hash.slice(1))?.dataset.path : undefined;
+  const path = anchored || here(url.pathname);
+  if (!top && !anchored && (url.origin !== location.origin || url.hash || (!sections.has(path) && path !== page()))) return;
   e.preventDefault();
   const to = top ? page() : path;
   if (to !== here(location.pathname)) history.pushState(null, "", to);

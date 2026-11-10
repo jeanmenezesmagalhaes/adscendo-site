@@ -29,6 +29,9 @@ const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
 // The page with every project; each case page sits under it.
 const workPath = lang => `${base(lang)}/work`;
 const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
+// What links use: the section as an anchor on the home page (/#contact, /pt#contato), so crawlers see one
+// home page instead of a copy of it at every section address. site.js scrolls there and shows sectionPath.
+const sectionHref = (lang, id) => `${base(lang) || "/"}#${id}`;
 const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
@@ -37,7 +40,7 @@ const costPath = lang => `${base(lang)}/${costPage[lang].slug}`;
 const partnerPath = lang => `${base(lang)}/${partnerPage[lang].slug}`;
 // Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
 // or a home section.
-const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
+const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionHref(lang, to);
 // A WhatsApp link to Jean with a message already typed.
 const waHref = text => `https://wa.me/${contact.whatsappLabel.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 // The section's own address and its twin in the other language, for site.js.
@@ -132,7 +135,7 @@ const bestOff = Math.max(...Object.values(quote).map(q => q.off));
 // Phones and small tablets: the links fold into a sheet behind the menu button, with the language and
 // dark mode at its foot (site.js opens it; without JavaScript the button stays hidden).
 // `cta` ({ href, label, attrs }) replaces "Get in touch" in the nav, the sheet and the floating button.
-const ctaLink = (lang, cta) => cta || { href: sectionPath(lang, "contact"), label: ui[lang].nav.cta, attrs: "" };
+const ctaLink = (lang, cta) => cta || { href: sectionHref(lang, "contact"), label: ui[lang].nav.cta, attrs: "" };
 const sheet = (lang, altPath, cta) => {
   const t = ui[lang], c = ctaLink(lang, cta);
   const group = (label, items) => `<p class="sheet-label">${label}</p><ul>${items.map(([h, b]) => `<li><a href="${h}">${b}</a></li>`).join("")}</ul>`;
@@ -140,7 +143,7 @@ const sheet = (lang, altPath, cta) => {
     <nav class="sheet-body wrap" aria-label="Menu">
       ${group(t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h]))}
       ${group(t.nav.work, [...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name]), [workPath(lang), t.menu.allWork]])}
-      <ul class="sheet-more"><li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li><li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li></ul>
+      <ul class="sheet-more"><li><a href="${sectionHref(lang, "process")}">${t.nav.process}</a></li><li><a href="${sectionHref(lang, "about")}">${t.nav.about}</a></li></ul>
       <a class="btn sheet-cta" href="${c.href}"${c.attrs}>${c.label}</a>
       <div class="sheet-prefs">
         <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}"><svg aria-hidden="true"><use href="#flag-${other(lang)}"/></svg>${t.other}</a>
@@ -155,20 +158,20 @@ const nav = (lang, altPath, { cta, offer = true } = {}) => {
   const t = ui[lang], c = ctaLink(lang, cta);
   return `<a class="btn btn--sm skip" href="#main">${t.skip}</a>
 ${offer ? `<div class="offer" role="region" aria-label="${t.offer.label}">
-  <p><b>${t.offer.label}.</b> ${t.offer.text.replace("{p}", bestOff)} <a href="${sectionPath(lang, "contact")}">${t.offer.cta}${icon("arrow")}</a></p>
+  <p><b>${t.offer.label}.</b> ${t.offer.text.replace("{p}", bestOff)} <a href="${sectionHref(lang, "contact")}">${t.offer.cta}${icon("arrow")}</a></p>
   <button class="offer-close" type="button" aria-label="${t.offer.close}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 </div>
 ` : ""}<header class="nav" id="top">
   <div class="wrap">
     <a class="brand" href="${homePath(lang)}" aria-label="Adscendo">${icon("cloud")}Adscendo.</a>
     <ul>
-      ${dropdown(sectionPath(lang, "build"), t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h, x.p]))}
-      ${dropdown(sectionPath(lang, "work"), t.nav.work, [
+      ${dropdown(sectionHref(lang, "build"), t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h, x.p]))}
+      ${dropdown(sectionHref(lang, "work"), t.nav.work, [
         ...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name, p[lang].kind]),
         [workPath(lang), t.menu.allWork],
       ])}
-      <li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li>
-      <li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li>
+      <li><a href="${sectionHref(lang, "process")}">${t.nav.process}</a></li>
+      <li><a href="${sectionHref(lang, "about")}">${t.nav.about}</a></li>
     </ul>
     <a class="lang" href="${altPath}" hreflang="${other(lang)}" lang="${other(lang)}" aria-label="${t.switchTo}" title="${t.switchTo}"><svg aria-hidden="true"><use href="#flag-${lang}"/></svg>${lang.toUpperCase()}</a>
     <button class="theme" type="button" aria-pressed="false" aria-label="${t.darkMode}" title="${t.darkMode}" hidden>${icon("contrast")}</button>
@@ -349,7 +352,7 @@ const homePage = lang => {
   <section class="hero wrap">
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
     <p class="sub">${c.sub}</p>
-    <div class="actions-row"><a class="btn" href="${sectionPath(lang, "work")}">${c.ctaWork}</a><a class="btn btn--ghost" href="${sectionPath(lang, "contact")}">${c.ctaTalk}</a></div>
+    <div class="actions-row"><a class="btn" href="${sectionHref(lang, "work")}">${c.ctaWork}</a><a class="btn btn--ghost" href="${sectionHref(lang, "contact")}">${c.ctaTalk}</a></div>
     <div class="demo-intro"><span class="demo-label"><i></i>${c.demoLabel}</span><p>${c.demoText}</p></div>
     ${heroDemo(lead, lang)}
   </section>
@@ -374,7 +377,7 @@ ${c.consult ? `
         <ol class="steps">
         ${steps}
         </ol>
-        <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.processCta}</a></p>
+        <p class="section-cta"><a class="btn" href="${sectionHref(lang, "contact")}">${c.processCta}</a></p>
       </div>
     </div>
   </section>
@@ -387,7 +390,7 @@ ${c.consult ? `
       ${projectsList}
       </ul>
       <p class="section-cta"><a class="link" href="${workPath(lang)}">${t.menu.allWork}${icon("arrow")}</a></p>
-      <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="${sectionPath(lang, "contact")}">${c.workCta[1]}</a></div>
+      <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="${sectionHref(lang, "contact")}">${c.workCta[1]}</a></div>
     </div>
   </section>
 
@@ -399,7 +402,7 @@ ${c.consult ? `
         ${found}
       </div>
       <p class="find-note">${c.foundNote}</p>
-      <p class="section-cta actions-row"><a class="btn" href="${sectionPath(lang, "contact")}">${c.foundCta}</a><a class="link" href="${aiPath(lang)}">${c.foundMore}${icon("arrow")}</a></p>
+      <p class="section-cta actions-row"><a class="btn" href="${sectionHref(lang, "contact")}">${c.foundCta}</a><a class="link" href="${aiPath(lang)}">${c.foundMore}${icon("arrow")}</a></p>
     </div>
   </section>
 
@@ -424,7 +427,7 @@ ${c.consult ? `
     <div class="wrap founder" data-rise=".portrait, .h2, .body">
       ${founderPhoto ? `<figure class="portrait"><img src="${founderPhoto}" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>${c.sigRole}</span></figcaption></figure>` : ""}
       <h2 class="h2">${c.aboutTitle.replace(". ", ".<br>")}</h2>
-      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="${sectionPath(lang, "contact")}">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
+      <div class="body">${c.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="${sectionHref(lang, "contact")}">${c.aboutCta}</a><a class="link" href="${casePath(lang, "adscendo")}">${t.studioStory}${icon("arrow")}</a></p></div>
     </div>
   </section>
 
@@ -435,7 +438,7 @@ ${c.consult ? `
       <div class="tiles tiles--${c.tiles.length}">
         ${tiles}
       </div>
-      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${c.buildCta}</a></p>
+      <p class="section-cta"><a class="btn" href="${sectionHref(lang, "contact")}">${c.buildCta}</a></p>
     </div>
   </section>
 
@@ -533,7 +536,7 @@ const casePage = (lang, i) => {
         <h2>${next[lang].name}${icon("arrow")}</h2>
         <p>${next[lang].summary}</p>
       </a>
-      <a class="btn btn--light" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a>
+      <a class="btn btn--light" href="${sectionHref(lang, "contact")}">${t.nav.cta}</a>
     </div>
   </section>
 </main>
@@ -629,7 +632,7 @@ const aiPageHtml = lang => {
         ${prices}
       </div>
       <p class="find-note">${chat[lang].fine} ${d.honest}</p>
-      <p class="section-cta"><a class="btn" href="${sectionPath(lang, "contact")}">${d.ctaProject}</a></p>
+      <p class="section-cta"><a class="btn" href="${sectionHref(lang, "contact")}">${d.ctaProject}</a></p>
     </div>
   </section>
 
@@ -645,7 +648,7 @@ const aiPageHtml = lang => {
   <section class="band band--black">
     <div class="wrap cta-strip" data-rise>
       <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
-      <div class="actions-row">${check("btn")}<a class="btn btn--ghost" href="${sectionPath(lang, "contact")}">${t.nav.cta}</a></div>
+      <div class="actions-row">${check("btn")}<a class="btn btn--ghost" href="${sectionHref(lang, "contact")}">${t.nav.cta}</a></div>
     </div>
   </section>
 </main>
@@ -690,7 +693,7 @@ const servicePageHtml = (lang, key) => {
       </div>
       <p class="find-note">${chat[lang].fine}</p>` : "";
   const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
-  const contactHref = sectionPath(lang, "contact");
+  const contactHref = sectionHref(lang, "contact");
   return head({ lang, title: d.title, description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
 <main id="main">
   <section class="case-head wrap">
@@ -783,7 +786,7 @@ const costPageHtml = lang => {
   const body = x => Array.isArray(x) ? `<ul>${x.map(li => `<li>${fill(lang, li)}</li>`).join("")}</ul>` : `<p>${fill(lang, x)}</p>`;
   const tiles = Object.entries(quote).map(([k, q]) => `<article class="tile tile--price"><p class="eyebrow">${chat[lang].tiers[k]}</p><h3>${money(lang, price(q))}</h3><p>${w.regular.replace("{price}", money(lang, q.regular)).replace("{off}", q.off)}</p><ul>${w.priceChips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
   const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
-  const contactHref = sectionPath(lang, "contact");
+  const contactHref = sectionHref(lang, "contact");
   return head({ lang, title: d.title, description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
 <main id="main">
   <section class="case-head wrap">
@@ -859,7 +862,7 @@ const consultoriaPageHtml = lang => {
   // href works without JavaScript; the Meta Pixel counts a tap on any wa.me link as Contact. Without
   // `waText` the main button is the site's contact chat, and the nav and footer keep their usual buttons.
   const wa = d.waText && waHref(d.waText), out = ` target="_blank" rel="noopener"`;
-  const main = wa ? { href: wa, label: d.ctaWa, attrs: out } : { href: sectionPath(lang, "contact"), label: d.ctaMain, attrs: "" };
+  const main = wa ? { href: wa, label: d.ctaWa, attrs: out } : { href: sectionHref(lang, "contact"), label: d.ctaMain, attrs: "" };
   const mainBtn = (label = main.label, cls = "btn") => `<a class="${cls}" href="${main.href}"${main.attrs}>${label}</a>`;
   const pixelOn = d.pixel && META_PIXEL;
   const pixel = pixelOn ? metaPixel() : "", banner = pixelOn ? cookieBanner(d.cookies) : "";
@@ -1199,7 +1202,7 @@ ${pages.map(({ paths: [enPath, ptPath], name, desc }) => `- [${name}](${SITE}${e
 
 ## Contact
 
-- Start a project (chat with a first estimate): ${SITE}${sectionPath("en", "contact")}
+- Start a project (chat with a first estimate): ${SITE}${sectionHref("en", "contact")}
 - Email: ${contact.email}
 - WhatsApp: ${contact.whatsappLabel}
 - LinkedIn: ${contact.linkedin}

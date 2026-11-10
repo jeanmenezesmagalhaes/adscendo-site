@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI partner program: refer a business, earn 15% | Adscendo</title>
+<meta name="description" content="Refer businesses that need AI to Adscendo and earn 15% of every contract that closes: AI consulting, automation and support agents. Websites and apps count too.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="AI partner program: refer a business, earn 15% | Adscendo">
+<meta property="og:description" content="Refer businesses that need AI to Adscendo and earn 15% of every contract that closes: AI consulting, automation and support agents. Websites and apps count too.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/partners">
+<meta property="og:image" content="https://adscendo.pro/assets/og/prospector/globe.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="Every business will use AI. Refer one, earn 15%.">
+<link rel="canonical" href="https://adscendo.pro/partners">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/partners">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/parceiros">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/partners">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer-spots")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://adscendo.pro/partners","url":"https://adscendo.pro/partners","name":"AI partner program: refer a business, earn 15% | Adscendo","description":"Refer businesses that need AI to Adscendo and earn 15% of every contract that closes: AI consulting, automation and support agents. Websites and apps count too.","inLanguage":"en","isPartOf":{"@id":"https://adscendo.pro/#website"},"publisher":{"@id":"https://adscendo.pro/#org"}},{"@type":"FAQPage","@id":"https://adscendo.pro/partners#faq","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Do I need to understand AI?","acceptedAnswer":{"@type":"Answer","text":"No. You only make the introduction. We explain, run the diagnosis and build it. The materials show what AI can do, with real examples."}},{"@type":"Question","name":"When do I get paid?","acceptedAnswer":{"@type":"Answer","text":"After the client pays. If they pay in installments, you get 15% of each one."}},{"@type":"Question","name":"How do you know the referral is mine?","acceptedAnswer":{"@type":"Answer","text":"Send us the contact before the client reaches out, or ask them to mention your name. We confirm every referral by email."}},{"@type":"Question","name":"Do websites and apps count?","acceptedAnswer":{"@type":"Answer","text":"Yes. If the business you referred needs a website or an app, the same 15% applies."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adscendo","item":"https://adscendo.pro/"},{"@type":"ListItem","position":2,"name":"Partner program","item":"https://adscendo.pro/partners"}]}]}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/ai-consulting"><b>AI consulting</b><span>More efficiency and profit with AI</span></a><a href="/websites"><b>Websites</b><span>Fast sites, found on Google and AI</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/work"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/parceiros" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="#form">Become a partner</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/ai-consulting">AI consulting</a></li><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/work">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="#form">Become a partner</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/parceiros" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">AI partner program</p>
+    <h1>Every business will use AI. Refer one, earn 15%.</h1>
+    <p class="lede">Know a business that wants to cut costs and get more done with the same team? Introduce them to us. We automate their processes with AI, and if the contract closes, you get 15% of its value.</p>
+    <div class="actions-row"><a class="btn" href="#form">Become a partner</a><a class="btn btn--ghost" href="#how">How it works</a></div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".tile">
+      <div class="tiles tiles--2 partner-rate">
+        <article class="tile"><p class="eyebrow">Your commission</p><h3>15%</h3><p>of the total value of every AI consulting and implementation contract that closes.</p><ul><li>Diagnosis</li><li>Automation</li><li>Support agents</li><li>AI in sales</li><li>Team training</li></ul></article>
+        <article class="tile"><p class="eyebrow">What the client gets</p><h3>Lower costs. A more profitable business.</h3><ul><li>Automated processes</li><li>Lower operating costs</li><li>A more productive team</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">Who we work for.</h2>
+      <p class="lede">Small and mid-size businesses that want to use AI but have no tech team to build it.</p>
+      <div class="tiles tiles--plain">
+        <article class="tile"><h3>No in-house developers</h3><p>No programmers, no IT. We play that role.</p></article>
+        <article class="tile"><h3>Small and mid-size</h3><p>From a small office to a company with a few teams.</p></article>
+        <article class="tile"><h3>Any industry</h3><p>Wherever automation makes a process faster and cheaper.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .partner-note">
+      <h2 class="h2">Who can be a partner.</h2>
+      <p class="lede">People who already serve small and mid-size businesses.</p>
+      <div class="tiles tiles--plain tiles--asym">
+        <article class="tile"><h3>Accountants</h3><p>You know your clients' routine and costs.</p></article>
+        <article class="tile"><h3>Marketing agencies</h3><p>Your clients are already asking about AI.</p></article>
+        <article class="tile"><h3>Social media and marketing</h3><p>You see the client's day-to-day up close.</p></article>
+        <article class="tile"><h3>Consultants</h3><p>You already map where the business loses time.</p></article>
+      </div>
+      <p class="partner-note"><b>Anyone can refer.</b> These are just the most common profiles. If you know a business that could gain from AI, we'd love the introduction.</p>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="how">
+    <div class="wrap" data-rise=".h2, .step">
+      <h2 class="h2">How it works</h2>
+      <ol class="steps">
+          <li class="step"><p class="num">01</p><h3>Sign up</h3><p>Fill in the form. We email you the materials.</p></li>
+          <li class="step"><p class="num">02</p><h3>Introduce</h3><p>Send us the business's contact.</p></li>
+          <li class="step"><p class="num">03</p><h3>Get paid</h3><p>Contract closed, you get 15%.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">Questions</h2>
+      <div class="faq-list">
+        <details name="faq" open><summary><h3>Do I need to understand AI?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>No. You only make the introduction. We explain, run the diagnosis and build it. The materials show what AI can do, with real examples.</p></details>
+        <details name="faq"><summary><h3>When do I get paid?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>After the client pays. If they pay in installments, you get 15% of each one.</p></details>
+        <details name="faq"><summary><h3>How do you know the referral is mine?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Send us the contact before the client reaches out, or ask them to mention your name. We confirm every referral by email.</p></details>
+        <details name="faq"><summary><h3>Do websites and apps count?</h3><svg aria-hidden="true"><use href="#plus"/></svg></summary><p>Yes. If the business you referred needs a website or an app, the same 15% applies.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="form">
+    <div class="wrap pform-wrap">
+      <div><h2 class="h2">Become a partner</h2><p class="lede">Fill this in and we'll email you the materials to present our AI consulting within one business day.</p></div>
+      <form class="pform" data-pform novalidate>
+        <label><span>Name</span><input name="name" autocomplete="name" maxlength="100" required></label>
+        <label><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        <label><span>WhatsApp or phone <small>optional</small></span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+        <label><span>What do you do? <small>optional</small></span><input name="work" maxlength="200" placeholder="e.g. accountant, marketing agency, social media manager"></label>
+        <label><span>Which businesses could you refer? <small>optional</small></span><textarea name="note" rows="3" maxlength="2000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <p><button class="btn" type="submit">Send</button></p>
+        <p class="pform-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<script>(function(){var C={"labels":["Name","Email","WhatsApp or phone","What do you do?","Which businesses could you refer?"],"subject":"New partner: {name}","sending":"Sending…","ok":"Got it! The partner materials will be in your inbox within one business day.","fail":"We couldn't send it right now. Email us at \u003ca href=\"mailto:jean@adscendo.pro\">jean@adscendo.pro\u003c/a> or message us on \u003ca href=\"https://wa.me/5551993271160?text=Partner%20program\" target=\"_blank\" rel=\"noopener\">WhatsApp\u003c/a>.","page":"https://adscendo.pro/partners"},F=document.querySelector("[data-pform]"),S=F.querySelector(".pform-status"),B=F.querySelector("button");F.addEventListener("submit",function(e){e.preventDefault();if(B.disabled)return;var v=function(n){return F.elements[n].value.trim()};if(!F.checkValidity()||!v("name")){F.reportValidity();return}if(v("website")){F.classList.add("is-sent");S.textContent=C.ok;return}var t=B.textContent;B.disabled=true;B.textContent=C.sending;S.textContent="";S.classList.remove("is-error");var fields=["name","email","phone","work","note"].map(function(n,i){return[C.labels[i],v(n)]}).concat([["Page",C.page]]).filter(function(x){return x[1]});fetch("/api/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({subject:C.subject.replace("{name}",v("name")),replyTo:v("email"),fields:fields})}).then(function(r){if(!r.ok)throw r;F.classList.add("is-sent");S.textContent=C.ok;window.track&&track("partner_signup")}).catch(function(){S.innerHTML=C.fail;S.classList.add("is-error");B.disabled=false;B.textContent=t})})})()</script>
+<a class="btn float-cta" href="#form" hidden>Become a partner</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <div class="outro-top">
+      <div class="outro-main">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="#form">Become a partner</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      </div>
+      <a class="outro-partner" href="/partners"><span>Partner program</span><b>Refer clients, earn 15%<svg aria-hidden="true"><use href="#arrow"/></svg></b></a>
+      </div>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/parceiros" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

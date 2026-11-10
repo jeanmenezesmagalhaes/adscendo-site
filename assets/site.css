@@ -816,3 +816,43 @@ html.chat-open, html.chat-open body { overflow: hidden; }
 .guide p + ul, .guide ul + p { margin-top: 14px; }
 .case-head .eyebrow a { color: inherit; text-decoration: none; }
 .case-head .eyebrow a:hover { text-decoration: underline; }
+
+/* Partner program (/partners, /pt/parceiros): the rate tile, and the sign-up form beside its title. */
+.partner-rate { margin-top: 0; }
+.partner-rate .tile:first-child h3 { font-size: clamp(72px, 11vw, 140px); letter-spacing: -0.06em; line-height: .9; }
+.pform-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.pform { display: grid; gap: 18px; padding: clamp(24px, 3.6vw, 44px); border-radius: 28px; background: var(--surface); }
+.pform label { display: grid; gap: 8px; font-size: 15px; font-weight: 500; }
+.pform label small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.pform input, .pform textarea { width: 100%; border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; font: 400 16px/1.4 var(--sans); color: var(--ink); background: var(--surface); resize: vertical; }
+.pform input::placeholder { color: var(--faint); }
+.pform input:focus-visible, .pform textarea:focus-visible { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px var(--halo); }
+.pform .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.pform button:disabled { opacity: .6; cursor: progress; }
+.pform-status { font-size: 15px; color: var(--graphite); }
+.pform-status:empty { display: none; }
+.pform-status.is-error { color: var(--error); }
+.pform-status a { color: inherit; }
+.pform.is-sent > :not(.pform-status) { display: none; }
+.pform.is-sent .pform-status { font-size: 19px; color: var(--ink); }
+@media (max-width: 860px) { .pform-wrap { grid-template-columns: 1fr; } }
+/* Partner profiles: the first one large on the left, the others two by two beside it. */
+.tiles--asym { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr)); }
+.tiles--asym .tile:first-child { grid-row: span 2; justify-content: flex-end; min-height: 380px; }
+.tiles--asym .tile:first-child h3 { font-size: clamp(40px, 4.4vw, 64px); letter-spacing: -0.05em; line-height: .95; }
+.tiles--asym .tile:first-child p { font-size: 19px; }
+.tiles--asym .tile:last-child:nth-child(even) { grid-column: span 2; } /* an odd one out under the pairs fills the row */
+@media (max-width: 1080px) { .tiles--asym { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .tiles--asym .tile:first-child { grid-column: span 2; grid-row: auto; min-height: 260px; } }
+@media (max-width: 640px) { .tiles--asym { grid-template-columns: 1fr; } .tiles--asym .tile:first-child, .tiles--asym .tile:last-child:nth-child(even) { grid-column: auto; } .tiles--asym .tile:first-child { grid-row: auto; min-height: 260px; } }
+/* "Anyone can refer", under the partner profiles. */
+.partner-note { margin-top: 24px; max-width: 60ch; font-size: 17px; line-height: 1.5; color: var(--graphite); }
+.partner-note b { color: var(--ink); font-weight: 600; }
+/* The partner program's only link on the site: a card beside the footer's tagline and buttons. */
+.outro-top { display: flex; justify-content: space-between; align-items: end; gap: 20px 32px; flex-wrap: wrap; }
+.outro-main { display: grid; gap: 20px; }
+.outro-partner { display: grid; gap: 4px; padding: 16px 20px; border-radius: 18px; background: var(--chip); color: var(--ink); text-decoration: none; transition: background-color .2s var(--ease); }
+.outro-partner:hover { background: var(--pressed); }
+.outro-partner span { font-size: 13px; color: var(--muted); }
+.outro-partner b { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.outro-partner svg { width: 14px; height: 14px; transition: transform .2s var(--ease); }
+.outro-partner:hover svg { transform: translateX(2px); }

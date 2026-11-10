@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage, costPage } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage, costPage, partnerPage } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -34,6 +34,7 @@ const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
 const consultoriaPath = lang => `${base(lang)}/${consultoriaPage[lang].slug}`;
 const costPath = lang => `${base(lang)}/${costPage[lang].slug}`;
+const partnerPath = lang => `${base(lang)}/${partnerPage[lang].slug}`;
 // Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
 // or a home section.
 const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
@@ -180,6 +181,8 @@ ${sheet(lang, altPath, cta)}`;
 
 // The footer fills the screen: as it comes into view the wordmark grows on its own from small to the
 // full width, and the tagline, contact buttons and "back to top" fade in underneath (site.js).
+// A card beside the tagline is the partner program's only link on the site (kept out of the nav, which is
+// for clients).
 // With a `cta` of its own (the Portuguese AI consulting page's WhatsApp), the footer drops its separate WhatsApp button.
 const footer = (lang, altPath, { cta } = {}) => {
   const t = ui[lang], c = ctaLink(lang, cta);
@@ -188,6 +191,8 @@ const footer = (lang, altPath, { cta } = {}) => {
   <div class="outro-pin">
     <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo">${icon("cloud")}<span>Adscendo.</span></p>
     <div class="outro-meta wrap">
+      <div class="outro-top">
+      <div class="outro-main">
       <p class="outro-line">${t.footer}</p>
       <nav class="outro-links">
         <a class="btn btn--sm" href="${c.href}"${c.attrs}>${c.label}</a>
@@ -197,6 +202,9 @@ const footer = (lang, altPath, { cta } = {}) => {
         <a class="btn btn--sm btn--ghost" href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn btn--sm btn--ghost" href="${contact.google}" target="_blank" rel="noopener">Google</a>
       </nav>
+      </div>
+      <a class="outro-partner" href="${partnerPath(lang)}"><span>${partnerPage[lang].name}</span><b>${t.partners.replace("{rate}", partnerPage.rate)}${icon("arrow")}</b></a>
+      </div>
       <div class="outro-row">
         <span>&copy; 2026 Adscendo</span>
         <a href="${privacyPath(lang)}">${t.privacy}</a>
@@ -593,7 +601,7 @@ const aiPageHtml = lang => {
   </section>
 
   <section class="band">
-    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .partner-note">
       <h2 class="h2">${d.whyTitle}</h2>
       <p class="lede">${d.whyLede}</p>
       <div class="tiles tiles--plain">
@@ -614,7 +622,7 @@ const aiPageHtml = lang => {
   </section>
 
   <section class="band band--gray" id="prices">
-    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .partner-note">
       <h2 class="h2">${d.pricesTitle}</h2>
       <p class="lede">${d.pricesLede}</p>
       <div class="tiles">
@@ -977,6 +985,110 @@ const workPageHtml = lang => {
 ` + footer(lang, altPath);
 };
 
+// The partner program, led by AI consulting: the rate, what the client gains, who we work for, who can be a partner, how it works, questions and a sign-up form that emails Jean
+// through /api/lead (he replies with the partner materials). Reached from the footer only, so the nav's
+// launch-offer strip is off and the nav and footer buttons point to the form.
+const partnerPageHtml = lang => {
+  const d = partnerPage[lang], f = d.form, path = partnerPath(lang), altPath = partnerPath(other(lang));
+  const rate = partnerPage.rate;
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description: d.description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, publisher: org },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  const cta = { href: "#form", label: d.ctaMain, attrs: "" };
+  const steps = d.how.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
+  const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const card = ([h, p]) => `<article class="tile"><h3>${h}</h3><p>${p}</p></article>`;
+  const opt = `<small>${f.optional}</small>`;
+  const fail = f.fail.replace("{email}", `<a href="mailto:${contact.email}">${contact.email}</a>`).replace("WhatsApp", `<a href="${waHref(d.name)}" target="_blank" rel="noopener">WhatsApp</a>`);
+  // Copy for the script below: the email's labels and subject, and the button and status texts.
+  const js = { labels: [f.name, f.email, f.phone, f.work, f.note], subject: f.subject, sending: f.sending, ok: f.ok, fail, page: abs(path) };
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image: ogImage(cover(projects[0], lang)), imageAlt: d.h1 })
+    + nav(lang, altPath, { cta, offer: false }) + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <div class="actions-row"><a class="btn" href="#form">${d.ctaMain}</a><a class="btn btn--ghost" href="#how">${d.ctaSecond}</a></div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".tile">
+      <div class="tiles tiles--2 partner-rate">
+        <article class="tile"><p class="eyebrow">${d.rateLabel}</p><h3>${rate}%</h3><p>${d.rateText}</p><ul>${d.services.map(x => `<li>${x}</li>`).join("")}</ul></article>
+        <article class="tile"><p class="eyebrow">${d.gainsLabel}</p><h3>${d.gainsTitle}</h3><ul>${d.gains.map(x => `<li>${x}</li>`).join("")}</ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap" data-rise=".h2, .lede, .tile">
+      <h2 class="h2">${d.audienceTitle}</h2>
+      <p class="lede">${d.audienceLede}</p>
+      <div class="tiles tiles--plain">
+        ${d.audience.map(card).join("\n        ")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .partner-note">
+      <h2 class="h2">${d.partnersTitle}</h2>
+      <p class="lede">${d.partnersLede}</p>
+      <div class="tiles tiles--plain tiles--asym">
+        ${d.partners.map(card).join("\n        ")}
+      </div>
+      <p class="partner-note">${d.partnersNote}</p>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="how">
+    <div class="wrap" data-rise=".h2, .step">
+      <h2 class="h2">${d.howTitle}</h2>
+      <ol class="steps">
+          ${steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray" id="form">
+    <div class="wrap pform-wrap">
+      <div><h2 class="h2">${d.formTitle}</h2><p class="lede">${d.formLede}</p></div>
+      <form class="pform" data-pform novalidate>
+        <label><span>${f.name}</span><input name="name" autocomplete="name" maxlength="100" required></label>
+        <label><span>${f.email}</span><input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        <label><span>${f.phone} ${opt}</span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+        <label><span>${f.work} ${opt}</span><input name="work" maxlength="200" placeholder="${f.workHint}"></label>
+        <label><span>${f.note} ${opt}</span><textarea name="note" rows="3" maxlength="2000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <p><button class="btn" type="submit">${f.send}</button></p>
+        <p class="pform-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<script>(function(){var C=${JSON.stringify(js).replace(/</g, "\\u003c")},F=document.querySelector("[data-pform]"),S=F.querySelector(".pform-status"),B=F.querySelector("button");F.addEventListener("submit",function(e){e.preventDefault();if(B.disabled)return;var v=function(n){return F.elements[n].value.trim()};if(!F.checkValidity()||!v("name")){F.reportValidity();return}if(v("website")){F.classList.add("is-sent");S.textContent=C.ok;return}var t=B.textContent;B.disabled=true;B.textContent=C.sending;S.textContent="";S.classList.remove("is-error");var fields=["name","email","phone","work","note"].map(function(n,i){return[C.labels[i],v(n)]}).concat([["Page",C.page]]).filter(function(x){return x[1]});fetch("/api/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({subject:C.subject.replace("{name}",v("name")),replyTo:v("email"),fields:fields})}).then(function(r){if(!r.ok)throw r;F.classList.add("is-sent");S.textContent=C.ok;window.track&&track("partner_signup")}).catch(function(){S.innerHTML=C.fail;S.classList.add("is-error");B.disabled=false;B.textContent=t})})})()</script>
+` + footer(lang, altPath, { cta });
+};
+
 const privacyPage = lang => {
   const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
   const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
@@ -1015,6 +1127,7 @@ for (const lang of LANGS) {
   write(`${prefix}${consultoriaPage[lang].slug}/index.html`, consultoriaPageHtml(lang));
   for (const key in servicePages) write(`${prefix}${servicePages[key][lang].slug}/index.html`, servicePageHtml(lang, key));
   write(`${prefix}${costPage[lang].slug}/index.html`, costPageHtml(lang));
+  write(`${prefix}${partnerPage[lang].slug}/index.html`, partnerPageHtml(lang));
   write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
 
@@ -1053,7 +1166,7 @@ if (SITE) {
   const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
+${[...pairs, [partnerPath("en"), partnerPath("pt")], [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
 </urlset>
 `);
 }

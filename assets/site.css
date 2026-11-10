@@ -808,3 +808,11 @@ html.chat-open, html.chat-open body { overflow: hidden; }
 /* A native Mac app's own window (title bar and rounded corners are in the image), in place of the browser frame. */
 .mac-window img { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(0,0,0,.18)) drop-shadow(0 4px 12px rgba(0,0,0,.08)); }
 .duo--window { padding-right: 0; }
+
+/* Website cost guide: the privacy page's headed layout, with bullet lists inside the text column. */
+.guide ul { margin: 0; padding-left: 1.2em; list-style: disc; display: grid; gap: 10px; font-size: 17px; line-height: 1.6; color: var(--graphite); max-width: 62ch; }
+.guide ul li::marker { color: var(--muted); }
+.guide b { color: var(--ink); font-weight: 600; }
+.guide p + ul, .guide ul + p { margin-top: 14px; }
+.case-head .eyebrow a { color: inherit; text-decoration: none; }
+.case-head .eyebrow a:hover { text-decoration: underline; }

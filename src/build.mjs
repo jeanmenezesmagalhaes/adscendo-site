@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage, costPage } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -33,6 +33,7 @@ const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
 const consultoriaPath = lang => `${base(lang)}/${consultoriaPage[lang].slug}`;
+const costPath = lang => `${base(lang)}/${costPage[lang].slug}`;
 // Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
 // or a home section.
 const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionPath(lang, to);
@@ -750,6 +751,78 @@ const servicePageHtml = (lang, key) => {
 ` + footer(lang, altPath);
 };
 
+// The website cost guide: a direct answer, the sections as headed text with bullet lists, our price tiles
+// (same as the websites page), questions and a closing call to action.
+const costPageHtml = lang => {
+  const d = costPage[lang], sp = servicePages.websites, w = sp[lang];
+  const path = costPath(lang), altPath = costPath(other(lang));
+  const description = fill(lang, d.description);
+  const image = ogImage(cover(projects.find(p => p.slug === sp.hero), lang));
+  const faq = d.faq.map(([q, a]) => [q, fill(lang, a)]);
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Article", "@id": abs(`${path}#article`), headline: d.h1, description, inLanguage: hreflang(lang), url: abs(path), mainEntityOfPage: abs(path), image: abs(image.src), datePublished: "2026-11-10", dateModified: "2026-11-10", author: org, publisher: org },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: w.name, item: abs(servicePath(lang, "websites")) },
+        { "@type": "ListItem", position: 3, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  const body = x => Array.isArray(x) ? `<ul>${x.map(li => `<li>${fill(lang, li)}</li>`).join("")}</ul>` : `<p>${fill(lang, x)}</p>`;
+  const tiles = Object.entries(quote).map(([k, q]) => `<article class="tile tile--price"><p class="eyebrow">${chat[lang].tiers[k]}</p><h3>${money(lang, price(q))}</h3><p>${w.regular.replace("{price}", money(lang, q.regular)).replace("{off}", q.off)}</p><ul>${w.priceChips.map(ch => `<li>${ch}</li>`).join("")}</ul></article>`).join("\n        ");
+  const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const contactHref = sectionPath(lang, "contact");
+  return head({ lang, title: d.title, description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow"><a href="${servicePath(lang, "websites")}">${w.name}</a> / ${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <p class="legal-date">${d.updated}</p>
+    <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a><a class="btn btn--ghost" href="#prices">${d.ctaSecond}</a></div>
+  </section>
+
+  <section class="band">
+    <div class="wrap legal guide">
+      ${d.sections.map(x => `<article><h2>${x.h}</h2><div>${x.p.map(body).join("")}</div></article>`).join("\n      ")}
+    </div>
+  </section>
+
+  <section class="band band--gray" id="prices">
+    <div class="wrap" data-rise=".h2, .lede, .tile, .find-note, .section-cta">
+      <h2 class="h2">${d.pricesTitle}</h2>
+      <p class="lede">${w.pricesLede}</p>
+      <div class="tiles">
+        ${tiles}
+      </div>
+      <p class="find-note">${chat[lang].fine}</p>
+      <p class="section-cta"><a class="btn" href="${contactHref}">${d.ctaMain}</a></p>
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
+      <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a></div>
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
 // The AI consulting landing page: problem, what the consulting does, how it works, real projects, who runs
 // it, questions and a closing call to action. With `waText` (Portuguese, for Meta ads) every main button
 // opens WhatsApp; without it (English) they go to the contact chat, plus email. Only `pixel: true` loads
@@ -941,6 +1014,7 @@ for (const lang of LANGS) {
   write(`${prefix}${aiPage[lang].slug}/index.html`, aiPageHtml(lang));
   write(`${prefix}${consultoriaPage[lang].slug}/index.html`, consultoriaPageHtml(lang));
   for (const key in servicePages) write(`${prefix}${servicePages[key][lang].slug}/index.html`, servicePageHtml(lang, key));
+  write(`${prefix}${costPage[lang].slug}/index.html`, costPageHtml(lang));
   write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
 
@@ -957,6 +1031,7 @@ write("vercel.json", JSON.stringify(vercel, null, 2) + "\n");
 const pages = [
   { paths: ["/", "/pt"], name: "Home", desc: fill("en", home.en.description) },
   ...Object.keys(servicePages).map(key => ({ paths: [servicePath("en", key), servicePath("pt", key)], name: servicePages[key].en.name, desc: fill("en", servicePages[key].en.description) })),
+  { paths: [costPath("en"), costPath("pt")], name: costPage.en.name, desc: fill("en", costPage.en.description) },
   { paths: [consultoriaPath("en"), consultoriaPath("pt")], name: consultoriaPage.en.name, desc: consultoriaPage.en.description },
   { paths: [aiPath("en"), aiPath("pt")], name: aiPage.en.name, desc: fill("en", aiPage.en.description) },
   { paths: [workPath("en"), workPath("pt")], name: workPage.en.h1.replace(/\.$/, ""), desc: workPage.en.description },

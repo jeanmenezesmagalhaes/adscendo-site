@@ -29,6 +29,10 @@ Adscendo is a web design and development studio that builds websites and apps fo
 
 In three steps. First we meet to learn how your business works and where you want to go. Then we design and build a first version you can try on your own phone and computer. Finally we adjust what's needed and put it live. You never have to touch anything technical.
 
+### How much does a website cost?
+
+Our websites run from $400 to $1,900 at launch prices, one price for the whole project. Our website cost guide compares builders, freelancers and agencies and explains what changes the price.
+
 ### Do you work with businesses outside the US?
 
 Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several.
@@ -42,6 +46,7 @@ Answer a few questions in the chat below. It takes less than a minute and gives 
 - [Home](https://adscendo.pro/): Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch. Portuguese: https://adscendo.pro/pt
 - [Websites](https://adscendo.pro/websites): Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
 - [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online. Portuguese: https://adscendo.pro/pt/apps
+- [Website cost guide](https://adscendo.pro/website-cost): What a small business website costs in 2026: website builders, freelancers, studios and agencies compared, what changes the price, what you pay every year, and our own prices from $400. Portuguese: https://adscendo.pro/pt/quanto-custa-um-site
 - [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free. Portuguese: https://adscendo.pro/pt/consultoria-ia
 - [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch. Portuguese: https://adscendo.pro/pt/ia
 - [Our work](https://adscendo.pro/work): Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email. Portuguese: https://adscendo.pro/pt/work

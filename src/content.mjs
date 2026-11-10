@@ -193,6 +193,7 @@ export const home = {
     faq: [
       ["What does Adscendo do?", "Adscendo is a web design and development studio that builds websites and apps for small and mid-size businesses. Every site is designed for phones, loads fast and is set up to be found on Google and recommended by AI assistants like ChatGPT, Gemini and Perplexity."],
       ["How does a project work?", "In three steps. First we meet to learn how your business works and where you want to go. Then we design and build a first version you can try on your own phone and computer. Finally we adjust what's needed and put it live. You never have to touch anything technical."],
+      ["How much does a website cost?", "Our websites run from {new} to {complex} at launch prices, one price for the whole project. Our <a href=\"/website-cost\">website cost guide</a> compares builders, freelancers and agencies and explains what changes the price."],
       ["Do you work with businesses outside the US?", "Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several."],
       ["How do I get started?", "Answer a few questions in the chat below. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer."],
     ],
@@ -268,6 +269,7 @@ export const home = {
     faq: [
       ["O que a Adscendo faz?", "A Adscendo é um estúdio de design e desenvolvimento que cria sites e apps para pequenas e médias empresas. Todo site é pensado para o celular, carrega rápido e é preparado para ser encontrado no Google e recomendado por assistentes de IA como ChatGPT, Gemini e Perplexity."],
       ["Como funciona um projeto?", "Em três etapas. Primeiro fazemos uma reunião para entender como seu negócio funciona e aonde você quer chegar. Depois desenhamos e construímos uma primeira versão, que você testa no seu celular e no seu computador. Por fim, ajustamos o que for preciso e colocamos no ar. Você não precisa mexer em nada técnico."],
+      ["Quanto custa um site?", "Nossos sites vão de {new} a {complex} com o desconto de lançamento, num preço só para o projeto inteiro. O guia <a href=\"/pt/quanto-custa-um-site\">quanto custa um site</a> compara plataformas, freelancers e agências e explica o que muda o preço."],
       ["Vocês atendem empresas no Brasil?", "Sim. A Adscendo é um estúdio brasileiro que trabalha de forma remota com empresas no Brasil, nos Estados Unidos e em qualquer lugar, em português ou inglês. Seu site pode ter um idioma ou vários."],
       ["Como eu começo?", "Responda algumas perguntas no chat abaixo. Leva menos de um minuto e já mostra uma primeira estimativa. Respondemos em até 6 horas por email, ou pelo WhatsApp se preferir."],
     ],
@@ -659,6 +661,163 @@ export const consultoriaPage = {
 // One page per service, at /websites and /apps (/pt/sites, /pt/apps), linked from the "Services" menu
 // and the home's "What we build" tiles. `hero` is the project shown on a computer and a phone, `work` the
 // projects listed further down. Websites show the prices in `quote`; apps are priced per project.
+// The website cost guide (/website-cost, /pt/quanto-custa-um-site): answers "how much does a small business
+// website cost" for people budgeting a site, then shows our prices (from `quote`, same tiles as the
+// websites page). Market ranges are typical figures, labeled as such, never quotes. Each section's `p` holds
+// paragraphs (strings) and bullet lists (arrays). Linked from the websites page and the home FAQ.
+export const costPage = {
+  en: {
+    slug: "website-cost",
+    name: "Website cost guide",
+    title: "How much does a small business website cost in 2026? | Adscendo",
+    description: "What a small business website costs in 2026: website builders, freelancers, studios and agencies compared, what changes the price, what you pay every year, and our own prices from {new}.",
+    eyebrow: "Website cost guide",
+    h1: "How much does a small business website cost?",
+    lede: "Usually from a few hundred to several thousand dollars to build, plus a small yearly cost to keep it online. Where you land depends on who builds it and what the site has to do. Here is how the numbers work, with our own prices at the end.",
+    updated: "Updated November 10, 2026",
+    ctaMain: "Get a quote",
+    ctaSecond: "See our prices",
+    sections: [
+      { h: "The short answer", p: [
+        "Who builds the site moves the price more than anything else:",
+        [
+          "<b>You, on a website builder</b> like Wix or Squarespace: roughly $200 to $600 a year in plan fees, plus the hours you put in.",
+          "<b>A freelancer</b>: often $1,000 to $5,000, depending on their experience and how much they write and design for you.",
+          "<b>A small studio</b>: often $1,000 to $10,000. Ours run from {new} to {complex} at launch prices.",
+          "<b>An agency</b>: often $5,000 to $30,000 or more, with a team of designers, writers and developers.",
+        ],
+        "These are typical ranges in the US, not quotes. Two sites at the same price can include very different work, so compare what's included, not only the total.",
+      ] },
+      { h: "What changes the price", p: [
+        "Five things decide most of what a website costs:",
+        [
+          "<b>How many pages.</b> A one-page site for a local service costs less than a site with a page for each service, location and team member.",
+          "<b>Who writes the text and finds the photos.</b> If you hand over finished text and photos, the job is smaller. If the designer writes it, it takes longer, but it's usually written better for Google.",
+          "<b>Custom design or a template.</b> A template is cheaper and faster. A custom design fits your brand and is built around what your customers need to do.",
+          "<b>What the site has to do.</b> Online booking, payments, a store or a connection to your CRM each add work, and each one has to be tested.",
+          "<b>How many languages.</b> Each language is close to a second site: its own text, its own pages and its own address on Google.",
+        ],
+      ] },
+      { h: "What you pay every year", p: [
+        "The build is paid once. A few smaller costs come back every year:",
+        [
+          "<b>Domain</b> (your address, like yourbusiness.com): about $10 to $20 a year.",
+          "<b>Hosting</b> (the server that keeps the site online): from free to about $30 a month for a small business site. Website builders include it in the plan.",
+          "<b>Email at your domain</b>, if you want it: billed per person, per month, by Google or Microsoft.",
+          "<b>Changes after launch</b>: you make them yourself, or pay your designer by the hour or by the month.",
+        ],
+        "Before you sign with anyone, ask what the site will cost per month once it's live. A cheap build with an expensive monthly plan can cost more after two or three years.",
+      ] },
+      { h: "What our price includes", p: [
+        "Every website we build comes with the same basics, in one price for the whole project:",
+        [
+          "Designed for phones first, then for computers.",
+          "Fast pages, even on a weak signal.",
+          "Set up for Google, Google Maps included, and for AI assistants like ChatGPT.",
+          "A way to call, message, book or ask for a quote on every page.",
+          "We put the site live for you.",
+        ],
+        "See <a href=\"/websites\">what's included in every website</a>, and the sites we've built.",
+      ] },
+      { h: "Questions to ask before you hire anyone", p: [
+        [
+          "Who owns the site and the domain once it's paid for?",
+          "What will it cost per month after launch, and what does that include?",
+          "Who writes the text, and is it written with the words customers type into Google?",
+          "Can I change text and photos myself?",
+          "Can I see sites you've built, live?",
+        ],
+        "The answers tell you more than the price does.",
+      ] },
+    ],
+    pricesTitle: "Our prices.",
+    faqTitle: "Questions about website cost.",
+    faq: [
+      ["How much does a basic website cost for a small business?", "A simple site with a few pages usually costs $1,000 to $5,000 from a freelancer or a small studio, or a few hundred dollars a year if you build it yourself on a website builder. Ours starts at {new} with the launch discount ({newRegular} regular)."],
+      ["Is a website builder cheaper than hiring a designer?", "At first, yes. Over a few years the plan fees add up, and the hours you spend building are hours away from your business. A builder makes sense to test an idea. A designer makes sense when the site has to bring in customers."],
+      ["Why do some websites cost $500 and others $20,000?", "Mostly because of the work behind them: how many pages, who writes the text, custom design or a template, and features like booking, payments or a store. Agencies also have bigger teams to pay. Compare what's included, not only the price."],
+      ["Do I pay once or every month?", "For our websites, once: one price for the whole project. The domain and hosting are separate yearly costs, usually small. Ask us and we'll tell you what they would be for your site."],
+    ],
+    ctaTitle: "Get your own estimate.",
+    ctaText: "Tell us about your business. In less than a minute you get a first estimate, and we reply within 6 hours.",
+  },
+  pt: {
+    slug: "quanto-custa-um-site",
+    name: "Quanto custa um site",
+    title: "Quanto custa um site em 2026? Preços e o que muda no valor | Adscendo",
+    description: "Quanto custa criar um site para pequena empresa em 2026: plataformas, freelancers, estúdios e agências comparados, o que muda o preço, o que você paga todo ano e os nossos preços, a partir de {new}.",
+    eyebrow: "Quanto custa um site",
+    h1: "Quanto custa um site para pequena empresa?",
+    lede: "Criar um site costuma custar de algumas centenas a alguns milhares de reais, mais um custo anual pequeno para manter no ar. O valor depende de quem faz e do que o site precisa fazer. Veja como a conta funciona, com os nossos preços no final.",
+    updated: "Atualizado em 10 de novembro de 2026",
+    ctaMain: "Peça um orçamento",
+    ctaSecond: "Ver nossos preços",
+    sections: [
+      { h: "A resposta curta", p: [
+        "Quem faz o site é o que mais muda o preço:",
+        [
+          "<b>Você mesmo, numa plataforma</b> como Wix ou WordPress.com: a mensalidade do plano, mais as horas que você dedica.",
+          "<b>Um freelancer</b>: muitas vezes de R$ 1.500 a R$ 5.000, conforme a experiência e o quanto ele escreve e desenha para você.",
+          "<b>Um estúdio pequeno</b>: muitas vezes de R$ 3.000 a R$ 15.000. Os nossos vão de {new} a {complex} com o desconto de lançamento.",
+          "<b>Uma agência</b>: muitas vezes de R$ 10.000 a R$ 50.000 ou mais, com uma equipe de designers, redatores e desenvolvedores.",
+        ],
+        "São faixas comuns no Brasil, não orçamentos. Dois sites com o mesmo preço podem incluir trabalhos bem diferentes, então compare o que está incluído, não só o total.",
+      ] },
+      { h: "O que muda o preço", p: [
+        "Cinco coisas decidem quase todo o custo de um site:",
+        [
+          "<b>Quantas páginas.</b> Um site de uma página para um serviço local custa menos que um site com uma página para cada serviço, unidade e pessoa da equipe.",
+          "<b>Quem escreve os textos e consegue as fotos.</b> Se você entrega textos e fotos prontos, o trabalho é menor. Se quem faz o site escreve, leva mais tempo, mas o texto costuma sair melhor para o Google.",
+          "<b>Design sob medida ou modelo pronto.</b> Um modelo é mais barato e mais rápido. Um design sob medida combina com a sua marca e é pensado para o que seus clientes precisam fazer.",
+          "<b>O que o site precisa fazer.</b> Agendamento online, pagamentos, loja virtual ou integração com o seu CRM somam trabalho, e cada um precisa ser testado.",
+          "<b>Quantos idiomas.</b> Cada idioma é quase um segundo site: textos próprios, páginas próprias e endereço próprio no Google.",
+        ],
+      ] },
+      { h: "O que você paga todo ano", p: [
+        "A criação do site é paga uma vez. Alguns custos menores voltam todo ano:",
+        [
+          "<b>Domínio</b> (seu endereço, como seunegocio.com.br): R$ 40 por ano no Registro.br.",
+          "<b>Hospedagem</b> (o servidor que mantém o site no ar): de grátis a algumas dezenas de reais por mês para o site de uma pequena empresa. As plataformas já incluem no plano.",
+          "<b>Email com o seu domínio</b>, se você quiser: cobrado por pessoa, por mês, pelo Google ou pela Microsoft.",
+          "<b>Alterações depois do lançamento</b>: você mesmo faz, ou paga quem fez o site por hora ou por mês.",
+        ],
+        "Antes de fechar com qualquer pessoa, pergunte quanto o site vai custar por mês depois de pronto. Um site barato com mensalidade cara pode sair mais caro em dois ou três anos.",
+      ] },
+      { h: "O que o nosso preço inclui", p: [
+        "Todo site que fazemos vem com o mesmo básico, num preço só para o projeto inteiro:",
+        [
+          "Pensado primeiro para o celular, depois para o computador.",
+          "Páginas rápidas, mesmo com sinal fraco.",
+          "Preparado para o Google, inclusive o Google Maps, e para assistentes de IA como o ChatGPT.",
+          "Um jeito de ligar, mandar mensagem, agendar ou pedir orçamento em todas as páginas.",
+          "A gente coloca o site no ar para você.",
+        ],
+        "Nossos preços são em dólar: usamos a mesma tabela para clientes no Brasil e nos Estados Unidos. Veja <a href=\"/pt/sites\">o que todo site inclui</a> e os sites que já construímos.",
+      ] },
+      { h: "Perguntas para fazer antes de contratar", p: [
+        [
+          "De quem é o site e o domínio depois de pagos?",
+          "Quanto vai custar por mês depois do lançamento, e o que está incluído?",
+          "Quem escreve os textos, e eles usam as palavras que os clientes digitam no Google?",
+          "Eu consigo trocar textos e fotos sozinho?",
+          "Posso ver, no ar, sites que vocês já fizeram?",
+        ],
+        "As respostas dizem mais do que o preço.",
+      ] },
+    ],
+    pricesTitle: "Nossos preços.",
+    faqTitle: "Perguntas sobre o preço de um site.",
+    faq: [
+      ["Quanto custa um site simples para pequena empresa?", "Um site simples, com poucas páginas, costuma custar de R$ 1.500 a R$ 5.000 com um freelancer ou um estúdio pequeno, ou só a mensalidade se você mesmo montar numa plataforma. O nosso sai a partir de {new} com o desconto de lançamento ({newRegular} cheio)."],
+      ["Montar o site sozinho numa plataforma sai mais barato?", "No começo, sim. Em alguns anos as mensalidades somam, e as horas que você passa montando o site são horas longe do negócio. Uma plataforma faz sentido para testar uma ideia. Contratar alguém faz sentido quando o site precisa trazer clientes."],
+      ["Por que alguns sites custam R$ 1.000 e outros R$ 30.000?", "Principalmente pelo trabalho por trás: quantas páginas, quem escreve os textos, design sob medida ou modelo pronto, e recursos como agendamento, pagamentos ou loja. Agências também têm equipes maiores para pagar. Compare o que está incluído, não só o preço."],
+      ["Eu pago uma vez ou todo mês?", "Pelos nossos sites, uma vez: um preço para o projeto inteiro. Domínio e hospedagem são custos anuais à parte, normalmente pequenos. Pergunte e a gente diz quanto seriam para o seu site."],
+    ],
+    ctaTitle: "Receba a sua estimativa.",
+    ctaText: "Conte sobre seu negócio. Em menos de um minuto você recebe uma primeira estimativa, e a gente responde em até 6 horas.",
+  },
+};
+
 export const servicePages = {
   websites: {
     hero: "minha-companhia",
@@ -694,6 +853,7 @@ export const servicePages = {
       faqTitle: "Questions about websites.",
       faq: [
         ["I already have a website. Do I need a new one?", "Not always. If your site is slow, hard to use on a phone or doesn't bring in customers, a new version usually pays off, and we reuse what already works. Send us the address and we'll tell you honestly what we'd do."],
+        ["How much does a website cost?", "Ours run from {new} to {complex} at launch prices, one price for the whole project. Elsewhere it ranges from a few hundred dollars a year on a website builder to $30,000 or more at an agency. Our <a href=\"/website-cost\">website cost guide</a> explains what changes the price and what you pay every year."],
         ["Will my business show up on Google and in ChatGPT?", "We build every site to be found: fast pages, clear organization, your details in a format Google and AI understand, and words written the way your customers ask. Nobody can honestly guarantee first place, so we show you where you stand and what is improving."],
       ],
       ctaTitle: "Let's build yours.",
@@ -728,6 +888,7 @@ export const servicePages = {
       faqTitle: "Perguntas sobre sites.",
       faq: [
         ["Eu já tenho site. Preciso de um novo?", "Nem sempre. Se o seu site é lento, ruim de usar no celular ou não traz clientes, uma nova versão costuma valer a pena, e a gente aproveita o que já funciona. Mande o endereço e a gente diz com honestidade o que faria."],
+        ["Quanto custa um site?", "Os nossos vão de {new} a {complex} com o desconto de lançamento, num preço só para o projeto inteiro. No mercado, vai da mensalidade de uma plataforma a R$ 50.000 ou mais numa agência. O guia <a href=\"/pt/quanto-custa-um-site\">quanto custa um site</a> explica o que muda o preço e o que você paga todo ano."],
         ["Meu negócio vai aparecer no Google e no ChatGPT?", "Todo site que fazemos é feito para ser encontrado: páginas rápidas, organização clara, seus dados num formato que o Google e a IA entendem e textos escritos do jeito que seus clientes perguntam. Ninguém pode garantir o primeiro lugar com honestidade, por isso mostramos onde você está e o que está melhorando."],
       ],
       ctaTitle: "Vamos construir o seu.",

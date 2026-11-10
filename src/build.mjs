@@ -252,6 +252,18 @@ const duo = (p, lang, eager) => {
   return `<div class="duo">${browser(cover(p, lang), p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(coverPhone(p, lang), `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager, p.phoneBar)}</div>`;
 };
 
+// The Meta Pixel, for the pages that receive Meta ads traffic: the Portuguese AI consulting page and the
+// Portuguese home (where /pt/contato lands, with the contact chat). It waits for consent (LGPD): nothing
+// loads from Meta until the visitor taps "Aceitar" on the cookie banner, and the choice is remembered in
+// localStorage. Without JavaScript nothing loads at all. Events: PageView; Contact on a tap on any wa.me
+// link; Lead when the chat sends its summary or books a call (window.track's generate_lead and book_call,
+// fired by assets/chat.js), plus Schedule for a booked call. Goes in <head> after window.track is defined.
+const metaPixel = () => META_PIXEL ? `<script>(function(){var K="cookies",d=document.documentElement,c,t=window.track;function load(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL}");fbq("track","PageView")}window.track=function(n,p){t&&t(n,p);if(!window.fbq)return;if(n==="generate_lead"||n==="book_call")fbq("track","Lead");if(n==="book_call")fbq("track","Schedule")};try{c=localStorage.getItem(K)}catch(e){}if(c==="granted")load();else if(c!=="denied")d.classList.add("cc-ask");document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-consent]");if(a){var v=a.dataset.consent;try{localStorage.setItem(K,v)}catch(x){}d.classList.remove("cc-ask");if(v==="granted")load();return}if(window.fbq&&e.target.closest&&e.target.closest('a[href*="wa.me/"]'))fbq("track","Contact")},true)})()</script>
+` : "";
+// The cookie banner that goes with the pixel, right after the nav. Copy in content.mjs (consultoriaPage.pt.cookies).
+const cookieBanner = k => META_PIXEL ? `<div class="cc" role="region" aria-label="${k.label}"><p>${k.text} <a href="${k.href}">${k.more}</a></p><div class="cc-actions"><button type="button" class="btn btn--sm btn--ghost" data-consent="denied">${k.deny}</button><button type="button" class="btn btn--sm" data-consent="granted">${k.accept}</button></div></div>
+` : "";
+
 const homePage = lang => {
   const t = ui[lang], c = home[lang], path = homePath(lang), altPath = homePath(other(lang));
   const lead = projects[0];
@@ -317,7 +329,10 @@ const homePage = lang => {
   const found = c.found.map((x, n) => `<article class="find">${shots[n]}<div class="find-text"><p class="eyebrow">${x.eyebrow}</p><h3>${x.h}</h3><p>${x.p}</p><ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul></div></article>`).join("\n        ");
   // The first answer starts open, so the list reads as questions with answers, not a wall of headings.
   const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
-  return head({ lang, title: c.title, description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}` }) + nav(lang, altPath) + `
+  // Only the Portuguese home carries the pixel: /pt/contato (the contact chat) is the form our Meta ads send to.
+  const ads = lang === "pt";
+  return head({ lang, title: c.title, description, path, altPath, ld, image, imageAlt: `${lead[lang].name}: ${lead[lang].tagline}`, extra: ads ? metaPixel() : "" })
+    + nav(lang, altPath) + (ads ? cookieBanner(consultoriaPage.pt.cookies) : "") + `
 <main id="main">
   <section class="hero wrap">
     <h1>${c.h1[0]}<br><span>${c.h1[1]}</span></h1>
@@ -768,12 +783,7 @@ const consultoriaPageHtml = lang => {
   const main = wa ? { href: wa, label: d.ctaWa, attrs: out } : { href: sectionPath(lang, "contact"), label: d.ctaMain, attrs: "" };
   const mainBtn = (label = main.label, cls = "btn") => `<a class="${cls}" href="${main.href}"${main.attrs}>${label}</a>`;
   const pixelOn = d.pixel && META_PIXEL;
-  // The pixel waits for consent (LGPD): nothing loads from Meta until the visitor taps "Aceitar" on the
-  // cookie banner, and the choice is remembered in localStorage. Without JavaScript nothing loads at all.
-  const pixel = pixelOn ? `<script>(function(){var K="cookies",d=document.documentElement,c;function load(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL}");fbq("track","PageView")}try{c=localStorage.getItem(K)}catch(e){}if(c==="granted")load();else if(c!=="denied")d.classList.add("cc-ask");document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-consent]");if(a){var v=a.dataset.consent;try{localStorage.setItem(K,v)}catch(x){}d.classList.remove("cc-ask");if(v==="granted")load();return}if(window.fbq&&e.target.closest&&e.target.closest('a[href*="wa.me/"]'))fbq("track","Contact")},true)})()</script>
-` : "";
-  const banner = pixelOn ? `<div class="cc" role="region" aria-label="${d.cookies.label}"><p>${d.cookies.text} <a href="${d.cookies.href}">${d.cookies.more}</a></p><div class="cc-actions"><button type="button" class="btn btn--sm btn--ghost" data-consent="denied">${d.cookies.deny}</button><button type="button" class="btn btn--sm" data-consent="granted">${d.cookies.accept}</button></div></div>
-` : "";
+  const pixel = pixelOn ? metaPixel() : "", banner = pixelOn ? cookieBanner(d.cookies) : "";
   const card = ([h, p]) => `<article class="tile"><h3>${h}</h3><p>${p}</p></article>`;
   const work = consultoriaPage.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
     const w = p[lang];

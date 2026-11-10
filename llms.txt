@@ -6,11 +6,19 @@ Adscendo is the web design and development studio of Jean Menezes, founded in Oc
 
 ## Services
 
-- AI consulting: Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.
-- Websites: Beautiful, fast sites that tell your story in seconds and turn visitors into customers.
-- Apps: When a website isn't enough: apps your customers open every day.
-- Show up on Google: Google needs to understand what you do and where you do it. We give it fast pages, clear organization and the words your customers really type.
-- Get recommended by AI: Ask ChatGPT, Gemini or Perplexity for a recommendation and they read the web, then name a few businesses. We make your site easy for them to read, trust and recommend.
+- [Websites](https://adscendo.pro/websites): Website designer for small businesses: custom sites designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.
+- [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online.
+- [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.
+- [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.
+
+## Website cost in the US (2026)
+
+From our guide at https://adscendo.pro/website-cost:
+
+- You, on a website builder like Wix or Squarespace: roughly $200 to $600 a year in plan fees, plus the hours you put in.
+- A freelancer: often $1,000 to $5,000, depending on their experience and how much they write and design for you.
+- A small studio: often $1,000 to $10,000. Ours run from $400 to $1,900 at launch prices.
+- An agency: often $5,000 to $30,000 or more, with a team of designers, writers and developers.
 
 ## Prices (USD)
 
@@ -37,25 +45,58 @@ Our websites run from $400 to $1,900 at launch prices, one price for the whole p
 
 Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several.
 
+### Who founded Adscendo, and where is it based?
+
+Adscendo was founded in October 2026 by Jean Menezes, a Brazilian designer and developer. Before Adscendo he spent years designing and building digital products for enterprise companies, including projects for McDonald's, AT&T, Petronas, PagBank and Multilaser. The studio is based in Brazil and works remotely with small businesses in English and Portuguese.
+
 ### How do I get started?
 
-Answer a few questions in the chat below. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer.
+Answer a few questions in the chat at adscendo.pro. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer.
 
 ## Pages
 
 - [Home](https://adscendo.pro/): Adscendo designs fast websites and apps for small businesses, built to be found on Google and recommended by ChatGPT. New sites from $400 at launch. Portuguese: https://adscendo.pro/pt
-- [Websites](https://adscendo.pro/websites): Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
+- [Websites](https://adscendo.pro/websites): Website designer for small businesses: custom sites designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
 - [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online. Portuguese: https://adscendo.pro/pt/apps
-- [Website cost guide](https://adscendo.pro/website-cost): What a small business website costs in 2026: website builders, freelancers, studios and agencies compared, what changes the price, what you pay every year, and our own prices from $400. Portuguese: https://adscendo.pro/pt/quanto-custa-um-site
+- [Website cost guide](https://adscendo.pro/website-cost): Small business website cost in 2026: builders, freelancers, studios and agencies compared, what changes the price and the yearly costs. Ours from $400. Portuguese: https://adscendo.pro/pt/quanto-custa-um-site
 - [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free. Portuguese: https://adscendo.pro/pt/consultoria-ia
 - [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch. Portuguese: https://adscendo.pro/pt/ia
 - [Our work](https://adscendo.pro/work): Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email. Portuguese: https://adscendo.pro/pt/work
+- [Partner program](https://adscendo.pro/partners): Join the Adscendo AI referral partner program: introduce small businesses that need AI and earn 15% of every contract that closes. Free to join. Portuguese: https://adscendo.pro/pt/parceiros
 - [Prospector](https://adscendo.pro/work/prospector): How Adscendo Prospector, an AI prospecting system with a map, lead analysis, personal emails and a CRM, was built in October 2026. Portuguese: https://adscendo.pro/pt/work/prospector
 - [Minha companhia](https://adscendo.pro/work/minha-companhia): How Minha companhia, a Brazilian marketplace for families of older adults, went from a screens-only brief to a live product in October 2026. Portuguese: https://adscendo.pro/pt/work/minha-companhia
 - [Sidemed](https://adscendo.pro/work/sidemed): How Sidemed, a health passport app now used in 17 countries, was conceived, planned and built in-house. Portuguese: https://adscendo.pro/pt/work/sidemed
 - [Adscendo](https://adscendo.pro/work/adscendo): Adscendo is a small web studio led by Jean Menezes. We build clear, fast websites that help American businesses stand out, get found and win more customers. Portuguese: https://adscendo.pro/pt/work/adscendo
 - [Blip](https://adscendo.pro/work/blip): How Blip, an open-source AI job search app that finds jobs, tailors resumes for the ATS and tracks every application, was built in November 2026. Portuguese: https://adscendo.pro/pt/work/blip
 - [Orbit](https://adscendo.pro/work/orbit): How Orbit, a native Mac app for email, calendar and tasks with a bring-your-own AI assistant, was planned and built in November 2026. Portuguese: https://adscendo.pro/pt/work/orbit
+
+## Em português
+
+A Adscendo cria sites e apps rápidos para pequenas empresas, feitos para aparecer no Google e ser recomendados pelo ChatGPT. Sites novos a partir de US$ 400. Site em português: https://adscendo.pro/pt. Nossos preços são em dólar: usamos a mesma tabela para clientes no Brasil e nos Estados Unidos.
+
+### O que a Adscendo faz?
+
+A Adscendo é um estúdio de design e desenvolvimento que cria sites e apps para pequenas e médias empresas. Todo site é pensado para o celular, carrega rápido e é preparado para ser encontrado no Google e recomendado por assistentes de IA como ChatGPT, Gemini e Perplexity.
+
+### Como funciona um projeto?
+
+Em três etapas. Primeiro fazemos uma reunião para entender como seu negócio funciona e aonde você quer chegar. Depois desenhamos e construímos uma primeira versão, que você testa no seu celular e no seu computador. Por fim, ajustamos o que for preciso e colocamos no ar. Você não precisa mexer em nada técnico.
+
+### Quanto custa um site?
+
+Nossos sites vão de US$ 400 a US$ 1.900 com o desconto de lançamento, num preço só para o projeto inteiro. O guia quanto custa um site compara plataformas, freelancers e agências e explica o que muda o preço.
+
+### Vocês atendem empresas no Brasil?
+
+Sim. A Adscendo é um estúdio brasileiro que trabalha de forma remota com empresas no Brasil, nos Estados Unidos e em qualquer lugar, em português ou inglês. Seu site pode ter um idioma ou vários.
+
+### Quem fundou a Adscendo, e onde ela fica?
+
+A Adscendo foi fundada em outubro de 2026 por Jean Menezes, designer e desenvolvedor brasileiro. Antes, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, com projetos para McDonald's, AT&T, Petronas, PagBank e Multilaser. O estúdio fica no Brasil e atende pequenas empresas de forma remota, em português e inglês.
+
+### Como eu começo?
+
+Responda algumas perguntas no chat em adscendo.pro/pt. Leva menos de um minuto e já mostra uma primeira estimativa. Respondemos em até 6 horas por email, ou pelo WhatsApp se preferir.
 
 ## Contact
 

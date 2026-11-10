@@ -672,7 +672,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 .ai-screen { flex: 1; min-height: 0; overflow: hidden; padding: 1cqw 5.5cqw 6cqw; background: #fff; font: 400 3.3cqw/1.35 var(--sans); letter-spacing: -0.01em; color: var(--ink); scrollbar-width: none; text-align: left; }
 .ai-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4cqw; }
 .ai-top svg { width: 8cqw; height: 5.3cqw; }
-.ai-screen h3 { font-size: 6.6cqw; letter-spacing: -0.035em; line-height: 1.1; }
+.ai-screen .ai-title { margin: 0; font-weight: 600; text-wrap: balance; font-size: 6.6cqw; letter-spacing: -0.035em; line-height: 1.1; }
 .ai-sub { margin-top: 1.2cqw; font-size: 3cqw; color: var(--muted); }
 .ai-kpis { margin-top: 4cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
 .ai-kpis div, .ai-card { background: var(--band); border-radius: 4cqw; padding: 3.2cqw 3.4cqw; }
@@ -680,7 +680,7 @@ html.js .rise.in { opacity: 1; transform: none; }
 .ai-kpis b { display: block; margin-top: .6cqw; font-size: 6cqw; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
 .ai-kpis small { display: block; margin-top: .6cqw; font-size: 2.5cqw; color: var(--muted); }
 .ai-card { margin-top: 2.4cqw; }
-.ai-card h4 { margin: 0 0 2.2cqw; font-size: 3.6cqw; font-weight: 600; }
+.ai-card .ai-h { margin: 0 0 2.2cqw; font-size: 3.6cqw; font-weight: 600; }
 .ai-row { display: grid; grid-template-columns: auto 1fr; gap: 0 2cqw; padding: 1.8cqw 0; border-top: 1px solid var(--pressed); }
 .ai-row span { color: var(--muted); font-size: 2.9cqw; }
 .ai-row b { text-align: right; font-weight: 600; font-size: 3.1cqw; }

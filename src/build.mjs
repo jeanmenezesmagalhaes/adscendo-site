@@ -36,6 +36,8 @@ const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
 const consultoriaPath = lang => `${base(lang)}/${consultoriaPage[lang].slug}`;
+// The cost guide's dates in its structured data: change COST_MODIFIED only when the guide's content changes.
+const COST_PUBLISHED = "2026-11-10", COST_MODIFIED = "2026-11-10";
 const costPath = lang => `${base(lang)}/${costPage[lang].slug}`;
 const partnerPath = lang => `${base(lang)}/${partnerPage[lang].slug}`;
 // Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
@@ -82,7 +84,7 @@ const cursorTo = (p, kind = "view") => ` data-cursor="${kind}"${p.cursor ? ` dat
 const icon = (id, cls = "") => `<svg${cls ? ` class="${cls}"` : ""} aria-hidden="true"><use href="#${id}"/></svg>`;
 
 // `extra`: more markup at the end of <head> (the Meta Pixel).
-const head = ({ lang, title, description, path, altPath, ld, image, imageAlt, extra = "" }) => `<!doctype html>
+const head = ({ lang, title, description, path, altPath, ld, image, imageAlt, extra = "", noindex = false }) => `<!doctype html>
 <html lang="${hreflang(lang)}">
 <head>
 <meta charset="utf-8">
@@ -90,7 +92,8 @@ const head = ({ lang, title, description, path, altPath, ld, image, imageAlt, ex
 ${META_DOMAIN && path === "/" ? `<meta name="facebook-domain-verification" content="${META_DOMAIN}">
 ` : ""}<title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<meta property="og:site_name" content="Adscendo">
+${noindex ? `<meta name="robots" content="noindex">
+` : ""}<meta property="og:site_name" content="Adscendo">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
@@ -99,7 +102,7 @@ ${META_DOMAIN && path === "/" ? `<meta name="facebook-domain-verification" conte
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-${SITE ? `<meta property="og:url" content="${SITE}${path}">
+${SITE && !noindex ? `<meta property="og:url" content="${SITE}${path}">
 <meta property="og:image" content="${SITE}${image.src}">
 <meta property="og:image:width" content="${image.w}">
 <meta property="og:image:height" content="${image.h}">
@@ -224,7 +227,9 @@ const footer = (lang, altPath, { cta } = {}) => {
 `;
 };
 
-const imgTag = (im, alt, eager) => `<img src="${im.src}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager ? ` fetchpriority="high"` : ` loading="lazy"`} decoding="async">`;
+// eager: true loads it first (fetchpriority high, for the main picture), "eager" loads it at once without
+// competing with the main picture, false loads it lazily.
+const imgTag = (im, alt, eager) => `<img src="${im.src}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager === true ? ` fetchpriority="high"` : eager ? "" : ` loading="lazy"`} decoding="async">`;
 const browser = (im, host, alt, eager) => `<div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host)}</span></div>${imgTag(im, alt, eager)}</div>`;
 // An iPhone: titanium edge, side buttons, Dynamic Island and a status bar tinted to match the screen.
 const phoneShell = (inner, bar = "#fff") => {
@@ -240,11 +245,11 @@ const aiScreen = lang => {
   const bars = (rows, unit) => rows.map(([k, v], i) => `<div class="ai-bar${i ? "" : " best"}"><span>${k}</span><i><b style="--w:${v / rows[0][1] * 100}%"></b></i><em>${v}${unit}</em></div>`).join("");
   return `<div class="ai-screen" aria-label="${a.title}">
     <div class="ai-top"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M19.4 26H35A7 7 0 1 0 31.37 13.02A8.5 8.5 0 0 0 14.53 15.22A5.5 5.5 0 0 0 8.55 23.73" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.2" cy="26" r="2.2" fill="currentColor"/></svg><span class="ai-tabs">${a.tabs.map((t, i) => `<i${i === 2 ? ` class="on"` : ""}>${t}</i>`).join("")}</span></div>
-    <h3>${a.title}</h3><p class="ai-sub">${a.sub}</p>
+    <p class="ai-title">${a.title}</p><p class="ai-sub">${a.sub}</p>
     <div class="ai-kpis">${a.kpis.map(([k, v, s]) => `<div><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
-    <div class="ai-card"><h4>${a.worksTitle}</h4>${a.works.map(([k, v, s]) => `<div class="ai-row"><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
-    <div class="ai-card"><h4>${a.whenTitle}</h4>${bars(a.when, "%")}</div>
-    <div class="ai-card"><h4>${a.whoTitle}</h4>${bars(a.who, "%")}</div>
+    <div class="ai-card"><p class="ai-h">${a.worksTitle}</p>${a.works.map(([k, v, s]) => `<div class="ai-row"><span>${k}</span><b>${v}</b><small>${s}</small></div>`).join("")}</div>
+    <div class="ai-card"><p class="ai-h">${a.whenTitle}</p>${bars(a.when, "%")}</div>
+    <div class="ai-card"><p class="ai-h">${a.whoTitle}</p>${bars(a.who, "%")}</div>
     <p class="ai-note">${a.note}</p>
   </div>`;
 };
@@ -256,6 +261,21 @@ const heroDemo = (p, lang) => {
   const still = `/assets/demo/${lang}-`, alt = lang === "en" ? "Prospector's AI pilot finding businesses on a map" : "O piloto de IA do Prospector achando empresas no mapa";
   return `<div class="duo duo--demo"><div class="browser browser--link"${cursorTo(p)}><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(d.name)}</span></div><div class="demo" data-demo="${lang}"><picture><source media="(max-width: 600px)" srcset="${still}narrow.webp" width="1040" height="650"><img src="${still}wide.webp" width="1600" height="1000" alt="${alt}" fetchpriority="high" decoding="async"></picture><video muted loop playsinline preload="none" aria-hidden="true"></video></div><a class="demo-hit" href="${casePath(lang, p.slug)}" aria-label="${esc(`${d.name}: ${d.tagline}`)}"></a></div>${phoneShell(aiScreen(lang), "#fff")}</div>`;
 };
+// Structured data shared by the inner pages. Google doesn't follow an @id to another page, so every page
+// carries a short copy of the studio, the website and the founder it points to (the home has the full ones).
+const orgStub = () => ({ "@type": "ProfessionalService", "@id": abs("/#org"), name: "Adscendo", alternateName: "Adscendo Professionals", url: abs("/"), logo: abs("/apple-touch-icon.png"), hasMap: contact.google, sameAs: [contact.google, contact.instagram, contact.linkedin] });
+const siteStub = () => ({ "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "Adscendo", publisher: { "@id": abs("/#org") } });
+const founderStub = () => ({ "@type": "Person", "@id": abs("/#jean"), name: "Jean Menezes", alternateName: "Jean Menezes Magalhães", jobTitle: "Founder", url: abs("/"), worksFor: { "@id": abs("/#org") }, sameAs: [contact.linkedin, GITHUB] });
+const GITHUB = "https://github.com/jeanmenezesmagalhaes";
+// The website prices as offers: the launch price, with the regular price beside it.
+const priceOffers = (lang, path) => Object.entries(quote).map(([k, q]) => ({
+  "@type": "Offer", name: chat[lang].tiers[k], url: abs(path), price: price(q), priceCurrency: "USD", availability: "https://schema.org/InStock",
+  priceSpecification: [
+    { "@type": "UnitPriceSpecification", price: price(q), priceCurrency: "USD", priceType: "https://schema.org/SalePrice" },
+    { "@type": "UnitPriceSpecification", price: q.regular, priceCurrency: "USD", priceType: "https://schema.org/ListPrice" },
+  ],
+}));
+const smallBusiness = lang => ({ "@type": "BusinessAudience", name: lang === "en" ? "Small and mid-size businesses" : "Pequenas e médias empresas" });
 const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
 // Native Mac apps (p.window) show their own window, title bar included, instead of a browser and a phone.
@@ -272,7 +292,7 @@ const projCard = (p, lang, { cta = false } = {}) => {
 const duo = (p, lang, eager) => {
   const d = p[lang];
   if (p.window) return `<div class="duo duo--window">${shot(p, lang, `${d.name}, ${lang === "en" ? "Mac app" : "app para Mac"}`, eager)}</div>`;
-  return `<div class="duo">${browser(cover(p, lang), p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(coverPhone(p, lang), `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager, p.phoneBar)}</div>`;
+  return `<div class="duo">${browser(cover(p, lang), p.host, `${d.name}, ${lang === "en" ? "desktop" : "computador"}`, eager)}${phone(coverPhone(p, lang), `${d.name}, ${lang === "en" ? "phone" : "celular"}`, eager && "eager", p.phoneBar)}</div>`;
 };
 
 // The Meta Pixel, for the pages that receive Meta ads traffic: the Portuguese AI consulting page and the
@@ -308,8 +328,8 @@ const homePage = lang => {
       { "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "Adscendo", inLanguage: ["en", "pt-BR"], publisher: org },
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: c.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: org, primaryImageOfPage: abs(image.src) },
       {
-        "@type": "ProfessionalService", ...org, name: "Adscendo", url: abs("/"), description, slogan: t.footer,
-        logo: abs("/apple-touch-icon.png"), image: abs(image.src),
+        "@type": "ProfessionalService", ...org, name: "Adscendo", alternateName: "Adscendo Professionals", url: abs("/"), description, slogan: t.footer, address: { "@type": "PostalAddress", addressCountry: "BR" },
+        logo: abs("/apple-touch-icon.png"), image: abs(image.src), hasMap: contact.google,
         email: contact.email, telephone: "+" + contact.whatsappLabel.replace(/\D/g, ""), foundingDate: "2026-10-27",
         priceRange: `${money(lang, Math.min(...prices.map(price)))}–${money(lang, Math.max(...prices.map(q => q.regular)))}`,
         areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
@@ -324,7 +344,7 @@ const homePage = lang => {
         ] },
         sameAs: [contact.google, contact.instagram, contact.linkedin],
       },
-      { "@type": "Person", ...founder, name: "Jean Menezes", jobTitle: lang === "en" ? "Founder" : "Fundador", image: founderPhoto ? abs(founderPhoto) : undefined, worksFor: org, sameAs: [contact.linkedin] },
+      { "@type": "Person", ...founder, name: "Jean Menezes", jobTitle: lang === "en" ? "Founder" : "Fundador", url: abs(homePath(lang)), alternateName: "Jean Menezes Magalhães", image: founderPhoto ? abs(founderPhoto) : undefined, worksFor: org, sameAs: [contact.linkedin, GITHUB] },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
     ],
   };
@@ -492,10 +512,12 @@ const casePage = (lang, i) => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "CreativeWork", name: d.name, headline: d.tagline, description: d.description, inLanguage: hreflang(lang), image: abs(image.src), creator: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") }, ...(p.url ? { url: p.url } : {}) },
+      { "@type": "CreativeWork", "@id": abs(`${path}#work`), name: d.name, headline: d.tagline, description: d.description, inLanguage: hreflang(lang), url: abs(path), mainEntityOfPage: abs(path), image: abs(image.src), creator: { "@id": abs("/#org") }, isPartOf: { "@id": abs(workPath(lang)) }, ...(p.url ? { sameAs: p.url } : {}) },
+      orgStub(),
       ...(SITE ? [{ "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
-        { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
+        { "@type": "ListItem", position: 2, name: workPage[lang].name || (lang === "en" ? "Work" : "Projetos"), item: abs(workPath(lang)) },
+        { "@type": "ListItem", position: 3, name: d.name, item: abs(path) },
       ] }] : []),
     ],
   };
@@ -553,11 +575,12 @@ const aiPageHtml = lang => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
+      orgStub(), siteStub(),
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) } },
       {
-        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: "Generative engine optimization", description, provider: org,
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, url: abs(path), serviceType: "Generative engine optimization", description, provider: org, audience: smallBusiness(lang),
         areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
-        offers: Object.entries(quote).map(([k, q]) => ({ "@type": "Offer", name: chat[lang].tiers[k], price: price(q), priceCurrency: "USD" })),
+        offers: priceOffers(lang, path),
       },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
       { "@type": "BreadcrumbList", itemListElement: [
@@ -669,11 +692,12 @@ const servicePageHtml = (lang, key) => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
+      orgStub(), siteStub(),
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) }, primaryImageOfPage: abs(image.src) },
       {
-        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: sp.serviceType, description, provider: org,
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, url: abs(path), serviceType: sp.serviceType, description, provider: org, audience: smallBusiness(lang),
         areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }],
-        ...(sp.prices ? { offers: Object.entries(quote).map(([k, q]) => ({ "@type": "Offer", name: chat[lang].tiers[k], price: price(q), priceCurrency: "USD" })) } : {}),
+        ...(sp.prices ? { offers: priceOffers(lang, path) } : {}),
       },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
       { "@type": "BreadcrumbList", itemListElement: [
@@ -743,7 +767,15 @@ const servicePageHtml = (lang, key) => {
     </div>
   </section>
 
-  <section class="band faq">
+${d.about ? `  <section class="band band--gray">
+    <div class="wrap founder" data-rise=".portrait, .h2, .body">
+      ${founderPhoto ? `<figure class="portrait"><img src="${founderPhoto}" alt="Jean Menezes" width="840" height="1050" loading="lazy"><figcaption><b>Jean Menezes</b><span>${home[lang].sigRole}</span></figcaption></figure>` : ""}
+      <h2 class="h2">${d.aboutTitle}</h2>
+      <div class="body">${d.about.map(p => `<p>${p}</p>`).join("")}<p class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a><a class="link" href="${casePath(lang, "adscendo")}">${ui[lang].studioStory}${icon("arrow")}</a></p></div>
+    </div>
+  </section>
+
+` : ""}  <section class="band faq">
     <div class="wrap" data-rise=".h2, .faq-list details">
       <h2 class="h2">${d.faqTitle}</h2>
       <div class="faq-list">
@@ -774,7 +806,9 @@ const costPageHtml = lang => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Article", "@id": abs(`${path}#article`), headline: d.h1, description, inLanguage: hreflang(lang), url: abs(path), mainEntityOfPage: abs(path), image: abs(image.src), datePublished: "2026-11-10", dateModified: "2026-11-10", author: org, publisher: org },
+      orgStub(), siteStub(),
+      { "@type": "Article", "@id": abs(`${path}#article`), headline: d.h1, description, inLanguage: hreflang(lang), url: abs(path), mainEntityOfPage: abs(path), image: { "@type": "ImageObject", url: abs(image.src), width: image.w, height: image.h }, datePublished: COST_PUBLISHED, dateModified: COST_MODIFIED, author: { "@id": abs("/#jean") }, publisher: org, isPartOf: { "@id": abs("/#website") }, about: { "@type": "Service", "@id": abs(`${servicePath(lang, "websites")}#service`), name: w.name, url: abs(servicePath(lang, "websites")) } },
+      founderStub(),
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
@@ -846,10 +880,11 @@ const consultoriaPageHtml = lang => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
+      orgStub(), siteStub(),
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description: d.description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: { "@id": abs(`${path}#service`) } },
       {
-        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: "AI implementation consulting", description: d.description, provider: org,
-        areaServed: { "@type": "Country", name: d.areaServed }, availableLanguage: hreflang(lang),
+        "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: "AI implementation consulting", url: abs(path), description: d.description, provider: org, audience: smallBusiness(lang),
+        areaServed: { "@type": "Country", name: d.areaServed },
       },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
       { "@type": "BreadcrumbList", itemListElement: [
@@ -958,9 +993,11 @@ const workPageHtml = lang => {
   const d = workPage[lang], path = workPath(lang), altPath = workPath(other(lang));
   const ld = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage", name: d.h1, description: d.description, inLanguage: hreflang(lang), url: abs(path),
-    publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") },
-    mainEntity: { "@type": "ItemList", itemListElement: projects.map((p, n) => ({ "@type": "ListItem", position: n + 1, name: p[lang].name, url: abs(casePath(lang, p.slug)) })) },
+    "@graph": [
+      { "@type": "CollectionPage", "@id": abs(path), name: d.h1, description: d.description, inLanguage: hreflang(lang), url: abs(path), isPartOf: { "@id": abs("/#website") }, publisher: { "@id": abs("/#org") },
+        mainEntity: { "@type": "ItemList", numberOfItems: projects.length, itemListElement: projects.map((p, n) => ({ "@type": "ListItem", position: n + 1, name: p[lang].name, item: abs(casePath(lang, p.slug)) })) } },
+      orgStub(), siteStub(),
+    ],
   };
   const tiles = projects.map((p, n) => {
     const x = workPage.tiles[p.slug] || { size: "sq", pic: "wide" };
@@ -1001,6 +1038,7 @@ const partnerPageHtml = lang => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
+      orgStub(), siteStub(),
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description: d.description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, publisher: org },
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
       { "@type": "BreadcrumbList", itemListElement: [
@@ -1096,9 +1134,24 @@ const partnerPageHtml = lang => {
 ` + footer(lang, altPath, { cta });
 };
 
+// The page Vercel serves at any address that doesn't exist (404.html at the root): kept out of search, with
+// the way back in both languages.
+const notFoundPage = () => {
+  const lang = "en", ld = { "@context": "https://schema.org", "@type": "WebPage", name: "Page not found", inLanguage: "en" };
+  return head({ lang, title: "Page not found | Adscendo", description: "This page doesn't exist. Go to the Adscendo home page, see our work or start a project.", path: "/404", altPath: "/pt", ld, image: ogImage(cover(projects[0], lang)), imageAlt: "Adscendo", noindex: true }) + nav(lang, "/pt") + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow">404</p>
+    <h1>This page doesn't exist.</h1>
+    <p class="lede">The address may have changed, or it has a typo. <span lang="pt-BR">Esta página não existe: <a href="/pt">ir para o site em português</a>.</span></p>
+    <div class="actions-row"><a class="btn" href="/">Go to the home page</a><a class="btn btn--ghost" href="${workPath("en")}">See our work</a></div>
+  </section>
+</main>
+` + footer(lang, "/pt");
+};
 const privacyPage = lang => {
   const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
-  const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
+  const ld = { "@context": "https://schema.org", "@graph": [{ "@type": "WebPage", "@id": abs(path), name: d.title, inLanguage: hreflang(lang), url: abs(path), isPartOf: { "@id": abs("/#website") }, publisher: { "@id": abs("/#org") } }, orgStub(), siteStub()] };
   return head({ lang, title: `${d.title} | Adscendo`, description: d.lede, path, altPath, ld, image: ogImage(cover(projects[0], lang)), imageAlt: "Adscendo" }) + nav(lang, altPath) + `
 <main id="main">
   <section class="case-head wrap">
@@ -1155,12 +1208,14 @@ const pages = [
   { paths: [consultoriaPath("en"), consultoriaPath("pt")], name: consultoriaPage.en.name, desc: consultoriaPage.en.description },
   { paths: [aiPath("en"), aiPath("pt")], name: aiPage.en.name, desc: fill("en", aiPage.en.description) },
   { paths: [workPath("en"), workPath("pt")], name: workPage.en.h1.replace(/\.$/, ""), desc: workPage.en.description },
+  { paths: [partnerPath("en"), partnerPath("pt")], name: partnerPage.en.name, desc: partnerPage.en.description },
   ...projects.map(p => ({ paths: [casePath("en", p.slug), casePath("pt", p.slug)], name: p.en.name, desc: p.en.description })),
 ];
 const pairs = pages.map(p => p.paths);
 
 // Search engines and AI assistants (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, PerplexityBot,
 // Claude-SearchBot…) may read every page: being quoted by them is the point. Only the form endpoint is off.
+write("404.html", notFoundPage());
 write("robots.txt", `User-agent: *\nAllow: /\nDisallow: /api/\n${SITE ? `\nSitemap: ${SITE}/sitemap.xml\n` : ""}`);
 
 if (SITE) {
@@ -1173,7 +1228,7 @@ if (SITE) {
   const alts = ([en, pt]) => `<xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/><xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE}${pt}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${en}"/>`;
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...pairs, [partnerPath("en"), partnerPath("pt")], [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
+${[...pairs, [privacyPath("en"), privacyPath("pt")]].flatMap(pair => pair.map(loc => `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod(loc)}</lastmod>${alts(pair)}</url>`)).join("\n")}
 </urlset>
 `);
 }
@@ -1189,7 +1244,13 @@ Adscendo is the web design and development studio of Jean Menezes, founded in Oc
 
 ## Services
 
-${[{ h: consultoriaPage.en.name, p: consultoriaPage.en.description }, ...en.tiles, ...en.found].map(x => `- ${x.h}: ${strip(x.p)}`).join("\n")}
+${[...Object.keys(servicePages).map(k => ({ h: servicePages[k].en.name, url: servicePath("en", k), p: fill("en", servicePages[k].en.description) })), { h: consultoriaPage.en.name, url: consultoriaPath("en"), p: consultoriaPage.en.description }, { h: aiPage.en.name, url: aiPath("en"), p: fill("en", aiPage.en.description) }].map(x => `- [${x.h}](${SITE}${x.url}): ${strip(x.p)}`).join("\n")}
+
+## Website cost in the US (2026)
+
+From our guide at ${SITE}${costPath("en")}:
+
+${costPage.en.sections[0].p[1].map(x => `- ${strip(fill("en", x))}`).join("\n")}
 
 ## Prices (USD)
 
@@ -1203,6 +1264,12 @@ ${en.faq.map(([q, a]) => `### ${q}\n\n${strip(fill("en", a))}`).join("\n\n")}
 ## Pages
 
 ${pages.map(({ paths: [enPath, ptPath], name, desc }) => `- [${name}](${SITE}${enPath}): ${strip(desc)} Portuguese: ${SITE}${ptPath}`).join("\n")}
+
+## Em português
+
+${fill("pt", home.pt.description)} Site em português: ${SITE}/pt. Nossos preços são em dólar: usamos a mesma tabela para clientes no Brasil e nos Estados Unidos.
+
+${home.pt.faq.map(([q, a]) => `### ${q}\n\n${strip(fill("pt", a))}`).join("\n\n")}
 
 ## Contact
 

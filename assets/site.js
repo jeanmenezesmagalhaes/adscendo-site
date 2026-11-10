@@ -42,11 +42,12 @@ document.querySelector(".offer-close")?.addEventListener("click", () => {
 
 // Home hero: the Prospector demo is a video (src/record-demo.mjs) over its first frame. It loads only as
 // the frame comes near the screen, in the cut the image picked (wide, or narrow on phones), AV1 where the
-// browser plays it and H.264 elsewhere. With reduced motion, Save-Data or a 2G connection it stays a still.
+// browser plays it and H.264 elsewhere. It waits for the page to finish loading, so it never competes
+// with it; with reduced motion, Save-Data or a 2G or 3G connection it stays a still.
 const demo = document.querySelector("[data-demo]");
 const conn = navigator.connection;
-if (demo && !matchMedia("(prefers-reduced-motion: reduce)").matches && !conn?.saveData && !/2g/.test(conn?.effectiveType || "")) {
-  new IntersectionObserver(([e], io) => {
+if (demo && !matchMedia("(prefers-reduced-motion: reduce)").matches && !conn?.saveData && !/2g|3g/.test(conn?.effectiveType || "")) {
+  const watch = () => new IntersectionObserver(([e], io) => {
     if (!e.isIntersecting) return;
     io.disconnect();
     const video = demo.querySelector("video"), still = demo.querySelector("img");
@@ -57,6 +58,7 @@ if (demo && !matchMedia("(prefers-reduced-motion: reduce)").matches && !conn?.sa
     video.load();
     video.play().catch(() => {});
   }, { rootMargin: "200px" }).observe(demo);
+  if (document.readyState === "complete") watch(); else addEventListener("load", watch, { once: true });
 }
 
 // The nav turns dark over a black band. The switch is instant: with the usual transitions the nav and

@@ -104,7 +104,7 @@ export const workPage = {
   },
   pt: {
     title: "Nosso trabalho: produtos, apps e sites | Adscendo",
-    description: "Todos os produtos, apps e sites que a Adscendo desenhou e construiu, de um passaporte de saúde usado em 17 países a ferramentas de IA para vendas, vagas e email.",
+    description: "Produtos, apps e sites que a Adscendo desenhou e construiu, de um passaporte de saúde usado em 17 países a ferramentas de IA para vendas, vagas e email.",
     h1: "Nosso trabalho.",
   },
   // One tile per project. size: xl 4×3, tall 2×3, sq 2×2, full 6×3 (columns × rows on a computer).
@@ -187,6 +187,7 @@ export const home = {
     about: [
       "Adscendo was founded by <strong>Jean Menezes</strong>, after years designing and building digital products for enterprise companies.",
       "Today we bring that same standard to businesses like yours. Side by side with you, we build a presence that shows who you are and earns your customers' trust.",
+      "We work remotely from Brazil, in English or Portuguese. You talk to Jean directly, and every message gets a reply within 6 hours.",
     ],
     sigRole: "Founder. Born in Brazil, built to operate globally.",
     // Questions a business owner asks before hiring us, each answered in its first sentence so search
@@ -198,7 +199,8 @@ export const home = {
       ["How does a project work?", "In three steps. First we meet to learn how your business works and where you want to go. Then we design and build a first version you can try on your own phone and computer. Finally we adjust what's needed and put it live. You never have to touch anything technical."],
       ["How much does a website cost?", "Our websites run from {new} to {complex} at launch prices, one price for the whole project. Our <a href=\"/website-cost\">website cost guide</a> compares builders, freelancers and agencies and explains what changes the price."],
       ["Do you work with businesses outside the US?", "Yes. Adscendo is a Brazilian studio that works remotely with businesses in the United States, Brazil and anywhere else, in English or Portuguese. Your site can have one language or several."],
-      ["How do I get started?", "Answer a few questions in the chat below. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer."],
+      ["Who founded Adscendo, and where is it based?", "Adscendo was founded in October 2026 by Jean Menezes, a Brazilian designer and developer. Before Adscendo he spent years designing and building digital products for enterprise companies, including projects for McDonald's, AT&T, Petronas, PagBank and Multilaser. The studio is based in Brazil and works remotely with small businesses in English and Portuguese."],
+      ["How do I get started?", "Answer a few questions in the chat at adscendo.pro. It takes less than a minute and gives you a first estimate right away. We reply within 6 hours by email, or on WhatsApp if you prefer."],
     ],
     contactTitle: "You imagine it. We build it.",
     contactLede: "Tell us about your business and what you have in mind. We design it, build it and put it live.",
@@ -265,6 +267,7 @@ export const home = {
     about: [
       "A Adscendo foi fundada por <strong>Jean Menezes</strong>, depois de anos desenhando e construindo produtos digitais para empresas de grande porte.",
       "Hoje levamos esse mesmo padrão para negócios como o seu. Lado a lado com você, construímos uma presença que mostra quem você é e conquista a confiança dos seus clientes.",
+      "Trabalhamos de forma remota, do Brasil, em português ou inglês. Você fala direto com o Jean, e toda mensagem recebe resposta em até 6 horas.",
     ],
     sigRole: "Fundador. Nascido no Brasil, feito para operar no mundo.",
     faqTitle: "Perguntas frequentes.",
@@ -274,7 +277,8 @@ export const home = {
       ["Como funciona um projeto?", "Em três etapas. Primeiro fazemos uma reunião para entender como seu negócio funciona e aonde você quer chegar. Depois desenhamos e construímos uma primeira versão, que você testa no seu celular e no seu computador. Por fim, ajustamos o que for preciso e colocamos no ar. Você não precisa mexer em nada técnico."],
       ["Quanto custa um site?", "Nossos sites vão de {new} a {complex} com o desconto de lançamento, num preço só para o projeto inteiro. O guia <a href=\"/pt/quanto-custa-um-site\">quanto custa um site</a> compara plataformas, freelancers e agências e explica o que muda o preço."],
       ["Vocês atendem empresas no Brasil?", "Sim. A Adscendo é um estúdio brasileiro que trabalha de forma remota com empresas no Brasil, nos Estados Unidos e em qualquer lugar, em português ou inglês. Seu site pode ter um idioma ou vários."],
-      ["Como eu começo?", "Responda algumas perguntas no chat abaixo. Leva menos de um minuto e já mostra uma primeira estimativa. Respondemos em até 6 horas por email, ou pelo WhatsApp se preferir."],
+      ["Quem fundou a Adscendo, e onde ela fica?", "A Adscendo foi fundada em outubro de 2026 por Jean Menezes, designer e desenvolvedor brasileiro. Antes, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, com projetos para McDonald's, AT&T, Petronas, PagBank e Multilaser. O estúdio fica no Brasil e atende pequenas empresas de forma remota, em português e inglês."],
+      ["Como eu começo?", "Responda algumas perguntas no chat em adscendo.pro/pt. Leva menos de um minuto e já mostra uma primeira estimativa. Respondemos em até 6 horas por email, ou pelo WhatsApp se preferir."],
     ],
     contactTitle: "Você imagina. A gente constrói.",
     contactLede: "Conte sobre seu negócio e o que você tem em mente. A gente desenha, constrói e coloca no ar.",
@@ -417,7 +421,7 @@ export const aiPage = {
   en: {
     slug: "ai",
     name: "AI optimization",
-    title: "Websites built for AI search: ChatGPT, Gemini and Perplexity | Adscendo",
+    title: "Websites built for AI search and ChatGPT | Adscendo",
     description: "A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from {new} at launch.",
     eyebrow: "New website + AI optimization",
     h1: "Be the answer AI gives.",
@@ -469,7 +473,7 @@ export const aiPage = {
   pt: {
     slug: "ia",
     name: "Otimização para IA",
-    title: "Site otimizado para IA: ChatGPT, Gemini e Perplexity | Adscendo",
+    title: "Site otimizado para IA e ChatGPT | Adscendo",
     description: "Um site novo feito para o ChatGPT, o Gemini e o Perplexity lerem, confiarem e recomendarem seu negócio. Otimização para IA inclusa, a partir de {new}.",
     eyebrow: "Site novo + otimização para IA",
     h1: "Seja a resposta da IA.",
@@ -578,6 +582,7 @@ export const consultoriaPage = {
     ],
     faqTitle: "Questions about AI consulting.",
     faq: [
+      ["What is AI implementation consulting?", "AI implementation consulting means someone looks at how your business actually runs, finds the tasks AI can take over (answering common customer questions, copying data between systems, drafting sales emails), builds those automations and agents, connects them to the software you already use and trains your team. At Adscendo it is led by founder Jean Menezes."],
       ["Do I need to be technical to hire you?", "No. You explain how your business runs and where the work gets stuck. We handle the technical side, and your team learns only what it will use day to day."],
       ["My business is small. Does this make sense?", "Often, yes: in a small business, a few hours less of repetitive work each week already makes a difference. The assessment tells you honestly whether it's worth it and where to start."],
       ["How much does it cost?", "It depends on the size of your business and what we build, so there's no price list. After a first conversation, which is free, we send you a proposal with what's included and what it costs, before any work starts."],
@@ -647,8 +652,9 @@ export const consultoriaPage = {
       "A consultoria é conduzida pelo <strong>Jean Menezes</strong>, fundador da Adscendo. Antes dela, ele passou anos desenhando e construindo produtos digitais para empresas de grande porte, e trabalhou em projetos para McDonald's, AT&amp;T, Petronas, PagBank e Multilaser.",
       "Em 2026 criou a Sidemed, um app de saúde usado em 17 países, e lançou o Prospector, um sistema de prospecção com IA. Na consultoria, quem entende o seu negócio é a mesma pessoa que constrói a solução.",
     ],
-    faqTitle: "Perguntas frequentes.",
+    faqTitle: "Perguntas sobre consultoria de IA.",
     faq: [
+      ["O que é consultoria de implantação de IA?", "É quando alguém olha como a sua empresa funciona de verdade, encontra as tarefas que a IA pode assumir (responder perguntas comuns de clientes, copiar dados entre sistemas, escrever rascunhos de emails de vendas), constrói essas automações e agentes, conecta ao que você já usa e treina a equipe. Na Adscendo, quem conduz é o fundador, Jean Menezes."],
       ["Preciso entender de tecnologia para contratar?", "Não. Você explica como a empresa funciona e onde o trabalho trava. A parte técnica fica com a gente, e a equipe aprende só o que vai usar no dia a dia."],
       ["Minha empresa é pequena. Faz sentido?", "Muitas vezes, sim: numa empresa pequena, algumas horas a menos de trabalho repetitivo por semana já fazem diferença. O diagnóstico serve para dizer com honestidade se vale a pena e por onde começar."],
       ["Quanto custa?", "Depende do tamanho da empresa e do que for implantado, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o que está incluído e quanto custa, antes de qualquer trabalho começar."],
@@ -673,15 +679,15 @@ export const costPage = {
     slug: "website-cost",
     name: "Website cost guide",
     title: "How much does a small business website cost in 2026? | Adscendo",
-    description: "What a small business website costs in 2026: website builders, freelancers, studios and agencies compared, what changes the price, what you pay every year, and our own prices from {new}.",
+    description: "Small business website cost in 2026: builders, freelancers, studios and agencies compared, what changes the price and the yearly costs. Ours from {new}.",
     eyebrow: "Website cost guide",
     h1: "How much does a small business website cost?",
     lede: "Usually from a few hundred to several thousand dollars to build, plus a small yearly cost to keep it online. Where you land depends on who builds it and what the site has to do. Here is how the numbers work, with our own prices at the end.",
-    updated: "Updated November 10, 2026",
+    updated: "Updated November 10, 2026 · By Jean Menezes, founder of Adscendo",
     ctaMain: "Get a quote",
     ctaSecond: "See our prices",
     sections: [
-      { h: "The short answer", p: [
+      { h: "How much does a website cost, by who builds it?", p: [
         "Who builds the site moves the price more than anything else:",
         [
           "<b>You, on a website builder</b> like Wix or Squarespace: roughly $200 to $600 a year in plan fees, plus the hours you put in.",
@@ -691,7 +697,7 @@ export const costPage = {
         ],
         "These are typical ranges in the US, not quotes. Two sites at the same price can include very different work, so compare what's included, not only the total.",
       ] },
-      { h: "What changes the price", p: [
+      { h: "What changes the price of a website?", p: [
         "Five things decide most of what a website costs:",
         [
           "<b>How many pages.</b> A one-page site for a local service costs less than a site with a page for each service, location and team member.",
@@ -701,7 +707,12 @@ export const costPage = {
           "<b>How many languages.</b> Each language is close to a second site: its own text, its own pages and its own address on Google.",
         ],
       ] },
-      { h: "What you pay every year", p: [
+      { h: "What does a website redesign cost?", p: [
+        "A redesign usually costs a bit less than a new site from the same designer, because your text, photos and pages already exist. It costs about the same when the site needs new pages, new features or a full rewrite.",
+        "A good redesign keeps your address and sends old pages to the new ones, so what you've built on Google carries over.",
+        "Ours is {redo} at launch prices ({redoRegular} regular), or {complex} if the site connects to booking, payments or a CRM.",
+      ] },
+      { h: "What does a website cost every year?", p: [
         "The build is paid once. A few smaller costs come back every year:",
         [
           "<b>Domain</b> (your address, like yourbusiness.com): about $10 to $20 a year.",
@@ -720,7 +731,7 @@ export const costPage = {
           "A way to call, message, book or ask for a quote on every page.",
           "We put the site live for you.",
         ],
-        "See <a href=\"/websites\">what's included in every website</a>, and the sites we've built.",
+        "See <a href=\"/websites\">what's included in every website</a>, and <a href=\"/work\">everything we've built</a>.",
       ] },
       { h: "Questions to ask before you hire anyone", p: [
         [
@@ -747,16 +758,16 @@ export const costPage = {
   pt: {
     slug: "quanto-custa-um-site",
     name: "Quanto custa um site",
-    title: "Quanto custa um site em 2026? Preços e o que muda no valor | Adscendo",
-    description: "Quanto custa criar um site para pequena empresa em 2026: plataformas, freelancers, estúdios e agências comparados, o que muda o preço, o que você paga todo ano e os nossos preços, a partir de {new}.",
+    title: "Quanto custa um site em 2026? Guia de preços | Adscendo",
+    description: "Quanto custa criar um site em 2026: plataformas, freelancers, estúdios e agências comparados, o que muda o preço e os custos anuais. O nosso, de {new}.",
     eyebrow: "Quanto custa um site",
     h1: "Quanto custa um site para pequena empresa?",
     lede: "Criar um site costuma custar de algumas centenas a alguns milhares de reais, mais um custo anual pequeno para manter no ar. O valor depende de quem faz e do que o site precisa fazer. Veja como a conta funciona, com os nossos preços no final.",
-    updated: "Atualizado em 10 de novembro de 2026",
+    updated: "Atualizado em 10 de novembro de 2026 · Por Jean Menezes, fundador da Adscendo",
     ctaMain: "Peça um orçamento",
     ctaSecond: "Ver nossos preços",
     sections: [
-      { h: "A resposta curta", p: [
+      { h: "Quanto custa um site, conforme quem faz?", p: [
         "Quem faz o site é o que mais muda o preço:",
         [
           "<b>Você mesmo, numa plataforma</b> como Wix ou WordPress.com: a mensalidade do plano, mais as horas que você dedica.",
@@ -766,7 +777,7 @@ export const costPage = {
         ],
         "São faixas comuns no Brasil, não orçamentos. Dois sites com o mesmo preço podem incluir trabalhos bem diferentes, então compare o que está incluído, não só o total.",
       ] },
-      { h: "O que muda o preço", p: [
+      { h: "O que muda o preço de um site?", p: [
         "Cinco coisas decidem quase todo o custo de um site:",
         [
           "<b>Quantas páginas.</b> Um site de uma página para um serviço local custa menos que um site com uma página para cada serviço, unidade e pessoa da equipe.",
@@ -776,7 +787,12 @@ export const costPage = {
           "<b>Quantos idiomas.</b> Cada idioma é quase um segundo site: textos próprios, páginas próprias e endereço próprio no Google.",
         ],
       ] },
-      { h: "O que você paga todo ano", p: [
+      { h: "Quanto custa refazer um site?", p: [
+        "Refazer um site costuma custar um pouco menos que um site novo com o mesmo profissional, porque textos, fotos e páginas já existem. Custa quase o mesmo quando o site precisa de páginas novas, recursos novos ou textos do zero.",
+        "Uma boa reforma mantém o seu endereço e leva as páginas antigas para as novas, para você não perder o que já conquistou no Google.",
+        "O nosso sai por {redo} com o desconto de lançamento ({redoRegular} cheio), ou {complex} se o site se conecta com agendamento, pagamentos ou CRM.",
+      ] },
+      { h: "Quanto custa manter um site por ano?", p: [
         "A criação do site é paga uma vez. Alguns custos menores voltam todo ano:",
         [
           "<b>Domínio</b> (seu endereço, como seunegocio.com.br): R$ 40 por ano no Registro.br.",
@@ -795,7 +811,7 @@ export const costPage = {
           "Um jeito de ligar, mandar mensagem, agendar ou pedir orçamento em todas as páginas.",
           "A gente coloca o site no ar para você.",
         ],
-        "Nossos preços são em dólar: usamos a mesma tabela para clientes no Brasil e nos Estados Unidos. Veja <a href=\"/pt/sites\">o que todo site inclui</a> e os sites que já construímos.",
+        "Nossos preços são em dólar: usamos a mesma tabela para clientes no Brasil e nos Estados Unidos. Veja <a href=\"/pt/sites\">o que todo site inclui</a> e <a href=\"/pt/work\">tudo o que já construímos</a>.",
       ] },
       { h: "Perguntas para fazer antes de contratar", p: [
         [
@@ -830,11 +846,11 @@ export const servicePages = {
     en: {
       slug: "websites",
       name: "Websites",
-      title: "Small business website design, built to be found | Adscendo",
-      description: "Custom websites for small businesses, designed for phones, fast, and built to be found on Google and recommended by AI. From {new} at launch.",
-      eyebrow: "Websites",
+      title: "Small business website designer and web design | Adscendo",
+      description: "Website designer for small businesses: custom sites designed for phones, fast, and built to be found on Google and recommended by AI. From {new} at launch.",
+      eyebrow: "Small business web design",
       h1: "A website that brings you customers.",
-      lede: "Beautiful, fast sites that tell your story in seconds and turn visits into calls, bookings and messages. We design it, build it and put it live for you.",
+      lede: "Websites for small businesses: beautiful, fast and built to turn visits into calls, bookings and messages. We design it, build it and put it live for you.",
       ctaMain: "Get a quote",
       ctaSecond: "See prices",
       incTitle: "What every website includes.",
@@ -848,16 +864,23 @@ export const servicePages = {
         ["One or more languages", "One language or several, each with its own address, so Google shows each customer the right one."],
       ],
       workTitle: "Websites we've built.",
-      workLede: "Each one with its full story: the brief, the decisions and the site as it went live.",
+      workLede: "Our own products so far, each with its full story: the idea, the decisions and the site as it went live.",
       pricesTitle: "Prices.",
-      pricesLede: "One price for the whole project, with a launch discount for our first clients in the US.",
+      pricesLede: "Affordable, fixed prices: one price for the whole project, paid once, with a launch discount for our first clients in the US.",
       regular: "{price} regular · {off}% launch discount",
       priceChips: ["Design and build", "Google and AI setup", "Put live for you"],
       faqTitle: "Questions about websites.",
       faq: [
         ["I already have a website. Do I need a new one?", "Not always. If your site is slow, hard to use on a phone or doesn't bring in customers, a new version usually pays off, and we reuse what already works. Send us the address and we'll tell you honestly what we'd do."],
         ["How much does a website cost?", "Ours run from {new} to {complex} at launch prices, one price for the whole project. Elsewhere it ranges from a few hundred dollars a year on a website builder to $30,000 or more at an agency. Our <a href=\"/website-cost\">website cost guide</a> explains what changes the price and what you pay every year."],
+        ["How much does a website redesign cost?", "Ours is {redo} at launch prices ({redoRegular} regular), because we start from what your current site already has. If it connects to booking, payments or a CRM, it's {complex}. Our <a href=\"/website-cost\">website cost guide</a> explains what changes the price."],
+        ["Why are your prices lower than most agencies'?", "Because we're a new studio, and our first clients get launch discounts of up to {newOff}%. We're also small and remote, so there's no office or account manager built into the price. You work directly with the person who designs and builds your site."],
         ["Will my business show up on Google and in ChatGPT?", "We build every site to be found: fast pages, clear organization, your details in a format Google and AI understand, and words written the way your customers ask. Nobody can honestly guarantee first place, so we show you where you stand and what is improving."],
+      ],
+      aboutTitle: "Your designer, from first call to launch.",
+      about: [
+        "Adscendo is run by <strong>Jean Menezes</strong>, a designer and developer who spent years building digital products for large companies before opening the studio in October 2026.",
+        "He answers your messages, designs your site and builds it. We work remotely from Brazil, in English or Portuguese, and reply within 6 hours.",
       ],
       ctaTitle: "Let's build yours.",
       ctaText: "Tell us about your business. In less than a minute you get a first estimate, and we reply within 6 hours.",
@@ -865,11 +888,11 @@ export const servicePages = {
     pt: {
       slug: "sites",
       name: "Sites",
-      title: "Criação de sites para pequenas empresas, feitos para ser encontrados | Adscendo",
+      title: "Criação de sites para pequenas empresas | Adscendo",
       description: "Sites sob medida para pequenas empresas, pensados para o celular, rápidos e feitos para aparecer no Google e ser recomendados pela IA. A partir de {new}.",
-      eyebrow: "Sites",
+      eyebrow: "Criação de sites",
       h1: "Um site que traz clientes.",
-      lede: "Sites bonitos e rápidos, que contam sua história em segundos e transformam visitas em ligações, agendamentos e mensagens. A gente desenha, constrói e coloca no ar para você.",
+      lede: "Sites para pequenas empresas: bonitos, rápidos e feitos para transformar visitas em ligações, agendamentos e mensagens. A gente desenha, constrói e coloca no ar para você.",
       ctaMain: "Peça um orçamento",
       ctaSecond: "Ver preços",
       incTitle: "O que todo site inclui.",
@@ -883,16 +906,23 @@ export const servicePages = {
         ["Um ou mais idiomas", "Um idioma ou vários, cada um com seu próprio endereço, para o Google mostrar a versão certa para cada cliente."],
       ],
       workTitle: "Sites que construímos.",
-      workLede: "Cada um com a história completa: o pedido, as decisões e o site como foi ao ar.",
+      workLede: "Por enquanto, produtos nossos, cada um com a história completa: a ideia, as decisões e o site como foi ao ar.",
       pricesTitle: "Preços.",
-      pricesLede: "Um preço para o projeto inteiro, com desconto de lançamento para nossos primeiros clientes nos EUA.",
+      pricesLede: "Preço fixo e acessível: um valor para o projeto inteiro, pago uma vez, com desconto de lançamento para nossos primeiros clientes nos EUA.",
       regular: "{price} cheio · {off}% de desconto de lançamento",
       priceChips: ["Design e construção", "Preparado para Google e IA", "Colocamos no ar"],
       faqTitle: "Perguntas sobre sites.",
       faq: [
         ["Eu já tenho site. Preciso de um novo?", "Nem sempre. Se o seu site é lento, ruim de usar no celular ou não traz clientes, uma nova versão costuma valer a pena, e a gente aproveita o que já funciona. Mande o endereço e a gente diz com honestidade o que faria."],
         ["Quanto custa um site?", "Os nossos vão de {new} a {complex} com o desconto de lançamento, num preço só para o projeto inteiro. No mercado, vai da mensalidade de uma plataforma a R$ 50.000 ou mais numa agência. O guia <a href=\"/pt/quanto-custa-um-site\">quanto custa um site</a> explica o que muda o preço e o que você paga todo ano."],
+        ["Quanto custa refazer um site?", "O nosso sai por {redo} com o desconto de lançamento ({redoRegular} cheio), porque partimos do que o seu site já tem. Se ele se conecta com agendamento, pagamentos ou CRM, fica {complex}. O guia <a href=\"/pt/quanto-custa-um-site\">quanto custa um site</a> explica o que muda o preço."],
+        ["Por que o preço de vocês é menor que o de muitas agências?", "Porque somos um estúdio novo, e nossos primeiros clientes têm desconto de lançamento de até {newOff}%. Também somos pequenos e remotos, sem escritório nem gerente de contas embutidos no preço. Você fala direto com quem desenha e constrói o seu site."],
         ["Meu negócio vai aparecer no Google e no ChatGPT?", "Todo site que fazemos é feito para ser encontrado: páginas rápidas, organização clara, seus dados num formato que o Google e a IA entendem e textos escritos do jeito que seus clientes perguntam. Ninguém pode garantir o primeiro lugar com honestidade, por isso mostramos onde você está e o que está melhorando."],
+      ],
+      aboutTitle: "Seu designer, da primeira conversa ao lançamento.",
+      about: [
+        "A Adscendo é conduzida por <strong>Jean Menezes</strong>, designer e desenvolvedor que passou anos construindo produtos digitais para grandes empresas antes de abrir o estúdio, em outubro de 2026.",
+        "É ele quem responde suas mensagens, desenha e constrói o seu site. Trabalhamos de forma remota, do Brasil, em português ou inglês, e respondemos em até 6 horas.",
       ],
       ctaTitle: "Vamos construir o seu.",
       ctaText: "Conte sobre seu negócio. Em menos de um minuto você recebe uma primeira estimativa, e a gente responde em até 6 horas.",
@@ -906,7 +936,7 @@ export const servicePages = {
     en: {
       slug: "apps",
       name: "Apps",
-      title: "App design and development for iPhone, Android and the web | Adscendo",
+      title: "App development for iPhone, Android and web | Adscendo",
       description: "Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online.",
       eyebrow: "Apps",
       h1: "When a website isn't enough.",
@@ -1561,7 +1591,7 @@ export const projects = [
       tagline: "Adscendo é latim para “eu me elevo”. É exatamente o que queremos para cada cliente: se elevar acima da multidão.",
       seoTitle: "Sobre a Adscendo: sites que fazem você se destacar",
       summary: "Quem somos, e como ajudamos empresas americanas a se destacarem no meio da multidão.",
-      description: "A Adscendo é um pequeno estúdio de sites liderado por Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a se destacar, ser encontradas e ganhar mais clientes.",
+      description: "A Adscendo é o estúdio de sites de Jean Menezes. Fazemos sites claros e rápidos que ajudam empresas americanas a ser encontradas e ganhar clientes.",
       facts: [["O que fazemos", "Sites e apps"], ["Para", "Pequenas empresas nos EUA"], ["Liderado por", "Jean Menezes"], ["Desde", "Outubro de 2026"]],
       chapters: [
         {
@@ -1672,7 +1702,7 @@ export const projects = [
       tagline: "Acha as vagas, adapta o currículo, prepara a candidatura. Você clica em Enviar.",
       seoTitle: "Blip: busca de vagas com IA e currículo para ATS | Adscendo",
       summary: "Acha vagas em dezenas de sites, adapta o currículo para o ATS de cada uma, prepara a candidatura e acompanha tudo num quadro.",
-      description: "Como o Blip, um app de código aberto que usa IA para achar vagas, adaptar o currículo para o ATS e acompanhar cada candidatura, foi construído em novembro de 2026.",
+      description: "Como o Blip, app de código aberto que usa IA para achar vagas, adaptar o currículo ao ATS e acompanhar candidaturas, foi construído em novembro de 2026.",
       facts: [["O que fizemos", "Planejado e construído por nós"], ["Quando", "Novembro de 2026"], ["Plataforma", "App para Mac, roda local"], ["Status", "Código aberto no GitHub"]],
       chapters: [
         {

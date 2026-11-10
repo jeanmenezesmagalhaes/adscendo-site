@@ -358,6 +358,25 @@ export const chat = {
     bad: { name: "Só o seu nome, por favor.", link: "Esse endereço não parece certo.", email: "Esse email não parece certo.", phone: "Use números, com o código do país." },
     labels: { name: "Nome", site: "Site", tools: "Integrações", estimate: "Estimativa", email: "Email", phone: "WhatsApp", notes: "Observações", meeting: "Chamada", none: "Ainda não tem" },
     subject: "Novo projeto: {name}",
+    // AI consulting mode: visitors who arrive from the Meta ads (utm_source=meta) get this conversation
+    // instead of the website quote. No price; it asks about the business and books a call with Jean.
+    // Keys here replace the ones above; assets/chat.js decides when.
+    ia: {
+      title: "Consultoria de IA", status: "Leva menos de um minuto",
+      greet: "Oi! Aqui é o Jean. Vamos ver onde a IA pode cortar custo e tempo na sua empresa.",
+      askBiz: "Prazer, {name}. Qual é o ramo da sua empresa?", bizPh: "Ex.: clínica, contabilidade, loja, indústria",
+      askTeam: "Quantas pessoas trabalham com você hoje?",
+      team: [["1", "Só eu"], ["2-10", "2 a 10"], ["11-50", "11 a 50"], ["50+", "Mais de 50"]],
+      askPain: "Onde a operação mais trava hoje? Atendimento, vendas, financeiro, tarefas repetitivas…", painPh: "Conte em uma ou duas frases",
+      askEmail: "Qual é o seu email? Mando a confirmação por lá.",
+      askPhone: "E o seu WhatsApp, para eu falar com você antes da conversa?",
+      askMeet: "Quer marcar agora a sua conversa gratuita com o Jean, por vídeo?",
+      ready: "Tudo certo, {name}. Clique em enviar e eu falo com você em até 6 horas.",
+      sent: "Enviado! Obrigado, {name}. Eu falo com você em até 6 horas.",
+      meetTitle: "Consultoria de IA: Adscendo + {name}", subjectMeet: "IA, chamada marcada: {name}",
+      labels: { biz: "Ramo", team: "Equipe", pain: "Onde trava", source: "Origem" },
+      subject: "Lead IA (anúncio): {name}",
+    },
   },
 };
 

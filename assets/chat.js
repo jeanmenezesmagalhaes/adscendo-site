@@ -7,6 +7,10 @@
   const data = document.getElementById("chat-data");
   if (!root || !data) return;
   const { copy: T, quote: Q, locale } = JSON.parse(data.textContent);
+  // Visitors from the Meta ads (utm_source=meta, or ?ia=1 to test) talk about AI consulting, not a website
+  // quote: the `ia` copy replaces the default lines, and the flow below asks about the business instead.
+  const IA = !!T.ia && /[?&](utm_source=meta|ia=1)(&|$)/.test(location.search);
+  if (IA) Object.assign(T, T.ia, { labels: { ...T.labels, ...T.ia.labels } });
   const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? "");
   const money = n => (locale.startsWith("pt") ? "US$ " : "$") + n.toLocaleString(locale);
@@ -103,6 +107,7 @@
   }
   function summary() {
     const L = T.labels, t = tierOf();
+    if (IA) return fields().map(([k, v]) => `${k}: ${v}`).join("\n");
     return [
       [L.name, a.name],
       [L.site, a.site === "no" ? L.none : a.link || T.yes],
@@ -125,6 +130,7 @@
     a.name = await ask({ ph: T.namePh, autocomplete: "name", check: v => (!v || v.length > 60 || /[<>@\d]{2,}/.test(v)) && T.bad.name });
     window.track?.("chat_start");
     restart.hidden = false;
+    if (IA) return runIA();
     await say(esc(fill(T.askSite, { name: a.name.split(" ")[0] })));
     a.site = await choose([["yes", T.yes], ["no", T.no]]);
     if (a.site === "yes") {
@@ -143,6 +149,25 @@
     a.phone = await ask({ type: "tel", inputmode: "tel", autocomplete: "tel", ph: T.phonePh, optional: true, check: v => !/^\+?[\d\s().-]{8,20}$/.test(v) && T.bad.phone });
     await say(esc(T.askMore));
     a.notes = await ask({ multiline: true, ph: T.morePh, optional: true });
+    if (await meeting(await offer)) return;
+    await finish();
+  }
+
+  // The AI consulting conversation (IA): business, team size and where it hurts, then the same email,
+  // WhatsApp, call booking and send as the website flow. No estimate.
+  async function runIA() {
+    await say(esc(fill(T.askBiz, { name: a.name.split(" ")[0] })));
+    a.biz = await ask({ ph: T.bizPh, check: v => !v || v.length > 80 });
+    await say(esc(T.askTeam));
+    const team = await choose(T.team);
+    a.team = (T.team.find(([v]) => v === team) || [, team])[1];
+    await say(esc(T.askPain));
+    a.pain = await ask({ multiline: true, ph: T.painPh });
+    await say(esc(T.askEmail));
+    a.email = await ask({ type: "email", inputmode: "email", autocomplete: "email", ph: T.emailPh, domains: T.emailDomains, check: v => !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && T.bad.email });
+    const offer = freeTimes();
+    await say(esc(T.askPhone));
+    a.phone = await ask({ type: "tel", inputmode: "tel", autocomplete: "tel", ph: T.phonePh, optional: true, check: v => !/^\+?[\d\s().-]{8,20}$/.test(v) && T.bad.phone });
     if (await meeting(await offer)) return;
     await finish();
   }
@@ -228,6 +253,15 @@
   // Empty answers are left out, so the email only shows what the visitor actually said.
   function fields() {
     const L = T.labels, t = tierOf();
+    if (IA) {
+      const src = new URLSearchParams(location.search);
+      return [
+        [L.name, a.name], [L.email, a.email], [L.phone, a.phone || ""],
+        [L.biz, a.biz || ""], [L.team, a.team || ""], [L.pain, a.pain || ""],
+        [L.meeting, a.meeting || ""],
+        [L.source, [src.get("utm_campaign"), src.get("utm_content")].filter(Boolean).join(" / ")],
+      ].filter(([, v]) => v);
+    }
     return [
       [L.name, a.name], [L.email, a.email], [L.phone, a.phone || ""],
       [L.site, a.site === "no" ? L.none : a.link || T.yes],
@@ -268,7 +302,7 @@
       const wa = whatsapp(subject);
       const fallback = `mailto:${cfg.email || ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
       if (ok) {
-        window.track?.("generate_lead", { value: price(tierOf()), currency: "USD", tier: tierOf() });
+        window.track?.("generate_lead", IA ? { tier: "ia" } : { value: price(tierOf()), currency: "USD", tier: tierOf() });
         bubble(esc(T.send), "me");
         await say(esc(fill(T.sent, { name: first })));
         if (!wa) return;

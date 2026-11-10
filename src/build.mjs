@@ -299,7 +299,7 @@ const duo = (p, lang, eager) => {
 // localStorage. Without JavaScript nothing loads at all. Events: PageView; Contact on a tap on any wa.me
 // link; Lead when the chat sends its summary or books a call (window.track's generate_lead and book_call,
 // fired by assets/chat.js), plus Schedule for a booked call. Goes in <head> after window.track is defined.
-const metaPixel = () => META_PIXEL ? `<script>(function(){var K="cookies",d=document.documentElement,c,t=window.track;function load(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL}");fbq("track","PageView")}window.track=function(n,p){t&&t(n,p);if(!window.fbq)return;if(n==="generate_lead"||n==="book_call")fbq("track","Lead");if(n==="book_call")fbq("track","Schedule")};try{c=localStorage.getItem(K)}catch(e){}if(c==="granted")load();else if(c!=="denied")d.classList.add("cc-ask");document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-consent]");if(a){var v=a.dataset.consent;try{localStorage.setItem(K,v)}catch(x){}d.classList.remove("cc-ask");if(v==="granted")load();return}if(window.fbq&&e.target.closest&&e.target.closest('a[href*="wa.me/"]'))fbq("track","Contact")},true)})()</script>
+const metaPixel = () => META_PIXEL ? `<script>(function(){var K="cookies",d=document.documentElement,c,t=window.track;function load(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL}");fbq("track","PageView")}window.track=function(n,p){t&&t(n,p);if(!window.fbq)return;if(n==="generate_lead"||n==="book_call"||n==="partner_signup")fbq("track","Lead");if(n==="book_call")fbq("track","Schedule")};try{c=localStorage.getItem(K)}catch(e){}if(c==="granted")load();else if(c!=="denied")d.classList.add("cc-ask");document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-consent]");if(a){var v=a.dataset.consent;try{localStorage.setItem(K,v)}catch(x){}d.classList.remove("cc-ask");if(v==="granted")load();return}if(window.fbq&&e.target.closest&&e.target.closest('a[href*="wa.me/"]'))fbq("track","Contact")},true)})()</script>
 ` : "";
 // The cookie banner that goes with the pixel, right after the nav. Copy in content.mjs (consultoriaPage.pt.cookies).
 const cookieBanner = k => META_PIXEL ? `<div class="cc" role="region" aria-label="${k.label}"><p>${k.text} <a href="${k.href}">${k.more}</a></p><div class="cc-actions"><button type="button" class="btn btn--sm btn--ghost" data-consent="denied">${k.deny}</button><button type="button" class="btn btn--sm" data-consent="granted">${k.accept}</button></div></div>
@@ -1058,8 +1058,11 @@ const partnerPageHtml = lang => {
   const imageAlt = lang === "en"
     ? `Adscendo. AI referral partner program: ${rate}% in large white type, above the line "${d.h1}"`
     : `Adscendo. Programa de parceiros de IA: ${rate}% em letras grandes e brancas, acima da frase "${d.h1}"`;
-  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image, imageAlt })
-    + nav(lang, altPath, { cta, offer: false }) + `
+  // `pixel: true` (the Portuguese page, where the partner ads on Meta send people): Meta Pixel behind the
+  // consulting page's cookie banner; a sent form counts as Lead.
+  const pixelOn = d.pixel && META_PIXEL;
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image, imageAlt, extra: pixelOn ? metaPixel() : "" })
+    + nav(lang, altPath, { cta, offer: false }) + (pixelOn ? cookieBanner(consultoriaPage.pt.cookies) : "") + `
 <main id="main">
   <section class="case-head wrap">
     <p class="eyebrow">${d.eyebrow}</p>

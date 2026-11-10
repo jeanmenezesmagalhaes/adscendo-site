@@ -994,12 +994,15 @@ const workPageHtml = lang => {
 const partnerPageHtml = lang => {
   const d = partnerPage[lang], f = d.form, path = partnerPath(lang), altPath = partnerPath(other(lang));
   const rate = partnerPage.rate;
+  // The earnings example in the questions: the integrated website at its launch price, and the rate of it.
+  const site = price(quote.complex);
+  const faq = d.faq.map(([q, a]) => [q, a.replace("{site}", money(lang, site)).replace("{cut}", money(lang, Math.round(site * rate / 100)))]);
   const org = { "@id": abs("/#org") };
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: d.title, description: d.description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, publisher: org },
-      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
         { "@type": "ListItem", position: 2, name: d.name, item: abs(path) },
@@ -1008,7 +1011,7 @@ const partnerPageHtml = lang => {
   };
   const cta = { href: "#form", label: d.ctaMain, attrs: "" };
   const steps = d.how.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
-  const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const questions = faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
   const card = ([h, p]) => `<article class="tile"><h3>${h}</h3><p>${p}</p></article>`;
   const opt = `<small>${f.optional}</small>`;
   const fail = f.fail.replace("{email}", `<a href="mailto:${contact.email}">${contact.email}</a>`).replace("WhatsApp", `<a href="${waHref(d.name)}" target="_blank" rel="noopener">WhatsApp</a>`);
@@ -1026,6 +1029,7 @@ const partnerPageHtml = lang => {
 
   <section class="band">
     <div class="wrap" data-rise=".tile">
+      <h2 class="sr-only">${d.rateHeading}</h2>
       <div class="tiles tiles--2 partner-rate">
         <article class="tile"><p class="eyebrow">${d.rateLabel}</p><h3>${rate}%</h3><p>${d.rateText}</p><ul>${d.services.map(x => `<li>${x}</li>`).join("")}</ul></article>
         <article class="tile"><p class="eyebrow">${d.gainsLabel}</p><h3>${d.gainsTitle}</h3><ul>${d.gains.map(x => `<li>${x}</li>`).join("")}</ul></article>

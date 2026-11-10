@@ -1055,7 +1055,12 @@ const partnerPageHtml = lang => {
   const fail = f.fail.replace("{email}", `<a href="mailto:${contact.email}">${contact.email}</a>`).replace("WhatsApp", `<a href="${waHref(d.name)}" target="_blank" rel="noopener">WhatsApp</a>`);
   // Copy for the script below: the email's labels and subject, and the button and status texts.
   const js = { labels: [f.name, f.email, f.phone, f.work, f.note], subject: f.subject, sending: f.sending, ok: f.ok, fail, page: abs(path) };
-  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image: ogImage(cover(projects[0], lang)), imageAlt: d.h1 })
+  // Its own share image (src/og-partners.mjs): the rate in big type over the H1, on black.
+  const image = { src: `/assets/og/partners${lang === "en" ? "" : ".pt"}.jpg`, w: 1200, h: 630 };
+  const imageAlt = lang === "en"
+    ? `Adscendo. AI referral partner program: ${rate}% in large white type, above the line "${d.h1}"`
+    : `Adscendo. Programa de parceiros de IA: ${rate}% em letras grandes e brancas, acima da frase "${d.h1}"`;
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image, imageAlt })
     + nav(lang, altPath, { cta, offer: false }) + `
 <main id="main">
   <section class="case-head wrap">

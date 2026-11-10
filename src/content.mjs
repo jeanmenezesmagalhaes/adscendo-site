@@ -44,7 +44,7 @@ export const ui = {
     menuOpen: "Open menu", menuClose: "Close menu",
     skip: "Skip to content",
     // Strip above the nav on every page; {p} is the largest launch discount in `quote`.
-    offer: { label: "Launch offer", text: "We're taking on our first clients in the US to build our portfolio, so projects are up to {p}% off.", cta: "Get a quote", close: "Close" },
+    offer: { label: "Last launch spots", text: "Our first projects are signed, and only a few spots are left at up to {p}% off.", cta: "Claim yours", close: "Close" },
     readStory: "Read the full story",
     learnMore: "Learn more",
     back: "All work",
@@ -74,7 +74,7 @@ export const ui = {
     other: "English", otherShort: "EN", switchTo: "Switch to English", darkMode: "Modo escuro",
     menuOpen: "Abrir menu", menuClose: "Fechar menu",
     skip: "Pular para o conteúdo",
-    offer: { label: "Oferta de lançamento", text: "Estamos atendendo os primeiros clientes nos EUA para montar nosso portfólio, por isso os projetos têm até {p}% de desconto.", cta: "Peça um orçamento", close: "Fechar" },
+    offer: { label: "Últimas vagas de lançamento", text: "Já fechamos os primeiros projetos e restam poucas vagas com até {p}% de desconto.", cta: "Garanta a sua", close: "Fechar" },
     readStory: "Ler a história completa",
     learnMore: "Saiba mais",
     back: "Todos os trabalhos",
@@ -88,6 +88,31 @@ export const ui = {
     backTop: "Voltar ao topo",
     privacy: "Privacidade",
     googleProfile: "Perfil da empresa",
+  },
+};
+
+// The "See all work" page (/work, /pt/work): a wall of tiles, one per project in `projects`, in that order.
+// h1 is for screen readers and search only; the page shows no text besides the tiles.
+export const workPage = {
+  en: {
+    title: "Our work: products, apps and websites | Adscendo",
+    description: "Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email.",
+    h1: "Our work.",
+  },
+  pt: {
+    title: "Nosso trabalho: produtos, apps e sites | Adscendo",
+    description: "Todos os produtos, apps e sites que a Adscendo desenhou e construiu, de um passaporte de saúde usado em 17 países a ferramentas de IA para vendas, vagas e email.",
+    h1: "Nosso trabalho.",
+  },
+  // One tile per project. size: xl 4×3, tall 2×3, sq 2×2, full 6×3 (columns × rows on a computer).
+  // pic: "phone" uses the project's phone screenshot (tall tiles), "wide" its computer one.
+  tiles: {
+    prospector: { size: "xl", pic: "wide", en: "Finds customers with AI", pt: "Encontra clientes com IA" },
+    "minha-companhia": { size: "sq", pic: "phone", en: "Care for older parents", pt: "Cuidado para os pais" },
+    sidemed: { size: "tall", pic: "phone", en: "A health passport", pt: "Passaporte de saúde" },
+    adscendo: { size: "sq", pic: "wide", en: "The studio", pt: "O estúdio" },
+    blip: { size: "sq", pic: "phone", en: "AI job search", pt: "Busca de vagas com IA" },
+    orbit: { size: "full", pic: "wide", en: "Email and calendar on the Mac", pt: "Email e agenda no Mac" },
   },
 };
 
@@ -1289,7 +1314,7 @@ export const projects = [
   {
     slug: "blip",
     tint: "#efeaf4", // card hover tone on the home page
-    inWork: false, // AI proof for the consultoria and apps pages; kept off the home and the menu
+    inWork: false, // on the work page, not on the home or the menu
     url: null,
     links: [{ href: "https://github.com/jeanmenezesmagalhaes/blip", en: "View on GitHub", pt: "Ver no GitHub" }],
     host: "localhost:8765", // Blip runs on the person's own Mac; this is its local address
@@ -1400,7 +1425,7 @@ export const projects = [
   {
     slug: "orbit",
     tint: "#eceef1", // card hover tone on the home page
-    inWork: false, // AI proof for the consultoria and apps pages; kept off the home and the menu
+    inWork: false, // on the work page, not on the home or the menu
     window: true, // native Mac app: shown in its own window, no browser frame or phone
     url: null,
     links: [{ href: "https://github.com/jeanmenezesmagalhaes/homebrew-orbit", en: "Install with Homebrew", pt: "Instalar pelo Homebrew" }],

@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -26,6 +26,8 @@ const LANGS = ["en", "pt"];
 const base = lang => (lang === "en" ? "" : "/pt");
 const homePath = lang => base(lang) || "/";
 const casePath = (lang, slug) => `${base(lang)}/work/${slug}`;
+// The page with every project; each case page sits under it.
+const workPath = lang => `${base(lang)}/work`;
 const sectionPath = (lang, id) => `${base(lang)}/${sections[id][lang]}`;
 const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
@@ -108,7 +110,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}${path}">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/cursor.css">
-<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer-spots")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
 <script>${transitions}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
@@ -135,7 +137,7 @@ const sheet = (lang, altPath, cta) => {
   return `<div class="sheet" id="nav-sheet" hidden>
     <nav class="sheet-body wrap" aria-label="Menu">
       ${group(t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h]))}
-      ${group(t.nav.work, [...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name]), [sectionPath(lang, "work"), t.menu.allWork]])}
+      ${group(t.nav.work, [...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name]), [workPath(lang), t.menu.allWork]])}
       <ul class="sheet-more"><li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li><li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li></ul>
       <a class="btn sheet-cta" href="${c.href}"${c.attrs}>${c.label}</a>
       <div class="sheet-prefs">
@@ -161,7 +163,7 @@ ${offer ? `<div class="offer" role="region" aria-label="${t.offer.label}">
       ${dropdown(sectionPath(lang, "build"), t.nav.services, t.menu.services.map(x => [toPath(lang, x.to), x.h, x.p]))}
       ${dropdown(sectionPath(lang, "work"), t.nav.work, [
         ...projects.filter(p => p.inWork !== false).map(p => [casePath(lang, p.slug), p[lang].name, p[lang].kind]),
-        [sectionPath(lang, "work"), t.menu.allWork],
+        [workPath(lang), t.menu.allWork],
       ])}
       <li><a href="${sectionPath(lang, "process")}">${t.nav.process}</a></li>
       <li><a href="${sectionPath(lang, "about")}">${t.nav.about}</a></li>
@@ -246,6 +248,15 @@ const cover = (p, lang) => (lang === "pt" && p.coverPt) || p.cover;
 const coverPhone = (p, lang) => (lang === "pt" && p.coverPhonePt) || p.coverPhone;
 // Native Mac apps (p.window) show their own window, title bar included, instead of a browser and a phone.
 const shot = (p, lang, alt, eager) => p.window ? `<div class="mac-window">${imgTag(cover(p, lang), alt, eager)}</div>` : browser(cover(p, lang), p.host, alt, eager);
+// A project card: the whole card opens the story (the story link stretches over it); an optional CTA button sits above that layer.
+const projCard = (p, lang, { cta = false } = {}) => {
+  const d = p[lang], t = ui[lang];
+  const btn = cta && p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
+  return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
+        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${btn}</div></div>
+        <div class="media">${shot(p, lang, d.name)}</div>
+      </li>`;
+};
 const duo = (p, lang, eager) => {
   const d = p[lang];
   if (p.window) return `<div class="duo duo--window">${shot(p, lang, `${d.name}, ${lang === "en" ? "Mac app" : "app para Mac"}`, eager)}</div>`;
@@ -305,15 +316,7 @@ const homePage = lang => {
       { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
     ],
   };
-  // The whole card opens the story (the story link stretches over it); the CTA button sits above that layer.
-  const projectsList = projects.filter(p => p.inWork !== false).map(p => {
-    const d = p[lang];
-    const cta = p.cta ? `<a class="btn btn--sm cta" href="${p.ctaUrl || p.url}" target="_blank" rel="noopener">${t[p.cta]}${icon("out")}</a>` : "";
-    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
-        <div class="text"><p class="eyebrow">${d.kind}</p><h3>${d.name}</h3><p>${d.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a>${cta}</div></div>
-        <div class="media">${shot(p, lang, d.name)}</div>
-      </li>`;
-  }).join("\n      ");
+  const projectsList = projects.filter(p => p.inWork !== false).map(p => projCard(p, lang, { cta: true })).join("\n      ");
   const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n        ");
   const story = timeline.map(m => {
     const [when, what] = m[lang];
@@ -374,6 +377,7 @@ ${c.consult ? `
       <ul class="projects">
       ${projectsList}
       </ul>
+      <p class="section-cta"><a class="link" href="${workPath(lang)}">${t.menu.allWork}${icon("arrow")}</a></p>
       <div class="cta-line"><p>${c.workCta[0]}</p><a class="btn" href="${sectionPath(lang, "contact")}">${c.workCta[1]}</a></div>
     </div>
   </section>
@@ -499,7 +503,7 @@ const casePage = (lang, i) => {
   return head({ lang, title: d.seoTitle || `${d.name}. ${d.tagline} | Adscendo`, description: d.description, path, altPath, ld, image, imageAlt: `${d.name}: ${d.tagline}` }) + nav(lang, altPath) + `
 <main id="main">
   <section class="case-head wrap">
-    <a class="back" href="${sectionPath(lang, "work")}">${icon("arrow")}${t.back}</a>
+    <a class="back" href="${workPath(lang)}">${icon("arrow")}${t.back}</a>
     <h1>${d.name}</h1>
     <p class="lede">${d.tagline}</p>
     ${actions ? `<div class="actions-row">${actions}</div>` : ""}
@@ -667,13 +671,7 @@ const servicePageHtml = (lang, key) => {
     ],
   };
   const card = (x, cls = "") => `<article class="tile${cls}">${x.eyebrow ? `<p class="eyebrow">${x.eyebrow}</p>` : ""}<h3>${x.h}</h3><p>${x.p}</p>${x.chips ? `<ul>${x.chips.map(ch => `<li>${ch}</li>`).join("")}</ul>` : ""}${x.to ? `<a class="link tile-more" href="${toPath(lang, x.to)}">${t.learnMore}${icon("arrow")}</a>` : ""}</article>`;
-  const work = sp.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
-    const w = p[lang];
-    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
-        <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
-        <div class="media">${shot(p, lang, w.name)}</div>
-      </li>`;
-  }).join("\n      ");
+  const work = sp.work.map(slug => projects.find(p => p.slug === slug)).map(p => projCard(p, lang)).join("\n      ");
   const steps = c.steps.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
   const prices = sp.prices ? `<div class="tiles">
         ${Object.entries(quote).map(([k, q]) => card({
@@ -785,13 +783,7 @@ const consultoriaPageHtml = lang => {
   const pixelOn = d.pixel && META_PIXEL;
   const pixel = pixelOn ? metaPixel() : "", banner = pixelOn ? cookieBanner(d.cookies) : "";
   const card = ([h, p]) => `<article class="tile"><h3>${h}</h3><p>${p}</p></article>`;
-  const work = consultoriaPage.work.map(slug => projects.find(p => p.slug === slug)).map(p => {
-    const w = p[lang];
-    return `<li class="proj"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
-        <div class="text"><p class="eyebrow">${w.kind}</p><h3>${w.name}</h3><p>${w.summary}</p><div class="proj-actions"><a class="link stretch" href="${casePath(lang, p.slug)}">${t.readStory}${icon("arrow")}</a></div></div>
-        <div class="media">${shot(p, lang, w.name)}</div>
-      </li>`;
-  }).join("\n      ");
+  const work = consultoriaPage.work.map(slug => projects.find(p => p.slug === slug)).map(p => projCard(p, lang)).join("\n      ");
   const steps = d.how.map(([h, s], n) => `<li class="step"><p class="num">${String(n + 1).padStart(2, "0")}</p><h3>${h}</h3><p>${s}</p></li>`).join("\n          ");
   const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
   const navCta = wa ? { href: wa, label: d.ctaNav, attrs: out } : undefined;
@@ -875,6 +867,43 @@ const consultoriaPageHtml = lang => {
 ` + footer(lang, altPath, { cta: wa ? main : undefined });
 };
 
+// Every project in one place, the "See all work" page: an asymmetric wall of tiles and no other text.
+// Each tile carries the project's name, a few words (`workPage.tiles`) and a screenshot bleeding off its
+// corner; its size and picture come from the same entry (site.css lays the sizes out on a 6-column grid).
+const workPageHtml = lang => {
+  const d = workPage[lang], path = workPath(lang), altPath = workPath(other(lang));
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage", name: d.h1, description: d.description, inLanguage: hreflang(lang), url: abs(path),
+    publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") },
+    mainEntity: { "@type": "ItemList", itemListElement: projects.map((p, n) => ({ "@type": "ListItem", position: n + 1, name: p[lang].name, url: abs(casePath(lang, p.slug)) })) },
+  };
+  const tiles = projects.map((p, n) => {
+    const x = workPage.tiles[p.slug] || { size: "sq", pic: "wide" };
+    const phonePic = x.pic === "phone" && coverPhone(p, lang);
+    const im = phonePic || cover(p, lang);
+    // Small tiles get a smaller copy of the screenshot (src/thumbs.mjs writes them), big ones the full size.
+    const w = phonePic ? 480 : 800, small = im.src.replace(/\.webp$/, `.${w}.webp`);
+    const big = x.size === "xl" || x.size === "full";
+    const sizes = phonePic ? "(max-width: 720px) 30vw, 16vw" : big ? "(max-width: 720px) 90vw, 66vw" : "(max-width: 720px) 45vw, 28vw";
+    const srcset = existsSync(join(ROOT, small)) ? ` srcset="${small} ${w}w, ${im.src} ${im.w}w" sizes="${sizes}"` : "";
+    const pic = `<img src="${im.src}"${srcset} width="${im.w}" height="${im.h}" alt=""${n === 0 ? ` fetchpriority="high"` : ` loading="lazy"`} decoding="async">`;
+    return `<li class="wt wt--${x.size}${phonePic ? " wt--phone" : ""}${p.window ? " wt--window" : ""}"${p.tint ? ` style="--tint:${p.tint}"` : ""}${cursorTo(p)}>
+        <a href="${casePath(lang, p.slug)}"><h2>${p[lang].name}</h2><p>${x[lang]}</p><span class="wt-pic">${pic}</span></a>
+      </li>`;
+  }).join("\n      ");
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image: ogImage(cover(projects[0], lang)), imageAlt: d.h1 }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="wall wrap">
+    <h1 class="sr-only">${d.h1}</h1>
+    <ul class="wall-grid">
+      ${tiles}
+    </ul>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
 const privacyPage = lang => {
   const d = privacy[lang], path = privacyPath(lang), altPath = privacyPath(other(lang));
   const ld = { "@context": "https://schema.org", "@type": "WebPage", name: d.title, inLanguage: hreflang(lang), url: abs(path), publisher: { "@type": "Organization", name: "Adscendo", "@id": abs("/#org") } };
@@ -907,6 +936,7 @@ const write = (rel, html) => {
 for (const lang of LANGS) {
   const prefix = lang === "en" ? "" : "pt/";
   write(`${prefix}index.html`, homePage(lang));
+  write(`${prefix}work/index.html`, workPageHtml(lang));
   projects.forEach((p, i) => write(`${prefix}work/${p.slug}/index.html`, casePage(lang, i)));
   write(`${prefix}${aiPage[lang].slug}/index.html`, aiPageHtml(lang));
   write(`${prefix}${consultoriaPage[lang].slug}/index.html`, consultoriaPageHtml(lang));
@@ -929,6 +959,7 @@ const pages = [
   ...Object.keys(servicePages).map(key => ({ paths: [servicePath("en", key), servicePath("pt", key)], name: servicePages[key].en.name, desc: fill("en", servicePages[key].en.description) })),
   { paths: [consultoriaPath("en"), consultoriaPath("pt")], name: consultoriaPage.en.name, desc: consultoriaPage.en.description },
   { paths: [aiPath("en"), aiPath("pt")], name: aiPage.en.name, desc: fill("en", aiPage.en.description) },
+  { paths: [workPath("en"), workPath("pt")], name: workPage.en.h1.replace(/\.$/, ""), desc: workPage.en.description },
   ...projects.map(p => ({ paths: [casePath("en", p.slug), casePath("pt", p.slug)], name: p.en.name, desc: p.en.description })),
 ];
 const pairs = pages.map(p => p.paths);

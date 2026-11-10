@@ -30,7 +30,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/cursor.css">
-<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer-spots")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
 <script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
 // way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
 // <head>, because "pagereveal" has to be heard before the new page first paints.
@@ -92,8 +92,8 @@
   <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
   <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
 </svg><a class="btn btn--sm skip" href="#main">Pular para o conteúdo</a>
-<div class="offer" role="region" aria-label="Oferta de lançamento">
-  <p><b>Oferta de lançamento.</b> Estamos atendendo os primeiros clientes nos EUA para montar nosso portfólio, por isso os projetos têm até 50% de desconto. <a href="/pt/contato">Peça um orçamento<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+<div class="offer" role="region" aria-label="Últimas vagas de lançamento">
+  <p><b>Últimas vagas de lançamento.</b> Já fechamos os primeiros projetos e restam poucas vagas com até 50% de desconto. <a href="/pt/contato">Garanta a sua<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
   <button class="offer-close" type="button" aria-label="Fechar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 </div>
 <header class="nav" id="top">
@@ -101,7 +101,7 @@
     <a class="brand" href="/pt" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
     <ul>
       <li class="has-menu"><a href="/pt/servicos">Serviços<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/pt/consultoria-ia"><b>Consultoria de IA</b><span>Mais eficiência e lucro com IA</span></a><a href="/pt/sites"><b>Sites</b><span>Sites rápidos, achados no Google e nas IAs</span></a><a href="/pt/apps"><b>Apps</b><span>Para iPhone, Android e web</span></a></div></div></li>
-      <li class="has-menu"><a href="/pt/portfolio">Portfólio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/pt/work/prospector"><b>Prospector</b><span>Vendas</span></a><a href="/pt/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/pt/work/sidemed"><b>Sidemed</b><span>Saúde</span></a><a href="/pt/portfolio"><b>Ver todos os trabalhos</b></a></div></div></li>
+      <li class="has-menu"><a href="/pt/portfolio">Portfólio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/pt/work/prospector"><b>Prospector</b><span>Vendas</span></a><a href="/pt/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/pt/work/sidemed"><b>Sidemed</b><span>Saúde</span></a><a href="/pt/work"><b>Ver todos os trabalhos</b></a></div></div></li>
       <li><a href="/pt/como-trabalhamos">Como trabalhamos</a></li>
       <li><a href="/pt/sobre">Sobre</a></li>
     </ul>
@@ -114,7 +114,7 @@
 <div class="sheet" id="nav-sheet" hidden>
     <nav class="sheet-body wrap" aria-label="Menu">
       <p class="sheet-label">Serviços</p><ul><li><a href="/pt/consultoria-ia">Consultoria de IA</a></li><li><a href="/pt/sites">Sites</a></li><li><a href="/pt/apps">Apps</a></li></ul>
-      <p class="sheet-label">Portfólio</p><ul><li><a href="/pt/work/prospector">Prospector</a></li><li><a href="/pt/work/minha-companhia">Minha companhia</a></li><li><a href="/pt/work/sidemed">Sidemed</a></li><li><a href="/pt/portfolio">Ver todos os trabalhos</a></li></ul>
+      <p class="sheet-label">Portfólio</p><ul><li><a href="/pt/work/prospector">Prospector</a></li><li><a href="/pt/work/minha-companhia">Minha companhia</a></li><li><a href="/pt/work/sidemed">Sidemed</a></li><li><a href="/pt/work">Ver todos os trabalhos</a></li></ul>
       <ul class="sheet-more"><li><a href="/pt/como-trabalhamos">Como trabalhamos</a></li><li><a href="/pt/sobre">Sobre</a></li></ul>
       <a class="btn sheet-cta" href="/pt/contato">Fale com a gente</a>
       <div class="sheet-prefs">
@@ -188,6 +188,7 @@
         <div class="media"><div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>sidemed.com.br</span></div><img src="/assets/work/sidemed/hero.pt.webp" width="1600" height="1000" alt="Sidemed" loading="lazy" decoding="async"></div></div>
       </li>
       </ul>
+      <p class="section-cta"><a class="link" href="/pt/work">Ver todos os trabalhos<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
       <div class="cta-line"><p>Quer algo assim para o seu negócio?</p><a class="btn" href="/pt/contato">Vamos conversar</a></div>
     </div>
   </section>

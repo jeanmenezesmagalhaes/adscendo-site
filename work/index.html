@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our work: products, apps and websites | Adscendo</title>
+<meta name="description" content="Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email.">
+<meta property="og:site_name" content="Adscendo">
+<meta property="og:title" content="Our work: products, apps and websites | Adscendo">
+<meta property="og:description" content="Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://adscendo.pro/work">
+<meta property="og:image" content="https://adscendo.pro/assets/og/prospector/globe.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta property="og:image:alt" content="Our work.">
+<link rel="canonical" href="https://adscendo.pro/work">
+<link rel="alternate" hreflang="en" href="https://adscendo.pro/work">
+<link rel="alternate" hreflang="pt-BR" href="https://adscendo.pro/pt/work">
+<link rel="alternate" hreflang="x-default" href="https://adscendo.pro/work">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/cursor.css">
+<script>document.documentElement.classList.add("js");try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;if(localStorage.getItem("offer-spots")==="closed")document.documentElement.classList.add("offer-closed")}catch(e){}</script>
+<script>// Opening a project: its screenshot and name grow into the story page's own, and shrink back on the
+// way home (cross-document view transitions; site.css has the timing). build.mjs inlines this file in
+// <head>, because "pagereveal" has to be heard before the new page first paints.
+// Names go only on the project involved, and only for the duration of the transition, since a name
+// must be unique on the page and every card has the same parts.
+(() => {
+  if (!("onpagereveal" in window)) return;
+  const slug = url => { try { return new URL(url, location.href).pathname.match(/\/work\/([^/]+)\/?$/)?.[1]; } catch { return; } };
+  let picked; // the last link clicked, so a project linked twice morphs from the one actually used
+  addEventListener("click", e => { picked = e.target.closest?.("a[href]"); }, true);
+
+  // This page's screenshot and title for project `s`: the story's own head, or the card that opens it.
+  // Arriving home, nothing was clicked here yet, so it is the project's card in "Our work" (on Back the
+  // scroll is restored after this runs, so where things sit on screen can't decide it).
+  const parts = s => {
+    const head = document.querySelector(".case-head");
+    if (head && slug(location.href) === s) return { shot: head.querySelector(".duo .browser"), name: head.querySelector("h1") };
+    const boxes = [...document.querySelectorAll(".proj, .browser--link, .next")].filter(b => [...b.querySelectorAll("a[href]")].some(a => slug(a.href) === s));
+    const box = boxes.find(b => b.contains(picked)) || boxes.find(b => b.matches(".proj")) || boxes[0];
+    if (!box) return {};
+    return { shot: box.matches(".browser--link") ? box : box.querySelector(".browser"), name: box.matches(".browser--link") ? null : box.querySelector("h2, h3") };
+  };
+
+  let named = [];
+  const clear = () => { named.forEach(el => el.style.removeProperty("view-transition-name")); named = []; };
+  const mark = (from, to) => {
+    clear();
+    const s = slug(to) || slug(from);
+    if (!s) return;
+    const p = parts(s);
+    for (const k of ["shot", "name"]) if (p[k]) { p[k].style.viewTransitionName = `project-${k}`; named.push(p[k]); }
+  };
+
+  addEventListener("pageswap", e => { if (e.viewTransition && e.activation) mark(location.href, e.activation.entry.url); });
+  addEventListener("pagereveal", e => {
+    if (!e.viewTransition) return;
+    mark(navigation.activation?.from?.url, location.href);
+    // Leaving again before this ends finishes it early: keep the names the way out has set by then.
+    const mine = named;
+    e.viewTransition.finished.finally(() => { if (named === mine) clear(); });
+  });
+})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Our work.","description":"Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email.","inLanguage":"en","url":"https://adscendo.pro/work","publisher":{"@type":"Organization","name":"Adscendo","@id":"https://adscendo.pro/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Prospector","url":"https://adscendo.pro/work/prospector"},{"@type":"ListItem","position":2,"name":"Minha companhia","url":"https://adscendo.pro/work/minha-companhia"},{"@type":"ListItem","position":3,"name":"Sidemed","url":"https://adscendo.pro/work/sidemed"},{"@type":"ListItem","position":4,"name":"Adscendo","url":"https://adscendo.pro/work/adscendo"},{"@type":"ListItem","position":5,"name":"Blip","url":"https://adscendo.pro/work/blip"},{"@type":"ListItem","position":6,"name":"Orbit","url":"https://adscendo.pro/work/orbit"}]}}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.track=(n,p={})=>{window.gtag&&gtag("event",n,p);va("event",{name:n,data:p})}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9G2FPBFF2S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("consent","default",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});gtag("consent","default",{analytics_storage:"denied",region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});gtag("js",new Date());gtag("config","G-9G2FPBFF2S")</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cloud" viewBox="0 0 48 32"><path d="M15 27H37a6.5 6.5 0 0 0 0-13a9.2 9.2 0 0 0-17.6 1.2A6.6 6.6 0 0 0 10 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="contrast" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="out" viewBox="0 0 16 16"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="flag-en" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><path d="M0 2.3h30M0 5.4h30M0 8.5h30M0 11.6h30M0 14.7h30M0 17.8h30" stroke="#fff" stroke-width="1.54"/><rect width="12" height="10.8" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.6" cy="1.8" r=".55"/><circle cx="4.5" cy="1.8" r=".55"/><circle cx="7.4" cy="1.8" r=".55"/><circle cx="10.299999999999999" cy="1.8" r=".55"/><circle cx="1.6" cy="5.3" r=".55"/><circle cx="4.5" cy="5.3" r=".55"/><circle cx="7.4" cy="5.3" r=".55"/><circle cx="10.299999999999999" cy="5.3" r=".55"/><circle cx="1.6" cy="8.8" r=".55"/><circle cx="4.5" cy="8.8" r=".55"/><circle cx="7.4" cy="8.8" r=".55"/><circle cx="10.299999999999999" cy="8.8" r=".55"/></g></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><path d="M15 2.4 27.2 10 15 17.6 2.8 10z" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.1c3-.9 6.2-.6 8.8.9" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="status" viewBox="0 0 68 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.5" y="1" width="3" height="11" rx=".8"/><path d="M30 2.2a10.6 10.6 0 0 1 7.6 3.1l1.2-1.2A12.3 12.3 0 0 0 30 .5a12.3 12.3 0 0 0-8.8 3.6l1.2 1.2A10.6 10.6 0 0 1 30 2.2zm0 3.4a7.2 7.2 0 0 1 5.2 2.1l1.2-1.2A8.9 8.9 0 0 0 30 3.9a8.9 8.9 0 0 0-6.4 2.6l1.2 1.2A7.2 7.2 0 0 1 30 5.6zm0 3.4c1 0 1.9.4 2.6 1L30 12.6 27.4 10c.7-.6 1.6-1 2.6-1z"/><rect x="44" y=".75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="45.75" y="2.5" width="17.5" height="7" rx="1.8"/><path d="M66.3 4.3c.7.3 1.2.9 1.2 1.7s-.5 1.4-1.2 1.7z" fill-opacity=".4"/></g></symbol>
+</svg><a class="btn btn--sm skip" href="#main">Skip to content</a>
+<div class="offer" role="region" aria-label="Last launch spots">
+  <p><b>Last launch spots.</b> Our first projects are signed, and only a few spots are left at up to 50% off. <a href="/contact">Claim yours<svg aria-hidden="true"><use href="#arrow"/></svg></a></p>
+  <button class="offer-close" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg>Adscendo.</a>
+    <ul>
+      <li class="has-menu"><a href="/services">Services<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/ai-consulting"><b>AI consulting</b><span>More efficiency and profit with AI</span></a><a href="/websites"><b>Websites</b><span>Fast sites, found on Google and AI</span></a><a href="/apps"><b>Apps</b><span>For iPhone, Android and the web</span></a></div></div></li>
+      <li class="has-menu"><a href="/portfolio">Portfolio<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="menu"><div class="menu-panel"><a href="/work/prospector"><b>Prospector</b><span>Sales</span></a><a href="/work/minha-companhia"><b>Minha companhia</b><span>Marketplace</span></a><a href="/work/sidemed"><b>Sidemed</b><span>Health</span></a><a href="/work"><b>See all work</b></a></div></div></li>
+      <li><a href="/how-we-work">How we work</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="lang" href="/pt/work" hreflang="pt" lang="pt" aria-label="Mudar para português" title="Mudar para português"><svg aria-hidden="true"><use href="#flag-en"/></svg>EN</a>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Dark mode" title="Dark mode" hidden><svg aria-hidden="true"><use href="#contrast"/></svg></button>
+    <a class="btn btn--sm" href="/contact">Get in touch</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu" hidden><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="nav-sheet" hidden>
+    <nav class="sheet-body wrap" aria-label="Menu">
+      <p class="sheet-label">Services</p><ul><li><a href="/ai-consulting">AI consulting</a></li><li><a href="/websites">Websites</a></li><li><a href="/apps">Apps</a></li></ul>
+      <p class="sheet-label">Portfolio</p><ul><li><a href="/work/prospector">Prospector</a></li><li><a href="/work/minha-companhia">Minha companhia</a></li><li><a href="/work/sidemed">Sidemed</a></li><li><a href="/work">See all work</a></li></ul>
+      <ul class="sheet-more"><li><a href="/how-we-work">How we work</a></li><li><a href="/about">About</a></li></ul>
+      <a class="btn sheet-cta" href="/contact">Get in touch</a>
+      <div class="sheet-prefs">
+        <a class="lang" href="/pt/work" hreflang="pt" lang="pt"><svg aria-hidden="true"><use href="#flag-pt"/></svg>Português</a>
+        <button class="theme theme--label" type="button" aria-pressed="false" hidden><svg aria-hidden="true"><use href="#contrast"/></svg>Dark mode</button>
+      </div>
+    </nav>
+  </div>
+<main id="main">
+  <section class="wall wrap">
+    <h1 class="sr-only">Our work.</h1>
+    <ul class="wall-grid">
+      <li class="wt wt--xl" style="--tint:#e8edf4" data-cursor="view">
+        <a href="/work/prospector"><h2>Prospector</h2><p>Finds customers with AI</p><span class="wt-pic"><img src="/assets/work/prospector/globe.webp" srcset="/assets/work/prospector/globe.800.webp 800w, /assets/work/prospector/globe.webp 1600w" sizes="(max-width: 720px) 90vw, 66vw" width="1600" height="1000" alt="" fetchpriority="high" decoding="async"></span></a>
+      </li>
+      <li class="wt wt--sq wt--phone" style="--tint:#e5efe8" data-cursor="view" data-cursor-color="#f18eb2" data-cursor-ink="#0f281f">
+        <a href="/work/minha-companhia"><h2>Minha companhia</h2><p>Care for older parents</p><span class="wt-pic"><img src="/assets/work/minha-companhia/home-m.webp" srcset="/assets/work/minha-companhia/home-m.480.webp 480w, /assets/work/minha-companhia/home-m.webp 780w" sizes="(max-width: 720px) 30vw, 16vw" width="780" height="1688" alt="" loading="lazy" decoding="async"></span></a>
+      </li>
+      <li class="wt wt--tall wt--phone" style="--tint:#f3eee3" data-cursor="view" data-cursor-color="#1957ff" data-cursor-ink="#ffffff">
+        <a href="/work/sidemed"><h2>Sidemed</h2><p>A health passport</p><span class="wt-pic"><img src="/assets/work/sidemed/site-m.webp" srcset="/assets/work/sidemed/site-m.480.webp 480w, /assets/work/sidemed/site-m.webp 780w" sizes="(max-width: 720px) 30vw, 16vw" width="780" height="1688" alt="" loading="lazy" decoding="async"></span></a>
+      </li>
+      <li class="wt wt--sq" style="--tint:#ececf0" data-cursor="view">
+        <a href="/work/adscendo"><h2>Adscendo</h2><p>The studio</p><span class="wt-pic"><img src="/assets/work/adscendo/home.webp" srcset="/assets/work/adscendo/home.800.webp 800w, /assets/work/adscendo/home.webp 1440w" sizes="(max-width: 720px) 45vw, 28vw" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
+      </li>
+      <li class="wt wt--sq wt--phone" style="--tint:#efeaf4" data-cursor="view">
+        <a href="/work/blip"><h2>Blip</h2><p>AI job search</p><span class="wt-pic"><img src="/assets/work/blip/job-m.webp" srcset="/assets/work/blip/job-m.480.webp 480w, /assets/work/blip/job-m.webp 780w" sizes="(max-width: 720px) 30vw, 16vw" width="780" height="1688" alt="" loading="lazy" decoding="async"></span></a>
+      </li>
+      <li class="wt wt--full wt--window" style="--tint:#eceef1" data-cursor="view">
+        <a href="/work/orbit"><h2>Orbit</h2><p>Email and calendar on the Mac</p><span class="wt-pic"><img src="/assets/work/orbit/home.webp" srcset="/assets/work/orbit/home.800.webp 800w, /assets/work/orbit/home.webp 1600w" sizes="(max-width: 720px) 90vw, 66vw" width="1600" height="1000" alt="" loading="lazy" decoding="async"></span></a>
+      </li>
+    </ul>
+  </section>
+</main>
+<a class="btn float-cta" href="/contact" hidden>Get in touch</a>
+<footer class="outro">
+  <div class="outro-pin">
+    <p class="outro-sign" data-cursor="drag" role="img" aria-label="Adscendo"><svg aria-hidden="true"><use href="#cloud"/></svg><span>Adscendo.</span></p>
+    <div class="outro-meta wrap">
+      <p class="outro-line">From complexity to forward motion.</p>
+      <nav class="outro-links">
+        <a class="btn btn--sm" href="/contact">Get in touch</a>
+        <a class="btn btn--sm btn--ghost" href="mailto:jean@adscendo.pro">Email</a>
+        <a class="btn btn--sm btn--ghost" data-wa href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.instagram.com/adscendo.pro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--sm btn--ghost" href="https://www.linkedin.com/in/jean-magalhaes/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--sm btn--ghost" href="https://maps.google.com/?cid=2100136628409895635" target="_blank" rel="noopener">Google</a>
+      </nav>
+      <div class="outro-row">
+        <span>&copy; 2026 Adscendo</span>
+        <a href="/privacy">Privacy</a>
+        <a href="/pt/work" hreflang="pt" lang="pt">Português</a>
+        <a class="to-top" href="#top">Back to top<svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/cursor.js" defer></script>
+</body>
+</html>

@@ -37,7 +37,7 @@ document.querySelectorAll("[data-rise]").forEach(sec => {
 // Launch offer strip: closing it hides it on every page from then on (the <head> script reads the flag).
 document.querySelector(".offer-close")?.addEventListener("click", () => {
   document.documentElement.classList.add("offer-closed");
-  try { localStorage.setItem("offer", "closed"); } catch {}
+  try { localStorage.setItem("offer-spots", "closed"); } catch {}
 });
 
 // Home hero: the Prospector demo is a video (src/record-demo.mjs) over its first frame. It loads only as

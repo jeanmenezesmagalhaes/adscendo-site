@@ -261,7 +261,7 @@ const heroDemo = (p, lang) => {
 };
 // Structured data shared by the inner pages. Google doesn't follow an @id to another page, so every page
 // carries a short copy of the studio, the website and the founder it points to (the home has the full ones).
-const orgStub = () => ({ "@type": "ProfessionalService", "@id": abs("/#org"), name: "Adscendo", alternateName: "Adscendo Professionals", url: abs("/"), logo: abs("/apple-touch-icon.png"), hasMap: contact.google, sameAs: [contact.google, contact.instagram, contact.linkedin] });
+const orgStub = () => ({ "@type": "ProfessionalService", "@id": abs("/#org"), name: "Adscendo", url: abs("/"), logo: abs("/apple-touch-icon.png"), hasMap: contact.google, sameAs: [contact.google, contact.instagram, contact.linkedin] });
 const siteStub = () => ({ "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "Adscendo", publisher: { "@id": abs("/#org") } });
 const founderStub = () => ({ "@type": "Person", "@id": abs("/#jean"), name: "Jean Menezes", alternateName: "Jean Menezes Magalhães", jobTitle: "Founder", url: abs("/"), worksFor: { "@id": abs("/#org") }, sameAs: [contact.linkedin, GITHUB] });
 const GITHUB = "https://github.com/jeanmenezesmagalhaes";
@@ -326,7 +326,7 @@ const homePage = lang => {
       { "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "Adscendo", inLanguage: ["en", "pt-BR"], publisher: org },
       { "@type": "WebPage", "@id": abs(path), url: abs(path), name: c.title, description, inLanguage: hreflang(lang), isPartOf: { "@id": abs("/#website") }, about: org, primaryImageOfPage: abs(image.src) },
       {
-        "@type": "ProfessionalService", ...org, name: "Adscendo", alternateName: "Adscendo Professionals", url: abs("/"), description, slogan: t.footer, address: { "@type": "PostalAddress", addressCountry: "BR" },
+        "@type": "ProfessionalService", ...org, name: "Adscendo", url: abs("/"), description, slogan: t.footer, address: { "@type": "PostalAddress", addressCountry: "BR" },
         logo: abs("/apple-touch-icon.png"), image: abs(image.src), hasMap: contact.google,
         email: contact.email, telephone: "+" + contact.whatsappLabel.replace(/\D/g, ""), foundingDate: "2026-10-27",
         priceRange: `${money(lang, Math.min(...prices.map(price)))}–${money(lang, Math.max(...prices.map(q => q.regular)))}`,

@@ -35,6 +35,7 @@ export const ui = {
         // AI consulting first. AI optimization lives inside Websites (the websites page links to it), not
         // as its own item.
         { h: "AI consulting", p: "More efficiency and profit with AI", to: "consultoria" },
+        { h: "AI automation", p: "Automate the work your team repeats", to: "automation" },
         { h: "Websites", p: "Fast sites, found on Google and AI", to: "websites" },
         { h: "Apps", p: "For iPhone, Android and the web", to: "apps" },
       ],
@@ -68,6 +69,7 @@ export const ui = {
         // AI consulting first. AI optimization lives inside Sites (the sites page links to it), not as its
         // own item.
         { h: "Consultoria de IA", p: "Mais eficiência e lucro com IA", to: "consultoria" },
+        { h: "Automação com IA", p: "Automatize o trabalho que se repete", to: "automation" },
         { h: "Sites", p: "Sites rápidos, achados no Google e nas IAs", to: "websites" },
         { h: "Apps", p: "Para iPhone, Android e web", to: "apps" },
       ],
@@ -539,12 +541,12 @@ export const consultoriaPage = {
     workId: "projects",
     areaServed: "United States",
     name: "AI consulting",
-    title: "AI consulting for small businesses | Jean Menezes, Adscendo",
-    description: "Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.",
+    title: "AI Consulting Services for Small Businesses | Adscendo",
+    description: "AI consulting company for small businesses: an AI consultant finds where AI saves time, then builds the automations and AI agents. First call free.",
     ctaMain: "Talk to us",
-    eyebrow: "AI implementation consulting",
-    h1: "Put AI to work in your business.",
-    lede: "We find where AI saves time in customer service, sales and day-to-day operations, then set it up and get it working with your team.",
+    eyebrow: "AI consulting company",
+    h1: "AI consulting that puts AI to work in your business.",
+    lede: "AI consulting services for small and mid-size businesses: we find where AI saves time in customer service, sales and day-to-day operations, then handle the implementation and integration with your tools and get it working with your team.",
     ctaHow: "How it works",
     heroNote: "Prospector, our AI prospecting tool, on a computer and a phone. Sample data.",
     problemTitle: "Everyone talks about AI. Not much changes.",
@@ -554,12 +556,12 @@ export const consultoriaPage = {
       ["Tried it, nothing changed", "Everyone using ChatGPT their own way doesn't change a single process. AI has to be connected to the real work."],
       ["No time to experiment", "When you run the business, you don't have weeks to study tools and get it wrong. You need someone who has built this before."],
     ],
-    doTitle: "What we do.",
-    doLede: "We start where the payoff comes fastest, and keep going until AI is part of the everyday work.",
+    doTitle: "What our AI consulting services include.",
+    doLede: "From AI strategy to implementation: we start where the payoff comes fastest, and keep going until AI is part of the everyday work.",
     do: [
       ["Assessment", "We learn how your business runs today and show you where AI saves time or money. And where it doesn't."],
-      ["Less repetitive work", "Copying data from one system to another, building spreadsheets and reports, answering the same questions over and over. If your team does it on autopilot, software can do it."],
-      ["AI agents for customer service", "An assistant that answers common questions on your website, by text or by email, at any hour, and hands off to someone on your team when it should."],
+      ["Less repetitive work", "Copying data from one system to another, building spreadsheets and reports, answering the same questions over and over. If your team does it on autopilot, software can do it. See <a href=\"/ai-automation\">AI automation</a>."],
+      ["AI agents for customer service", "An assistant that answers common questions on your website, by text or by email, at any hour, and hands off to someone on your team when it should. See our guide to <a href=\"/ai-agents\">AI agents for business</a>."],
       ["AI in sales and the back office", "Qualifying leads, writing the first message, organizing orders and paperwork. It's the kind of work our own Prospector does in sales."],
       ["Works with what you already use", "AI works alongside your spreadsheets, email, phone and business software, where they allow it. No need to replace everything at once."],
       ["Team training", "Your team learns the tools with examples from your own business, not a generic course."],
@@ -583,6 +585,10 @@ export const consultoriaPage = {
     faqTitle: "Questions about AI consulting.",
     faq: [
       ["What is AI implementation consulting?", "AI implementation consulting means someone looks at how your business actually runs, finds the tasks AI can take over (answering common customer questions, copying data between systems, drafting sales emails), builds those automations and agents, connects them to the software you already use and trains your team. At Adscendo it is led by founder Jean Menezes."],
+      ["What does an AI consultant do?", "An AI consultant looks at how your business runs, finds the tasks where AI saves time or money, and recommends what to build first. At an AI consulting company like ours, the same team then builds it, connects it to your tools and trains your people, so the plan doesn't stay on paper."],
+      ["Why hire an AI consulting company instead of buying an AI tool?", "A tool only helps once it's connected to the real work. We pick the right tools for your processes, connect them to your systems and data, test them on your cases and teach your team. Sometimes the answer is a tool you already pay for."],
+      ["What is an AI readiness assessment?", "It's the first step of our consulting: we look at your processes, software and data and tell you where AI is worth it now, what needs to be in place first and what to leave for later."],
+      ["Do you offer AI training for employees?", "Yes. Your team learns the tools with examples from your own business, focused on what they'll use day to day, not a generic course."],
       ["Do I need to be technical to hire you?", "No. You explain how your business runs and where the work gets stuck. We handle the technical side, and your team learns only what it will use day to day."],
       ["My business is small. Does this make sense?", "Often, yes: in a small business, a few hours less of repetitive work each week already makes a difference. The assessment tells you honestly whether it's worth it and where to start."],
       ["How much does it cost?", "It depends on the size of your business and what we build, so there's no price list. After a first conversation, which is free, we send you a proposal with what's included and what it costs, before any work starts."],
@@ -600,8 +606,8 @@ export const consultoriaPage = {
     areaServed: "Brazil",
     pixel: true,
     name: "Consultoria de IA",
-    title: "Consultoria de IA para empresas | Jean Menezes, Adscendo",
-    description: "Implantação de IA na sua empresa: diagnóstico, automação de processos, agentes de atendimento e treinamento da equipe. Fale com o Jean Menezes no WhatsApp.",
+    title: "Consultoria de IA para empresas | Adscendo",
+    description: "Consultoria de inteligência artificial para empresas: diagnóstico, automação de processos com IA, agentes de IA no WhatsApp e treinamento da equipe.",
     waText: "Oi Jean, vi o anúncio sobre consultoria de IA e quero entender como aplicar na minha empresa.",
     // Cookie banner: the Meta Pixel loads only after "Aceitar".
     cookies: {
@@ -614,9 +620,9 @@ export const consultoriaPage = {
     },
     ctaWa: "Conversar no WhatsApp",
     ctaNav: "WhatsApp",
-    eyebrow: "Consultoria de implantação de IA",
-    h1: "IA na rotina da sua empresa.",
-    lede: "A gente descobre onde a inteligência artificial economiza tempo no atendimento, nas vendas e na operação, e coloca para funcionar com a sua equipe.",
+    eyebrow: "Consultoria de IA para empresas",
+    h1: "Inteligência artificial na rotina da sua empresa.",
+    lede: "Consultoria e implantação de IA para pequenas e médias empresas: a gente descobre onde a inteligência artificial economiza tempo no atendimento, nas vendas e na operação, e coloca para funcionar com a sua equipe.",
     ctaHow: "Como funciona",
     heroNote: "O Prospector, nosso sistema de prospecção com IA, no computador e no celular. Dados de exemplo.",
     problemTitle: "Muito se fala de IA. Pouco muda.",
@@ -630,8 +636,8 @@ export const consultoriaPage = {
     doLede: "Começamos pelo que dá retorno mais rápido e vamos até a IA estar funcionando no dia a dia.",
     do: [
       ["Diagnóstico", "Entendemos como sua empresa funciona hoje e mostramos onde a IA economiza tempo ou dinheiro. E também onde não vale a pena."],
-      ["Automação de tarefas repetitivas", "Copiar dados de um sistema para outro, montar planilhas e relatórios, responder sempre as mesmas coisas. O que a equipe faz no automático, a máquina pode fazer."],
-      ["Agentes de IA para atendimento", "Um assistente que responde as dúvidas comuns no WhatsApp ou no site, a qualquer hora, e passa para uma pessoa da equipe quando o assunto pede."],
+      ["Automação de tarefas repetitivas", "Copiar dados de um sistema para outro, montar planilhas e relatórios, responder sempre as mesmas coisas. O que a equipe faz no automático, a máquina pode fazer. Veja <a href=\"/pt/automacao-com-ia\">automação com IA</a>."],
+      ["Agentes de IA para atendimento", "Um assistente que responde as dúvidas comuns no WhatsApp ou no site, a qualquer hora, e passa para uma pessoa da equipe quando o assunto pede. Veja o guia de <a href=\"/pt/agentes-de-ia\">agentes de IA para empresas</a>."],
       ["IA em vendas e no backoffice", "Qualificar contatos, escrever a primeira mensagem, organizar pedidos e documentos. É o tipo de trabalho que o nosso Prospector faz em vendas."],
       ["Integração com o que você já usa", "A IA trabalha junto com suas planilhas, seu email, seu WhatsApp e seus sistemas, quando eles permitem. Sem trocar tudo de uma vez."],
       ["Treinamento da equipe", "Sua equipe aprende a usar as ferramentas com exemplos da própria empresa, e não com um curso genérico."],
@@ -655,6 +661,9 @@ export const consultoriaPage = {
     faqTitle: "Perguntas sobre consultoria de IA.",
     faq: [
       ["O que é consultoria de implantação de IA?", "É quando alguém olha como a sua empresa funciona de verdade, encontra as tarefas que a IA pode assumir (responder perguntas comuns de clientes, copiar dados entre sistemas, escrever rascunhos de emails de vendas), constrói essas automações e agentes, conecta ao que você já usa e treina a equipe. Na Adscendo, quem conduz é o fundador, Jean Menezes."],
+      ["Como usar IA na minha empresa?", "Comece pelas tarefas que se repetem e tomam mais tempo: responder clientes no WhatsApp, copiar dados entre sistemas, montar relatórios, escrever propostas. O diagnóstico mostra quais delas a IA resolve hoje e por onde vale começar."],
+      ["O que faz um consultor de IA?", "Um consultor de IA entende como a empresa funciona, encontra onde a inteligência artificial economiza tempo ou dinheiro e recomenda o que fazer primeiro. Na Adscendo, quem faz o diagnóstico também implanta, liga aos seus sistemas e treina a equipe."],
+      ["Por que contratar uma consultoria em vez de só assinar uma ferramenta de IA?", "Uma ferramenta só ajuda quando está ligada ao trabalho de verdade. Escolhemos as ferramentas certas para os seus processos, conectamos aos seus sistemas, testamos com casos da empresa e ensinamos a equipe. Às vezes a resposta é uma ferramenta que você já paga."],
       ["Preciso entender de tecnologia para contratar?", "Não. Você explica como a empresa funciona e onde o trabalho trava. A parte técnica fica com a gente, e a equipe aprende só o que vai usar no dia a dia."],
       ["Minha empresa é pequena. Faz sentido?", "Muitas vezes, sim: numa empresa pequena, algumas horas a menos de trabalho repetitivo por semana já fazem diferença. O diagnóstico serve para dizer com honestidade se vale a pena e por onde começar."],
       ["Quanto custa?", "Depende do tamanho da empresa e do que for implantado, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o que está incluído e quanto custa, antes de qualquer trabalho começar."],
@@ -664,6 +673,281 @@ export const consultoriaPage = {
     ctaTitle: "Por onde começar na sua empresa?",
     ctaText: "Mande uma mensagem contando o que sua empresa faz e onde o trabalho mais trava. O Jean responde pessoalmente.",
     ctaEmail: "Prefiro email",
+  },
+};
+
+// AI service guides: the AI automation page (/ai-automation, /pt/automacao-com-ia) and the AI agents guide
+// (/ai-agents, /pt/agentes-de-ia). Both answer what people search for before hiring (what it is, examples,
+// which tasks are worth it, what it costs) and lead to the AI consulting process. Linked from the AI
+// consulting page, the Services menu (automation) and each other. `service` adds a Service node to the
+// structured data; every page is an Article by Jean. Dates: change `modified` only when the content changes.
+export const aiGuides = {
+  automation: {
+    service: "AI automation",
+    published: "2026-11-11", modified: "2026-11-11",
+    en: {
+      slug: "ai-automation",
+      name: "AI automation",
+      title: "AI Automation Agency for Small Businesses | Adscendo",
+      description: "AI automation agency for small businesses: we find the busywork, build AI workflow automations on the tools you use and keep a person in charge.",
+      eyebrow: "AI automation agency",
+      h1: "AI automation for the work your team repeats every day.",
+      lede: "We're a small AI automation agency. We find the tasks that eat your team's week, automate them with AI connected to the tools you already use, and keep a person in charge where it matters.",
+      updated: "Updated November 11, 2026 · By Jean Menezes, founder of Adscendo",
+      ctaMain: "Talk to us",
+      ctaSecond: "See examples",
+      sectionsId: "examples",
+      sections: [
+        { h: "What is AI automation?", p: [
+          "AI automation is software that does repetitive work for you and uses AI for the parts that used to need a person to read, write or decide: sorting emails, pulling data out of documents, drafting replies, qualifying leads.",
+          "Classic automation, including RPA (robotic process automation), follows fixed rules: if this happens, do that. AI automation also handles messy inputs, like a free-text email or a scanned invoice, and hands off to a person when it isn't sure.",
+        ] },
+        { h: "What an AI automation agency does", p: [
+          "An agency like ours does the whole job, not just the tool:",
+          [
+            "Maps how the work happens today and where the time goes.",
+            "Picks which tasks are worth automating first, and says which ones aren't.",
+            "Builds the workflows and connects them to your email, spreadsheets, CRM, WhatsApp or business software, where they allow it.",
+            "Tests them on real cases from your business before they go live.",
+            "Trains your team and fine-tunes everything in the weeks after launch.",
+          ],
+        ] },
+        { h: "Examples of AI workflow automation for small businesses", p: [
+          [
+            "<b>New leads.</b> An inquiry arrives, AI reads it, scores it, writes a first reply and adds it to your CRM.",
+            "<b>Customer questions.</b> An AI agent answers common questions on your website, by email or on WhatsApp, and passes the rest to your team. More in our guide to <a href=\"/ai-agents\">AI agents for business</a>.",
+            "<b>Documents.</b> Invoices, orders and forms read automatically and entered into your system.",
+            "<b>Reports.</b> Numbers pulled from several tools into one weekly summary, without anyone copying and pasting.",
+            "<b>Sales follow-up.</b> Reminders and personalized emails sent at the right time. Our own <a href=\"/work/prospector\">Prospector</a> finds businesses and writes the first email this way.",
+          ],
+        ] },
+        { h: "Which tasks are worth automating?", p: [
+          "A task is a good candidate when it shows most of these signs:",
+          [
+            "It happens many times a week.",
+            "It's mostly copying, sorting or answering the same things.",
+            "A mistake is easy to spot and fix.",
+            "It takes real hours from people who could be selling or serving customers.",
+          ],
+          "Not worth it yet: tasks that happen once a month, or decisions that need careful judgment every time. Start where the payoff is clear, and expand from there.",
+        ] },
+        { h: "How we work", p: [
+          "The same four steps as our <a href=\"/ai-consulting\">AI consulting</a>: an assessment of how the work happens today, a plan with what to automate first and what it costs, the build with tests on real cases, and training with follow-up once it's live.",
+        ] },
+        { h: "What AI automation costs", p: [
+          "It depends on how many workflows you need, which tools they connect to and how much data they handle, so there's no price list. After a free first conversation, we send a proposal with the scope and the price before any work starts.",
+          "AI tools also charge a monthly fee or per use. The proposal includes the expected running cost, so there are no surprises later.",
+        ] },
+      ],
+      faqTitle: "Questions about AI automation.",
+      faq: [
+        ["What's the difference between AI automation and RPA?", "RPA repeats fixed steps, like a person clicking through the same screens. AI automation can also read and write: it understands an email, extracts data from a document or drafts a reply. Many good workflows combine both."],
+        ["Do I need to change my software?", "Usually not. We connect automations to the tools you already use, where they allow it, and only suggest a change when a tool really gets in the way."],
+        ["Will automation replace my team?", "The goal is to take repetitive work off your team's plate so they have more time for customers and sales. Where AI isn't sure, a person stays in charge."],
+        ["How long until an automation is live?", "It depends on the workflow. The plan you get after the assessment has a timeline for each one, before anything gets built."],
+        ["Is my business data safe?", "We decide with you which data each automation can use, give it access only to what it needs, and choose tools that fit the privacy rules your business follows."],
+        ["Do you work outside the US?", "Yes. We work remotely with businesses in the United States and Brazil, in English or Portuguese."],
+      ],
+      ctaTitle: "What would you automate first?",
+      ctaText: "Tell us which task eats most of your team's week. Jean replies personally.",
+    },
+    pt: {
+      slug: "automacao-com-ia",
+      name: "Automação com IA",
+      title: "Automação de processos com IA para empresas | Adscendo",
+      description: "Automação de processos com IA: mapeamos o trabalho repetitivo e automatizamos com IA ligada ao WhatsApp, ao email e aos sistemas que você já usa.",
+      eyebrow: "Automação com IA",
+      h1: "Automação de processos com IA para o trabalho que se repete todo dia.",
+      lede: "A gente encontra as tarefas que tomam a semana da sua equipe, automatiza com inteligência artificial ligada ao que você já usa e deixa uma pessoa no controle onde importa.",
+      updated: "Atualizado em 11 de novembro de 2026 · Por Jean Menezes, fundador da Adscendo",
+      ctaMain: "Fale com a gente",
+      ctaSecond: "Ver exemplos",
+      sectionsId: "exemplos",
+      sections: [
+        { h: "O que é automação de processos?", p: [
+          "Automação de processos é usar software para fazer, sem trabalho manual, tarefas que seguem um padrão: copiar dados de um sistema para outro, enviar mensagens, gerar relatórios, mover um pedido para a próxima etapa.",
+          "A automação com IA vai além: entende textos e documentos. Ela lê um email escrito do jeito do cliente, tira os dados de uma nota fiscal ou de um PDF, escreve uma resposta e decide para onde o caso vai.",
+        ] },
+        { h: "Automação com IA, RPA e automação tradicional", p: [
+          [
+            "<b>Automação tradicional:</b> regras fixas, do tipo \"chegou um formulário, cria um cadastro\". Funciona bem quando os dados chegam sempre no mesmo formato.",
+            "<b>RPA (automação robótica de processos):</b> um robô repete os cliques que uma pessoa faria nas telas de um sistema. Útil em sistemas antigos, mas quebra quando a tela muda.",
+            "<b>Automação com IA:</b> entende textos, imagens e documentos que não seguem um padrão, e chama uma pessoa quando não tem certeza.",
+          ],
+          "Na prática, os melhores fluxos misturam as três.",
+        ] },
+        { h: "Exemplos de automação com IA em pequenas e médias empresas", p: [
+          [
+            "<b>Atendimento no WhatsApp.</b> Um agente de IA responde as dúvidas comuns a qualquer hora e passa para a equipe o que precisa de uma pessoa. Veja o guia de <a href=\"/pt/agentes-de-ia\">agentes de IA para empresas</a>.",
+            "<b>Novos contatos.</b> Um pedido de orçamento chega, a IA entende o que a pessoa quer, responde e registra no seu CRM ou na sua planilha.",
+            "<b>Documentos.</b> Notas, pedidos e formulários lidos automaticamente e lançados no sistema.",
+            "<b>Relatórios.</b> Números de várias ferramentas reunidos num resumo semanal, sem ninguém copiar e colar.",
+            "<b>Vendas.</b> Lembretes e mensagens personalizadas no momento certo. O nosso <a href=\"/pt/work/prospector\">Prospector</a> encontra empresas e escreve o primeiro email assim.",
+          ],
+        ] },
+        { h: "Quais processos vale automatizar?", p: [
+          "Um processo é bom candidato quando tem a maior parte destes sinais:",
+          [
+            "Acontece várias vezes por semana.",
+            "É, na maior parte, copiar, organizar ou responder sempre as mesmas coisas.",
+            "Um erro é fácil de perceber e corrigir.",
+            "Toma horas de quem poderia estar vendendo ou atendendo.",
+          ],
+          "Ainda não vale: tarefas que acontecem uma vez por mês ou decisões que pedem análise cuidadosa toda vez. Comece onde o retorno é claro e vá ampliando.",
+        ] },
+        { h: "Como trabalhamos", p: [
+          "As mesmas quatro etapas da nossa <a href=\"/pt/consultoria-ia\">consultoria de IA</a>: diagnóstico de como o trabalho acontece hoje, um plano com o que automatizar primeiro e quanto custa, a implantação com testes em casos reais, e treinamento com acompanhamento depois que está no ar.",
+        ] },
+        { h: "Quanto custa automatizar processos com IA", p: [
+          "Depende de quantos fluxos você precisa, com quais sistemas eles se conectam e do volume de dados, por isso não existe tabela. Depois de uma primeira conversa, gratuita, mandamos uma proposta com o escopo e o preço antes de qualquer trabalho começar.",
+          "As ferramentas de IA também cobram mensalidade ou por uso. A proposta já traz o custo esperado para manter tudo funcionando.",
+        ] },
+      ],
+      faqTitle: "Perguntas sobre automação com IA.",
+      faq: [
+        ["Dá para automatizar o WhatsApp da empresa?", "Dá. O caminho seguro é a API oficial do WhatsApp Business (a plataforma da Meta para empresas). Soluções que imitam um celular comum arriscam o bloqueio do número."],
+        ["Qual a diferença entre automação com IA e RPA?", "O RPA repete passos fixos, como uma pessoa clicando sempre nas mesmas telas. A automação com IA também lê e escreve: entende um email, tira dados de um documento ou escreve uma resposta. Muitos bons fluxos usam as duas."],
+        ["Preciso trocar meus sistemas?", "Normalmente não. Ligamos as automações ao que você já usa, quando o sistema permite, e só sugerimos trocar quando uma ferramenta realmente atrapalha."],
+        ["A automação vai substituir minha equipe?", "A ideia é tirar da equipe o trabalho repetitivo, para sobrar tempo para atender e vender. Onde a IA não tem certeza, uma pessoa continua no controle."],
+        ["E os dados da minha empresa?", "Definimos com você quais dados cada automação pode usar, damos acesso só ao necessário e escolhemos as ferramentas de acordo com a LGPD."],
+        ["Vocês atendem empresas de todo o Brasil?", "Sim. Trabalhamos de forma remota, com empresas no Brasil e nos Estados Unidos, em português ou inglês."],
+      ],
+      ctaTitle: "O que você automatizaria primeiro?",
+      ctaText: "Conte qual tarefa mais toma o tempo da sua equipe. O Jean responde pessoalmente.",
+    },
+  },
+  agents: {
+    published: "2026-11-11", modified: "2026-11-11",
+    en: {
+      slug: "ai-agents",
+      name: "AI agents for business",
+      title: "AI Agents for Business: Uses and How to Start | Adscendo",
+      description: "What AI agents for business are, what they do in customer service, sales and operations, how they differ from chatbots and how to start safely.",
+      eyebrow: "Guide",
+      h1: "AI agents for business: what they do and how to start.",
+      lede: "An AI agent doesn't just answer questions. It takes steps: books the appointment, updates the record, sends the quote. Here is what agents can do in a small business, where they fall short and how to start without wasting money.",
+      updated: "Updated November 11, 2026 · By Jean Menezes, founder of Adscendo",
+      ctaMain: "Talk to us",
+      ctaSecond: "What they can do",
+      sectionsId: "uses",
+      sections: [
+        { h: "What is an AI agent?", p: [
+          "An AI agent is software that uses a language model, like the ones behind ChatGPT, to work toward a goal. It reads a request, decides the next step, uses the tools you allow (a calendar, your CRM, a database, email) and acts, then reports back or hands off to a person.",
+          "A chatbot answers. An agent answers and does something about it.",
+        ] },
+        { h: "What AI agents can do in a small business", p: [
+          [
+            "<b>Customer service.</b> Answer common questions on your website, by email or on WhatsApp, at any hour, and hand off to your team when a person is needed.",
+            "<b>Scheduling.</b> Find a free slot, book it and send the confirmation and reminders.",
+            "<b>Sales.</b> Qualify new leads, write the first message and follow up at the right time.",
+            "<b>Back office.</b> Read invoices, orders and forms and enter the data into your system.",
+            "<b>Internal help.</b> Answer your team's questions using your own documents and procedures.",
+          ],
+        ] },
+        { h: "AI agent, chatbot or automation?", p: [
+          [
+            "<b>Chatbot:</b> answers questions, usually from a script or a knowledge base. It doesn't act in your systems.",
+            "<b>Automation:</b> runs fixed steps when something happens. Reliable, but it doesn't understand messy requests. See <a href=\"/ai-automation\">AI automation</a>.",
+            "<b>AI agent:</b> understands the request, chooses among the actions you allowed and carries them out. Most useful when requests vary but the possible actions are clear.",
+          ],
+        ] },
+        { h: "Off-the-shelf platform or custom AI agent?", p: [
+          "Ready-made platforms work well for simple cases, like answering questions from a help page. A custom agent makes sense when it has to connect to your own systems, follow your business rules or handle a process that's specific to you.",
+          "Either way, the hard part isn't the AI model. It's deciding what the agent may do, giving it the right information and testing it on real cases.",
+        ] },
+        { h: "How to start without wasting money", p: [
+          [
+            "Pick one task with real volume, like the questions your team answers every day.",
+            "Write down what the agent can and can't do, and when it must call a person.",
+            "Give it access only to the data that task needs.",
+            "Test it on real past cases before customers see it.",
+            "Launch with a person reviewing, then measure: time saved, questions solved, handoffs.",
+          ],
+        ] },
+        { h: "Risks to plan for", p: [
+          "Language models can give confident wrong answers. Good agents limit what they talk about, cite your own information, and pass anything uncertain to a person. Tell customers they're talking to an assistant, and keep sensitive data out of tools that don't need it.",
+        ] },
+        { h: "How we build AI agents", p: [
+          "We start with an assessment of where an agent saves the most time, then build it, connect it to your systems and test it on real cases before it goes live. It's part of our <a href=\"/ai-consulting\">AI consulting</a>, led by Jean Menezes, who also built <a href=\"/work/prospector\">Prospector</a>, an AI tool that finds businesses and writes the first email.",
+        ] },
+      ],
+      faqTitle: "Questions about AI agents.",
+      faq: [
+        ["How much does an AI agent for business cost?", "Platforms charge a monthly fee, often by usage. A custom agent is a project plus the running cost of the AI tools it uses. We send a proposal with both after a free first conversation."],
+        ["Can an AI agent work on WhatsApp?", "Yes, through the official WhatsApp Business Platform from Meta. Tools that imitate a regular phone number risk getting it banned."],
+        ["Will my customers know they're talking to AI?", "They should. Telling them builds trust, and a good agent hands off to a person quickly when it's needed."],
+        ["Do I need technical staff to run an agent?", "No. Once it's live, your team reviews conversations and adjusts answers in plain language. We handle the technical side."],
+      ],
+      ctaTitle: "Where would an AI agent help you most?",
+      ctaText: "Tell us which questions or tasks take most of your team's day. Jean replies personally.",
+    },
+    pt: {
+      slug: "agentes-de-ia",
+      name: "Agentes de IA para empresas",
+      title: "Agente de IA para empresas: o que é e como usar | Adscendo",
+      description: "O que é um agente de IA, o que ele faz no atendimento, nas vendas e no WhatsApp, a diferença para um chatbot e como começar na sua empresa com segurança.",
+      eyebrow: "Guia",
+      h1: "Agente de IA para empresas: o que é e como usar.",
+      lede: "Um agente de IA não só responde perguntas. Ele age: marca o horário, atualiza o cadastro, manda o orçamento. Veja o que um agente faz numa pequena ou média empresa, onde ele não dá conta e como começar sem desperdiçar dinheiro.",
+      updated: "Atualizado em 11 de novembro de 2026 · Por Jean Menezes, fundador da Adscendo",
+      ctaMain: "Fale com a gente",
+      ctaSecond: "O que ele faz",
+      sectionsId: "usos",
+      sections: [
+        { h: "O que é um agente de IA?", p: [
+          "Um agente de IA é um software que usa um modelo de linguagem, como os que estão por trás do ChatGPT, para cumprir um objetivo. Ele lê o pedido, decide o próximo passo, usa as ferramentas que você liberar (agenda, CRM, planilha, email) e age, depois avisa o resultado ou passa para uma pessoa.",
+          "Um chatbot responde. Um agente responde e resolve.",
+        ] },
+        { h: "O que um agente de IA faz numa empresa", p: [
+          [
+            "<b>Atendimento.</b> Responde as dúvidas comuns no WhatsApp, no site ou por email, a qualquer hora, e passa para a equipe quando precisa de uma pessoa.",
+            "<b>Agendamento.</b> Encontra um horário livre, marca e manda confirmação e lembretes.",
+            "<b>Vendas.</b> Qualifica novos contatos, escreve a primeira mensagem e faz o acompanhamento no momento certo.",
+            "<b>Backoffice.</b> Lê notas, pedidos e formulários e lança os dados no sistema.",
+            "<b>Ajuda interna.</b> Responde as dúvidas da equipe com base nos documentos e procedimentos da própria empresa.",
+          ],
+        ] },
+        { h: "Agente de IA no WhatsApp", p: [
+          "É onde a maioria dos clientes já fala com as empresas no Brasil. Um agente no WhatsApp responde na hora, entende áudios e mensagens escritas do jeito de cada um, consulta preços ou horários e chama uma pessoa da equipe quando o assunto pede.",
+          "O caminho seguro é a API oficial do WhatsApp Business (a plataforma da Meta para empresas). Soluções que imitam um celular comum arriscam o bloqueio do número.",
+        ] },
+        { h: "Agente de IA, chatbot ou automação?", p: [
+          [
+            "<b>Chatbot:</b> responde perguntas, normalmente com menus ou um roteiro. Não age nos seus sistemas.",
+            "<b>Automação:</b> executa passos fixos quando algo acontece. Confiável, mas não entende pedidos fora do padrão. Veja <a href=\"/pt/automacao-com-ia\">automação de processos com IA</a>.",
+            "<b>Agente de IA:</b> entende o pedido, escolhe entre as ações que você liberou e executa. É mais útil quando os pedidos variam, mas as ações possíveis são claras.",
+          ],
+        ] },
+        { h: "Plataforma pronta ou agente sob medida?", p: [
+          "Plataformas prontas funcionam bem em casos simples, como responder com base numa página de perguntas frequentes. Um agente sob medida faz sentido quando ele precisa se ligar aos seus sistemas, seguir as regras do seu negócio ou cuidar de um processo que é só seu.",
+          "Nos dois casos, a parte difícil não é o modelo de IA. É definir o que o agente pode fazer, dar a ele as informações certas e testar com casos reais.",
+        ] },
+        { h: "Como começar sem desperdiçar dinheiro", p: [
+          [
+            "Escolha uma tarefa com volume de verdade, como as dúvidas que a equipe responde todo dia.",
+            "Escreva o que o agente pode e não pode fazer, e quando ele deve chamar uma pessoa.",
+            "Dê acesso só aos dados que essa tarefa precisa.",
+            "Teste com casos reais antigos antes de os clientes verem.",
+            "Coloque no ar com uma pessoa revisando e meça: tempo economizado, dúvidas resolvidas, transferências.",
+          ],
+        ] },
+        { h: "Cuidados antes de colocar no ar", p: [
+          "Modelos de linguagem podem dar respostas erradas com toda a confiança. Um bom agente limita os assuntos, usa as informações da própria empresa e passa para uma pessoa tudo o que for incerto. Avise o cliente de que ele fala com um assistente e mantenha dados sensíveis longe de ferramentas que não precisam deles.",
+        ] },
+        { h: "Como construímos agentes de IA", p: [
+          "Começamos por um diagnóstico de onde um agente economiza mais tempo, depois construímos, ligamos aos seus sistemas e testamos com casos reais antes de colocar no ar. Faz parte da nossa <a href=\"/pt/consultoria-ia\">consultoria de IA</a>, conduzida pelo Jean Menezes, que também construiu o <a href=\"/pt/work/prospector\">Prospector</a>, um sistema com IA que encontra empresas e escreve o primeiro email.",
+        ] },
+      ],
+      faqTitle: "Perguntas sobre agentes de IA.",
+      faq: [
+        ["Quanto custa um agente de IA para empresa?", "Plataformas cobram mensalidade, muitas vezes pelo uso. Um agente sob medida é um projeto mais o custo de uso das ferramentas de IA. Mandamos uma proposta com os dois depois de uma primeira conversa, gratuita."],
+        ["Como criar um agente de IA para a minha empresa?", "Comece por uma tarefa com volume, defina o que o agente pode fazer, dê acesso só aos dados necessários e teste com casos reais. Dá para montar sozinho numa plataforma pronta ou contratar quem construa e ligue aos seus sistemas."],
+        ["O cliente vai saber que está falando com uma IA?", "Deveria. Avisar gera confiança, e um bom agente passa para uma pessoa rápido quando é preciso."],
+        ["Preciso de alguém técnico para manter o agente?", "Não. Depois de pronto, a equipe revisa as conversas e ajusta as respostas em linguagem simples. A parte técnica fica com a gente."],
+      ],
+      ctaTitle: "Onde um agente de IA ajudaria mais na sua empresa?",
+      ctaText: "Conte quais dúvidas ou tarefas mais tomam o dia da sua equipe. O Jean responde pessoalmente.",
+    },
   },
 };
 

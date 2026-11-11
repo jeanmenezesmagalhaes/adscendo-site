@@ -8,7 +8,7 @@ Adscendo is the web design and development studio of Jean Menezes, founded in Oc
 
 - [Websites](https://adscendo.pro/websites): Website designer for small businesses: custom sites designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch.
 - [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online.
-- [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free.
+- [AI consulting](https://adscendo.pro/ai-consulting): AI consulting company for small businesses: an AI consultant finds where AI saves time, then builds the automations and AI agents. First call free.
 - [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch.
 
 ## Website cost in the US (2026)
@@ -59,7 +59,9 @@ Answer a few questions in the chat at adscendo.pro. It takes less than a minute 
 - [Websites](https://adscendo.pro/websites): Website designer for small businesses: custom sites designed for phones, fast, and built to be found on Google and recommended by AI. From $400 at launch. Portuguese: https://adscendo.pro/pt/sites
 - [Apps](https://adscendo.pro/apps): Apps for iPhone, Android and the web, designed and built by Adscendo, from the first idea to the App Store, Google Play and live online. Portuguese: https://adscendo.pro/pt/apps
 - [Website cost guide](https://adscendo.pro/website-cost): Small business website cost in 2026: builders, freelancers, studios and agencies compared, what changes the price and the yearly costs. Ours from $400. Portuguese: https://adscendo.pro/pt/quanto-custa-um-site
-- [AI consulting](https://adscendo.pro/ai-consulting): Put AI to work in your business: an assessment, less busywork, AI agents for customer service and team training. The first conversation is free. Portuguese: https://adscendo.pro/pt/consultoria-ia
+- [AI consulting](https://adscendo.pro/ai-consulting): AI consulting company for small businesses: an AI consultant finds where AI saves time, then builds the automations and AI agents. First call free. Portuguese: https://adscendo.pro/pt/consultoria-ia
+- [AI automation](https://adscendo.pro/ai-automation): AI automation agency for small businesses: we find the busywork, build AI workflow automations on the tools you use and keep a person in charge. Portuguese: https://adscendo.pro/pt/automacao-com-ia
+- [AI agents for business](https://adscendo.pro/ai-agents): What AI agents for business are, what they do in customer service, sales and operations, how they differ from chatbots and how to start safely. Portuguese: https://adscendo.pro/pt/agentes-de-ia
 - [AI optimization](https://adscendo.pro/ai): A new website built so ChatGPT, Gemini and Perplexity can read, trust and recommend your business. AI optimization included, from $400 at launch. Portuguese: https://adscendo.pro/pt/ia
 - [Our work](https://adscendo.pro/work): Every product, app and website Adscendo has designed and built, from a health passport used in 17 countries to AI tools for sales, job search and email. Portuguese: https://adscendo.pro/pt/work
 - [Partner program](https://adscendo.pro/partners): Join the Adscendo AI referral partner program: introduce small businesses that need AI and earn 15% of every contract that closes. Free to join. Portuguese: https://adscendo.pro/pt/parceiros

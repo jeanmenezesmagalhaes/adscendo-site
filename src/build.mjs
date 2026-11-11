@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage, costPage, partnerPage } from "./content.mjs";
+import { contact, ui, home, timeline, projects, founderPhoto, aiDemo, chat, quote, sections, privacy, aiPage, servicePages, consultoriaPage, workPage, costPage, partnerPage, aiGuides } from "./content.mjs";
 // Public origin, e.g. "https://adscendo.pro". When set, pages get canonical, hreflang, og:url and
 // og:image, and the build also writes sitemap.xml (robots.txt and llms.txt are written either way).
 const SITE = "https://adscendo.pro";
@@ -36,13 +36,14 @@ const privacyPath = lang => `${base(lang)}/${privacy[lang].slug}`;
 const aiPath = lang => `${base(lang)}/${aiPage[lang].slug}`;
 const servicePath = (lang, key) => `${base(lang)}/${servicePages[key][lang].slug}`;
 const consultoriaPath = lang => `${base(lang)}/${consultoriaPage[lang].slug}`;
+const guidePath = (lang, key) => `${base(lang)}/${aiGuides[key][lang].slug}`;
 // The cost guide's dates in its structured data: change COST_MODIFIED only when the guide's content changes.
 const COST_PUBLISHED = "2026-11-10", COST_MODIFIED = "2026-11-10";
 const costPath = lang => `${base(lang)}/${costPage[lang].slug}`;
 const partnerPath = lang => `${base(lang)}/${partnerPage[lang].slug}`;
 // Where a "Services" menu item or a home tile points: the AI page, the AI consulting page, a service page
 // or a home section.
-const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : servicePages[to] ? servicePath(lang, to) : sectionHref(lang, to);
+const toPath = (lang, to) => to === "ai" ? aiPath(lang) : to === "consultoria" ? consultoriaPath(lang) : aiGuides[to] ? guidePath(lang, to) : servicePages[to] ? servicePath(lang, to) : sectionHref(lang, to);
 // A WhatsApp link to Jean with a message already typed.
 const waHref = text => `https://wa.me/${contact.whatsappLabel.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 // The section's own address and its twin in the other language, for site.js.
@@ -866,6 +867,67 @@ const costPageHtml = lang => {
 ` + footer(lang, altPath);
 };
 
+// The AI guides (aiGuides): AI automation and AI agents. An article by Jean in the cost guide's layout:
+// sections, questions and a closing call to action, under AI consulting in the breadcrumb. A page with
+// `service` also describes that service in its structured data.
+const guidePageHtml = (lang, key) => {
+  const g = aiGuides[key], d = g[lang], path = guidePath(lang, key), altPath = guidePath(other(lang), key);
+  const c = consultoriaPage[lang], cPath = consultoriaPath(lang);
+  const image = ogImage(cover(projects.find(p => p.slug === "prospector"), lang));
+  const org = { "@id": abs("/#org") };
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      orgStub(), siteStub(),
+      { "@type": "Article", "@id": abs(`${path}#article`), headline: d.h1, description: d.description, inLanguage: hreflang(lang), url: abs(path), mainEntityOfPage: abs(path), image: { "@type": "ImageObject", url: abs(image.src), width: image.w, height: image.h }, datePublished: g.published, dateModified: g.modified, author: { "@id": abs("/#jean") }, publisher: org, isPartOf: { "@id": abs("/#website") } },
+      ...(g.service ? [{ "@type": "Service", "@id": abs(`${path}#service`), name: d.name, serviceType: g.service, url: abs(path), description: d.description, provider: org, audience: smallBusiness(lang), areaServed: [{ "@type": "Country", name: "United States" }, { "@type": "Country", name: "Brazil" }] }] : []),
+      founderStub(),
+      { "@type": "FAQPage", "@id": abs(`${path}#faq`), inLanguage: hreflang(lang), mainEntity: d.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(a) } })) },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Adscendo", item: abs(homePath(lang)) },
+        { "@type": "ListItem", position: 2, name: c.name, item: abs(cPath) },
+        { "@type": "ListItem", position: 3, name: d.name, item: abs(path) },
+      ] },
+    ],
+  };
+  const body = x => Array.isArray(x) ? `<ul>${x.map(li => `<li>${li}</li>`).join("")}</ul>` : `<p>${x}</p>`;
+  const questions = d.faq.map(([q, a], n) => `<details name="faq"${n ? "" : " open"}><summary><h3>${q}</h3>${icon("plus")}</summary><p>${a}</p></details>`).join("\n        ");
+  const contactHref = sectionHref(lang, "contact");
+  return head({ lang, title: d.title, description: d.description, path, altPath, ld, image, imageAlt: d.h1 }) + nav(lang, altPath) + `
+<main id="main">
+  <section class="case-head wrap">
+    <p class="eyebrow"><a href="${cPath}">${c.name}</a> / ${d.eyebrow}</p>
+    <h1>${d.h1}</h1>
+    <p class="lede">${d.lede}</p>
+    <p class="legal-date">${d.updated}</p>
+    <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a><a class="btn btn--ghost" href="#${d.sectionsId}">${d.ctaSecond}</a></div>
+  </section>
+
+  <section class="band" id="${d.sectionsId}">
+    <div class="wrap legal guide">
+      ${d.sections.map(x => `<article><h2>${x.h}</h2><div>${x.p.map(body).join("")}</div></article>`).join("\n      ")}
+    </div>
+  </section>
+
+  <section class="band faq">
+    <div class="wrap" data-rise=".h2, .faq-list details">
+      <h2 class="h2">${d.faqTitle}</h2>
+      <div class="faq-list">
+        ${questions}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--black">
+    <div class="wrap cta-strip" data-rise>
+      <div><h2 class="h2">${d.ctaTitle}</h2><p class="lede">${d.ctaText}</p></div>
+      <div class="actions-row"><a class="btn" href="${contactHref}">${d.ctaMain}</a></div>
+    </div>
+  </section>
+</main>
+` + footer(lang, altPath);
+};
+
 // The AI consulting landing page: problem, what the consulting does, how it works, real projects, who runs
 // it, questions and a closing call to action. With `waText` (Portuguese, for Meta ads) every main button
 // opens WhatsApp; without it (English) they go to the contact chat, plus email. Only `pixel: true` loads
@@ -1193,6 +1255,7 @@ for (const lang of LANGS) {
   write(`${prefix}${consultoriaPage[lang].slug}/index.html`, consultoriaPageHtml(lang));
   for (const key in servicePages) write(`${prefix}${servicePages[key][lang].slug}/index.html`, servicePageHtml(lang, key));
   write(`${prefix}${costPage[lang].slug}/index.html`, costPageHtml(lang));
+  for (const key of Object.keys(aiGuides)) write(`${prefix}${aiGuides[key][lang].slug}/index.html`, guidePageHtml(lang, key));
   write(`${prefix}${partnerPage[lang].slug}/index.html`, partnerPageHtml(lang));
   write(`${prefix}${privacy[lang].slug}/index.html`, privacyPage(lang));
 }
@@ -1212,6 +1275,7 @@ const pages = [
   ...Object.keys(servicePages).map(key => ({ paths: [servicePath("en", key), servicePath("pt", key)], name: servicePages[key].en.name, desc: fill("en", servicePages[key].en.description) })),
   { paths: [costPath("en"), costPath("pt")], name: costPage.en.name, desc: fill("en", costPage.en.description) },
   { paths: [consultoriaPath("en"), consultoriaPath("pt")], name: consultoriaPage.en.name, desc: consultoriaPage.en.description },
+  ...Object.keys(aiGuides).map(key => ({ paths: [guidePath("en", key), guidePath("pt", key)], name: aiGuides[key].en.name, desc: aiGuides[key].en.description })),
   { paths: [aiPath("en"), aiPath("pt")], name: aiPage.en.name, desc: fill("en", aiPage.en.description) },
   { paths: [workPath("en"), workPath("pt")], name: workPage.en.h1.replace(/\.$/, ""), desc: workPage.en.description },
   { paths: [partnerPath("en"), partnerPath("pt")], name: partnerPage.en.name, desc: partnerPage.en.description },

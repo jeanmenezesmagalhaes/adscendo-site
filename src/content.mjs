@@ -1715,7 +1715,7 @@ export const projects = [
   },
   {
     slug: "sidemed",
-    tint: "#f3eee3", // card hover tone on the home page
+    tint: "#e4ebff", // card hover tone on the home page: the light blue band of the new sidemed.com.br
     cursor: ["#1957ff", "#ffffff"], // pointer over the work: Sidemed blue
     cta: "download",
     ctaUrl: "https://www.sidemed.com.br/app",

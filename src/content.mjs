@@ -1762,7 +1762,7 @@ export const projects = [
             ["Works with no signal", "A QR code and an emergency PDF, available offline."],
             ["Private by design", "End-to-end encryption, LGPD and GDPR compliance, and access you can revoke at any time."],
           ],
-          fig: { kind: "browser", img: img("sidemed/how.webp", 1600, 1000), cap: "Security is part of the product, not a footnote." },
+          fig: { kind: "browser", img: img("sidemed/how.webp", 1600, 1000), cap: "You choose what the doctor sees, and for how long." },
         },
         {
           h: "Used in 17 countries.",
@@ -1806,7 +1806,7 @@ export const projects = [
             ["Funciona sem sinal", "QR code e PDF de emergência, disponíveis offline."],
             ["Privacidade desde o início", "Criptografia de ponta a ponta, conformidade com LGPD e GDPR, e acessos que você revoga quando quiser."],
           ],
-          fig: { kind: "browser", img: img("sidemed/how.pt.webp", 1600, 1000), cap: "Segurança faz parte do produto, não é nota de rodapé." },
+          fig: { kind: "browser", img: img("sidemed/how.pt.webp", 1600, 1000), cap: "Você escolhe o que o médico vê, e por quanto tempo." },
         },
         {
           h: "Usada em 17 países.",
